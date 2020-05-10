@@ -1,0 +1,61 @@
+
+<div class="text-right">
+<button nbButton status="warning" (click)="back()" style="color:black">Manage Schedule</button>
+</div>
+<p style="font-weight:bold">Add Schedule</p>
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="schedule" (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-sm-6">
+      <label>From</label>
+      <input nbInput placeholder="Pick Date" [nbDatepicker]="from" formControlName="scheduleStart" fullWidth>
+      <nb-datepicker #from></nb-datepicker>
+      <div *ngIf="f.scheduleStart.errors && submitted">
+        <small>*This field is required</small>
+      </div>
+      </div>
+      
+      <div class="col-sm-6">
+      <label>To</label>
+      <input nbInput placeholder="Pick Date" [nbDatepicker]="to" formControlName="scheduleEnd" fullWidth>
+      <nb-datepicker #to></nb-datepicker>
+      <div *ngIf="f.scheduleEnd.errors && submitted">
+        <small>*This field is required</small>
+      </div>
+      </div>
+
+    </div>
+    <div class="row mt-4">
+      <div class="col-sm-4">
+        <label>Select Batch</label>
+        <nb-select formControlName="batchCode" placeholder="Select Batch" status="basic" fullWidth>
+          <nb-option *ngFor="let batch of batches.batch" value = "{{batch.batchCode}}">{{batch.batchCode}}</nb-option>
+        </nb-select>
+        <div *ngIf="f.batchCode.errors && submitted">
+          <small>*This field is required</small>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <label for="topic">Topic</label>
+        <input type="text" nbInput placeholder="Select Topic" id="topic" formControlName="topic" fullWidth>
+      </div>
+      <div class="col-sm-4">
+        <label for="teacher">Teacher</label>
+        <input type="text" nbInput placeholder="Select Teacher" id="teacher" formControlName="teacher" fullWidth>
+        <div *ngIf="f.teacher.errors && submitted">
+          <small>*This field is required</small>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4">
+    <nb-checkbox (checkedChange)="recurrance($event)">
+      Ask for recurrence at the time of definition
+    </nb-checkbox>
+    </div>
+    <div class="text-right mt-4">
+    <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
+    </div>
+    </form>
+  </nb-card-body>
+</nb-card>

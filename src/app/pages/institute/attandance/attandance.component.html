@@ -1,0 +1,40 @@
+<p style="font-weight:bold">Add Attandance</p>
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="attandance">
+      <div class="row">
+        <div class="col-sm-6">
+    <nb-select placeholder="Select Course" state="basic" fullWidth>
+      <nb-option *ngFor="let course of courses.course" value="course.name">{{course.name}}</nb-option>
+    </nb-select>
+        </div>
+        <div class="col-sm-6">
+    <nb-select formControlName="batch" placeholder="Select Batch" state="basic" fullWidth>
+      <nb-option *ngFor="let batch of batches.batch" value="batch.batchCode">{{batch.batchCode}}</nb-option>
+    </nb-select>
+    </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <nb-checkbox (checkedChange)="present($event)">
+          All Students are present 
+        </nb-checkbox>
+      </div>
+     
+      <div class="col-sm-6">
+        <nb-select multiple status="basic" placeholder="Select Absentees" formControlName="absentees" fullWidth>
+          <nb-option *ngFor="let i of students" value="i.basicDetails.studentEmail">{{i.basicDetails.name}} {{i.basicDetails.rollNumber}}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+    <div class="mt-3">
+      <nb-checkbox (checkedChange)="clone($event)">
+        Ask for clonning letter
+      </nb-checkbox>
+    </div>
+    <div class="mt-3 text-right">
+      <button nbButton type="submit" status="warning" style="color:black">Submit</button>
+    </div>
+    </form>
+  </nb-card-body>
+</nb-card>

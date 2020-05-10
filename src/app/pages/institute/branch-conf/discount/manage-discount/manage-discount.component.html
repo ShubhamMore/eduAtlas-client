@@ -1,0 +1,30 @@
+<div class="text-right">
+<button nbButton status="warning" (click)="onClick()" style="color:black;">Add Discount</button>
+</div>
+<p style="color:black; font-weight:bold">Manage Discoint Here</p>
+<nb-card>
+	<nb-card-body>
+		<table>
+			<thead>
+				<tr>
+				
+					<th>Code</th>
+					<th>Amount In %</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of discounts.discount;let i=index">
+				
+					<td>{{item.discountCode}}</td>
+					<td>{{item.amount}}</td>
+					<td>{{item.description}}</td>
+					<td class="text-right">
+						<button class="mr-3" nbButton status="warning" (click)="edit(item._id)">Edit</button>
+						<button nbButton status="danger" (click)="delete(item._id)">Del</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</nb-card-body>
+</nb-card>

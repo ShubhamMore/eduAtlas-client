@@ -1,0 +1,61 @@
+<button nbButton  (click)="back()" status="warning" style="color:black">Manage Schedule</button>
+<nb-card>
+  <nb-card-body>
+    <div class="row" *ngIf="batch.length || batch[0].institute[0].batch.length">
+      <div class="col-sm-6">
+        <h6>Course</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].institute[0].batch[0].course}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Batch Code</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].batchCode}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Schdule Start</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].scheduleStart}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Schedule End</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].scheduleEnd}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Teacher</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].teacher}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Topic</h6>
+      </div>
+      <div class="col-sm-6">
+        <p>{{batch[0].topic}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h6>Recurrance at the time of definition</h6>
+      </div>
+      <div class="col-sm-6">
+        {{batch[0].recurrence? 'Yes':'No'}}
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

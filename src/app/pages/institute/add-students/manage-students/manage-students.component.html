@@ -1,0 +1,34 @@
+<p class="font-weight-bolder">Active Students</p>
+<nb-card>
+	<nb-card-body>
+		<table>
+			<thead>
+				<tr>
+		
+					<th>Name</th>
+					<th>Roll No.</th>
+				
+					<th>Contact</th>
+					<th>Course Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let item of students;let i=index" [hidden]="!item.active">
+			
+					<td>{{item.basicDetails.name}}</td>
+					<td>{{item.basicDetails.rollNumber}}</td>
+				
+					<td>{{item.basicDetails.studentContact}}</td>
+					<td>{{item.courseDetails.course}}</td>
+					<td>
+						<button class="mr-2" nbButton status="primary" (click)="view(item.basicDetails.studentEmail)">View</button>
+						<button class="mr-2" nbButton status="warning" (click)="edit(item.basicDetails.studentEmail)">Edit</button>
+						<button class="mr-2" nbButton status="danger" (click)="delete(item.basicDetails.studentEmail, item._id)">Delete</button>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+		
+	</nb-card-body>
+</nb-card>

@@ -1,0 +1,42 @@
+<div class="text-right">
+<button nbButton status="warning" (click)="goAddSchedule()" style="color: black">Add Schedule</button>
+</div>
+<p style="font-weight:bold">Manage Schedule</p>
+<nb-card>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2">
+        <h6>Teacher</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>Topic</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>Start</h6>
+      </div>
+      <div class="col-sm-2">
+        <h6>End</h6>
+      </div>
+    </div>
+    <div *ngIf="schedules">
+    <div class="row" *ngFor="let i of schedules">
+      <div class="col-sm-2">
+        <p>{{i.teacher}}</p>
+      </div>
+      <div class="col-sm-2">
+        <p>{{i.topic}}</p>
+      </div>
+      <div class="col-sm-2">
+        <p>{{i.scheduleStart}}</p>
+      </div>
+      <div class="col-sm-2">
+        <p>{{i.scheduleEnd}}</p>
+      </div>
+      <div class="col-sm-4 text-right">
+        <button class="mr-3"nbButton status="primary" (click)="view(i.batchCode)">View</button>
+        <button nbButton status="danger" (click)="delete()">Del</button>
+      </div>
+    </div>
+    </div>
+  </nb-card-body>
+</nb-card>
