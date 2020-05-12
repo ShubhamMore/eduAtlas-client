@@ -1,73 +1,100 @@
 <nb-layout>
   <nb-layout-column>
-<nb-card>
-  <nb-card-body>
-    <h5 style="color: #ffd500">START NEW THREAD</h5>
-    <hr>
-    <div class="form-group-inline">
-    <label for="title">TITLE</label>
-    <input nbInput type="text" id="title" status="warning" [(ngModel)]="announce.title" fullWidth>
-    </div>
-    <hr>
-    <angular-editor [placeholder]="'Enter text here...'" [(ngModel)]="announce.text"></angular-editor>
-    <hr>
-    <div>
-      <!-- <input type="button" value="Select Attachment" nbInput (click)="attachment.click()" fullWidth> -->
-      <label>SELECT ATTACHEMENT</label>
-      <input type="file" nbInput fullWidth status="warning" value="select Attachment">
- 
-    </div>
-    <hr>
-  <div class="row">
-    <div class="col-sm-10">  
-      <div class="row">
-        <div class="col-sm-6">
-      <nb-select placeholder="Select Batches"  fullWidth [(ngModel)]="announce.batchCodes" multiple status="warning">
-        <nb-option [value]="undefined">--Select Batch--</nb-option>
-        <nb-option *ngFor="let i of batches.batch" value="{{i.batchCode}}">{{i.batchCode}}</nb-option>
-      </nb-select>
-      </div>
-      <div class="col-sm-1"></div>
-      <div class="col-sm-3">
-        <nb-checkbox status="warning" (checkedChange)="check($event)">SELECT ALL</nb-checkbox>
+    <nb-card>
+      <nb-card-body>
+        <h5 style="color: #ffd500;">START NEW THREAD</h5>
+        <hr />
+        <div class="form-group-inline">
+          <label for="title">TITLE</label>
+          <input
+            nbInput
+            type="text"
+            id="title"
+            status="warning"
+            [(ngModel)]="announce.title"
+            fullWidth
+          />
         </div>
-        <div class="col-sm-2">
-          <nb-checkbox status="warning">PIN THIS</nb-checkbox>
+        <hr />
+        <angular-editor
+          [placeholder]="'Enter text here...'"
+          [(ngModel)]="announce.text"
+        ></angular-editor>
+        <hr />
+        <div>
+          <!-- <input type="button" value="Select Attachment" nbInput (click)="attachment.click()" fullWidth> -->
+          <label>SELECT ATTACHEMENT</label>
+          <input type="file" nbInput fullWidth status="warning" value="select Attachment" />
         </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-sm-6">
-          <nb-select placeholder="Select Category Tags" multiple [(ngModel)]="announce.categories" fullWidth status="warning">
-            <nb-option [value]="undefined">--Select Category--</nb-option>
-            <nb-option *ngFor="let i of institute.institute.category" value="{{i}}">{{i}}</nb-option>
-          </nb-select>
+        <hr />
+        <div class="row">
+          <div class="col-sm-10">
+            <div class="row">
+              <div class="col-sm-6">
+                <nb-select
+                  placeholder="Select Batches"
+                  fullWidth
+                  [(ngModel)]="announce.batchCodes"
+                  multiple
+                  status="warning"
+                >
+                  <nb-option [value]="undefined">--Select Batch--</nb-option>
+                  <nb-option *ngFor="let i of batches.batch" value="{{ i.batchCode }}">{{
+                    i.batchCode
+                  }}</nb-option>
+                </nb-select>
+              </div>
+              <div class="col-sm-1"></div>
+              <div class="col-sm-3">
+                <nb-checkbox status="warning" (checkedChange)="check($event)"
+                  >SELECT ALL</nb-checkbox
+                >
+              </div>
+              <div class="col-sm-2">
+                <nb-checkbox status="warning">PIN THIS</nb-checkbox>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-6">
+                <nb-select
+                  placeholder="Select Category Tags"
+                  multiple
+                  [(ngModel)]="announce.categories"
+                  fullWidth
+                  status="warning"
+                >
+                  <nb-option [value]="undefined">--Select Category--</nb-option>
+                  <nb-option *ngFor="let i of institute.institute.category" value="{{ i }}">{{
+                    i
+                  }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2" style="border-left: 1px solid lightgrey;">
+            <a (click)="onSubmit()">
+              <img src="assets/img/rarrow.png" width="100px" height="100px" />
+            </a>
+          </div>
         </div>
-      </div>
-     </div>
-     <div class="col-sm-2" style="border-left: 1px solid lightgrey;">
-       <a (click)="onSubmit()">
-         <img src="assets/img/rarrow.png" width="100px" height="100px">
-       </a>
-     </div>
-     </div> 
-  </nb-card-body>
-</nb-card>
-<nb-card>
-  <nb-card-header style="background: #ffd500">DISCUSSION THREADS</nb-card-header>
-  <nb-card-body>
-    <div class="row" *ngFor="let item of announcement;let i=index ">
-      <div class="col-sm-3">
-        <span>Announcement {{i}}</span>
-      </div>
-      <div class="col-sm-7">
-        {{item.text}}
-      </div>
-      <div class="col-sm-2">
-        <button class="btn btn-danger" (click) = "onDelete(routerId)">Del</button>
-      </div>
-    </div>
-  </nb-card-body>
-</nb-card>
-</nb-layout-column>
+      </nb-card-body>
+    </nb-card>
+    <nb-card>
+      <nb-card-header style="background: #ffd500;">DISCUSSION THREADS</nb-card-header>
+      <nb-card-body>
+        <div class="row" *ngFor="let item of announcement; let i = index">
+          <div class="col-sm-3">
+            <span>Announcement {{ i }}</span>
+          </div>
+          <div class="col-sm-7">
+            {{ item.text }}
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-danger" (click)="onDelete(routerId)">Del</button>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
 </nb-layout>

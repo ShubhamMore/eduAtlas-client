@@ -1,4 +1,3 @@
-  
 @import '../@theme/styles/themes';
 
 @include nb-install-component() {
@@ -17,6 +16,10 @@
     }
   }
 }
-$nb-themes: nb-register-theme((
-menu-item-active-text-color: #ffff00 
-),aquamarine,dark)
+$nb-themes: nb-register-theme(
+  (
+    menu-item-active-text-color: #ffff00,
+  ),
+  aquamarine,
+  dark
+);

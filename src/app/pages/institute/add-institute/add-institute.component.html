@@ -1,137 +1,204 @@
-<p style="color:black; font-weight:bold">Create New Branch</p>
+<p style="color: black; font-weight: bold;">Create New Branch</p>
 <nb-card>
-
   <nb-card-body>
-
-      <nb-stepper #stepper [linear]="true">
-        <nb-step [stepControl]="firstForm" label="Basic Details">
-          <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()">
-            <div class="row">
-              <div class="col-sm-6">
-            <div class="form-group">
-              <label for="name" >Add Institute/Branch *</label>
-              <input type="text" nbInput  fullWidth formControlName="name" id="name" [status]="first.name.errors && submitted ? 'danger':'control'" placeholder="Add Institute/Branch *">
-              <small *ngIf="first.name.errors && submitted">*Institute name is required</small>
-            </div>
-            </div>
-            <div class="col-sm-6">
-            <div class="form-group">
-
-              <label for="logo" >Add logo/avatar *</label>
-  
-              <input type="file" nbInput  status="control" fullWidth id="logo" (change)="onImagePicked($event)">
-            </div>
-            <div *ngIf="imagePreview !== '' && imagePreview && firstForm.get('logo').valid">
-              <img [src]="imagePreview" [alt]="firstForm.value.name" width="100px" height="100px">
-            </div>
-            <div *ngIf="first.logo.errors">
-              <small>format should be .png, .jpg, .jpeg</small>
-            </div>
-            </div>
-            </div>
-            <button type="submit" nbButton status="warning">Next</button>
-          </form>
-        </nb-step>
-
-        <nb-step [stepControl]="secondForm" label="Contact Details">
-          <form [formGroup]="secondForm" (ngSubmit)="secondFormSubmit()">
+    <nb-stepper #stepper [linear]="true">
+      <nb-step [stepControl]="firstForm" label="Basic Details">
+        <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()">
           <div class="row">
             <div class="col-sm-6">
-          <div class="form-group">
-            <label for="contact" >Institute Contact Number</label>
-            <input type="text" nbInput  fullWidth id="contact" maxlength="10" formControlName="instituteContact"
-             [status]="second.instituteContact.errors && submitted ? 'danger':'basic'" placeholder="Institute Contact Number">
-            <small *ngIf="second.instituteContact.errors && submitted">*Enter Correct Phone no.</small>
-          </div>
-          </div>
-          </div>
-          <div class="row">
-          <div class="col-sm-12">
-            <div formGroupName="address">
-              <div class="row">
-               <div class="col-sm-4">
-            
-                 <label>State</label>
-                    <nb-select formControlName="state" status="control"
-                    (selectedChange)="onChangeState($event)" [selected]="1" placeholder="State">
-                      <nb-option [value]="undefined">--Select State--</nb-option>
-                      <nb-option *ngFor="let state of stateInfo; let j = index" value={{j}}>{{state.StateName}}</nb-option>
-                    </nb-select>
-          </div>
-          <div class="col-sm-4">
-           <label>City</label>
-                       <nb-select formControlName="city" fullWidth status="control" placeholder="City">
-                         <nb-option [value]="undefined">--Select City--</nb-option>
-                         <nb-option *ngFor="let city of cityInfo;let i = index" value={{city}}>{{city}}</nb-option>
-                       </nb-select>
-           </div>
-           <div class="col-sm-4">
-             <label>Pin Code</label>
-                           <input type="text" nbInput fullWidth status="control" id="pin" formControlName="pincode" placeholder="Pin Code">
-                       </div>
-                 </div>
-         <br>
-            <div class="row">
-             <div class="col-sm-6">
-               <label for="address" >Address Line</label>
-         
-                 <input type="text" nbInput fullWidth status="control" id="address" formControlName="addressLine" placeholder="Address line">
-         </div>
-         <div class="col-sm-6">
-         <label for="locality">Locality</label>
-                 <input type="tex" nbInput fullWidth status="control" id="locality" formControlName="locality" placeholder="Locality">
-         </div>
-         
-           </div>
-         </div>
-          </div>
+              <div class="form-group">
+                <label for="name">Add Institute/Branch *</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  formControlName="name"
+                  id="name"
+                  [status]="first.name.errors && submitted ? 'danger' : 'control'"
+                  placeholder="Add Institute/Branch *"
+                />
+                <small *ngIf="first.name.errors && submitted">*Institute name is required</small>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="logo">Add logo/avatar *</label>
+
+                <input
+                  type="file"
+                  nbInput
+                  status="control"
+                  fullWidth
+                  id="logo"
+                  (change)="onImagePicked($event)"
+                />
+              </div>
+              <div *ngIf="imagePreview !== '' && imagePreview && firstForm.get('logo').valid">
+                <img
+                  [src]="imagePreview"
+                  [alt]="firstForm.value.name"
+                  width="100px"
+                  height="100px"
+                />
+              </div>
+              <div *ngIf="first.logo.errors">
+                <small>format should be .png, .jpg, .jpeg</small>
+              </div>
+            </div>
           </div>
           <button type="submit" nbButton status="warning">Next</button>
-          </form>
-         
-        </nb-step>
+        </form>
+      </nb-step>
 
-        <nb-step [stepControl]="thirdForm" label="Other Details">
-          <form [formGroup]="thirdForm" (ngSubmit)="thirdFormSubmit()">
-            <div class="row">
-              <div class="col-sm-6">
-                <label >Institute Category (Multi Select)</label>
-                  <br>
-                  <nb-select formControlName="category" class="mt-2" multiple status="basic" fullWidth placeholder="Select Institute Category">
-                    <nb-option *ngFor="let item of category" [value]="item.name">{{item.name}}</nb-option>
-
-                  </nb-select>
-
-              </div>
-              <div class="col-sm-6" formArrayName="instituteMetaTag">
-
-                <label>Institute Meta Tag  </label>
-          
-                <div *ngFor="let tag of instituteMetaTag.controls; let i=index">
+      <nb-step [stepControl]="secondForm" label="Contact Details">
+        <form [formGroup]="secondForm" (ngSubmit)="secondFormSubmit()">
           <div class="row">
-          <div class="col-sm-6">
-                  <input type="text" class="mt-2" [formControlName]="i" nbInput status="basic" fullWidth>
-          </div>
-              <div class="col-sm-4" [hidden]="i > 0">
-                <a class="metaButton mr-5" nbButton (click)="addMetaTag()" status="basic">+</a>
-                <a class="metaButton" nbButton (click)="removeMetaTag()" status="basic">-</a>
-              </div>
-                    </div>
-                  </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="contact">Institute Contact Number</label>
+                <input
+                  type="text"
+                  nbInput
+                  fullWidth
+                  id="contact"
+                  maxlength="10"
+                  formControlName="instituteContact"
+                  [status]="second.instituteContact.errors && submitted ? 'danger' : 'basic'"
+                  placeholder="Institute Contact Number"
+                />
+                <small *ngIf="second.instituteContact.errors && submitted"
+                  >*Enter Correct Phone no.</small
+                >
               </div>
             </div>
-            <button type="submit" nbButton>Submit</button>
-          </form>
-        </nb-step>
-        <!-- <nb-step [stepControl]="forthForm" [hidden]="true" label="Form Complete">
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div formGroupName="address">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <label>State</label>
+                    <nb-select
+                      formControlName="state"
+                      status="control"
+                      (selectedChange)="onChangeState($event)"
+                      [selected]="1"
+                      placeholder="State"
+                    >
+                      <nb-option [value]="undefined">--Select State--</nb-option>
+                      <nb-option *ngFor="let state of stateInfo; let j = index" value="{{ j }}">{{
+                        state.StateName
+                      }}</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label>City</label>
+                    <nb-select formControlName="city" fullWidth status="control" placeholder="City">
+                      <nb-option [value]="undefined">--Select City--</nb-option>
+                      <nb-option *ngFor="let city of cityInfo; let i = index" value="{{ city }}">{{
+                        city
+                      }}</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="col-sm-4">
+                    <label>Pin Code</label>
+                    <input
+                      type="text"
+                      nbInput
+                      fullWidth
+                      status="control"
+                      id="pin"
+                      formControlName="pincode"
+                      placeholder="Pin Code"
+                    />
+                  </div>
+                </div>
+                <br />
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label for="address">Address Line</label>
+
+                    <input
+                      type="text"
+                      nbInput
+                      fullWidth
+                      status="control"
+                      id="address"
+                      formControlName="addressLine"
+                      placeholder="Address line"
+                    />
+                  </div>
+                  <div class="col-sm-6">
+                    <label for="locality">Locality</label>
+                    <input
+                      type="tex"
+                      nbInput
+                      fullWidth
+                      status="control"
+                      id="locality"
+                      formControlName="locality"
+                      placeholder="Locality"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" nbButton status="warning">Next</button>
+        </form>
+      </nb-step>
+
+      <nb-step [stepControl]="thirdForm" label="Other Details">
+        <form [formGroup]="thirdForm" (ngSubmit)="thirdFormSubmit()">
+          <div class="row">
+            <div class="col-sm-6">
+              <label>Institute Category (Multi Select)</label>
+              <br />
+              <nb-select
+                formControlName="category"
+                class="mt-2"
+                multiple
+                status="basic"
+                fullWidth
+                placeholder="Select Institute Category"
+              >
+                <nb-option *ngFor="let item of category" [value]="item.name">{{
+                  item.name
+                }}</nb-option>
+              </nb-select>
+            </div>
+            <div class="col-sm-6" formArrayName="instituteMetaTag">
+              <label>Institute Meta Tag </label>
+
+              <div *ngFor="let tag of instituteMetaTag.controls; let i = index">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <input
+                      type="text"
+                      class="mt-2"
+                      [formControlName]="i"
+                      nbInput
+                      status="basic"
+                      fullWidth
+                    />
+                  </div>
+                  <div class="col-sm-4" [hidden]="i > 0">
+                    <a class="metaButton mr-5" nbButton (click)="addMetaTag()" status="basic">+</a>
+                    <a class="metaButton" nbButton (click)="removeMetaTag()" status="basic">-</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" nbButton>Submit</button>
+        </form>
+      </nb-step>
+      <!-- <nb-step [stepControl]="forthForm" [hidden]="true" label="Form Complete">
           <div class="step-container">
             <h1>Final Step</h1>
             <button nbButton (click)="onSubmit()">Submit</button>
           </div>
         </nb-step> -->
-      </nb-stepper>
-
+    </nb-stepper>
   </nb-card-body>
 </nb-card>
-
-

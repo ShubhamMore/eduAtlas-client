@@ -433,6 +433,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
+  //
   display(show: boolean) {
     const display: boolean = show;
     return display;

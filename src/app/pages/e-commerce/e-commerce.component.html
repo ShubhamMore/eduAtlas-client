@@ -1,112 +1,94 @@
-<h4 class="font-weight-bolder text-center mb-5" style="text-transform: uppercase;">{{myInstitute.institute.basicInfo.name}}</h4>
+<h4 class="font-weight-bolder text-center mb-5" style="text-transform: uppercase;">
+  {{ myInstitute.institute.basicInfo.name }}
+</h4>
 <div class="row" [hidden]="!display">
   <div class="col-sm-6">
-
-  <nb-card status="warning" style="max-height: 35vh;">
-    <nb-card-header>UPCOMING CLASS
-      <input id='date' placeholder="Date" [nbDatepicker]="formpicker">
-				<nb-datepicker #formpicker></nb-datepicker>
-    </nb-card-header>
-    <nb-list>
-      <nb-list-item>
-        <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto">
-          <div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue">
-            
-          </div>
-
-        </div>
-      </nb-list-item>
-    
-      
-    </nb-list>
-  </nb-card>
-</div>
-
-<div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;">
-    <nb-card-header>STUDENT REQUETS
-          
-        </nb-card-header>
-    <nb-list>
-      <nb-list-item>
-        <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto">
-          <div>
-            <span><img src="assets/images/nick.png" width="30px" height="30px"
-             style="border-radius: 100%"></span>
-          </div>
-          <div class="pr-3 pl-3">
-           
-          </div>
-          
-          <div style="text-align: right;">
-            <a href="#" class="mr-2">
-          <img src="assets/img/check.png" width="30px" height="30px">
-          </a>
-          <a href="#">
-        
-              <img src="assets/img/cross.png" width="30px" height="30px">
-      
-        </a>
-          </div>
-      </div>
-      
-      </nb-list-item>
-  
-      
-    
-      
-    </nb-list>
-  </nb-card>
-</div>
-</div>
-
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card style="max-height: 35vh;">
-      <nb-card-header style="background-color: skyblue;color: black">
-        STUDY MATERIALS
-   
+    <nb-card status="warning" style="max-height: 35vh;">
+      <nb-card-header
+        >UPCOMING CLASS
+        <input id="date" placeholder="Date" [nbDatepicker]="formpicker" />
+        <nb-datepicker #formpicker></nb-datepicker>
       </nb-card-header>
       <nb-list>
         <nb-list-item>
-         <div style="display: grid; grid-template-columns: 50px auto">
-       
-             <img src="assets/images/nick.png" width="30px" height="30px" style="border-radius: 100%">
-        
-           <div>
-           
-           </div>
-         </div>
-  
-     
+          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;">
+            <div
+              class="text-center mr-2"
+              style="border-radius: 5px; background-color: skyblue;"
+            ></div>
+          </div>
         </nb-list-item>
       </nb-list>
     </nb-card>
   </div>
 
   <div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;">
-    <nb-card-header>LEADS
-          
-        </nb-card-header>
-    <nb-list>
-      <nb-list-item>
-        <div class="mb-3" style="display: grid; grid-template-columns: auto">
-        
-          <div class="pr-3 pl-3" *ngFor="let i of students" [hidden]="!i.active">
-            {{i.basicDetails.name}} {{i.basicDetails.studentEmail}}
+    <nb-card status="warning" style="max-height: 35vh;">
+      <nb-card-header>STUDENT REQUETS </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;">
+            <div>
+              <span
+                ><img
+                  src="assets/images/nick.png"
+                  width="30px"
+                  height="30px"
+                  style="border-radius: 100%;"
+              /></span>
+            </div>
+            <div class="pr-3 pl-3"></div>
+
+            <div style="text-align: right;">
+              <a href="#" class="mr-2">
+                <img src="assets/img/check.png" width="30px" height="30px" />
+              </a>
+              <a href="#">
+                <img src="assets/img/cross.png" width="30px" height="30px" />
+              </a>
+            </div>
           </div>
-        
-      </div>
-      
-      </nb-list-item>
-  
-      
-    
-      
-    </nb-list>
-  </nb-card>
-</div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 </div>
 
+<div class="row" [hidden]="!display">
+  <div class="col-sm-6">
+    <nb-card style="max-height: 35vh;">
+      <nb-card-header style="background-color: skyblue; color: black;">
+        STUDY MATERIALS
+      </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div style="display: grid; grid-template-columns: 50px auto;">
+            <img
+              src="assets/images/nick.png"
+              width="30px"
+              height="30px"
+              style="border-radius: 100%;"
+            />
 
+            <div></div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
+
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;">
+      <nb-card-header>LEADS </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div class="mb-3" style="display: grid; grid-template-columns: auto;">
+            <div class="pr-3 pl-3" *ngFor="let i of students" [hidden]="!i.active">
+              {{ i.basicDetails.name }} {{ i.basicDetails.studentEmail }}
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
+</div>

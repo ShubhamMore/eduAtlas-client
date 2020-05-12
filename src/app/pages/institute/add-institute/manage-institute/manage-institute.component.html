@@ -1,39 +1,37 @@
-
 <nb-card>
-	<nb-card-body>
-		<div class="row">
-			<div class="col-sm-2 text-center"><b>Institute/Branch Name</b></div>
-			<div class="col-sm-3 text-center"><b>Institute Address</b></div>
-			<div class="col-sm-2 text-center"><b>Institute Contact</b></div>
-		</div>
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-2 text-center"><b>Institute/Branch Name</b></div>
+      <div class="col-sm-3 text-center"><b>Institute Address</b></div>
+      <div class="col-sm-2 text-center"><b>Institute Contact</b></div>
+    </div>
 
-		<div class="row mt-3" *ngFor="let i of institute">
-		 		
-			<div class="col-sm-2 text-center">
-				{{i.basicInfo.name}}	
-			</div> 
-			<div class="col-sm-3 text-center">
-		 	{{i.address.addressLine}} {{i.address.locality}} {{i.address.state}} {{i.address.city}}
-			</div>
-			<div class="col-sm-2 text-center">
-				{{i.basicInfo.instituteContact}}
-			</div> 
-<!-- 			<div *ngIf="item.id>0" class="col-sm-4">
+    <div class="row mt-3" *ngFor="let i of institute">
+      <div class="col-sm-2 text-center">
+        {{ i.basicInfo.name }}
+      </div>
+      <div class="col-sm-3 text-center">
+        {{ i.address.addressLine }} {{ i.address.locality }} {{ i.address.state }}
+        {{ i.address.city }}
+      </div>
+      <div class="col-sm-2 text-center">
+        {{ i.basicInfo.instituteContact }}
+      </div>
+      <!-- 			<div *ngIf="item.id>0" class="col-sm-4">
 				<button class="mr-3" nbButton status="primary" (click)="getInstitute(item.id)"
 				>View</button>
 				<button class="mr-3" nbButton status="warning" (click)="updateInstitute(item.id)"
 				[routerLink]="['/edit-institute',item.id]">Edit</button>
 				<button nbButton status="danger" (click)="delete(item.id)">Del</button>
 			</div> -->
-			<div class="col-sm-1"></div>
-			<div class="col-sm-4">
-				<button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">View</button>
-				<button class="mr-3" nbButton status="warning" (click)="updateInstitute(i._id)">Edit</button>
-				<button class="mr-3" nbButton status="danger" (click)="delete(i._id)">Del</button>
-			</div>
-		</div>	
-
-	</nb-card-body>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-4">
+        <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">View</button>
+        <button class="mr-3" nbButton status="warning" (click)="updateInstitute(i._id)">
+          Edit
+        </button>
+        <button class="mr-3" nbButton status="danger" (click)="delete(i._id)">Del</button>
+      </div>
+    </div>
+  </nb-card-body>
 </nb-card>
-
-			

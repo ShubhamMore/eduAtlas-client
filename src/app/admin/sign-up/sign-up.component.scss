@@ -3,43 +3,40 @@
 /* BASIC */
 
 html {
-  background-color: #FCE062;
+  background-color: #fce062;
 }
 
 ::ng-deep body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   // height: 100vh;
-  background-color: #FCE062;
-
+  background-color: #fce062;
 }
 
 a {
   color: #92badd;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
   font-weight: 400;
 }
-::placeholder{
-  color: #fce062
+::placeholder {
+  color: #fce062;
 }
 h2 {
   text-align: center;
   font-size: 16px;
   font-weight: 600;
   text-transform: uppercase;
-  display:inline-block;
-  margin: 40px 8px 10px 8px; 
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
-
-
 
 /* STRUCTURE */
 
 .wrapper {
   display: flex;
   align-items: center;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   min-height: 100%;
@@ -55,8 +52,8 @@ h2 {
   max-width: 450px;
   position: relative;
   padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -69,8 +66,6 @@ h2 {
   border-radius: 0 0 10px 10px;
 }
 
-
-
 /* TABS */
 
 h2.inactive {
@@ -82,11 +77,11 @@ h2.active {
   border-bottom: 2px solid yellow;
 }
 
-
-
 /* FORM TYPOGRAPHY*/
 
-input[type=submit],button, input[type=reset]  {
+input[type='submit'],
+button,
+input[type='reset'] {
   background-color: black;
   border: none;
   color: #fce062;
@@ -97,8 +92,8 @@ input[type=submit],button, input[type=reset]  {
   display: inline-block;
   text-transform: uppercase;
   font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 50px;
   margin: 5px 20px 40px 20px;
@@ -109,9 +104,10 @@ input[type=submit],button, input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-
-
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active,nb-select  {
+input[type='button']:active,
+input[type='submit']:active,
+input[type='reset']:active,
+nb-select {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -119,9 +115,11 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active,n
   transform: scale(0.95);
 }
 
-input[type=text],input[type=email],input[type=password],input[type=number] {
-
-  border: 2px solid #FCE062 !important;
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'] {
+  border: 2px solid #fce062 !important;
   color: #0d0d0d;
   padding: 15px 32px;
   text-align: center;
@@ -140,16 +138,19 @@ input[type=text],input[type=email],input[type=password],input[type=number] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus,input[type=email]:focus,input[type=password]:focus,input[type=number]:focus,nb-select:focus {
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='password']:focus,
+input[type='number']:focus,
+nb-select:focus {
   background-color: #fff;
- 
 }
 
 input:placeholder {
   color: #cccccc;
 }
 
-small{
+small {
   color: red;
 }
 
@@ -192,23 +193,44 @@ small{
 }
 
 /* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .fadeIn {
-  opacity:0;
-  -webkit-animation:fadeIn ease-in 1;
-  -moz-animation:fadeIn ease-in 1;
-  animation:fadeIn ease-in 1;
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
 
-  -webkit-animation-fill-mode:forwards;
-  -moz-animation-fill-mode:forwards;
-  animation-fill-mode:forwards;
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 
-  -webkit-animation-duration:1s;
-  -moz-animation-duration:1s;
-  animation-duration:1s;
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
 }
 
 .fadeIn.first {
@@ -235,33 +257,32 @@ small{
   animation-delay: 1s;
 }
 
-  .fadeIn.fifth {
-    -webkit-animation-delay: 1.4s;
-    -moz-animation-delay: 1.4s;
-    animation-delay: 1.4s;
-  }
-  .fadeIn.sixth {
-    -webkit-animation-delay: 1.6s;
-    -moz-animation-delay: 1.6s;
-    animation-delay: 1.6s;
-  }
-  .fadeIn.seventh {
-    -webkit-animation-delay: 1.8s;
-    -moz-animation-delay: 1.8s;
-    animation-delay: 1.8s;
-  }
-  .fadeIn.eight{
-     -webkit-animation-delay: 2.0s;
-    -moz-animation-delay: 2.0s;
-    animation-delay: 2.0s;
-  }
-  nb-select{
-    border: 2px solid #fce062;
-    border-radius:6px;
-    background-color: #ffffff;
-    font-size: 16px;
-  
-  }
+.fadeIn.fifth {
+  -webkit-animation-delay: 1.4s;
+  -moz-animation-delay: 1.4s;
+  animation-delay: 1.4s;
+}
+.fadeIn.sixth {
+  -webkit-animation-delay: 1.6s;
+  -moz-animation-delay: 1.6s;
+  animation-delay: 1.6s;
+}
+.fadeIn.seventh {
+  -webkit-animation-delay: 1.8s;
+  -moz-animation-delay: 1.8s;
+  animation-delay: 1.8s;
+}
+.fadeIn.eight {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
+}
+nb-select {
+  border: 2px solid #fce062;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 16px;
+}
 
 /* Simple CSS3 Fade-in Animation */
 .underlineHover:after {
@@ -270,8 +291,8 @@ small{
   bottom: -10px;
   width: 0;
   height: 2px;
-  background-color: #FCE062;
-  content: "";
+  background-color: #fce062;
+  content: '';
   transition: width 0.2s;
 }
 
@@ -279,20 +300,18 @@ small{
   color: #0d0d0d;
 }
 
-.underlineHover:hover:after{
+.underlineHover:hover:after {
   width: 100%;
 }
-
-
 
 /* OTHERS */
 
 *:focus {
-    outline: none;
-} 
+  outline: none;
+}
 
 #icon {
-  width:60%;
+  width: 60%;
 }
 
 * {

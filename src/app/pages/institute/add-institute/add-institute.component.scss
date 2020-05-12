@@ -1,27 +1,31 @@
-
 @import '~@nebular/theme/styles/theming';
 @import '~@nebular/theme/styles/themes/default';
 
 $nb-enable-css-custom-properties: true;
-$nb-themes: nb-register-theme((
-    outline-color: black
-),default,default);
-small{
-    color: red;
+$nb-themes: nb-register-theme(
+  (
+    outline-color: black,
+  ),
+  default,
+  default
+);
+small {
+  color: red;
 }
 
 .image-preview {
   height: 1rem;
   margin: 1rem 0;
 }
-input,nb-select{
-   
-display:block;
+input,
+nb-select {
+  display: block;
 }
-p{color:black;font-weight:bold}
+p {
+  color: black;
+  font-weight: bold;
+}
 
 ::ng-deep nb-layout-column {
   height: 80vw;
 }
-
-

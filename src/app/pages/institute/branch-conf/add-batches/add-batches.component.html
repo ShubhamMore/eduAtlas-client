@@ -1,43 +1,66 @@
-
-
 <div class="text-right">
-<button nbButton status="warning" (click)="goManage()" style="color:black;">Manage Batches</button>
+  <button nbButton status="warning" (click)="goManage()" style="color: black;">
+    Manage Batches
+  </button>
 </div>
-<p style="color:black; font-weight:bold">Add Batches</p>
+<p style="color: black; font-weight: bold;">Add Batches</p>
 <nb-card>
-  
   <nb-card-body>
     <form [formGroup]="batch" (ngSubmit)="onSubmit()">
-   	<p>Course</p>
-          <div class="row">
-            <div class="col-sm-6">
-            <label for="course">Select Parent Course</label>
-       <nb-select placeholder="Select Parent Course"  id="course" fullWidth formControlName="course" [status]="f.course.errors && submitted ? 'danger':'basic'">
-         <nb-option  *ngFor="let item of courses.course" [value]="item.name">{{item.name}} </nb-option>
-       </nb-select>
-       <small *ngIf="f.course.errors && submitted">*course is required</small>
-       </div>
-       <div class="col-sm-6">
-       <label for="code">Unique Code</label>
-       <input type="text" nbInput fullWidth id="code" placeholder="Unique Code" 
-       formControlName="batchCode" required [status]="f.batchCode.errors && submitted ? 'danger':'basic'">
-       
-       <small *ngIf="f.batchCode.errors && submitted">*code is required</small>
-       </div>
-   </div>
-   <br>
+      <p>Course</p>
       <div class="row">
-       
-       <div class="col-sm-12">
-        <label for="des">Description</label>
-       <textarea name="description" id="des" cols="30" rows="6" nbInput  status="basic" fullWidth formControlName="description" placeholder="Description"></textarea>
-       </div>
+        <div class="col-sm-6">
+          <label for="course">Select Parent Course</label>
+          <nb-select
+            placeholder="Select Parent Course"
+            id="course"
+            fullWidth
+            formControlName="course"
+            [status]="f.course.errors && submitted ? 'danger' : 'basic'"
+          >
+            <nb-option *ngFor="let item of courses.course" [value]="item.name"
+              >{{ item.name }}
+            </nb-option>
+          </nb-select>
+          <small *ngIf="f.course.errors && submitted">*course is required</small>
+        </div>
+        <div class="col-sm-6">
+          <label for="code">Unique Code</label>
+          <input
+            type="text"
+            nbInput
+            fullWidth
+            id="code"
+            placeholder="Unique Code"
+            formControlName="batchCode"
+            required
+            [status]="f.batchCode.errors && submitted ? 'danger' : 'basic'"
+          />
+
+          <small *ngIf="f.batchCode.errors && submitted">*code is required</small>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="des">Description</label>
+          <textarea
+            name="description"
+            id="des"
+            cols="30"
+            rows="6"
+            nbInput
+            status="basic"
+            fullWidth
+            formControlName="description"
+            placeholder="Description"
+          ></textarea>
+        </div>
       </div>
 
-
-   <div style="text-align: left; margin: 1rem;text-align:right">
-   <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
-   </div>
-   </form>
+      <div style="text-align: left; margin: 1rem; text-align: right;">
+        <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
+      </div>
+    </form>
   </nb-card-body>
 </nb-card>

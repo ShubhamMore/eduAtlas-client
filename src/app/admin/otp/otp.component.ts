@@ -55,9 +55,11 @@ export class OtpComponent implements OnInit {
       }
     );
   }
+
   showToast(position, status) {
     this.toasterService.show(status || 'Success', `${this.message}`, { position, status });
   }
+
   invalidToast(position, status) {
     this.toasterService.show(status || 'Danger', `${this.message}`, { position, status });
   }

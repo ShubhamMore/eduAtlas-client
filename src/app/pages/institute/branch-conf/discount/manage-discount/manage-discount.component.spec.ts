@@ -8,9 +8,8 @@ describe('ManageDiscountComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageDiscountComponent ]
-    })
-    .compileComponents();
+      declarations: [ManageDiscountComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -33,6 +33,7 @@ export class AuthService {
   }
 
   instituteSignup(signUp: signupType) {
+    console.log('c');
     return this.http.post(environment.server + '/users/signup', signUp);
   }
 }

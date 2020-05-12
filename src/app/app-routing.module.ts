@@ -1,8 +1,8 @@
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import {LoginComponent } from '../app/admin/login/login.component'
+import { LoginComponent } from '../app/admin/login/login.component';
 // import {HomeComponent } from './home/home.component'
-import { AuthGuard} from './auth.guard'
+import { AuthGuard } from './auth.guard';
 import {
   NbAuthComponent,
   NbLoginComponent,
@@ -16,35 +16,31 @@ import { SignUpComponent } from './admin/sign-up/sign-up.component';
 import { OtpComponent } from './admin/otp/otp.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 
-
-
-
 const routes: Routes = [
   {
     path: 'pages',
-    loadChildren: () => import('../app/pages/pages.module')
-      .then(m => m.PagesModule),
-      canActivate: [AuthGuard]
+    loadChildren: () => import('../app/pages/pages.module').then((m) => m.PagesModule),
+    canActivate: [AuthGuard],
   },
-  
-  {
-    path: 'login',
-    component:LoginComponent
-  },
-{
- path:'sign-up',
- component:SignUpComponent 
-},
 
   {
-    path:'otp',
-    component:OtpComponent
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'sign-up',
+    component: SignUpComponent,
+  },
+
+  {
+    path: 'otp',
+    component: OtpComponent,
   },
   {
     path: 'forgot-password',
-    component:ForgotPasswordComponent
+    component: ForgotPasswordComponent,
   },
-  
+
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -87,5 +83,4 @@ const config: ExtraOptions = {
   imports: [RouterModule.forRoot(routes, config)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

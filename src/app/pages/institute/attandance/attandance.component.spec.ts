@@ -8,9 +8,8 @@ describe('AttandanceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AttandanceComponent ]
-    })
-    .compileComponents();
+      declarations: [AttandanceComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

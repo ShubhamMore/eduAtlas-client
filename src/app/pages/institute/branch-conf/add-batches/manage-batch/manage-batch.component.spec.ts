@@ -8,9 +8,8 @@ describe('ManageBatchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageBatchComponent ]
-    })
-    .compileComponents();
+      declarations: [ManageBatchComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -6,40 +6,38 @@ import { AddBatchesComponent } from '../add-batches/add-batches.component';
 import { RoleManagementComponent } from '../role-management/role-management.component';
 import { DiscountComponent } from '../discount/discount.component';
 import { ReceiptConfComponent } from '../receipt-conf/receipt-conf.component';
-import {ManageCourseComponent} from '../../branch-conf/add-course/manage-course/manage-course.component';
-import {ViewCourseComponent} from '../../branch-conf/add-course/view-course/view-course.component';
+import { ManageCourseComponent } from '../../branch-conf/add-course/manage-course/manage-course.component';
+import { ViewCourseComponent } from '../../branch-conf/add-course/view-course/view-course.component';
 
-import {ManageBatchComponent} from '../add-batches/manage-batch/manage-batch.component';
+import { ManageBatchComponent } from '../add-batches/manage-batch/manage-batch.component';
 
-import {ManageDiscountComponent} from '../discount/manage-discount/manage-discount.component';
+import { ManageDiscountComponent } from '../discount/manage-discount/manage-discount.component';
 
-import {ManageReceiptComponent} from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component'
+import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
 
 const routes = [
-    {path:'',component:BranchConfComponent,
-    children:[
-      {path:'add-courses/:id', component:AddCourseComponent},
-      {path:'manage-course/:id', component:ManageCourseComponent},
-      {path:'view-course/:id', component:ViewCourseComponent},
-      {path:'add-batch/:id', component:AddBatchesComponent},
-      {path:'manage-batch/:id', component:ManageBatchComponent},
-      {path:'add-discount/:id', component:DiscountComponent},
-      {path:'manage-discount/:id', component:ManageDiscountComponent},
-      {path:'manage-receipt/:id', component:ManageReceiptComponent},
-      {path:'add-receipt/:id', component:ReceiptConfComponent},
-      {path:'manage-role-management/:id', component:RoleManagementComponent},  
+  {
+    path: '',
+    component: BranchConfComponent,
+    children: [
+      { path: 'add-courses/:id', component: AddCourseComponent },
+      { path: 'manage-course/:id', component: ManageCourseComponent },
+      { path: 'view-course/:id', component: ViewCourseComponent },
+      { path: 'add-batch/:id', component: AddBatchesComponent },
+      { path: 'manage-batch/:id', component: ManageBatchComponent },
+      { path: 'add-discount/:id', component: DiscountComponent },
+      { path: 'manage-discount/:id', component: ManageDiscountComponent },
+      { path: 'manage-receipt/:id', component: ManageReceiptComponent },
+      { path: 'add-receipt/:id', component: ReceiptConfComponent },
+      { path: 'manage-role-management/:id', component: RoleManagementComponent },
 
-      {path:'', redirectTo:'add-courses',pathMatch:'full'}
-    ]
-    
-
-    }
-]
+      { path: '', redirectTo: 'add-courses', pathMatch: 'full' },
+    ],
+  },
+];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule],
-  })
-  export class BranchRoutingModule {
-  }
-  
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class BranchRoutingModule {}
