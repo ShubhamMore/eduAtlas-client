@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth-services/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   NbMediaBreakpointsService,
@@ -55,6 +56,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
 
   constructor(
+    private authService: AuthService,
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
@@ -62,7 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private layoutService: LayoutService,
     private router: Router,
-    private breakpointService: NbMediaBreakpointsService
+    private breakpointService: NbMediaBreakpointsService,
   ) {}
 
   ngOnInit() {
@@ -128,10 +130,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('username');
-
-    this.router.navigate(['/login']);
+    this.authService.logout();
   }
 }

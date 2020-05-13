@@ -29,7 +29,7 @@
               >Sign in to your account</span
             >
             <!-- Login Form -->
-            <form class="mt-3" [formGroup]="login" (ngSubmit)="onSubmit()">
+            <form class="mt-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <input
                 type="text"
                 maxlength="10"
@@ -37,9 +37,17 @@
                 formControlName="phone"
                 placeholder="Enter Phone Number"
               />
-              <div *ngIf="(f.phone.errors && f.phone.invalid && f.phone.touched) || submitted">
-                <small *ngIf="f.phone.errors?.required && submitted">*This field is required</small>
-                <small *ngIf="f.phone.errors?.pattern && submitted"
+              <div
+                *ngIf="
+                  loginForm.get('phone').errors &&
+                  loginForm.get('phone').invalid &&
+                  loginForm.get('phone').touched
+                "
+              >
+                <small *ngIf="loginForm.get('phone').errors?.required"
+                  >*This field is required</small
+                >
+                <small *ngIf="loginForm.get('phone').errors?.pattern"
                   >*Enter Correct Phone Number</small
                 >
               </div>
@@ -50,6 +58,9 @@
                 formControlName="password"
                 placeholder="Password"
               />
+              <div *ngIf="loginForm.get('password').invalid && loginForm.get('password').touched">
+                <small>*Enter Password</small>
+              </div>
               <br /><br />
               <button type="submit" class="fadeIn fourth">Login</button>
               <a routerLink="/forgot-password" style="color: black; margin-top: -1rem;"

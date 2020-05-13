@@ -1,103 +1,69 @@
+import { Observable } from 'rxjs';
+import { AuthResponseData } from './../../services/auth-services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { AuthService } from '../../services/auth-services/auth.service';
 import { NbToastrService } from '@nebular/theme';
-import { ApiService } from '../../services/api.service';
-
 @Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  userExist: boolean;
-  login: FormGroup;
-  submitted: boolean = false;
-  statusInvalid: string;
+  loginForm: FormGroup;
+
   constructor(
-    public router: Router,
-    private fb: FormBuilder,
-    private auth: AuthService,
-    private api: ApiService,
-    private toasterService: NbToastrService
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
-    this.login = this.fb.group({
-      phone: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
-          Validators.maxLength(10),
-        ]),
-      ],
-      password: ['', Validators.required],
+    this.loginForm = new FormGroup({
+      phone: new FormControl(null, { validators: [Validators.required] }),
+      password: new FormControl(null, { validators: [Validators.required] }),
     });
   }
-  get f() {
-    return this.login.controls;
-  }
+
   onSubmit() {
-    this.submitted = true;
-    if (this.login.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
-    console.log(this.login.value);
-    this.auth.findUser(this.login.value.phone).subscribe((res) => {
-      this.userExist = res.User ? true : false;
-      console.log('User Exist' + this.userExist);
 
-      console.log(this.userExist);
-      if (!this.userExist) {
-        this.statusInvalid = 'This Phone Number Does Not Exist';
-        this.invalid('top-right', 'danger');
-      }
-      if (this.userExist) {
-        this.login.patchValue({ phone: this.login.value.phone }); //
-        this.auth.instituteLogin(this.login.value).subscribe(
-          (data) => {
-            console.log('from api: => ', data);
+    const phone = this.loginForm.value.phone;
+    const password = this.loginForm.value.password;
 
-            if (!data.token) {
-              console.log('No token');
-              console.log('Invalid credentials');
+    let authObs: Observable<AuthResponseData>;
 
-              return;
-            }
-            this.api.token.next(data.token);
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('username', data.userName);
+    authObs = this.authService.login(phone, password);
 
-            if (data.role) {
-              localStorage.setItem('role', data.role);
-            }
-
-            localStorage.setItem('expireIn', JSON.stringify(data.expireIn));
-            if (localStorage.getItem('token')) {
-              this.showToast('top-right', 'success');
-              setTimeout(() => {
-                this.router.navigate(['/pages/home']);
-              }, 1000);
-            }
-          },
-          (err) => {
-            console.log(err.status + ' ' + err.statusText);
-            this.statusInvalid = 'Invalid Password';
-            this.invalid('top-right', 'danger');
-          }
-        );
-      }
-    });
+    authObs.subscribe(
+      (resData: any) => {
+        if (resData.role === '4') {
+          this.showToast('top-right', 'success', `Login Success`);
+          this.router.navigate(['/pages/home'], {
+            relativeTo: this.route,
+          });
+        } else {
+          this.router.navigate(['/login'], {
+            relativeTo: this.route,
+          });
+        }
+        this.loginForm.reset();
+      },
+      (errorMessage: any) => {
+        this.showToast('top-right', 'danger', 'Invalid Password');
+      },
+    );
   }
 
   //  console.log(this.login.value);
-  showToast(position, status) {
-    this.toasterService.show(status || 'Success', `Login Success`, { position, status });
-  }
-  invalid(position, status) {
-    this.statusInvalid;
-    this.toasterService.show(status || 'Danger', `${this.statusInvalid}`, { position, status });
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
   }
 }

@@ -1,19 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { MustMatch } from './_helpers/must-match.validator';
-import { AuthService } from '../../services/auth.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { AuthService } from '../../services/auth-services/auth.service';
 import { Router } from '@angular/router';
-import { OtpService } from '../../services/otp/otp.service';
-import { HttpParams } from '@angular/common/http';
-
+import { OtpService } from '../../services/auth-services/otp/otp.service';
 import { NbToastrService } from '@nebular/theme';
-interface sendValue {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-  role: string;
-}
 
 @Component({
   selector: 'ngx-sign-up',
@@ -22,113 +12,84 @@ interface sendValue {
 })
 export class SignUpComponent implements OnInit {
   userExist: boolean;
-  public registerUser: FormGroup;
-  invalid: string;
-  submitted: boolean = false;
-  phone: string;
 
-  message: string;
-  // options = [
-  //   {value:null,name:'Select Role'},
-  //   { value: 1, name: 'role 1' },
-  //   { value: 2, name: 'role 2' },
-  //   { value: 3, name: 'role 3' },
-  // ];
+  signUpForm: FormGroup;
 
   constructor(
-    public fb: FormBuilder,
-    public auth: AuthService,
+    public authService: AuthService,
     public router: Router,
     private toasterService: NbToastrService,
-    private otpService: OtpService
+    private otpService: OtpService,
   ) {}
 
   ngOnInit() {
-    this.registerUser = this.fb.group(
+    this.signUpForm = new FormGroup(
       {
-        name: ['', Validators.compose([Validators.required, Validators.maxLength(30)])],
-        email: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-          ]),
-        ],
-        phone: [
-          '',
-          Validators.compose([
-            Validators.required,
-            Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
-            Validators.maxLength(10),
-          ]),
-        ],
-        role: ['', Validators.required],
-
-        password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-        confirmPass: ['', Validators.required],
+        name: new FormControl(null, { validators: [Validators.required] }),
+        email: new FormControl(null, { validators: [Validators.required, Validators.email] }),
+        phone: new FormControl(null, {
+          validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+        }),
+        password: new FormControl(null, { validators: [Validators.required] }),
+        confirmPassword: new FormControl(null, { validators: [Validators.required] }),
+        role: new FormControl(null, { validators: [Validators.required] }),
       },
       {
-        validator: MustMatch('password', 'confirmPass'),
-      }
+        validators: this.passwordValidator.bind(this),
+      },
     );
-    console.log(this.f.phone);
   }
-  get f() {
-    return this.registerUser.controls;
-  }
-  onKey(event) {
-    this.phone = event.target.value;
+
+  passwordValidator(group: FormGroup): { [s: string]: boolean } {
+    if (group.value.password !== group.value.confirmPassword) {
+      return { invalidPassword: true };
+    }
+    return null;
   }
 
   onSignUp() {
-    const sendValue: sendValue = { name: '', email: '', phone: '', password: '', role: '' };
-    this.submitted = true;
-
-    if (this.registerUser.invalid) {
+    if (this.signUpForm.invalid) {
       return;
     }
-    sendValue.name = this.registerUser.value.name;
-    sendValue.email = this.registerUser.value.email;
-    sendValue.phone = this.registerUser.value.phone;
-    sendValue.role = this.registerUser.value.role;
-    sendValue.password = this.registerUser.value.password;
+
+    const user = {
+      name: this.signUpForm.value.name,
+      email: this.signUpForm.value.email,
+      phone: this.signUpForm.value.phone,
+      password: this.signUpForm.value.password,
+      role: this.signUpForm.value.role,
+    };
 
     // this.registerUser.removeControl(name)
-    console.log(sendValue);
-    this.auth.findUser(sendValue.phone).subscribe((res) => {
-      this.userExist = res.User ? true : false;
+    console.log(user);
+    this.authService.findUser(user.phone).subscribe((res: any) => {
+      this.userExist = res.user ? true : false;
+
       console.log('User Exist' + this.userExist);
 
-      if (!this.userExist) {
-        this.auth.instituteSignup(sendValue).subscribe(
-          (res) => {
-            console.log(res);
-            //  this.dialog.open(SuccessComponent,
-            //   {context:{title:'title'},
-            // })
-
-            this.router.navigate([`/otp`], { queryParams: { phone: sendValue.phone } });
-          },
-          (err) => {
-            console.log(err);
-            this.invalid = 'This Email or Phone already exist';
-            this.invalidToast('top-right', 'danger');
-          }
-        );
-      }
       if (this.userExist) {
-        //  const dialogRef = this.dialog.open(DialogComponent, {
-        //     context: {
-        //       title: 'This is a title passed to the dialog component',
-        //     },
-        //   });
-        this.invalid = 'This User already Exist';
-        this.invalidToast('top-right', 'danger');
+        this.showToast('top-right', 'danger', 'This User already Exist');
+        return;
       }
+
+      this.authService.signUp(user).subscribe(
+        (signupRes: any) => {
+          console.log(signupRes);
+          //  this.dialog.open(SuccessComponent,
+          //   {context:{title:'title'},
+          // })
+
+          this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
+        },
+        (err: any) => {
+          console.log(err);
+          this.showToast('top-right', 'danger', 'This Email or Phone already exist');
+        },
+      );
     });
   }
 
-  invalidToast(position, status) {
-    this.toasterService.show(status || 'Danger', `${this.invalid}`, { position, status });
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
 }

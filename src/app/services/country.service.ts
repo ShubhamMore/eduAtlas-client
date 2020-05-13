@@ -9,7 +9,7 @@ export class CountryService {
 
   allCountries(): Observable<any> {
     return this.http.get(
-      'https://raw.githubusercontent.com/sagarshirbhate/Country-State-City-Database/master/Contries.json'
+      'https://raw.githubusercontent.com/sagarshirbhate/Country-State-City-Database/master/Contries.json',
     );
   }
 }

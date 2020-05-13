@@ -1,12 +1,5 @@
 <div class="wrapper fadeInDown" style="background-color: #fce062;">
   <div id="formContent">
-    <!-- Tabs Titles -->
-
-    <!-- <h2 class="inactive underlineHover">Sign Up </h2> -->
-
-    <!-- Login Form -->
-    <!-- <form> -->
-
     <nb-layout style="background-color: white;">
       <nb-layout-column style="background-color: white;">
         <nb-card style="box-shadow: none;">
@@ -16,11 +9,16 @@
             </div>
 
             <h2 class="font-weight-bolder d-inline-block" style="font-size: 25px; color: black;">
-              Varify OTP
+              Verify OTP
             </h2>
             <input type="text" nbInput placeholder="Enter OTP" [(ngModel)]="otp" />
             <div class="mt-4">
               <button nbButton status="success" (click)="verifyOtp(otp)">Verify</button>
+            </div>
+            <div class="text-center">
+              <span class="btn-link pointer" (click)="resendOtp()">
+                Resend OTP
+              </span>
             </div>
           </nb-card-body>
         </nb-card>

@@ -165,18 +165,23 @@ export class AddInstituteComponent implements OnInit {
   get instituteMetaTag() {
     return this.thirdForm.get('instituteMetaTag') as FormArray;
   }
+
   addMetaTag() {
     this.instituteMetaTag.push(this.fb.control(''));
   }
+
   removeMetaTag() {
     this.instituteMetaTag.removeAt(this.instituteMetaTag.length - 1);
   }
+
   get first() {
     return this.firstForm.controls;
   }
+
   get second() {
     return this.secondForm.controls;
   }
+
   get third() {
     return this.thirdForm.controls;
   }

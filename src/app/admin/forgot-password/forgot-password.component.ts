@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { OtpService } from '../../services/otp/otp.service';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { OtpService } from '../../services/auth-services/otp/otp.service';
 import { HttpParams } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-forgot-password',
@@ -11,102 +11,106 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent implements OnInit {
-  forgot: FormGroup;
+  forgotPasswordForm: FormGroup;
   phone: string;
-  display: boolean = true;
-  displayPass: boolean = true;
-  newPassword: string;
-  message: string;
+  otpSend: boolean = false;
+  otpVerified: boolean = false;
   otp: string;
+
   constructor(
-    private fb: FormBuilder,
     private otpService: OtpService,
     private toasterService: NbToastrService,
-    private router: Router
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.forgot = this.fb.group({
-      phone: ['', Validators.required],
-      otp: [''],
-      password: [''],
+    this.forgotPasswordForm = new FormGroup({
+      phone: new FormControl(null, { validators: [Validators.required] }),
+      otp: new FormControl(null, { validators: [Validators.required] }),
+      password: new FormControl(null, { validators: [Validators.required] }),
     });
   }
 
-  getOtp() {
-    console.log('phone=> ', this.forgot.value);
-    this.phone = this.forgot.value.phone;
-    this.otp = this.forgot.value.otp;
-    this.newPassword = this.forgot.value.password;
-    console.log(this.phone);
-    if (!this.display) {
-      let param = new HttpParams();
-      param = param.append('varify', '1');
-      console.log(this.otp);
-      if (this.displayPass) {
-        console.log('from varify =>', this.displayPass);
-        let param = new HttpParams();
-        param = param.append('varifyType', 'forgotPassword');
-        param = param.append('isVarify', '1');
-        param = param.append('otp', this.otp);
-        param = param.append('phone', this.phone);
-        this.otpService.varifyOtp(param, this.newPassword).subscribe(
-          (data) => {
-            console.log(data);
-            this.displayPass = false;
-            this.message = 'Varified Successfully';
-            this.showToast('top-right', 'success');
-          },
-          (error) => {
-            console.log(error);
-            this.message = 'Invalid OTP';
-            this.invalidToast('top-right', 'danger');
-          }
-        );
-      }
-    }
-    if (!this.displayPass) {
-      console.log('from setPass=> ', this.displayPass);
-      console.log(this.forgot.value);
-      let param = new HttpParams();
-      param = param.append('varifyType', 'forgotPassword');
-      param = param.append('phone', this.phone);
-      param = param.append('otp', this.otp);
+  resendOtp() {
+    this.otpSend = false;
+    this.otpVerified = false;
+    this.getOtp();
+  }
 
-      this.otpService.setPassword(param, this.forgot.value).subscribe((data) => {
-        console.log(data);
-        this.message = 'Successfully set password';
-        this.showToast('top-right', 'success');
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 1000);
-      });
-    }
-    if (this.display) {
+  getOtp() {
+    if (this.forgotPasswordForm.controls.phone.valid) {
+      this.phone = this.forgotPasswordForm.value.phone;
+      console.log(this.phone);
+
       let param = new HttpParams();
       param = param.append('register', '0');
-      this.otpService.getOtp(this.phone, param).subscribe(
+      this.otpService.getOtpForRegisteredUser(this.phone, param).subscribe(
         (data) => {
           console.log(data);
-          this.display = false;
-          console.log(this.display);
-          this.message = 'OTP Send';
-          this.showToast('top-right', 'success');
+          this.otpSend = true;
+          this.showToast('top-right', 'success', 'OTP Send');
         },
         (error) => {
           console.log(error);
-          this.message = 'This Phone Number is not valid';
-          this.invalidToast('top-right', 'danger');
-        }
+          this.showToast('top-right', 'danger', 'This Phone Number is not valid');
+        },
       );
     }
   }
 
-  showToast(position, status) {
-    this.toasterService.show(status || 'Success', `${this.message}`, { position, status });
+  verifyOtp() {
+    if (
+      this.otpSend &&
+      this.forgotPasswordForm.controls.phone.valid &&
+      this.forgotPasswordForm.controls.otp.valid
+    ) {
+      const verificationData = {
+        verifyType: 'forgotPassword',
+        otp: this.forgotPasswordForm.value.otp,
+        phone: this.phone,
+      };
+      this.otpService.verifyOtp(verificationData).subscribe(
+        (data) => {
+          console.log(data);
+          this.otpVerified = true;
+          this.showToast('top-right', 'success', 'Verified Successfully');
+        },
+        (error) => {
+          console.log(error);
+          this.showToast('top-right', 'danger', 'Invalid OTP');
+        },
+      );
+    }
   }
 
-  invalidToast(position, status) {
-    this.toasterService.show(status || 'Danger', `${this.message}`, { position, status });
+  resetPassword() {
+    if (
+      this.otpVerified &&
+      this.forgotPasswordForm.controls.phone.valid &&
+      this.forgotPasswordForm.controls.password.valid
+    ) {
+      const data = {
+        phone: this.forgotPasswordForm.value.phone,
+        password: this.forgotPasswordForm.value.password,
+      };
+
+      this.otpService.setPassword(data).subscribe(
+        (res: any) => {
+          console.log(res);
+          this.showToast('top-right', 'success', 'Successfully set password');
+
+          this.router.navigate(['/login'], { relativeTo: this.route });
+        },
+        (err) => {
+          console.log(err);
+          this.showToast('top-right', 'danger', 'Error While Resetting Password');
+        },
+      );
+    }
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
 }

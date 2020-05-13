@@ -18,7 +18,7 @@
             <h2 class="font-weight-bolder d-inline-block" style="font-size: 25px; color: black;">
               Create Your Account
             </h2>
-            <form [formGroup]="registerUser" (ngSubmit)="onSignUp()">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
               <input
                 type="text"
                 id="name"
@@ -28,14 +28,8 @@
                 placeholder="Name *"
               />
 
-              <div *ngIf="(f.name.errors && f.name.invalid && f.name.touched) || submitted">
-                <div *ngIf="f.name.errors?.required && submitted">
-                  <small>*This field is required</small>
-                </div>
-
-                <div *ngIf="f.name.errors && submitted">
-                  <small>*Name must be less than 30 letters</small>
-                </div>
+              <div *ngIf="!signUpForm.get('name').valid && signUpForm.get('name').touched">
+                <small>*This field is required</small>
               </div>
 
               <input
@@ -46,43 +40,41 @@
                 name="email"
                 placeholder="Email *"
               />
-              <div *ngIf="(f.email.errors && f.email.invalid && f.email.touched) || submitted">
-                <small *ngIf="f.email.errors?.required && submitted">*This field is required</small>
-                <small *ngIf="f.email.errors?.pattern && submitted">Enter correct Email Id</small>
+              <div *ngIf="!signUpForm.get('email').valid && signUpForm.get('email').touched">
+                <small>*Enter Valid Email</small>
               </div>
+
               <input
                 type="text"
                 id="phone"
                 class="fadeIn third"
+                pattern="\d*"
                 formControlName="phone"
                 name="phone"
                 placeholder="Contact Number *"
+                minlength="10"
                 maxlength="10"
               />
 
-              <div *ngIf="(f.phone.errors && f.phone.invalid && f.phone.touched) || submitted">
-                <small *ngIf="f.phone.errors?.required && submitted">*This field is required</small>
-                <small *ngIf="f.phone.errors?.pattern && submitted"
-                  >*Enter Correct Phone Number</small
-                >
+              <div *ngIf="!signUpForm.get('phone').valid && signUpForm.get('phone').touched">
+                <small>*Enter Correct Phone Number</small>
               </div>
 
               <input
                 type="password"
                 id="password"
+                minlength="6"
                 class="fadeIn fourth"
                 formControlName="password"
                 name="password"
                 placeholder="Password *"
               />
-              <div
-                *ngIf="(f.password.errors && f.password.invalid && f.password.touched) || submitted"
-              >
-                <small *ngIf="f.password.errors?.required && submitted"
+              <div *ngIf="!signUpForm.get('password').valid && signUpForm.get('password').touched">
+                <small *ngIf="signUpForm.get('password').errors?.required"
                   >*This field is required</small
                 >
-                <small *ngIf="f.password.errors?.minlength && submitted"
-                  >*min length 6 is required</small
+                <small *ngIf="signUpForm.get('password').errors?.minlength"
+                  >*Minimum length 6 is required</small
                 >
               </div>
 
@@ -90,24 +82,29 @@
                 type="password"
                 id="confirmPassword"
                 class="fadeIn fifth"
-                formControlName="confirmPass"
+                formControlName="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm Password"
               />
+
               <div
                 *ngIf="
-                  (f.confirmPass.errors && f.confirmPass.invalid && f.confirmPass.touched) ||
-                  submitted
+                  !signUpForm.get('confirmPassword').valid &&
+                  signUpForm.get('confirmPassword').touched
                 "
               >
-                <div *ngIf="f.confirmPass.errors?.required && submitted">
-                  <small>*This field is required</small>
-                </div>
-
-                <div *ngIf="f.confirmPass.errors && submitted">
-                  <small>*Passwords must match</small>
-                </div>
+                <small>*This field is required</small>
               </div>
+
+              <div
+                *ngIf="
+                  signUpForm.hasError('invalidPassword') &&
+                  signUpForm.get('confirmPassword').touched
+                "
+              >
+                <small>*Password must match</small>
+              </div>
+
               <div>
                 <nb-select
                   class="fadeIn eight"
@@ -119,35 +116,26 @@
                   <nb-option value="student">Student</nb-option>
                 </nb-select>
               </div>
+
+              <div *ngIf="!signUpForm.get('role').valid && signUpForm.get('role').touched">
+                <small>*Select Role</small>
+              </div>
+
               <div>
                 <nb-checkbox status="warning">
                   I agree with the TERMS AND CONDITIONS
                 </nb-checkbox>
               </div>
-              <!-- <div class="fadeIn sixth">
-                <nb-card>
-                  <nb-card-body>
-                    <nb-select fullWidth placeholder="Select Primary Role" formControlName="selectRole"
-                    style="border-bottom: 2px solid #5fbae9;">
-                      <nb-option *ngFor="let o of options" [value]="o">
-                        {{ o.name }}
-                      </nb-option>
-                    </nb-select>
-                    </nb-card-body>
-                    </nb-card>
-              </div> -->
+
               <div>
                 <button type="Submit" class="fadeIn seventh">Create Account</button>
               </div>
             </form>
 
-            <!-- </form> -->
-
             <div>
               <span>Already Registered ? </span>
               <a routerLink="/login">Sign In Here</a>
             </div>
-            <!-- Remind Passowrd -->
           </nb-card-body>
         </nb-card>
       </nb-layout-column>

@@ -13,13 +13,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';  
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
+import { CommonModule } from '@angular/common';
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import {AuthInterceptor} from './services/auth-interceptor/auth-interceptor';
+import { AuthInterceptor } from './services/auth-services/auth-interceptor/auth-interceptor';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-import {AuthGuard} from './auth.guard';
+import { AuthGuard } from './auth.guard';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -36,18 +36,23 @@ import {
   NbRadioModule,
   NbInputModule,
   NbPopoverModule,
-  NbStepperModule
+  NbStepperModule,
 } from '@nebular/theme';
 import { LoginComponent } from './admin/login/login.component';
 import { SignUpComponent } from './admin/sign-up/sign-up.component';
 import { OtpComponent } from './admin/otp/otp.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 
-
 // import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SignUpComponent, OtpComponent, ForgotPasswordComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SignUpComponent,
+    OtpComponent,
+    ForgotPasswordComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -81,9 +86,6 @@ import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password
     CoreModule.forRoot(),
   ],
   bootstrap: [AppComponent],
-  providers:[AuthGuard,
-    //{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-  ]
+  providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
-export class AppModule {
-}
+export class AppModule {}

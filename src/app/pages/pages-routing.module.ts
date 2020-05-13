@@ -36,7 +36,7 @@ const routes: Routes = [
         path: 'communication',
         loadChildren: () =>
           import('./communication/communication/communication.module').then(
-            (m) => m.CommunicationModule
+            (m) => m.CommunicationModule,
           ),
       },
 
