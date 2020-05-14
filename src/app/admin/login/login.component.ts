@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
     authObs.subscribe(
       (resData: any) => {
-        if (resData.role === '4') {
+        if (resData.role === 'institute') {
           this.showToast('top-right', 'success', `Login Success`);
           this.router.navigate(['/pages/home'], {
             relativeTo: this.route,

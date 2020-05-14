@@ -24,15 +24,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userPictureOnly: boolean = false;
   institutes: any;
   institute = [];
-  name = `${
-    localStorage.getItem('username') !== 'undefined'
-      ? JSON.parse(JSON.stringify(localStorage.getItem('username')))
-      : ''
-  }`;
-  user = {
-    name: `Welcome ${this.name}
-   (${JSON.parse(JSON.stringify(localStorage.getItem('role')))})`,
-  };
+  name: string;
+
+  user: any;
+
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
   themes = [
     {
@@ -68,6 +63,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.user = this.authService.getUser();
+
+    this.name = `Welcome ${this.user.name}
+      (${this.user.role})`;
     this.getInstitutes();
 
     // this.currentTheme = this.themeService.currentTheme;

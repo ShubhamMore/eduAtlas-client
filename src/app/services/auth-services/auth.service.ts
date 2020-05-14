@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 
 export interface AuthResponseData {
   _id: string;
+  name: string;
   email: string;
   phone: string;
   role: string;
@@ -19,6 +20,7 @@ export interface AuthResponseData {
 export class UserData {
   // tslint:disable-next-line: variable-name
   _id: string;
+  name: string;
   email: string;
   phone: string;
   role: string;
@@ -34,6 +36,13 @@ export class AuthService {
   private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {}
+
+  getUser() {
+    const user = JSON.parse(localStorage.getItem('userData'));
+    delete user._token;
+    delete user._tokenExpirationDate;
+    return user;
+  }
 
   findUser(phone: string) {
     return this.http.get<{ User: any }>(environment.server + '/users/' + phone);
@@ -68,6 +77,7 @@ export class AuthService {
       tap((resData) => {
         this.handleAuthentication(
           resData._id,
+          resData.name,
           resData.email,
           resData.phone,
           resData.role,
@@ -81,6 +91,7 @@ export class AuthService {
   loadUser(userData: UserData) {
     const loadedUser = new User(
       userData._id,
+      userData.name,
       userData.email,
       userData.phone,
       userData.role,
@@ -196,6 +207,7 @@ export class AuthService {
 
   private handleAuthentication(
     userId: string,
+    name: string,
     email: string,
     phone: string,
     role: string,
@@ -203,7 +215,7 @@ export class AuthService {
     expiresIn: number,
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(userId, email, phone, role, token, expirationDate);
+    const user = new User(userId, name, email, phone, role, token, expirationDate);
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
