@@ -117,8 +117,17 @@ export class AddCourseComponent implements OnInit {
       param = param.append('instituteId', this.routerId);
       param = param.append('courseId', this.courseId);
       this.api.updateCourse(param, this.course.value).subscribe(
-        (res) => console.log(res),
-        (error) => console.log(error),
+        (res) => {
+          console.log(res);
+          this.showToast('top-right', 'success', 'Course Updated');
+          setTimeout(() => {
+            this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
+          }, 1000);
+        },
+        (error) => {
+          console.log(error);
+          this.showToast('top-right', 'danger', 'Course Updation Failed');
+        },
       );
     }
 
@@ -127,14 +136,14 @@ export class AddCourseComponent implements OnInit {
       this.api.addCourse(this.routerId, this.course.value).subscribe(
         (data) => {
           console.log(data);
-          this.showToast('top-right', 'success');
+          this.showToast('top-right', 'success', 'Course Added Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger');
+          this.showToast('top-right', 'danger', 'This Course Alredy Exist');
         },
       );
     }
@@ -154,7 +163,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   exclusive(event) {
-    this.exclusiveGst = event;
+    this.exclusiveGst = +event;
     console.log('exclusiv ', this.exclusiveGst);
     let total = this.fees + (this.exclusiveGst / 100) * this.fees;
     console.log('type ', typeof this.fees, this.fees);
@@ -166,14 +175,8 @@ export class AddCourseComponent implements OnInit {
     this.fees = +event;
   }
 
-  showToast(position, status) {
-    this.toasterService.show(status || 'Success', 'Course Added Successfully', {
-      position,
-      status,
-    });
-  }
-  invalid(position, status) {
-    this.toasterService.show(status || 'Danger', 'This course id already added', {
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
       position,
       status,
     });

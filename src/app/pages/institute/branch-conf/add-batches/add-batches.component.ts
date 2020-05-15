@@ -26,7 +26,7 @@ export class AddBatchesComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private toasterService: NbToastrService
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
@@ -84,7 +84,7 @@ export class AddBatchesComponent implements OnInit {
       param = param.append('batchId', this.batchId);
       this.api.updateBatch(param, this.batch.value).subscribe(
         (res) => console.log(res),
-        (error) => console.log(error)
+        (error) => console.log(error),
       );
     }
     console.log('batch => ', this.batch.value);
@@ -101,7 +101,7 @@ export class AddBatchesComponent implements OnInit {
         (err) => {
           console.error(err);
           this.invalid('top-right', 'danger');
-        }
+        },
       );
     }
   }
