@@ -36,7 +36,7 @@ export class AddStudentsComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private active: ActivatedRoute,
-    private toasterService: NbToastrService
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
@@ -104,6 +104,7 @@ export class AddStudentsComponent implements OnInit {
       console.log('my batch', this.batches.batch);
     });
   }
+
   getCourses(id) {
     this.api.getCourses(id).subscribe((data) => {
       //this.courses = JSON.stringify(data);
@@ -121,7 +122,7 @@ export class AddStudentsComponent implements OnInit {
         this.discounts = JSON.parse(dis);
         console.log('Discount ====>', this.discounts.discount);
       },
-      (err) => console.error(err)
+      (err) => console.error(err),
     );
   }
   getStudent(email: string) {
@@ -180,7 +181,7 @@ export class AddStudentsComponent implements OnInit {
         (res) => {
           console.log(res), this.updateToaster('top-right', 'success');
         },
-        (err) => console.log(err)
+        (err) => console.log(err),
       );
     }
 
@@ -210,7 +211,7 @@ export class AddStudentsComponent implements OnInit {
     this.toasterService.show(
       status || 'Danger',
       'Student Email and Student Contact must be unique',
-      { position, status }
+      { position, status },
     );
   }
 }

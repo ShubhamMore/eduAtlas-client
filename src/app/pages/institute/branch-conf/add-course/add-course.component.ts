@@ -26,14 +26,22 @@ export class AddCourseComponent implements OnInit {
   inclusive: boolean = false;
   exclusiveGst: number = null;
   fees: number = null;
-  updateCourse = { courseCode: '', name: '', fees: '', gst: '', discription: '', totalFee: '' };
+  updateCourse = {
+    courseCode: '',
+    name: '',
+    fees: '',
+    gst: '',
+    gstValue: '',
+    discription: '',
+    totalFee: '',
+  };
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private active: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -52,6 +60,7 @@ export class AddCourseComponent implements OnInit {
       courseCode: ['', Validators.required],
       fees: [''],
       gst: [''],
+      gstValue: [''],
       discription: [''],
       totalFee: [''],
     });
@@ -73,11 +82,12 @@ export class AddCourseComponent implements OnInit {
           courseCode: this.updateCourse.courseCode,
           fees: this.updateCourse.fees,
           gst: this.updateCourse.gst,
+          gstValue: this.updateCourse.gstValue,
           discription: this.updateCourse.discription,
           totalFee: this.updateCourse.totalFee,
         });
       },
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
   }
   getInstitutes() {
@@ -108,7 +118,7 @@ export class AddCourseComponent implements OnInit {
       param = param.append('courseId', this.courseId);
       this.api.updateCourse(param, this.course.value).subscribe(
         (res) => console.log(res),
-        (error) => console.log(error)
+        (error) => console.log(error),
       );
     }
 
@@ -125,7 +135,7 @@ export class AddCourseComponent implements OnInit {
         (err) => {
           console.error(err);
           this.invalid('top-right', 'danger');
-        }
+        },
       );
     }
   }
