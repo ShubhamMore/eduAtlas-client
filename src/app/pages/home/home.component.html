@@ -123,11 +123,9 @@
     </nb-card>
   </div>
 </div>
-
 <div class="row" [hidden]="!display">
   <div class="col-sm-6">
-    <nb-card style="max-height: 35vh;" [hidden]="false"
-      >>
+    <nb-card style="max-height: 35vh;" [hidden]="false">
       <nb-card-header style="background-color: skyblue; color: black;">
         PENDING FEES
         <input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker" />
@@ -196,6 +194,26 @@
             </div>
           </div>
         </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
+</div>
+<div class="row" [hidden]="!display">
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
+      <nb-card-header>Messages</nb-card-header>
+      <nb-list></nb-list>
+    </nb-card>
+  </div>
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
+      <nb-card-header> New Leads</nb-card-header>
+      <nb-list>
+        <div
+          class="mb-3"
+          style="display: grid; grid-template-columns: auto auto auto;"
+          *ngFor="let msg of messages"
+        ></div>
       </nb-list>
     </nb-card>
   </div>
