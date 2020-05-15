@@ -1,213 +1,202 @@
-
 <nb-card [hidden]="display">
   <nb-card-body>
     <div class="text-center">
-      <img src="assets/img/institute.png" width="100px" height="100px">
+      <img src="assets/img/institute.png" width="100px" height="100px" />
       <h3 class="mt-4">NO INSTITUTE ADDED</h3>
       <small>Click on add Institute Button to create other branches</small>
       <div class="mt-4">
-      <button nbButton status="warning" style="color: black" (click)="onClick()">ADD INSTITUTE</button>
-    </div>
+        <button nbButton status="warning" style="color: black;" (click)="onClick()">
+          ADD INSTITUTE
+        </button>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>
 
 <div class="row" [hidden]="!display">
-	<div class="col-sm-6">
-	<nb-card status="basic" style="max-height: 35vh">
-		<nb-card-header>
-			MY INSTITUTES
+  <div class="col-sm-6">
+    <nb-card status="basic" style="max-height: 35vh;">
+      <nb-card-header>
+        MY INSTITUTES
+      </nb-card-header>
+      <nb-list>
+        <nb-list-item *ngFor="let item of institute; let i = index">
+          <a (click)="viewInstitute(item._id)">
+            <span
+              ><img [src]="imageUrl[i]" width="30px" height="30px" style="border-radius: 100%;"
+            /></span>
 
-		
-		</nb-card-header>
-		<nb-list>
-			<nb-list-item *ngFor="let item of institute;let i=index;">
-				<a (click)="viewInstitute(item._id)">
-				<span><img [src]="imageUrl[i]" width="30px" height="30px"
-					 style="border-radius: 100%"></span>
-				<span class="ml-3">{{item.basicInfo.name}}</span>
-				<span class="ml-3">{{item.address.city}}</span>
-				<span style="float: right;">	
-				<!-- <nb-icon icon="arrow-forward-outline" status="warning"></nb-icon> -->
-				<img src="assets/img/rarrow.png" width="30px" height="30px">
-			</span>
-		</a>
-			</nb-list-item>
-		</nb-list>
+            <span class="ml-3">{{ item.basicInfo.name }}</span>
+            <span class="ml-3">{{ item.address.city }}</span>
+            <span style="float: right;">
+              <!-- <nb-icon icon="arrow-forward-outline" status="warning"></nb-icon> -->
+              <img src="assets/img/rarrow.png" width="30px" height="30px" />
+            </span>
+          </a>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 
-	</nb-card>
-
-	</div>
-	
-
-	<div class="col-sm-6">
-		<nb-card>
-			<nb-card-body>
-				<div class="row">
-					<div class="col-sm-10">
-				<p class="font-weight-bold">
-					ADD INSTITUTE
-								
-					</p>
-				</div>
-				<div class="col-sm-2">
-			
-						<a routerLink="/pages/membership">
-						<img src="assets/img/rarrow.png" width="30px" height="30px">
-							</a>
-					
-				</div>
-			</div>
-			</nb-card-body>
-		</nb-card>
-		<nb-card>
-			<nb-card-body>
-				<p class="font-weight-bold">
-					SMS BALANCE
-				
-				
-					</p>
-			</nb-card-body>
-		</nb-card>
-		
-	</div>
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-sm-10">
+            <p class="font-weight-bold">
+              ADD INSTITUTE
+            </p>
+          </div>
+          <div class="col-sm-2">
+            <a routerLink="/pages/membership">
+              <img src="assets/img/rarrow.png" width="30px" height="30px" />
+            </a>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+    <nb-card>
+      <nb-card-body>
+        <p class="font-weight-bold">
+          SMS BALANCE
+        </p>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
 <div class="row" [hidden]="!display">
-	<div class="col-sm-6">
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
+      <nb-card-header
+        >UPCOMING CLASS
+        <nb-select status="control" placeholder="institute" style="float: right;">
+          <nb-option [value]="undefined">Select</nb-option>
+          <nb-option *ngFor="let item of institute" value="{{ item.basicInfo.name }}">{{
+            item.basicInfo.name
+          }}</nb-option>
+        </nb-select>
+      </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;">
+            <div
+              class="text-center mr-2"
+              style="border-radius: 5px; background-color: skyblue;"
+            ></div>
+            <div></div>
 
-	<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
-		<nb-card-header>UPCOMING CLASS
-	   <nb-select status="control" placeholder="institute" style="float: right;">
-              <nb-option [value]="undefined">Select</nb-option>
-              <nb-option *ngFor="let item of institute" value={{item.basicInfo.name}}>{{item.basicInfo.name}}</nb-option>
-            </nb-select>
-		</nb-card-header>
-		<nb-list>
-			<nb-list-item>
-				<div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto">
-					<div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue">
-					
-					</div>
-					<div>
-					
-					</div>
-				
-					<div class="text-right">
-					
-					</div>
+            <div class="text-right"></div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 
-				</div>
-			</nb-list-item>
-		
-			
-		</nb-list>
-	</nb-card>
-</div>
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
+      <nb-card-header>STUDENT REQUETS </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;">
+            <div>
+              <span
+                ><img
+                  src="assets/images/nick.png"
+                  width="30px"
+                  height="30px"
+                  style="border-radius: 100%;"
+              /></span>
+            </div>
+            <div class="pr-3 pl-3"></div>
 
-<div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
-		<nb-card-header>STUDENT REQUETS
-		  		
-        </nb-card-header>
-		<nb-list>
-			<nb-list-item>
-				<div class="mb-3" style="display: grid; grid-template-columns: auto auto auto" >
-					<div>
-						<span><img src="assets/images/nick.png" width="30px" height="30px"
-						 style="border-radius: 100%"></span>
-					</div>
-					<div class="pr-3 pl-3">
-						
-					</div>
-					
-					<div style="text-align: right;">
-						<a href="#" class="mr-2">
-					<img src="assets/img/check.png" width="30px" height="30px">
-					</a>
-					<a href="#">
-				
-							<img src="assets/img/cross.png" width="30px" height="30px">
-			
-				</a>
-					</div>
-			</div>
-			
-			</nb-list-item>
-	
-			
-		
-			
-		</nb-list>
-	</nb-card>
-</div>
+            <div style="text-align: right;">
+              <a href="#" class="mr-2">
+                <img src="assets/img/check.png" width="30px" height="30px" />
+              </a>
+              <a href="#">
+                <img src="assets/img/cross.png" width="30px" height="30px" />
+              </a>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 </div>
 
 <div class="row" [hidden]="!display">
-	<div class="col-sm-6">
-		<nb-card style="max-height: 35vh;" hidden=true>
-			<nb-card-header style="background-color: skyblue;color: black">
-				PENDING FEES
-				<input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker">
-				<nb-datepicker #formpicker></nb-datepicker>
-			</nb-card-header>
-			<nb-list>
-				<nb-list-item>
-					<div class="mb-3" *ngFor="let item of studentPendingFee" style="display: grid; grid-template-columns: 50px auto auto">
-					<div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue">
-						<small>
-							<b>{{item.date}}</b>
-						</small>
-							<small style="display: block;">{{item.month}}</small>
-						
-					</div>
-					<div>
-						<small><b>{{item.name}}</b></small>
-						<small style="display: block">{{item.institute}}</small>
-						<small style="display: block">{{item.batch}}</small>
-						<small style="display: block">{{item.roll}}</small>
-					</div>
-					<div style="text-align: right;">
-						<small>INR</small>
-						<small style="display: block;">{{item.fee}}</small>
-					</div>
+  <div class="col-sm-6">
+    <nb-card style="max-height: 35vh;" [hidden]="false"
+      >>
+      <nb-card-header style="background-color: skyblue; color: black;">
+        PENDING FEES
+        <input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker" />
+        <nb-datepicker #formpicker></nb-datepicker>
+      </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div
+            class="mb-3"
+            *ngFor="let item of studentPendingFee"
+            style="display: grid; grid-template-columns: 50px auto auto;"
+          >
+            <div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue;">
+              <small>
+                <b>{{ item.date }}</b>
+              </small>
+              <small style="display: block;">{{ item.month }}</small>
+            </div>
+            <div>
+              <small
+                ><b>{{ item.name }}</b></small
+              >
+              <small style="display: block;">{{ item.institute }}</small>
+              <small style="display: block;">{{ item.batch }}</small>
+              <small style="display: block;">{{ item.roll }}</small>
+            </div>
+            <div style="text-align: right;">
+              <small>INR</small>
+              <small style="display: block;">{{ item.fee }}</small>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 
-				</div>
-				</nb-list-item>
-			</nb-list>
-		</nb-card>
-	</div>
+  <div class="col-sm-6">
+    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
+      <nb-card-header>LEADS </nb-card-header>
+      <nb-list>
+        <nb-list-item>
+          <div
+            class="mb-3"
+            style="display: grid; grid-template-columns: auto auto auto;"
+            *ngFor="let item of studentReq"
+          >
+            <div>
+              <span
+                ><img
+                  src="assets/images/nick.png"
+                  width="30px"
+                  height="30px"
+                  style="border-radius: 100%;"
+              /></span>
+            </div>
+            <div class="pr-3 pl-3">
+              <small
+                ><b>{{ item.name }}</b> {{ item.msg }} <b>{{ item.institute }}</b></small
+              >
+              <small style="display: block;">email: {{ item.email }}</small>
+              <small style="display: block;">contact: {{ item.contact }}</small>
+            </div>
 
-	<div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
-		<nb-card-header>LEADS
-		  		
-        </nb-card-header>
-		<nb-list>
-			<nb-list-item>
-				<div class="mb-3" style="display: grid; grid-template-columns: auto auto auto" *ngFor="let item of studentReq">
-					<div>
-						<span><img src="assets/images/nick.png" width="30px" height="30px"
-						 style="border-radius: 100%"></span>
-					</div>
-					<div class="pr-3 pl-3">
-						<small><b>{{item.name}}</b> {{item.msg}} <b>{{item.institute}}</b></small>
-						<small style="display: block">email: {{item.email}}</small>
-						<small style="display: block">contact: {{item.contact}}</small>
-					</div>
-					
-					<div style="text-align: right;">
-						<button nbButton status="success">RESPOND</button>
-					</div>
-			</div>
-			
-			</nb-list-item>
-	
-			
-		
-			
-		</nb-list>
-	</nb-card>
+            <div style="text-align: right;">
+              <button nbButton status="success">RESPOND</button>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card>
+  </div>
 </div>
-</div>
-
-
