@@ -122,8 +122,12 @@
               </div>
 
               <div>
-                <nb-checkbox status="warning">
-                  I agree with the TERMS AND CONDITIONS
+                <nb-checkbox
+                  status="warning"
+                  (change)="acceptTermsAndConditions($event.target.checked)"
+                >
+                  I agree with the
+                  <a href="http://eduatlas.in/index.php/terms-of-use/">TERMS AND CONDITIONS</a>
                 </nb-checkbox>
               </div>
 

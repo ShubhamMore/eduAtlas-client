@@ -15,6 +15,8 @@ export class SignUpComponent implements OnInit {
 
   signUpForm: FormGroup;
 
+  tnc: boolean = false;
+
   constructor(
     public authService: AuthService,
     public router: Router,
@@ -47,8 +49,13 @@ export class SignUpComponent implements OnInit {
     return null;
   }
 
+  acceptTermsAndConditions(tnc: boolean) {
+    this.tnc = tnc;
+    console.log(tnc);
+  }
+
   onSignUp() {
-    if (this.signUpForm.invalid) {
+    if (this.signUpForm.invalid || !this.tnc) {
       return;
     }
 
