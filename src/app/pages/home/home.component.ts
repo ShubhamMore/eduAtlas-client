@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   classes = [];
   fee = ['week', 'month'];
   studentPendingFee = [];
+  messages = []
+  newLeads = []
 
   constructor(
     private api: ApiService,

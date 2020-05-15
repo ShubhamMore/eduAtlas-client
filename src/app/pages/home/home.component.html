@@ -75,7 +75,7 @@
 <div class="row" [hidden]="!display">
 	<div class="col-sm-6">
 
-	<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
+	<nb-card status="warning" style="max-height: 35vh;" [hidden]=false>
 		<nb-card-header>UPCOMING CLASS
 	   <nb-select status="control" placeholder="institute" style="float: right;">
               <nb-option [value]="undefined">Select</nb-option>
@@ -105,7 +105,7 @@
 </div>
 
 <div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
+<nb-card status="warning" style="max-height: 35vh;" [hidden]=false>
 		<nb-card-header>STUDENT REQUETS
 		  		
         </nb-card-header>
@@ -141,10 +141,9 @@
 	</nb-card>
 </div>
 </div>
-
 <div class="row" [hidden]="!display">
 	<div class="col-sm-6">
-		<nb-card style="max-height: 35vh;" hidden=true>
+		<nb-card style="max-height: 35vh;" [hidden]=false>
 			<nb-card-header style="background-color: skyblue;color: black">
 				PENDING FEES
 				<input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker">
@@ -178,7 +177,7 @@
 	</div>
 
 	<div class="col-sm-6">
-<nb-card status="warning" style="max-height: 35vh;" [hidden]=true>
+	<nb-card status="warning" style="max-height: 35vh;" [hidden]=false>
 		<nb-card-header>LEADS
 		  		
         </nb-card-header>
@@ -209,5 +208,25 @@
 	</nb-card>
 </div>
 </div>
+<div class="row" [hidden]="!display">
+	<div class="col-sm-6">
+		<nb-card status="warning" style="max-height: 35vh;" [hidden]=false>
+			<nb-card-header>Messages</nb-card-header>
+			<nb-list></nb-list>
+		</nb-card>
+	</div>
+	<div class="col-sm-6">
+		<nb-card status="warning" style="max-height: 35vh;" [hidden]=false>  
+			<nb-card-header> New Leads</nb-card-header>
+			<nb-list>
+				<div class="mb-3" style="display: grid; grid-template-columns: auto auto auto" *ngFor="let msg of messages">
+				
+				</div>
 
+			</nb-list>
+		</nb-card>
+	</div>
+
+		
+</div>
 
