@@ -110,7 +110,7 @@ export class ApiService {
     const data = {
       basicInfo: {
         name: institute.name,
-        contactNumber: +institute.contact,
+        contactNumber: +institute.instituteContact,
       },
       address: {
         addressLine: institute.address.addressLine,

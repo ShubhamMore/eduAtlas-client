@@ -48,6 +48,7 @@ export class AddBatchesComponent implements OnInit {
 
     console.log('===============>', this.courses);
   }
+  
   getBatch(id, instituteId) {
     let param = new HttpParams();
     param = param.append('instituteId', instituteId);
