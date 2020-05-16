@@ -63,13 +63,12 @@
             #ex
             (keyup)="exclusive(ex.value)"
             placeholder="Exclusive GST in %"
-            [disabled]="inclusive"
           />
         </div>
         <div class="col-sm-1"><br /><br />Or</div>
         <div class="col-sm-3">
           <br />
-          <nb-checkbox (checkedChange)="inclusiveGst($event)" fullWidth status="warning"
+          <nb-checkbox (checkedChange)="inclusiveGst($event)" [(ngModel)]="gstCheckBox" [ngModelOptions]="{standalone: true}" fullWidth status="warning"
             >Inclusive GST</nb-checkbox
           >
         </div>
@@ -81,7 +80,7 @@
             fullWidth
             status="basic"
             formControlName="totalFee"
-            disabled="{{ inclusive }}"
+            disabled="true"
             placeholder="TotalFee"
           />
         </div>

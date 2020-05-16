@@ -3,7 +3,7 @@
   <nb-card-body>
     <nb-stepper #stepper [linear]="true">
       <nb-step [stepControl]="firstForm" label="Basic Details">
-        <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()">
+        <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()" #myForm1="ngForm">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -14,10 +14,10 @@
                   fullWidth
                   formControlName="name"
                   id="name"
-                  [status]="first.name.errors && submitted ? 'danger' : 'control'"
+                  [status]="first.name.errors  && myForm1.submitted ? 'danger' : 'control'"
                   placeholder="Add Institute/Branch *"
                 />
-                <small *ngIf="first.name.errors && submitted">*Institute name is required</small>
+                <small *ngIf="first.name.errors && myForm1.submitted">*Institute name is required</small>
               </div>
             </div>
             <div class="col-sm-6">
@@ -33,7 +33,7 @@
                   (change)="onImagePicked($event)"
                 />
               </div>
-              <div *ngIf="imagePreview !== '' && imagePreview && firstForm.get('logo').valid">
+              <div *ngIf="imagePreview !== '' || imagePreview && firstForm.get('logo').valid">
                 <img
                   [src]="imagePreview"
                   [alt]="firstForm.value.name"
@@ -51,7 +51,7 @@
       </nb-step>
 
       <nb-step [stepControl]="secondForm" label="Contact Details">
-        <form [formGroup]="secondForm" (ngSubmit)="secondFormSubmit()">
+        <form [formGroup]="secondForm" (ngSubmit)="secondFormSubmit()" #myForm2="ngForm">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -63,10 +63,10 @@
                   id="contact"
                   maxlength="10"
                   formControlName="instituteContact"
-                  [status]="second.instituteContact.errors && submitted ? 'danger' : 'basic'"
+                  [status]="second.instituteContact.errors && myForm2.submitted ? 'danger' : 'basic'"
                   placeholder="Institute Contact Number"
                 />
-                <small *ngIf="second.instituteContact.errors && submitted"
+                <small *ngIf="second.instituteContact.errors && myForm2.submitted"
                   >*Enter Correct Phone no.</small
                 >
               </div>
@@ -184,7 +184,7 @@
                   </div>
                   <div class="col-sm-4" [hidden]="i > 0">
                     <a class="metaButton mr-5" nbButton (click)="addMetaTag()" status="basic">+</a>
-                    <a class="metaButton" nbButton (click)="removeMetaTag()" status="basic">-</a>
+                    <a class="metaButton" nbButton (click)="removeMetaTag()" [hidden]="instituteMetaTag.length == 1" status="basic">-</a>
                   </div>
                 </div>
               </div>

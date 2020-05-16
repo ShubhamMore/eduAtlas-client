@@ -23,9 +23,9 @@ export class AddCourseComponent implements OnInit {
   routerId: string;
   edit: string;
   courseId: string;
-  inclusive: boolean = false;
   exclusiveGst: number = null;
   fees: number = null;
+  gstCheckBox:boolean;
   updateCourse = {
     courseCode: '',
     name: '',
@@ -60,7 +60,7 @@ export class AddCourseComponent implements OnInit {
       courseCode: ['', Validators.required],
       fees: [''],
       gst: [''],
-      gstValue: [''],
+      gstValue:[''],
       discription: [''],
       totalFee: [''],
     });
@@ -82,10 +82,18 @@ export class AddCourseComponent implements OnInit {
           courseCode: this.updateCourse.courseCode,
           fees: this.updateCourse.fees,
           gst: this.updateCourse.gst,
-          gstValue: this.updateCourse.gstValue,
+          gstValue:this.updateCourse.gstValue,
           discription: this.updateCourse.discription,
           totalFee: this.updateCourse.totalFee,
         });
+        if(this.updateCourse.gst=='Inclusive'){
+         this.gstCheckBox = true;
+         this.course.get('gstValue').disable();
+        }else{
+          this.gstCheckBox = false;
+          this.exclusiveGst = Number(this.updateCourse.gstValue);
+        }
+        this.fees = Number(this.updateCourse.fees);
       },
       (error) => console.log(error),
     );
@@ -143,23 +151,40 @@ export class AddCourseComponent implements OnInit {
         },
         (err) => {
           console.error(err);
-          this.showToast('top-right', 'danger', 'This Course Alredy Exist');
-        },
+          this.invalid('top-right', 'danger',err.error.message);
+        }
       );
     }
   }
   inclusiveGst(event) {
-    this.inclusive = event;
-    if (this.inclusive) {
+    var inclusive = event;
+    if (inclusive) {
+      this.course.get('gstValue').disable();
       this.course.patchValue({
         gst: 'Inclusive',
       });
     }
-    if (!this.inclusive || null) {
+    if (!inclusive || null) {
+      this.course.get('gstValue').enable();
       this.course.patchValue({
         gst: 'Exclusive',
       });
     }
+    this.calculateTotalFees();
+  }
+
+  calculateTotalFees(){
+    let total = 0;
+    if(this.course.get('gst').value=='Inclusive'){
+     total = this.fees;
+    }else{
+     if(this.exclusiveGst==null){
+        total = this.fees;
+      }else{
+        total = this.fees + (this.exclusiveGst / 100) * this.fees;
+      }
+    }
+    this.course.get('totalFee').setValue(total.toString());
   }
 
   exclusive(event) {
@@ -169,16 +194,32 @@ export class AddCourseComponent implements OnInit {
     console.log('type ', typeof this.fees, this.fees);
     this.course.patchValue({
       totalFee: total + '',
+      gstValue:this.exclusiveGst
     });
+    this.calculateTotalFees();
   }
   courseFee(event) {
     this.fees = +event;
+    this.calculateTotalFees();
   }
 
-  showToast(position: any, status: any, message: any) {
-    this.toasterService.show(status, message, {
+  showToast(position, status,message) {
+    this.toasterService.show(status || 'Success', message, {
       position,
       status,
     });
+  }
+  invalid(position, status,errorMessage) {
+    if(errorMessage){
+      this.toasterService.show(status || 'Danger', errorMessage, {
+        position,
+        status,
+      });
+    }else{
+      this.toasterService.show(status || 'Danger', 'This course id already added', {
+        position,
+        status,
+      });
+    }
   }
 }

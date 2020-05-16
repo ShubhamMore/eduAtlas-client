@@ -48,6 +48,7 @@ export class AddBatchesComponent implements OnInit {
 
     console.log('===============>', this.courses);
   }
+  
   getBatch(id, instituteId) {
     let param = new HttpParams();
     param = param.append('instituteId', instituteId);
@@ -84,16 +85,13 @@ export class AddBatchesComponent implements OnInit {
       param = param.append('batchId', this.batchId);
       this.api.updateBatch(param, this.batch.value).subscribe(
         (res) => {
-          console.log(res);
-          this.showToast('top-right', 'success', 'Successfully Updated');
-          setTimeout(() => {
-            this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
-          }, 1000);
+          this.showToast('top-right', 'success','Successfully Updated');
+          this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
         },
-        (error) => {
+        (error) =>{
           console.log(error);
-          this.showToast('top-right', 'danger', 'Course Updation Failed');
-        },
+          this.invalid('top-right', 'danger',error.error.message);
+        } 
       );
     }
     console.log('batch => ', this.batch.value);
@@ -102,20 +100,26 @@ export class AddBatchesComponent implements OnInit {
         () => {
           console.log('successfully added');
 
-          this.showToast('top-right', 'success', 'Successfully added');
+          this.showToast('top-right', 'success','Successfully Added');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.showToast('top-right', 'danger', 'This Batch code already exists');
-        },
+          this.invalid('top-right', 'danger',err.error.message);
+        }
       );
     }
   }
-  showToast(position: any, status: any, message: any) {
-    this.toasterService.show(status, message, { position, status });
+  showToast(position, status,message) {
+    this.toasterService.show(status || 'Success', message, { position, status });
+  }
+  invalid(position, status,errMessage) {
+    this.toasterService.show(status || 'Danger', errMessage, {
+      position,
+      status,
+    });
   }
   goManage() {
     this.location.back();
