@@ -15,11 +15,11 @@ export class ManageReceiptComponent implements OnInit {
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.getReceipts(this.routerId);
+    
   }
   getReceipts(id) {
     this.api.getReceipt(id).subscribe((data) => {
       this.receipts = JSON.parse(JSON.stringify(data));
-      console.log(this.receipts.fee);
     });
   }
 
@@ -30,7 +30,9 @@ export class ManageReceiptComponent implements OnInit {
   }
   delete(id: string) {
     this.api.deleteReceipt(id).subscribe(
-      () => console.log('delete success'),
+      () => {
+        this.receipts = null;
+      },
       (err) => console.error(err)
     );
     // const i = this.receipts.reciepts.findIndex(e => e.id == id)
@@ -39,7 +41,6 @@ export class ManageReceiptComponent implements OnInit {
     // }
   }
   onClick() {
-    const routerId = this.active.snapshot.paramMap.get('id');
-    this.router.navigate([`/pages/institute/branch-config/add-receipt/${routerId}`]);
+    this.router.navigate([`/pages/institute/branch-config/add-receipt/${this.routerId}`]);
   }
 }

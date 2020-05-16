@@ -18,7 +18,7 @@
             [status]="f.businessName.errors && submitted ? 'danger' : 'basic'"
             placeholder="Business Name"
           />
-          <small *ngIf="f.businessName.errors && submitted">*this field is req</small>
+          <small *ngIf="f.businessName.errors && submitted">*Business Name is Required</small>
         </div>
 
         <div class="col-sm-4">
@@ -45,7 +45,7 @@
           >
             <nb-option *ngFor="let item of fees" [value]="item">{{ item }}</nb-option>
           </nb-select>
-          <small *ngIf="f.fee.errors && submitted">*this field is req</small>
+          <small *ngIf="f.fee.errors && submitted">*Fee is Required</small>
         </div>
       </div>
       <br />
@@ -65,7 +65,7 @@
           >
           </textarea>
 
-          <small *ngIf="f.address.errors && submitted">*this field is req</small>
+          <small *ngIf="f.address.errors && submitted">*Address is Required</small>
         </div>
       </div>
       <br />
@@ -85,7 +85,7 @@
             rows="7"
           >
           </textarea>
-          <small *ngIf="f.termsAndCondition.errors && submitted">*this field is req</small>
+          <small *ngIf="f.termsAndCondition.errors && submitted">*Terms & Conditions is Required</small>
         </div>
       </div>
 
