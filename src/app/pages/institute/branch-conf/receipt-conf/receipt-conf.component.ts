@@ -14,7 +14,7 @@ import { NbToastrService } from '@nebular/theme';
 export class ReceiptConfComponent implements OnInit {
   receipt: FormGroup;
   submitted = false;
-  updateReciept = { bussinessName: '', address: '', gstNumber: '', termsAndCondition: '' };
+  updateReciept = { businessName: '', address: '', gstNumber: '', termsAndCondition: '', fee: '' };
   routerId: string;
   recieptId: string;
   edit: string;
@@ -26,16 +26,17 @@ export class ReceiptConfComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private toasterSevice: NbToastrService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
-    this.getReciept(this.routerId);
     this.active.queryParams.subscribe((data) => {
-      console.log(data);
       this.recieptId = data.receiptId;
       this.edit = data.edit;
+      if (this.edit === 'true') {
+        this.getReciept(this.routerId);
+      }
     });
     this.receipt = this.fb.group({
       businessName: ['', Validators.required],
@@ -52,11 +53,16 @@ export class ReceiptConfComponent implements OnInit {
   getReciept(id) {
     this.api.getReceipt(id).subscribe(
       (data) => {
-        console.log(data);
         this.updateReciept = data;
-        console.log(this.updateReciept.bussinessName);
+        this.receipt.patchValue({
+          businessName: this.updateReciept.businessName,
+          address: this.updateReciept.address,
+          gstNumber: this.updateReciept.gstNumber,
+          termsAndCondition: this.updateReciept.termsAndCondition,
+          fee: this.updateReciept.fee,
+        });
       },
-      (err) => console.log(err)
+      (err) => console.log(err),
     );
   }
   onSubmit() {
@@ -65,25 +71,29 @@ export class ReceiptConfComponent implements OnInit {
       return;
     }
     if (this.edit === 'true') {
-      this.api.updateReceipt(this.routerId, this.receipt.value).subscribe((data) => {
-        console.log('update success' + data);
-      });
+      this.api.updateReceipt(this.routerId, this.receipt.value).subscribe(
+        (data) => {
+          this.message = 'Reciept Updated Successfully';
+          this.showToast('top-right', 'success');
+          this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
+        },
+        (err) => {
+          this.message = err.error.message;
+          this.invalidToast('top-right', 'danger');
+        },
+      );
     }
     if (!this.edit) {
       this.api.addReceipt(this.routerId, this.receipt.value).subscribe(
         () => {
-          console.log('add success');
           this.message = 'Reciept Added Successfully';
           this.showToast('top-right', 'success');
-          setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
-          }, 1000);
         },
         (err) => {
-          console.error(err);
-          this.message = 'There is something missing';
+          this.message = err.error.message;
           this.invalidToast('top-right', 'danger');
-        }
+        },
       );
     }
   }
