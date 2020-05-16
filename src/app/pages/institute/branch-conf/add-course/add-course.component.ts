@@ -50,7 +50,6 @@ export class AddCourseComponent implements OnInit {
       console.log(data);
       this.courseId = data.courseId;
       this.edit = data.edit;
-      console.log('edit' + this.edit);
     });
     if (this.edit === 'true') {
       this.getCourse(this.courseId);
