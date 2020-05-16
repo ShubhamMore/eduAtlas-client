@@ -64,7 +64,7 @@ export class AddStudentsComponent implements OnInit {
 
       contact: [
         '',
-        Validators.compose([Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/)]),
+        Validators.compose([Validators.required,Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/)]),
       ],
       parentName: [''],
       parentContact: [
