@@ -83,8 +83,17 @@ export class AddBatchesComponent implements OnInit {
       param = param.append('instituteId', this.routerId);
       param = param.append('batchId', this.batchId);
       this.api.updateBatch(param, this.batch.value).subscribe(
-        (res) => console.log(res),
-        (error) => console.log(error),
+        (res) => {
+          console.log(res);
+          this.showToast('top-right', 'success', 'Successfully Updated');
+          setTimeout(() => {
+            this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
+          }, 1000);
+        },
+        (error) => {
+          console.log(error);
+          this.showToast('top-right', 'danger', 'Course Updation Failed');
+        },
       );
     }
     console.log('batch => ', this.batch.value);
@@ -93,26 +102,20 @@ export class AddBatchesComponent implements OnInit {
         () => {
           console.log('successfully added');
 
-          this.showToast('top-right', 'success');
+          this.showToast('top-right', 'success', 'Successfully added');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger');
+          this.showToast('top-right', 'danger', 'This Batch code already exists');
         },
       );
     }
   }
-  showToast(position, status) {
-    this.toasterService.show(status || 'Success', 'Successfully Added', { position, status });
-  }
-  invalid(position, status) {
-    this.toasterService.show(status || 'Danger', 'This Batch code already exists', {
-      position,
-      status,
-    });
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
   goManage() {
     this.location.back();
