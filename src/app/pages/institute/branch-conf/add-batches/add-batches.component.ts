@@ -26,7 +26,7 @@ export class AddBatchesComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private toasterService: NbToastrService
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {

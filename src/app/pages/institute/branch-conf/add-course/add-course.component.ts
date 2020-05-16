@@ -25,15 +25,23 @@ export class AddCourseComponent implements OnInit {
   courseId: string;
   exclusiveGst: number = null;
   fees: number = null;
-  gstCheckBox : boolean = false;
-  updateCourse = { courseCode: '', name: '', fees: '', gst: '', discription: '', totalFee: '' ,gstValue:''};
+  gstCheckBox:boolean;
+  updateCourse = {
+    courseCode: '',
+    name: '',
+    fees: '',
+    gst: '',
+    gstValue: '',
+    discription: '',
+    totalFee: '',
+  };
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private active: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -87,7 +95,7 @@ export class AddCourseComponent implements OnInit {
         }
         this.fees = Number(this.updateCourse.fees);
       },
-      (error) => console.log(error)
+      (error) => console.log(error),
     );
   }
   getInstitutes() {
@@ -118,10 +126,16 @@ export class AddCourseComponent implements OnInit {
       param = param.append('courseId', this.courseId);
       this.api.updateCourse(param, this.course.value).subscribe(
         (res) => {
-          this.showToast('top-right', 'success','Course Updated Successfully');
-          this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
+          console.log(res);
+          this.showToast('top-right', 'success', 'Course Updated');
+          setTimeout(() => {
+            this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
+          }, 1000);
         },
-        (error) => console.log(error)
+        (error) => {
+          console.log(error);
+          this.showToast('top-right', 'danger', 'Course Updation Failed');
+        },
       );
     }
 
@@ -129,7 +143,8 @@ export class AddCourseComponent implements OnInit {
     if (!this.edit) {
       this.api.addCourse(this.routerId, this.course.value).subscribe(
         (data) => {
-          this.showToast('top-right', 'success','Course Added Successfully');
+          console.log(data);
+          this.showToast('top-right', 'success', 'Course Added Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
           }, 1000);
@@ -173,7 +188,7 @@ export class AddCourseComponent implements OnInit {
   }
 
   exclusive(event) {
-    this.exclusiveGst = event;
+    this.exclusiveGst = +event;
     console.log('exclusiv ', this.exclusiveGst);
     let total = this.fees + (this.exclusiveGst / 100) * this.fees;
     console.log('type ', typeof this.fees, this.fees);
