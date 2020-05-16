@@ -26,7 +26,7 @@ export class ReceiptConfComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private toasterSevice: NbToastrService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -45,6 +45,7 @@ export class ReceiptConfComponent implements OnInit {
       fee: ['', Validators.required],
     });
   }
+
   get f() {
     return this.receipt.controls;
   }
@@ -56,9 +57,10 @@ export class ReceiptConfComponent implements OnInit {
         this.updateReciept = data;
         console.log(this.updateReciept.bussinessName);
       },
-      (err) => console.log(err)
+      (err) => console.log(err),
     );
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.receipt.invalid) {
@@ -69,6 +71,7 @@ export class ReceiptConfComponent implements OnInit {
         console.log('update success' + data);
       });
     }
+
     if (!this.edit) {
       this.api.addReceipt(this.routerId, this.receipt.value).subscribe(
         () => {
@@ -83,7 +86,7 @@ export class ReceiptConfComponent implements OnInit {
           console.error(err);
           this.message = 'There is something missing';
           this.invalidToast('top-right', 'danger');
-        }
+        },
       );
     }
   }
