@@ -12,9 +12,10 @@ import {
 } from '@nebular/theme';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule } from '@angular/forms';
+import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
 
 @NgModule({
-  declarations: [CommunicationComponent, AnnouncementsComponent],
+  declarations: [CommunicationComponent, AnnouncementsComponent,SafeHtmlPipe],
   imports: [
     CommonModule,
     CommRoutingModule,

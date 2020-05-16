@@ -23,7 +23,7 @@
         <hr />
         <div>
           <!-- <input type="button" value="Select Attachment" nbInput (click)="attachment.click()" fullWidth> -->
-          <label>SELECT ATTACHEMENT</label>
+          <label>SELECT ATTACHMENT</label>
           <input type="file" nbInput fullWidth status="warning" value="select Attachment" />
         </div>
         <hr />
@@ -87,12 +87,13 @@
           <div class="col-sm-3">
             <span>Announcement {{ i }}</span>
           </div>
-          <div class="col-sm-7">
-            {{ item.text }}
+          <div class="col-sm-7" [innerHTML] = "item.text | safeHtml">
+            
           </div>
           <div class="col-sm-2">
             <button class="btn btn-danger" (click)="onDelete(routerId)">Del</button>
           </div>
+          <hr />
         </div>
       </nb-card-body>
     </nb-card>
