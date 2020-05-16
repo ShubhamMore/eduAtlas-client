@@ -19,7 +19,7 @@
             [status]="f.course.errors && submitted ? 'danger' : 'basic'"
           >
             <!-- <nb-option value="">Select Parent Course</nb-option> -->
-            <nb-option *ngFor="let item of courses.course" [value]="item.name"
+            <nb-option *ngFor="let item of courses.course" [value]="item._id"
               >{{ item.name }}
             </nb-option>
           </nb-select>
