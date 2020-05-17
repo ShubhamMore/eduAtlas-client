@@ -8,7 +8,6 @@ import { mimeType } from './mime-type.validator';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
-import { setTimeout } from 'timers';
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
