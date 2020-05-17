@@ -110,7 +110,7 @@ export class ApiService {
     const data = {
       basicInfo: {
         name: institute.name,
-        contactNumber: +institute.instituteContact,
+        instituteContact: +institute.instituteContact,
       },
       address: {
         addressLine: institute.address.addressLine,
@@ -123,7 +123,14 @@ export class ApiService {
       metaTag: institute.instituteMetaTag,
     };
 
-    return this.http.put<{ message: string }>(url, data, this.httpOptions).pipe(
+    const postData = new FormData();
+    postData.append('basicInfo', JSON.stringify(data.basicInfo));
+    postData.append('address', JSON.stringify(data.address));
+    postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
+    postData.append('category', JSON.stringify(institute.category));
+    postData.append('logo', institute.logo, institute.name);
+
+    return this.http.put<{ message: string }>(url, postData, this.httpOptions).pipe(
       map(() => institute),
       catchError(this.handleError),
     );

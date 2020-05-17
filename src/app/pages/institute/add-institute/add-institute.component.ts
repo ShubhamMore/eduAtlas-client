@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
@@ -70,11 +71,12 @@ export class AddInstituteComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private toastrService: NbToastrService,
+    private domSanitizer: DomSanitizer,
   ) {}
 
   ngOnInit() {
     this.active.queryParams.subscribe((data) => {
-      console.log('query params ', data);
+      // console.log('query params ', data);
       this.edit = data.edit;
       this.instituteId = data.instituteId;
     });
@@ -89,13 +91,7 @@ export class AddInstituteComponent implements OnInit {
     });
 
     this.secondForm = this.fb.group({
-      instituteContact: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
-        ]),
-      ],
+      instituteContact: ['', { validators: [Validators.required] }],
       address: this.fb.group({
         addressLine: [''],
         locality: [''],
@@ -129,11 +125,11 @@ export class AddInstituteComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  getInstitute(id) {
-    this.api.getInstitute(id).subscribe((data) => {
+  getInstitute(id: any) {
+    this.api.getInstitute(id).subscribe((data: any) => {
       this.myInstitute = data;
-      console.log('myInstitute==========>', this.myInstitute);
-      console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
+      // console.log('myInstitute==========>', this.myInstitute);
+      // console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
       setTimeout(() => {
         this.firstForm.patchValue({
           name: this.myInstitute.institute.basicInfo.name,
@@ -154,7 +150,7 @@ export class AddInstituteComponent implements OnInit {
           category: this.myInstitute.institute.category,
           instituteMetaTag: this.myInstitute.institute.metaTag,
         });
-      }, 200);
+      }, 2000);
     });
   }
 
@@ -164,15 +160,19 @@ export class AddInstituteComponent implements OnInit {
         this.countryInfo = data.Countries;
         this.stateInfo = this.countryInfo[100].States;
         this.cityInfo = this.stateInfo[0].Cities;
-        console.log(this.stateInfo[0]);
+        // console.log(this.stateInfo[0]);
       },
-      (err) => console.log(err),
-      () => console.log('complete'),
+      (err) => {
+        // console.log(err);
+      },
+      () => {
+        // console.log('complete');
+      },
     );
   }
 
-  onChangeState(stateValue) {
-    console.log(stateValue);
+  onChangeState(stateValue: any) {
+    // console.log(stateValue);
     this.cityInfo = this.stateInfo[stateValue].Cities;
   }
 
@@ -204,9 +204,9 @@ export class AddInstituteComponent implements OnInit {
     this.firstForm.markAsDirty();
     this.institute.name = this.firstForm.value.name;
     this.institute.logo = this.firstForm.value.logo;
-    console.log(this.first.logo.errors);
+    // console.log(this.first.logo.errors);
     this.stepper.next();
-    console.log('firstForm=>', this.institute);
+    // console.log('firstForm=>', this.institute);
   }
 
   secondFormSubmit() {
@@ -214,33 +214,35 @@ export class AddInstituteComponent implements OnInit {
     this.institute.instituteContact = this.secondForm.value.instituteContact;
     this.institute.address = this.secondForm.value.address;
     this.stepper.next();
-    console.log('sec form=>', this.institute);
+    // console.log('sec form=>', this.institute);
   }
 
   thirdFormSubmit() {
     this.thirdForm.markAsDirty();
     this.institute.category = this.thirdForm.value.category;
     this.institute.instituteMetaTag = this.thirdForm.value.instituteMetaTag;
-    console.log(this.institute);
+    // console.log(this.institute);
 
     if (this.edit === 'true') {
       this.api.updateInstitute(this.instituteId, this.institute).subscribe(
         (res) => {
-          console.log(res);
+          // console.log(res);
           this.showToast('top-right', 'success', 'Institute Added Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/home']);
           }, 1000);
         },
-        (err) => console.log(err),
+        (err) => {
+          // console.log(err);
+        },
       );
     }
 
-    console.log(this.institute);
+    // console.log(this.institute);
     if (!this.edit) {
       this.api.addInstitute(this.institute).subscribe((data) => {
         this.user = data;
-        console.log(this.user);
+        // console.log(this.user);
 
         this.showToast('top-right', 'success', 'Institute Added Successfully');
         setTimeout(() => {
@@ -251,7 +253,7 @@ export class AddInstituteComponent implements OnInit {
       });
     }
 
-    console.log('forth form =>', this.institute);
+    // console.log('forth form =>', this.institute);
   }
 
   showToast(position: any, status: any, message: any) {
@@ -262,6 +264,6 @@ export class AddInstituteComponent implements OnInit {
   }
 
   change(event) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
   }
 }

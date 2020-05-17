@@ -25,14 +25,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   classes = [];
   fee = ['week', 'month'];
   studentPendingFee = [];
-  messages = []
-  newLeads = []
+  messages = [];
+  newLeads = [];
 
   constructor(
     private api: ApiService,
     private router: Router,
     private active: ActivatedRoute,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
   ) {}
 
   ngOnInit() {
@@ -63,21 +63,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
         if (this.institute.length) {
           this.display = true;
-          //console.log(this.display);
+          // console.log(this.display);
         }
         this.institute.forEach((data, i, a) => {
-          //console.log('=>' ,data.basicInfo.logo.data.data)
+          // console.log('=>' ,data.basicInfo.logo.data.data)
           let TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
           this.STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-          //console.log('string char => ', i , '  ', this.STRING_CHAR);
+          // console.log('string char => ', i , '  ', this.STRING_CHAR);
           this.STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
             return data + String.fromCharCode(byte);
           }, '');
 
           this.base64String = btoa(this.STRING_CHAR);
-          //console.log('base64'+ i, this.base64String);
+          // console.log('base64'+ i, this.base64String);
           this.imageUrl.push(
-            this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + this.base64String)
+            this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + this.base64String),
           );
 
           // console.log('imageUrls => ', this.imageUrl);
