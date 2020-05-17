@@ -21,7 +21,7 @@
       </nb-card-header>
       <nb-list>
         <nb-list-item *ngFor="let item of institute; let i = index">
-          <a (click)="viewInstitute(item._id)">
+          <a (click)="viewInstitute(item._id)" style="width:100%">
             <span
               ><img [src]="imageUrl[i]" width="30px" height="30px" style="border-radius: 100%;"
             /></span>
@@ -100,7 +100,7 @@
       <nb-card-header>STUDENT REQUETS </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;">
+          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto; width:100%;">
             <div>
               <span
                 ><img
@@ -172,7 +172,7 @@
         <nb-list-item>
           <div
             class="mb-3"
-            style="display: grid; grid-template-columns: auto auto auto;"
+            style="display: grid; grid-template-columns: auto auto auto; width:100%;"
             *ngFor="let item of studentReq"
           >
             <div>
@@ -214,7 +214,7 @@
       <nb-list>
         <div
           class="mb-3"
-          style="display: grid; grid-template-columns: auto auto auto;"
+          style="display: grid; grid-template-columns: auto auto auto; width:100%;"
           *ngFor="let msg of messages"
         ></div>
       </nb-list>
