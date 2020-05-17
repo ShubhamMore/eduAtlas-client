@@ -57,7 +57,7 @@ export class ApiService {
     const url = `${environment.server}/institute/oneInstitute/${id}`;
     return this.http.get<instituteData>(url, this.httpOptions).pipe(
       tap((data) => console.log(data)),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 
@@ -97,11 +97,11 @@ export class ApiService {
       .post<{ message: string }>(
         environment.server + '/institute/addInstitute',
         postData,
-        this.httpOptions
+        this.httpOptions,
       )
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   updateInstitute(id: string, institute: any): Observable<any> {
@@ -110,7 +110,7 @@ export class ApiService {
     const data = {
       basicInfo: {
         name: institute.name,
-        contactNumber: +institute.instituteContact,
+        instituteContact: +institute.instituteContact,
       },
       address: {
         addressLine: institute.address.addressLine,
@@ -123,9 +123,16 @@ export class ApiService {
       metaTag: institute.instituteMetaTag,
     };
 
-    return this.http.put<{ message: string }>(url, data, this.httpOptions).pipe(
+    const postData = new FormData();
+    postData.append('basicInfo', JSON.stringify(data.basicInfo));
+    postData.append('address', JSON.stringify(data.address));
+    postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
+    postData.append('category', JSON.stringify(institute.category));
+    postData.append('logo', institute.logo, institute.name);
+
+    return this.http.put<{ message: string }>(url, postData, this.httpOptions).pipe(
       map(() => institute),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
   deleteInstitute(id: string): Observable<void> {
@@ -139,7 +146,7 @@ export class ApiService {
     const url = `${environment.server}/institute/student/all/${instituteId}`;
     return this.http.get<any[]>(url, this.httpOptions).pipe(
       tap((data) => console.log(data)),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
   getStudent(params): Observable<any> {
@@ -151,7 +158,7 @@ export class ApiService {
       .pipe(
         tap((data) => console.log(data)),
         map((data) => data.student),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -189,11 +196,11 @@ export class ApiService {
       .post<{ message: string }>(
         environment.server + '/institute/student/add',
         data,
-        this.httpOptions
+        this.httpOptions,
       )
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -233,7 +240,7 @@ export class ApiService {
       })
       .pipe(
         map(() => student),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -253,7 +260,7 @@ export class ApiService {
       .get<any[]>(`${environment.server}/institute/course/all/${id}`, this.httpOptions)
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   addCourse(id: string, course: any): Observable<any> {
@@ -261,7 +268,7 @@ export class ApiService {
       .post<any>(`${environment.server}/institute/course/addCourse/${id}`, course, this.httpOptions)
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -281,7 +288,7 @@ export class ApiService {
       })
       .pipe(
         map(() => course),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   deleteCourse(param): Observable<void> {
@@ -300,7 +307,7 @@ export class ApiService {
       .get<any[]>(`${environment.server}/institute/course/batches/${branchId}`, this.httpOptions)
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   getBatch(params): Observable<any> {
@@ -316,11 +323,11 @@ export class ApiService {
       .post<batchData>(
         `${environment.server}/institute/course/addBatch/${branchId}`,
         batch,
-        this.httpOptions
+        this.httpOptions,
       )
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   deleteBatch(params): Observable<void> {
@@ -339,7 +346,7 @@ export class ApiService {
       })
       .pipe(
         map(() => batch),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -350,7 +357,7 @@ export class ApiService {
       .get<any[]>(`${environment.server}/institute/course/discounts/${id}`, this.httpOptions)
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   getDiscount(params): Observable<any> {
@@ -367,11 +374,11 @@ export class ApiService {
       .post<any>(
         `${environment.server}/institute/course/addDiscount/${id}`,
         discount,
-        this.httpOptions
+        this.httpOptions,
       )
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -391,7 +398,7 @@ export class ApiService {
       })
       .pipe(
         map(() => discount),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -402,7 +409,7 @@ export class ApiService {
       .get<any>(`${environment.server}/institute/course/reciept/${id}`, this.httpOptions)
       .pipe(
         map((data) => data.reciept),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
 
@@ -412,18 +419,18 @@ export class ApiService {
       .post<any>(
         `${environment.server}/institute/course/addReciept/${id}`,
         receipt,
-        this.httpOptions
+        this.httpOptions,
       )
       .pipe(
         tap((data) => console.log(data)),
-        catchError(this.handleError)
+        catchError(this.handleError),
       );
   }
   updateReceipt(id: string, reciept): Observable<any> {
     const url = `${environment.server}/institute/course/reciept/${id}`;
     return this.http.patch<any>(url, reciept, this.httpOptions).pipe(
       map(() => reciept),
-      catchError(this.handleError)
+      catchError(this.handleError),
     );
   }
 

@@ -7,7 +7,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="name">Add Institute/Branch *</label>
+                <label for="name">Add Institute/Branch*</label>
                 <input
                   type="text"
                   nbInput
@@ -17,9 +17,13 @@
                   [status]="first.name.errors  && myForm1.submitted ? 'danger' : 'basic'"
                   placeholder="Add Institute/Branch *"
                 />
-                <small *ngIf="first.name.errors && myForm1.submitted">*Institute name is required</small>
+
+                <small *ngIf="first.name.errors && myForm1.submitted"
+                  >*Institute name is required</small
+                >
               </div>
             </div>
+
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="logo">Add logo/avatar *</label>
@@ -33,7 +37,7 @@
                   (change)="onImagePicked($event)"
                 />
               </div>
-              <div *ngIf="imagePreview !== '' || imagePreview && firstForm.get('logo').valid">
+              <div *ngIf="imagePreview !== '' || (imagePreview && firstForm.get('logo').valid)">
                 <img
                   [src]="imagePreview"
                   width="100px"
@@ -61,8 +65,12 @@
                   fullWidth
                   id="contact"
                   maxlength="10"
+                  pattern="\d*"
+                  minlength="10"
                   formControlName="instituteContact"
-                  [status]="second.instituteContact.errors && myForm2.submitted ? 'danger' : 'basic'"
+                  [status]="
+                    second.instituteContact.errors && myForm2.submitted ? 'danger' : 'basic'
+                  "
                   placeholder="Institute Contact Number"
                 />
                 <small *ngIf="second.instituteContact.errors && myForm2.submitted"
@@ -84,7 +92,7 @@
                       [selected]="1"
                       placeholder="State"
                     >
-                      <nb-option [value]="undefined">--Select State--</nb-option>
+                      <nb-option [value]="">--Select State--</nb-option>
                       <nb-option *ngFor="let state of stateInfo; let j = index" value="{{ j }}">{{
                         state.StateName
                       }}</nb-option>
@@ -183,7 +191,14 @@
                   </div>
                   <div class="col-sm-4" [hidden]="i > 0">
                     <a class="metaButton mr-5" nbButton (click)="addMetaTag()" status="basic">+</a>
-                    <a class="metaButton" nbButton (click)="removeMetaTag()" [hidden]="instituteMetaTag.length == 1" status="basic">-</a>
+                    <a
+                      class="metaButton"
+                      nbButton
+                      (click)="removeMetaTag()"
+                      [hidden]="instituteMetaTag.length == 1"
+                      status="basic"
+                      >-</a
+                    >
                   </div>
                 </div>
               </div>

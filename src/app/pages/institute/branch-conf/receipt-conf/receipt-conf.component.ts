@@ -46,6 +46,7 @@ export class ReceiptConfComponent implements OnInit {
       fee: ['', Validators.required],
     });
   }
+
   get f() {
     return this.receipt.controls;
   }
@@ -65,6 +66,7 @@ export class ReceiptConfComponent implements OnInit {
       (err) => console.log(err),
     );
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.receipt.invalid) {
@@ -83,6 +85,7 @@ export class ReceiptConfComponent implements OnInit {
         },
       );
     }
+
     if (!this.edit) {
       this.api.addReceipt(this.routerId, this.receipt.value).subscribe(
         () => {

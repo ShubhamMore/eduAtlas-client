@@ -1,3 +1,4 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
@@ -7,6 +8,7 @@ import { mimeType } from './mime-type.validator';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
+import { setTimeout } from 'timers';
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
@@ -18,7 +20,7 @@ export class AddInstituteComponent implements OnInit {
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
-  forthForm: FormGroup;
+
   institute = {
     name: '',
     logo: null,
@@ -27,8 +29,10 @@ export class AddInstituteComponent implements OnInit {
     category: [''],
     instituteMetaTag: [''],
   };
+
   submitted = false;
   inputValue: string;
+
   myInstitute = {
     institute: {
       address: { addressLine: '', locality: '', state: '', city: '' },
@@ -41,6 +45,7 @@ export class AddInstituteComponent implements OnInit {
       location: { type: '', coordinates: [] },
     },
   };
+
   imagePreview: string;
   user: any;
   stateInfo: any[] = [];
@@ -58,36 +63,35 @@ export class AddInstituteComponent implements OnInit {
     { id: 6, name: 'Enhanced learning' },
     { id: 7, name: 'Sports Centers' },
   ];
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private country: CountryService,
     private active: ActivatedRoute,
     private router: Router,
-    private toastrService: NbToastrService
+    private toastrService: NbToastrService,
+    private domSanitizer: DomSanitizer,
   ) {}
 
   ngOnInit() {
     this.active.queryParams.subscribe((data) => {
-      console.log('query params ', data);
+      // console.log('query params ', data);
       this.edit = data.edit;
       this.instituteId = data.instituteId;
     });
+
     if (this.edit) {
       this.getInstitute(this.instituteId);
     }
+
     this.firstForm = this.fb.group({
       name: ['', Validators.required],
       logo: [null, { Validators: [Validators.required], asyncValidators: [mimeType] }],
     });
+
     this.secondForm = this.fb.group({
-      instituteContact: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
-        ]),
-      ],
+      instituteContact: ['', { validators: [Validators.required] }],
       address: this.fb.group({
         addressLine: [''],
         locality: [''],
@@ -96,6 +100,7 @@ export class AddInstituteComponent implements OnInit {
         pincode: [''],
       }),
     });
+
     this.thirdForm = this.fb.group({
       category: [['']],
       instituteMetaTag: this.fb.array([this.fb.control('')]),
@@ -108,6 +113,7 @@ export class AddInstituteComponent implements OnInit {
 
     this.getCountries();
   }
+
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.firstForm.patchValue({ logo: file });
@@ -119,46 +125,54 @@ export class AddInstituteComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  getInstitute(id) {
-    this.api.getInstitute(id).subscribe((data) => {
+  getInstitute(id: any) {
+    this.api.getInstitute(id).subscribe((data: any) => {
       this.myInstitute = data;
-      console.log('myInstitute==========>', this.myInstitute);
-      console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
+      // console.log('myInstitute==========>', this.myInstitute);
+      // console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
+      setTimeout(() => {
+        this.firstForm.patchValue({
+          name: this.myInstitute.institute.basicInfo.name,
+          logo: this.myInstitute.institute.basicInfo.logo,
+        });
 
-      this.firstForm.patchValue({
-        name: this.myInstitute.institute.basicInfo.name,
-        logo: this.myInstitute.institute.basicInfo.logo,
-      });
-      this.secondForm.patchValue({
-        instituteContact: this.myInstitute.institute.basicInfo.instituteContact,
-        address: {
-          addressLine: this.myInstitute.institute.address.addressLine,
-          locality: this.myInstitute.institute.address.locality,
-          state: this.myInstitute.institute.address.state,
-          city: this.myInstitute.institute.address.city,
-        },
-      });
-      this.thirdForm.patchValue({
-        category: this.myInstitute.institute.category,
-        instituteMetaTag: this.myInstitute.institute.metaTag,
-      });
+        this.secondForm.patchValue({
+          instituteContact: this.myInstitute.institute.basicInfo.instituteContact,
+          address: {
+            addressLine: this.myInstitute.institute.address.addressLine,
+            locality: this.myInstitute.institute.address.locality,
+            state: this.myInstitute.institute.address.state,
+            city: this.myInstitute.institute.address.city,
+          },
+        });
+
+        this.thirdForm.patchValue({
+          category: this.myInstitute.institute.category,
+          instituteMetaTag: this.myInstitute.institute.metaTag,
+        });
+      }, 2000);
     });
   }
+
   getCountries() {
     this.country.allCountries().subscribe(
       (data) => {
         this.countryInfo = data.Countries;
         this.stateInfo = this.countryInfo[100].States;
         this.cityInfo = this.stateInfo[0].Cities;
-        console.log(this.stateInfo[0]);
+        // console.log(this.stateInfo[0]);
       },
-      (err) => console.log(err),
-      () => console.log('complete')
+      (err) => {
+        // console.log(err);
+      },
+      () => {
+        // console.log('complete');
+      },
     );
   }
 
-  onChangeState(stateValue) {
-    console.log(stateValue);
+  onChangeState(stateValue: any) {
+    // console.log(stateValue);
     this.cityInfo = this.stateInfo[stateValue].Cities;
   }
 
@@ -190,42 +204,47 @@ export class AddInstituteComponent implements OnInit {
     this.firstForm.markAsDirty();
     this.institute.name = this.firstForm.value.name;
     this.institute.logo = this.firstForm.value.logo;
-    console.log(this.first.logo.errors);
+    // console.log(this.first.logo.errors);
     this.stepper.next();
-    console.log('firstForm=>', this.institute);
+    // console.log('firstForm=>', this.institute);
   }
+
   secondFormSubmit() {
     this.secondForm.markAsDirty();
     this.institute.instituteContact = this.secondForm.value.instituteContact;
     this.institute.address = this.secondForm.value.address;
     this.stepper.next();
-    console.log('sec form=>', this.institute);
+    // console.log('sec form=>', this.institute);
   }
+
   thirdFormSubmit() {
     this.thirdForm.markAsDirty();
     this.institute.category = this.thirdForm.value.category;
     this.institute.instituteMetaTag = this.thirdForm.value.instituteMetaTag;
-    console.log(this.institute);
+    // console.log(this.institute);
 
     if (this.edit === 'true') {
       this.api.updateInstitute(this.instituteId, this.institute).subscribe(
         (res) => {
-          console.log(res);
-          this.updateToater('top-right', 'success');
+          // console.log(res);
+          this.showToast('top-right', 'success', 'Institute Added Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/home']);
           }, 1000);
         },
-        (err) => console.log(err)
+        (err) => {
+          // console.log(err);
+        },
       );
     }
-    console.log(this.institute);
+
+    // console.log(this.institute);
     if (!this.edit) {
       this.api.addInstitute(this.institute).subscribe((data) => {
         this.user = data;
-        console.log(this.user);
+        // console.log(this.user);
 
-        this.showToast('top-right', 'success');
+        this.showToast('top-right', 'success', 'Institute Added Successfully');
         setTimeout(() => {
           this.router.navigate(['/pages/home']);
         }, 1000);
@@ -234,23 +253,17 @@ export class AddInstituteComponent implements OnInit {
       });
     }
 
-    console.log('forth form =>', this.institute);
+    // console.log('forth form =>', this.institute);
   }
 
-  showToast(position, status) {
-    this.toastrService.show(status || 'Success', 'Institute Added Successfully', {
+  showToast(position: any, status: any, message: any) {
+    this.toastrService.show(status, message, {
       position,
       status,
     });
   }
+
   change(event) {
-    console.log(event.target.value);
-  }
-
-  updateToater(position, status) {
-    this.toastrService.show(status || 'Success', 'Institute Successfully Updated', {
-      position,
-      status,
-    });
+    // console.log(event.target.value);
   }
 }
