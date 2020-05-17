@@ -80,15 +80,16 @@ export class AnnouncementsComponent implements OnInit {
     this.announce.selectAll = event;
   }
   onSubmit() {
-    console.log('text =>', this.announce);
+    //console.log('text =>', this.announce);
 
     this.announceService.postAnnouncement(this.announce).subscribe((res) => {
       // this.announcement.push(res);
     });
+    this.getAnnouncement(this.routerId)
   }
   onDelete(id) {
     this.announceService.deleteAnnouncement(id).subscribe((res) => {
-      console.log(res);
+      //console.log(res);
     });
 
     const i = this.announcement.findIndex((e) => e._id == id);
@@ -96,5 +97,7 @@ export class AnnouncementsComponent implements OnInit {
     if (i !== -1) {
       this.announcement.splice(i, 1);
     }
+    this.getAnnouncement(this.routerId)
+    
   }
 }
