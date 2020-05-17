@@ -21,7 +21,7 @@
       </nb-card-header>
       <nb-list>
         <nb-list-item *ngFor="let item of institute; let i = index">
-          <a (click)="viewInstitute(item._id)">
+          <a (click)="viewInstitute(item._id)" style="width:100%">
             <span
               ><img [src]="imageUrl[i]" width="30px" height="30px" style="border-radius: 100%;"
             /></span>
@@ -42,8 +42,11 @@
     <nb-card>
       <nb-card-body>
         <div class="row">
-          <div class="col-sm-10">
-            <p class="font-weight-bold">
+          <div class="col-sm-2">
+            <img src="../../../assets/img/home-yellow.png" alt="Add Institute" />
+          </div>
+          <div class="col-sm-8">
+            <p class="font-weight-bold pt-3">
               ADD INSTITUTE
             </p>
           </div>
@@ -97,7 +100,7 @@
       <nb-card-header>STUDENT REQUETS </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;">
+          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto; width:100%;">
             <div>
               <span
                 ><img
@@ -169,7 +172,7 @@
         <nb-list-item>
           <div
             class="mb-3"
-            style="display: grid; grid-template-columns: auto auto auto;"
+            style="display: grid; grid-template-columns: auto auto auto; width:100%;"
             *ngFor="let item of studentReq"
           >
             <div>
@@ -211,7 +214,7 @@
       <nb-list>
         <div
           class="mb-3"
-          style="display: grid; grid-template-columns: auto auto auto;"
+          style="display: grid; grid-template-columns: auto auto auto; width:100%;"
           *ngFor="let msg of messages"
         ></div>
       </nb-list>

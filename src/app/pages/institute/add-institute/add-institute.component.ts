@@ -34,7 +34,7 @@ export class AddInstituteComponent implements OnInit {
 
   myInstitute = {
     institute: {
-      address: { addressLine: '', locality: '', state: '', city: '' },
+      address: { addressLine: '', locality: '', state: '', city: '', pincode: '' },
       basicInfo: { name: '', instituteContact: '', logo: '' },
       category: [],
       course: [{ name: '' }],
@@ -142,12 +142,20 @@ export class AddInstituteComponent implements OnInit {
             locality: this.myInstitute.institute.address.locality,
             state: this.myInstitute.institute.address.state,
             city: this.myInstitute.institute.address.city,
+            pincode: this.myInstitute.institute.address.pincode,
           },
         });
 
         this.thirdForm.patchValue({
           category: this.myInstitute.institute.category,
-          instituteMetaTag: this.myInstitute.institute.metaTag,
+          // instituteMetaTag: this.myInstitute.institute.metaTag,
+        });
+
+        this.thirdForm.get('instituteMetaTag').setValue([this.myInstitute.institute.metaTag[0]]);
+        this.myInstitute.institute.metaTag.forEach((tag, i) => {
+          if (i !== 0) {
+            this.instituteMetaTag.push(this.fb.control(this.myInstitute.institute.metaTag[i]));
+          }
         });
       }, 2000);
     });
@@ -226,12 +234,13 @@ export class AddInstituteComponent implements OnInit {
       this.api.updateInstitute(this.instituteId, this.institute).subscribe(
         (res) => {
           // console.log(res);
-          this.showToast('top-right', 'success', 'Institute Added Successfully');
+          this.showToast('top-right', 'success', 'Institute Updated Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/home']);
           }, 1000);
         },
-        (err) => {
+        (error) => {
+          this.showToast('top-right', 'danger', error.message || 'Something bad happened');
           // console.log(err);
         },
       );
@@ -239,17 +248,22 @@ export class AddInstituteComponent implements OnInit {
 
     // console.log(this.institute);
     if (!this.edit) {
-      this.api.addInstitute(this.institute).subscribe((data) => {
-        this.user = data;
-        // console.log(this.user);
+      this.api.addInstitute(this.institute).subscribe(
+        (data) => {
+          this.user = data;
+          // console.log(this.user);
 
-        this.showToast('top-right', 'success', 'Institute Added Successfully');
-        setTimeout(() => {
-          this.router.navigate(['/pages/home']);
-        }, 1000);
+          this.showToast('top-right', 'success', 'Institute Added Successfully');
+          setTimeout(() => {
+            this.router.navigate(['/pages/home']);
+          }, 1000);
 
-        this.stepper.reset();
-      });
+          // this.stepper.reset();
+        },
+        (error) => {
+          this.showToast('top-right', 'danger', error.message || 'Something bad happened');
+        },
+      );
     }
 
     // console.log('forth form =>', this.institute);

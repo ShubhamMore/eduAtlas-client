@@ -11,7 +11,7 @@
       </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;">
+          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;width:100%;">
             <div
               class="text-center mr-2"
               style="border-radius: 5px; background-color: skyblue;"
@@ -27,7 +27,7 @@
       <nb-card-header>STUDENT REQUETS </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;">
+          <div class="mb-3" style="display: grid; grid-template-columns: auto auto auto;width:100%">
             <div>
               <span
                 ><img
@@ -62,7 +62,7 @@
       </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div style="display: grid; grid-template-columns: 50px auto;">
+          <div style="display: grid; grid-template-columns: 50px auto;width:100%">
             <img
               src="assets/images/nick.png"
               width="30px"
@@ -82,7 +82,7 @@
       <nb-card-header>LEADS </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: auto;">
+          <div class="mb-3" style="display: grid; grid-template-columns: auto;width:100%">
             <div class="pr-3 pl-3" *ngFor="let i of students" [hidden]="!i.active">
               {{ i.basicDetails.name }} {{ i.basicDetails.studentEmail }}
             </div>

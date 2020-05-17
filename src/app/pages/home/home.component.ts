@@ -38,7 +38,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getInstitutes();
 
-    this.api.getToken().subscribe((data) => console.log('from home =>', data));
+    this.api.getToken().subscribe((data) => {
+      // console.log('from home =>', data);
+    });
     MENU_ITEMS[1].hidden = false;
     MENU_ITEMS[2].hidden = true;
     MENU_ITEMS[3].hidden = true;

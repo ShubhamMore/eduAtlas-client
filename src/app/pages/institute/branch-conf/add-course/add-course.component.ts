@@ -25,7 +25,7 @@ export class AddCourseComponent implements OnInit {
   courseId: string;
   exclusiveGst: number = null;
   fees: number = null;
-  gstCheckBox:boolean;
+  gstCheckBox: boolean;
   updateCourse = {
     courseCode: '',
     name: '',
@@ -59,7 +59,7 @@ export class AddCourseComponent implements OnInit {
       courseCode: ['', Validators.required],
       fees: [''],
       gst: [''],
-      gstValue:[''],
+      gstValue: [''],
       discription: [''],
       totalFee: [''],
     });
@@ -81,14 +81,14 @@ export class AddCourseComponent implements OnInit {
           courseCode: this.updateCourse.courseCode,
           fees: this.updateCourse.fees,
           gst: this.updateCourse.gst,
-          gstValue:this.updateCourse.gstValue,
+          gstValue: this.updateCourse.gstValue,
           discription: this.updateCourse.discription,
           totalFee: this.updateCourse.totalFee,
         });
-        if(this.updateCourse.gst=='Inclusive'){
-         this.gstCheckBox = true;
-         this.course.get('gstValue').disable();
-        }else{
+        if (this.updateCourse.gst == 'Inclusive') {
+          this.gstCheckBox = true;
+          this.course.get('gstValue').disable();
+        } else {
           this.gstCheckBox = false;
           this.exclusiveGst = Number(this.updateCourse.gstValue);
         }
@@ -150,8 +150,8 @@ export class AddCourseComponent implements OnInit {
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger',err.error.message);
-        }
+          this.invalid('top-right', 'danger', err.error.message);
+        },
       );
     }
   }
@@ -172,14 +172,14 @@ export class AddCourseComponent implements OnInit {
     this.calculateTotalFees();
   }
 
-  calculateTotalFees(){
+  calculateTotalFees() {
     let total = 0;
-    if(this.course.get('gst').value=='Inclusive'){
-     total = this.fees;
-    }else{
-     if(this.exclusiveGst==null){
+    if (this.course.get('gst').value == 'Inclusive') {
+      total = this.fees;
+    } else {
+      if (this.exclusiveGst == null) {
         total = this.fees;
-      }else{
+      } else {
         total = this.fees + (this.exclusiveGst / 100) * this.fees;
       }
     }
@@ -188,12 +188,12 @@ export class AddCourseComponent implements OnInit {
 
   exclusive(event) {
     this.exclusiveGst = +event;
-    console.log('exclusiv ', this.exclusiveGst);
+    console.log('exclusive ', this.exclusiveGst);
     let total = this.fees + (this.exclusiveGst / 100) * this.fees;
     console.log('type ', typeof this.fees, this.fees);
     this.course.patchValue({
       totalFee: total + '',
-      gstValue:this.exclusiveGst
+      gstValue: this.exclusiveGst === 0 ? '' : this.exclusiveGst + '',
     });
     this.calculateTotalFees();
   }
@@ -202,19 +202,19 @@ export class AddCourseComponent implements OnInit {
     this.calculateTotalFees();
   }
 
-  showToast(position, status,message) {
+  showToast(position, status, message) {
     this.toasterService.show(status || 'Success', message, {
       position,
       status,
     });
   }
-  invalid(position, status,errorMessage) {
-    if(errorMessage){
+  invalid(position, status, errorMessage) {
+    if (errorMessage) {
       this.toasterService.show(status || 'Danger', errorMessage, {
         position,
         status,
       });
-    }else{
+    } else {
       this.toasterService.show(status || 'Danger', 'This course id already added', {
         position,
         status,
