@@ -63,7 +63,7 @@
               fullWidth
               placeholder="Student Contact No."
             />
-            <small *ngIf="f.contact.errors && submitted">*Enter Correct Phone no.</small>
+            <small *ngIf="f.contact.errors && submitted">*Student Contact Number is required.</small>
           </div>
         </div>
       </div>
@@ -183,6 +183,7 @@
             status="basic"
             formControlName="netPayable"
             fullWidth
+            disabled = "true"
             placeholder="Net Payable"
           />
         </div>

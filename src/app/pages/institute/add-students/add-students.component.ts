@@ -44,12 +44,13 @@ export class AddStudentsComponent implements OnInit {
     this.active.queryParams.subscribe((data) => {
       this.studentEmail = data.email;
       this.edit = data.edit;
-      console.log('query param  ', this.studentEmail, this.edit);
-      this.getStudent(this.studentEmail);
     });
     this.getCourses(this.routerId);
     this.getBatches(this.routerId);
     this.getDiscounts(this.routerId);
+    if (this.edit === 'true') {
+      this.getStudent(this.studentEmail);
+    }
     this.students = this.fb.group({
       id: [this.routerId],
       name: ['', Validators.required],
@@ -64,7 +65,10 @@ export class AddStudentsComponent implements OnInit {
 
       contact: [
         '',
-        Validators.compose([Validators.required,Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/)]),
+        Validators.compose([
+          Validators.required,
+          Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
+        ]),
       ],
       parentName: [''],
       parentContact: [
@@ -180,19 +184,23 @@ export class AddStudentsComponent implements OnInit {
       this.api.updateStudent(param, this.students.value).subscribe(
         (res) => {
           console.log(res), this.updateToaster('top-right', 'success');
+          this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
         },
-        (err) => console.log(err),
+        (err) => this.invalidToast('top-right', 'danger', err.error.message),
       );
     }
 
     if (!this.edit) {
-      this.api.addStudent(this.students.value).subscribe((data) => {
-        console.log(data);
-        this.showToaster('top-right', 'success');
-        setTimeout(() => {
-          this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
-        }, 1000);
-      });
+      this.api.addStudent(this.students.value).subscribe(
+        (data) => {
+          console.log(data);
+          this.showToaster('top-right', 'success');
+          setTimeout(() => {
+            this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+          }, 1000);
+        },
+        (err) => this.invalidToast('top-right', 'danger', err.error.message),
+      );
     }
   }
   showToaster(position, status) {
@@ -207,11 +215,7 @@ export class AddStudentsComponent implements OnInit {
       status,
     });
   }
-  invalidToast(position, status) {
-    this.toasterService.show(
-      status || 'Danger',
-      'Student Email and Student Contact must be unique',
-      { position, status },
-    );
+  invalidToast(position, status, message) {
+    this.toasterService.show(status || 'Danger', message, { position, status });
   }
 }

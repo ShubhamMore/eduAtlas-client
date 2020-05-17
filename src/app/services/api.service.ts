@@ -175,7 +175,7 @@ export class ApiService {
         name: student.parentName,
         parentContact: student.parentContact,
         parentEmail: student.parentEmail,
-        address: student.parentAddress,
+        address: student.address,
       },
       courseDetails: {
         course: student.courseDetails.course,
@@ -190,6 +190,7 @@ export class ApiService {
         amountCollected: student.feeDetails.amountCollected,
         mode: student.feeDetails.mode,
       },
+     // materialRecord:student.materialRecord
     };
 
     return this.http
@@ -217,7 +218,7 @@ export class ApiService {
         name: student.parentName,
         parentContact: student.parentContact,
         parentEmail: student.parentEmail,
-        address: student.parentAddress,
+        address: student.address,
       },
       courseDetails: {
         course: student.courseDetails.course,
