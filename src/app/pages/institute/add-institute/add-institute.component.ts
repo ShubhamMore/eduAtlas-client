@@ -8,7 +8,7 @@ import { mimeType } from './mime-type.validator';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
-import { setTimeout } from 'timers';
+
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
@@ -227,12 +227,13 @@ export class AddInstituteComponent implements OnInit {
       this.api.updateInstitute(this.instituteId, this.institute).subscribe(
         (res) => {
           // console.log(res);
-          this.showToast('top-right', 'success', 'Institute Added Successfully');
+          this.showToast('top-right', 'success', 'Institute Updated Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/home']);
           }, 1000);
         },
-        (err) => {
+        (error) => {
+          this.showToast('top-right', 'danger', error.message || 'Something bad happened');
           // console.log(err);
         },
       );
@@ -240,17 +241,22 @@ export class AddInstituteComponent implements OnInit {
 
     // console.log(this.institute);
     if (!this.edit) {
-      this.api.addInstitute(this.institute).subscribe((data) => {
-        this.user = data;
-        // console.log(this.user);
+      this.api.addInstitute(this.institute).subscribe(
+        (data) => {
+          this.user = data;
+          // console.log(this.user);
 
-        this.showToast('top-right', 'success', 'Institute Added Successfully');
-        setTimeout(() => {
-          this.router.navigate(['/pages/home']);
-        }, 1000);
+          this.showToast('top-right', 'success', 'Institute Added Successfully');
+          setTimeout(() => {
+            this.router.navigate(['/pages/home']);
+          }, 1000);
 
-        this.stepper.reset();
-      });
+          this.stepper.reset();
+        },
+        (error) => {
+          this.showToast('top-right', 'danger', error.message || 'Something bad happened');
+        },
+      );
     }
 
     // console.log('forth form =>', this.institute);
