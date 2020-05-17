@@ -1,7 +1,7 @@
 <p style="color: black; font-weight: bold;">Create New Branch</p>
 <nb-card>
   <nb-card-body>
-    <nb-stepper #stepper [linear]="true" >
+    <nb-stepper #stepper [linear]="true">
       <nb-step [stepControl]="firstForm" label="Basic Details">
         <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()" #myForm1="ngForm">
           <div class="row">
@@ -14,7 +14,7 @@
                   fullWidth
                   formControlName="name"
                   id="name"
-                  [status]="first.name.errors  && myForm1.submitted ? 'danger' : 'basic'"
+                  [status]="first.name.errors && myForm1.submitted ? 'danger' : 'basic'"
                   placeholder="Add Institute/Branch *"
                 />
 
@@ -38,11 +38,7 @@
                 />
               </div>
               <div *ngIf="imagePreview !== '' || (imagePreview && firstForm.get('logo').valid)">
-                <img
-                  [src]="imagePreview"
-                  width="100px"
-                  height="100px"
-                />
+                <img [src]="imagePreview" alt="logo" width="100px" height="100px" />
               </div>
               <div *ngIf="first.logo.errors">
                 <small>format should be .png, .jpg, .jpeg</small>
