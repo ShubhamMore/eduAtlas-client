@@ -1,7 +1,7 @@
 <p style="color: black; font-weight: bold;">Create New Branch</p>
 <nb-card>
   <nb-card-body>
-    <nb-stepper #stepper [linear]="true">
+    <nb-stepper #stepper [linear]="true" >
       <nb-step [stepControl]="firstForm" label="Basic Details">
         <form [formGroup]="firstForm" (ngSubmit)="firstFormSubmit()" #myForm1="ngForm">
           <div class="row">
@@ -14,7 +14,7 @@
                   fullWidth
                   formControlName="name"
                   id="name"
-                  [status]="first.name.errors  && myForm1.submitted ? 'danger' : 'control'"
+                  [status]="first.name.errors  && myForm1.submitted ? 'danger' : 'basic'"
                   placeholder="Add Institute/Branch *"
                 />
                 <small *ngIf="first.name.errors && myForm1.submitted">*Institute name is required</small>
@@ -27,7 +27,7 @@
                 <input
                   type="file"
                   nbInput
-                  status="control"
+                  status="basic"
                   fullWidth
                   id="logo"
                   (change)="onImagePicked($event)"
@@ -36,7 +36,6 @@
               <div *ngIf="imagePreview !== '' || imagePreview && firstForm.get('logo').valid">
                 <img
                   [src]="imagePreview"
-                  [alt]="firstForm.value.name"
                   width="100px"
                   height="100px"
                 />
@@ -80,7 +79,7 @@
                     <label>State</label>
                     <nb-select
                       formControlName="state"
-                      status="control"
+                      status="basic"
                       (selectedChange)="onChangeState($event)"
                       [selected]="1"
                       placeholder="State"
@@ -93,7 +92,7 @@
                   </div>
                   <div class="col-sm-4">
                     <label>City</label>
-                    <nb-select formControlName="city" fullWidth status="control" placeholder="City">
+                    <nb-select formControlName="city" fullWidth status="basic" placeholder="City">
                       <nb-option [value]="undefined">--Select City--</nb-option>
                       <nb-option *ngFor="let city of cityInfo; let i = index" value="{{ city }}">{{
                         city
@@ -106,7 +105,7 @@
                       type="text"
                       nbInput
                       fullWidth
-                      status="control"
+                      status="basic"
                       id="pin"
                       formControlName="pincode"
                       placeholder="Pin Code"
@@ -122,7 +121,7 @@
                       type="text"
                       nbInput
                       fullWidth
-                      status="control"
+                      status="basic"
                       id="address"
                       formControlName="addressLine"
                       placeholder="Address line"
@@ -134,7 +133,7 @@
                       type="tex"
                       nbInput
                       fullWidth
-                      status="control"
+                      status="basic"
                       id="locality"
                       formControlName="locality"
                       placeholder="Locality"
