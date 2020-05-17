@@ -8,7 +8,6 @@ import { mimeType } from './mime-type.validator';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
@@ -35,7 +34,7 @@ export class AddInstituteComponent implements OnInit {
 
   myInstitute = {
     institute: {
-      address: { addressLine: '', locality: '', state: '', city: '' },
+      address: { addressLine: '', locality: '', state: '', city: '', pincode: '' },
       basicInfo: { name: '', instituteContact: '', logo: '' },
       category: [],
       course: [{ name: '' }],
@@ -143,12 +142,20 @@ export class AddInstituteComponent implements OnInit {
             locality: this.myInstitute.institute.address.locality,
             state: this.myInstitute.institute.address.state,
             city: this.myInstitute.institute.address.city,
+            pincode: this.myInstitute.institute.address.pincode,
           },
         });
 
         this.thirdForm.patchValue({
           category: this.myInstitute.institute.category,
-          instituteMetaTag: this.myInstitute.institute.metaTag,
+          // instituteMetaTag: this.myInstitute.institute.metaTag,
+        });
+
+        this.thirdForm.get('instituteMetaTag').setValue([this.myInstitute.institute.metaTag[0]]);
+        this.myInstitute.institute.metaTag.forEach((tag, i) => {
+          if (i !== 0) {
+            this.instituteMetaTag.push(this.fb.control(this.myInstitute.institute.metaTag[i]));
+          }
         });
       }, 2000);
     });
@@ -251,7 +258,7 @@ export class AddInstituteComponent implements OnInit {
             this.router.navigate(['/pages/home']);
           }, 1000);
 
-          this.stepper.reset();
+          // this.stepper.reset();
         },
         (error) => {
           this.showToast('top-right', 'danger', error.message || 'Something bad happened');
