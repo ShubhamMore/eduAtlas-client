@@ -10,6 +10,10 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./pending-student.component.scss'],
 })
 export class PendingStudentComponent implements OnInit {
+  institute: any;
+  courses: any[];
+  batches: any[];
+
   students = [
     {
       active: false,
@@ -27,33 +31,55 @@ export class PendingStudentComponent implements OnInit {
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.getStudents(this.routerId);
+    this.getCourseTd(this.routerId);
   }
+
   getStudents(id) {
     this.api.getStudents(id).subscribe((data) => {
       // console.log(data);
       this.students = data;
-      console.log('students =>', this.students);
+      // console.log('students =>', this.students);
     });
   }
+
   view(email: string) {
-    console.log('from pending ', email);
+    // console.log('from pending ', email);
     this.router.navigate([`/pages/institute/view-student/${this.routerId}`], {
       queryParams: { email: email },
     });
   }
+
   edit(email: string) {
-    console.log('from manag edit => ', email);
+    // console.log('from manag edit => ', email);
     this.router.navigate([`/pages/institute/add-students/${this.routerId}`], {
       queryParams: { email: email, edit: 'true' },
     });
   }
+
+  getCourseTd(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.institute = data;
+      this.courses = data.course;
+    });
+  }
+
+  onSelectCourse(id: string) {
+    this.batches = this.institute.batch.filter((b: any) => b.course === id);
+  }
+
+  onSelectBatch(id: string) {
+    console.log(id);
+  }
+
   delete(email: string, id: string) {
     let param = new HttpParams();
     param = param.append('instituteId', this.routerId);
     param = param.append('studentEmail', email);
 
-    this.api.deleteStudent(param).subscribe(() => console.log('success delete'));
-    const i = this.students.findIndex((e) => e._id == id);
+    this.api.deleteStudent(param).subscribe(() => {
+      // console.log('success delete');
+    });
+    const i = this.students.findIndex((e) => e._id === id);
     if (i !== -1) {
       this.students.splice(i, 1);
     }

@@ -14,9 +14,9 @@ import { NbToastrService } from '@nebular/theme';
 export class ReceiptConfComponent implements OnInit {
   receipt: FormGroup;
   submitted = false;
-  updateReciept = { businessName: '', address: '', gstNumber: '', termsAndCondition: '', fee: '' };
+  updateReceipt = { businessName: '', address: '', gstNumber: '', termsAndCondition: '', fee: '' };
   routerId: string;
-  recieptId: string;
+  receiptId: string;
   edit: string;
   message: string;
   fees = ['Collection Basis', 'Course Fee Basis'];
@@ -25,17 +25,17 @@ export class ReceiptConfComponent implements OnInit {
     private api: ApiService,
     private active: ActivatedRoute,
     private router: Router,
-    private toasterSevice: NbToastrService,
+    private toasterService: NbToastrService,
     private location: Location,
   ) {}
 
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
-      this.recieptId = data.receiptId;
+      this.receiptId = data.receiptId;
       this.edit = data.edit;
       if (this.edit === 'true') {
-        this.getReciept(this.routerId);
+        this.getReceipt(this.routerId);
       }
     });
     this.receipt = this.fb.group({
@@ -51,19 +51,19 @@ export class ReceiptConfComponent implements OnInit {
     return this.receipt.controls;
   }
 
-  getReciept(id) {
+  getReceipt(id: string) {
     this.api.getReceipt(id).subscribe(
       (data) => {
-        this.updateReciept = data;
+        this.updateReceipt = data;
         this.receipt.patchValue({
-          businessName: this.updateReciept.businessName,
-          address: this.updateReciept.address,
-          gstNumber: this.updateReciept.gstNumber,
-          termsAndCondition: this.updateReciept.termsAndCondition,
-          fee: this.updateReciept.fee,
+          businessName: this.updateReceipt.businessName,
+          address: this.updateReceipt.address,
+          gstNumber: this.updateReceipt.gstNumber,
+          termsAndCondition: this.updateReceipt.termsAndCondition,
+          fee: this.updateReceipt.fee,
         });
       },
-      (err) => console.log(err),
+      (err) => console.error(err),
     );
   }
 
@@ -75,7 +75,7 @@ export class ReceiptConfComponent implements OnInit {
     if (this.edit === 'true') {
       this.api.updateReceipt(this.routerId, this.receipt.value).subscribe(
         (data) => {
-          this.message = 'Reciept Updated Successfully';
+          this.message = 'receipt Updated Successfully';
           this.showToast('top-right', 'success');
           this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
         },
@@ -89,9 +89,9 @@ export class ReceiptConfComponent implements OnInit {
     if (!this.edit) {
       this.api.addReceipt(this.routerId, this.receipt.value).subscribe(
         () => {
-          this.message = 'Reciept Added Successfully';
+          this.message = 'receipt Added Successfully';
           this.showToast('top-right', 'success');
-            this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
+          this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
         },
         (err) => {
           this.message = err.error.message;
@@ -103,10 +103,10 @@ export class ReceiptConfComponent implements OnInit {
   back() {
     this.location.back();
   }
-  showToast(position, status) {
-    this.toasterSevice.show(status || 'Success', `${this.message}`, { position, status });
+  showToast(position: any, status: any) {
+    this.toasterService.show(status || 'Success', `${this.message}`, { position, status });
   }
-  invalidToast(position, status) {
-    this.toasterSevice.show(status || 'Danger', `${this.message}`, { position, status });
+  invalidToast(position: any, status: any) {
+    this.toasterService.show(status || 'Danger', `${this.message}`, { position, status });
   }
 }

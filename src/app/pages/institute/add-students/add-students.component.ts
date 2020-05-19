@@ -13,24 +13,24 @@ import { MENU_ITEMS } from '../../pages-menu';
 })
 export class AddStudentsComponent implements OnInit {
   students: FormGroup;
+
   routerId: string;
   submitted = false;
+
+  institute: any;
+
   modes = ['Cash', 'Chaque/DD', 'Card', 'Others'];
   selectedItem = '1';
   studentEmail: string;
-  discounts: { discount: [{ _id: ''; code: ''; description: ''; amount: '' }] };
-  courses = { course: [{ discription: '', fee: '', gst: '', name: '', totalFee: '' }] };
-  batches = { batch: [{ _id: '', course: '', batchCode: '', description: '' }] };
+
+  discounts: any[];
+  courses: any[];
+  batches: any[];
+
   edit: string;
-  student = {
-    active: false,
-    basicDetails: { name: '', rollNumber: '', studentEmail: '', studentContact: '' },
-    courseDetails: { course: '', batch: '', discount: '', nextPayble: '', additionalDiscount: '' },
-    fee: { amountCollected: '', installmentNumber: '', mode: '', nextInstallment: '' },
-    instituteId: '',
-    parentDetails: { name: '', parentContact: '', parentEmail: '', address: '' },
-    _id: '',
-  };
+
+  student: any;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -40,46 +40,34 @@ export class AddStudentsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.courses = [];
+    this.batches = [];
+    this.discounts = [];
+
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
       this.studentEmail = data.email;
       this.edit = data.edit;
     });
-    this.getCourses(this.routerId);
-    this.getBatches(this.routerId);
-    this.getDiscounts(this.routerId);
+
+    this.getCourseTd(this.routerId);
+
     if (this.edit === 'true') {
       this.getStudent(this.studentEmail);
     }
+
     this.students = this.fb.group({
-      id: [this.routerId],
       name: ['', Validators.required],
       rollNo: ['', Validators.required],
-      studentEmail: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/),
-        ]),
-      ],
+      studentEmail: ['', Validators.compose([Validators.required, Validators.email])],
+      contact: ['', Validators.compose([Validators.required])],
 
-      contact: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/),
-        ]),
-      ],
       parentName: [''],
-      parentContact: [
-        '',
-        Validators.compose([Validators.pattern(/^([+]?\d{1,2}[.-\s]?)?(\d{3}[.-]?){2}\d{4}/)]),
-      ],
-      parentEmail: [
-        '',
-        Validators.compose([Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)]),
-      ],
+      parentContact: [''],
+      parentEmail: ['', Validators.email],
+
       address: [''],
+
       courseDetails: this.fb.group({
         course: [''],
         batch: [''],
@@ -94,6 +82,7 @@ export class AddStudentsComponent implements OnInit {
         amountCollected: [''],
         mode: [''],
       }),
+
       materialRecord: [''],
     });
     // console.log(this.mode[1].name)
@@ -102,41 +91,27 @@ export class AddStudentsComponent implements OnInit {
   get f() {
     return this.students.controls;
   }
-  getBatches(id) {
-    this.api.getBatches(id).subscribe((data) => {
-      this.batches = JSON.parse(JSON.stringify(data));
-      console.log('my batch', this.batches.batch);
+
+  getCourseTd(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.institute = data;
+      this.courses = data.course;
+      // this.onSelectCourse(this.courses[0]._id);
+      this.discounts = data.discount;
     });
   }
 
-  getCourses(id) {
-    this.api.getCourses(id).subscribe((data) => {
-      //this.courses = JSON.stringify(data);
-      const course = JSON.stringify(data);
-      this.courses = JSON.parse(course);
-      console.log('===============>', this.courses.course[0]);
-    });
+  onSelectCourse(id: string) {
+    this.batches = this.institute.batch.filter((b: any) => b.course === id);
   }
 
-  getDiscounts(id) {
-    this.discounts = { discount: [{ _id: '', code: '', description: '', amount: '' }] };
-    this.api.getDiscounts(id).subscribe(
-      (data) => {
-        console.log(data);
-        const dis = JSON.stringify(data);
-        this.discounts = JSON.parse(dis);
-        console.log('Discount ====>', this.discounts.discount);
-      },
-      (err) => console.error(err),
-    );
-  }
   getStudent(email: string) {
     let param = new HttpParams();
     param = param.append('instituteId', this.routerId);
     param = param.append('studentEmail', email);
+
     this.api.getStudent(param).subscribe((data) => {
       this.student = data;
-      console.log('student ', this.student);
       this.students.patchValue({
         name: this.student.basicDetails.name,
         rollNo: this.student.basicDetails.rollNumber,
@@ -171,7 +146,7 @@ export class AddStudentsComponent implements OnInit {
     if (this.students.invalid) {
       return;
     }
-    console.log('===============>', this.students.value);
+
     if (
       this.students.value.courseDetails.batch === null ||
       this.students.value.courseDetails.course === null
@@ -179,13 +154,14 @@ export class AddStudentsComponent implements OnInit {
       this.students.value.courseDetails.batch = '';
       this.students.value.courseDetails.course = '';
     }
+
     if (this.edit === 'true') {
       let param = new HttpParams();
       param = param.append('instituteId', this.routerId);
       param = param.append('studentEmail', this.studentEmail);
       this.api.updateStudent(param, this.students.value).subscribe(
         (res) => {
-          console.log(res), this.updateToaster('top-right', 'success');
+          this.updateToaster('top-right', 'success');
           this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
         },
         (err) => this.invalidToast('top-right', 'danger', err.error.message),
@@ -195,7 +171,6 @@ export class AddStudentsComponent implements OnInit {
     if (!this.edit) {
       this.api.addStudent(this.students.value).subscribe(
         (data) => {
-          console.log(data);
           this.showToaster('top-right', 'success');
           setTimeout(() => {
             this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
@@ -205,18 +180,21 @@ export class AddStudentsComponent implements OnInit {
       );
     }
   }
+
   showToaster(position, status) {
     this.toasterService.show(status || 'Success', `Student successfully added`, {
       position,
       status,
     });
   }
+
   updateToaster(position, status) {
     this.toasterService.show(status || 'Success', `Student successfully Updated`, {
       position,
       status,
     });
   }
+
   invalidToast(position, status, message) {
     this.toasterService.show(status || 'Danger', message, { position, status });
   }

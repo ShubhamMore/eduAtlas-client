@@ -1,4 +1,47 @@
-<p class="font-weight-bolder">Pending Students</p>
+<div class="row mb-4">
+  <div class="col-sm-6">
+    <p class="font-weight-bolder">Pending Students</p>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="course">Course</label>
+        </div>
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          (selectedChange)="onSelectCourse($event)"
+        >
+          <nb-option value="">Select Course</nb-option>
+          <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="batch">Batch</label>
+        </div>
+        <nb-select
+          placeholder="Select Batch"
+          status="basic"
+          (selectedChange)="onSelectBatch($event)"
+        >
+          <nb-option value="">Select Batch</nb-option>
+          <nb-option *ngFor="let item of batches" [value]="item._id">{{
+            item.batchCode
+          }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+</div>
+
 <nb-card>
   <nb-card-body>
     <table>

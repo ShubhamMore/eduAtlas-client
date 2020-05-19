@@ -15,7 +15,6 @@ export class ManageReceiptComponent implements OnInit {
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.getReceipts(this.routerId);
-    
   }
   getReceipts(id) {
     this.api.getReceipt(id).subscribe((data) => {
@@ -33,7 +32,7 @@ export class ManageReceiptComponent implements OnInit {
       () => {
         this.receipts = null;
       },
-      (err) => console.error(err)
+      (err) => console.error(err),
     );
     // const i = this.receipts.reciepts.findIndex(e => e.id == id)
     // if(i !== -1){

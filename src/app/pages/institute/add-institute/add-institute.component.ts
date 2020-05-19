@@ -80,10 +80,6 @@ export class AddInstituteComponent implements OnInit {
       this.instituteId = data.instituteId;
     });
 
-    if (this.edit) {
-      this.getInstitute(this.instituteId);
-    }
-
     this.firstForm = this.fb.group({
       name: ['', Validators.required],
       logo: [null, { Validators: [Validators.required], asyncValidators: [mimeType] }],
@@ -111,6 +107,10 @@ export class AddInstituteComponent implements OnInit {
     MENU_ITEMS[1].hidden = false;
 
     this.getCountries();
+
+    if (this.edit) {
+      this.getInstitute(this.instituteId);
+    }
   }
 
   onImagePicked(event: Event) {
@@ -129,35 +129,34 @@ export class AddInstituteComponent implements OnInit {
       this.myInstitute = data;
       // console.log('myInstitute==========>', this.myInstitute);
       // console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
-      setTimeout(() => {
-        this.firstForm.patchValue({
-          name: this.myInstitute.institute.basicInfo.name,
-          logo: this.myInstitute.institute.basicInfo.logo,
-        });
 
-        this.secondForm.patchValue({
-          instituteContact: this.myInstitute.institute.basicInfo.instituteContact,
-          address: {
-            addressLine: this.myInstitute.institute.address.addressLine,
-            locality: this.myInstitute.institute.address.locality,
-            state: this.myInstitute.institute.address.state,
-            city: this.myInstitute.institute.address.city,
-            pincode: this.myInstitute.institute.address.pincode,
-          },
-        });
+      this.firstForm.patchValue({
+        name: this.myInstitute.institute.basicInfo.name,
+        logo: this.myInstitute.institute.basicInfo.logo,
+      });
 
-        this.thirdForm.patchValue({
-          category: this.myInstitute.institute.category,
-          // instituteMetaTag: this.myInstitute.institute.metaTag,
-        });
+      this.secondForm.patchValue({
+        instituteContact: this.myInstitute.institute.basicInfo.instituteContact,
+        address: {
+          addressLine: this.myInstitute.institute.address.addressLine,
+          locality: this.myInstitute.institute.address.locality,
+          state: this.myInstitute.institute.address.state,
+          city: this.myInstitute.institute.address.city,
+          pincode: this.myInstitute.institute.address.pincode,
+        },
+      });
 
-        this.thirdForm.get('instituteMetaTag').setValue([this.myInstitute.institute.metaTag[0]]);
-        this.myInstitute.institute.metaTag.forEach((tag, i) => {
-          if (i !== 0) {
-            this.instituteMetaTag.push(this.fb.control(this.myInstitute.institute.metaTag[i]));
-          }
-        });
-      }, 2000);
+      this.thirdForm.patchValue({
+        category: this.myInstitute.institute.category,
+        // instituteMetaTag: this.myInstitute.institute.metaTag,
+      });
+
+      this.thirdForm.get('instituteMetaTag').setValue([this.myInstitute.institute.metaTag[0]]);
+      this.myInstitute.institute.metaTag.forEach((tag, i) => {
+        if (i !== 0) {
+          this.instituteMetaTag.push(this.fb.control(this.myInstitute.institute.metaTag[i]));
+        }
+      });
     });
   }
 

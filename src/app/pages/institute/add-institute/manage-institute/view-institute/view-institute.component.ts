@@ -22,7 +22,6 @@ export class ViewInstituteComponent implements OnInit {
   constructor(private api: ApiService, private router: ActivatedRoute) {}
 
   ngOnInit() {
-    console.log(this.router.snapshot.paramMap.get('id'));
     this.routerId = this.router.snapshot.paramMap.get('id');
 
     this.getInstitute(this.routerId);
@@ -36,8 +35,6 @@ export class ViewInstituteComponent implements OnInit {
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((data) => {
       this.institute = JSON.parse(JSON.stringify(data));
-
-      console.log(this.institute);
 
       MENU_ITEMS[3].children[0].link = '/pages/institute/add-students/' + id;
       MENU_ITEMS[2].link = '/pages/dashboard/' + id;

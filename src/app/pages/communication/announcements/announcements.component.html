@@ -87,9 +87,7 @@
           <div class="col-sm-3">
             <span>Announcement {{ i }}</span>
           </div>
-          <div class="col-sm-7" [innerHTML] = "item.text | safeHtml">
-            
-          </div>
+          <div class="col-sm-7" [innerHTML]="item.text | safeHtml"></div>
           <div class="col-sm-2">
             <button class="btn btn-danger" (click)="onDelete(routerId)">Del</button>
           </div>

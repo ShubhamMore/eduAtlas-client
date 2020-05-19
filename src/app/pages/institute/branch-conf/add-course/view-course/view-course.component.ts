@@ -14,13 +14,13 @@ export class ViewCourseComponent implements OnInit {
 
   ngOnInit() {
     this.routerId = +this.active.snapshot.paramMap.get('id');
-    console.log(this.active.snapshot.paramMap);
+    // console.log(this.active.snapshot.paramMap);
     this.api.getCourse(this.routerId).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.courses = data;
       },
-      (err) => console.log(err)
+      (err) => console.error(err),
     );
   }
 }

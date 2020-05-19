@@ -14,7 +14,7 @@ export class OtpService {
       .get<any>(`${environment.server}/users/sendOTP/${phone}`, { params: param })
       .pipe(
         tap((res: any) => {
-          console.log(res);
+          // console.log(res);
         }),
         catchError(this.handleError),
       );
@@ -25,7 +25,7 @@ export class OtpService {
       .get<any>(`${environment.server}/users/sendOtpForRegisteredUser/${phone}`, { params: param })
       .pipe(
         tap((res: any) => {
-          console.log(res);
+          // console.log(res);
         }),
         catchError(this.handleError),
       );
@@ -34,7 +34,7 @@ export class OtpService {
   verifyOtp(data: any) {
     return this.http.post<any>(environment.server + '/users/verifyOTP', data).pipe(
       tap((res: any) => {
-        console.log(res);
+        // console.log(res);
         return res;
       }),
       catchError(this.handleError),
@@ -44,7 +44,7 @@ export class OtpService {
   setPassword(data: any): Observable<any> {
     return this.http.patch<any>(environment.server + '/users/resetPassword', data).pipe(
       tap((res: any) => {
-        console.log(res);
+        // console.log(res);
       }),
       catchError(this.handleError),
     );
@@ -53,7 +53,7 @@ export class OtpService {
   userVerify(data: any) {
     return this.http.post(environment.server + '/users/verifyUserOTP', data).pipe(
       tap((res: any) => {
-        console.log(res);
+        // console.log(res);
         return res;
       }),
       catchError(this.handleError),
@@ -61,7 +61,7 @@ export class OtpService {
   }
 
   private handleError(error: any) {
-    console.log(error);
+    // console.log(error);
     return throwError(error);
   }
 }

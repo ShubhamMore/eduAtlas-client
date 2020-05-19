@@ -29,7 +29,7 @@ export class ManageStudentsComponent implements OnInit {
   }
   getStudents(id) {
     this.api.getStudents(id).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.students = data;
     });
   }
@@ -39,7 +39,7 @@ export class ManageStudentsComponent implements OnInit {
     });
   }
   edit(email: string) {
-    console.log('from manag edit => ', email);
+    // console.log('from manag edit => ', email);
     this.router.navigate([`/pages/institute/add-students/${this.routerId}`], {
       queryParams: { email: email, edit: 'true' },
     });
@@ -49,8 +49,10 @@ export class ManageStudentsComponent implements OnInit {
     param = param.append('instituteId', this.routerId);
     param = param.append('studentEmail', email);
 
-    this.api.deleteStudent(param).subscribe(() => console.log('success delete'));
-    const i = this.students.findIndex((e) => e._id == id);
+    this.api.deleteStudent(param).subscribe(() => {
+      // console.log('success delete');
+    });
+    const i = this.students.findIndex((e) => e._id === id);
     if (i !== -1) {
       this.students.splice(i, 1);
     }
