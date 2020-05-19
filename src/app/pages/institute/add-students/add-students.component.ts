@@ -19,7 +19,7 @@ export class AddStudentsComponent implements OnInit {
   selectedItem = '1';
   studentEmail: string;
   discounts: { discount: [{ _id: ''; code: ''; description: ''; amount: '' }] };
-  courses = { course: [{ discription: '', fee: '', gst: '', name: '', totalFee: '' }] };
+  courses = { course: [{ discription: '', fee: '', gst: '', name: '', totalFee: '',id:'' }] };
   batches = { batch: [{ _id: '', course: '', batchCode: '', description: '' }] };
   edit: string;
   student = {
@@ -114,7 +114,6 @@ export class AddStudentsComponent implements OnInit {
       //this.courses = JSON.stringify(data);
       const course = JSON.stringify(data);
       this.courses = JSON.parse(course);
-      console.log('===============>', this.courses.course[0]);
     });
   }
   getDiscounts(id) {
@@ -163,6 +162,22 @@ export class AddStudentsComponent implements OnInit {
         },
       });
     });
+  }
+
+  calculateAmount(){
+    var courseId  = this.students.get('course').value;
+    if(courseId!=null){
+      var courseFees = this.getFeesFromSelectedCourse(courseId);
+    }
+    
+
+  }
+  getFeesFromSelectedCourse(courseId){
+    for(var course in this.courses.course){
+      if(course['id']==courseId){
+        return course['fees'];
+      }
+    }
   }
   onSubmit() {
     this.submitted = true;

@@ -138,7 +138,7 @@
       <div formGroupName="courseDetails" class="row">
         <div class="col-sm-3">
           <label for="cdetail">*Select Course</label>
-          <nb-select placeholder="Select Course" status="basic" formControlName="course">
+          <nb-select placeholder="Select Course" status="basic" formControlName="course" (change)="calculateAmount()"> 
             <nb-option value="">Select Course</nb-option>
             <nb-option *ngFor="let i of courses.course" value="{{ i.name }}">{{
               i.name
@@ -237,6 +237,38 @@
             <nb-option [value]="null">Select Mode</nb-option>
             <nb-option *ngFor="let i of modes" value="{{ i }}">{{ i }}</nb-option>
           </nb-select>
+        </div>
+      </div>
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="pname">Total Amount</label>
+            <input
+              type="text"
+              nbInput
+              status="basic"
+              id="totalAmount"
+              formControlName="totalAmount"
+              fullWidth
+              disabled = "true"
+              placeholder="Total Amount"
+            />
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="pcontact">Amount Pending</label>
+            <input
+              type="text"
+              nbInput
+              status="basic"
+              id="amountPending"
+              formControlName="amountPending"
+              fullWidth
+              disabled = "true"
+              placeholder="Amount Pending"
+            />
+          </div>
         </div>
       </div>
 
