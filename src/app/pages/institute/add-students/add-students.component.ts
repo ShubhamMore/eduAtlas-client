@@ -117,6 +117,7 @@ export class AddStudentsComponent implements OnInit {
       console.log('===============>', this.courses.course[0]);
     });
   }
+
   getDiscounts(id) {
     this.discounts = { discount: [{ _id: '', code: '', description: '', amount: '' }] };
     this.api.getDiscounts(id).subscribe(
@@ -164,6 +165,7 @@ export class AddStudentsComponent implements OnInit {
       });
     });
   }
+
   onSubmit() {
     this.submitted = true;
     if (this.students.invalid) {

@@ -142,6 +142,14 @@ export class ApiService {
 
   //=====================================STUDENT API==============================================================
 
+  getCourseTD(id: string) {
+    const url = `${environment.server}/institute/getCourseTD/${id}`;
+    return this.http.get<any[]>(url, this.httpOptions).pipe(
+      tap((data) => console.log(data)),
+      catchError(this.handleError),
+    );
+  }
+
   getStudents(instituteId): Observable<any[]> {
     const url = `${environment.server}/institute/student/all/${instituteId}`;
     return this.http.get<any[]>(url, this.httpOptions).pipe(
@@ -149,6 +157,7 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
   getStudent(params): Observable<any> {
     return this.http
       .get<any>(environment.server + '/institute/student/', {
@@ -190,7 +199,7 @@ export class ApiService {
         amountCollected: student.feeDetails.amountCollected,
         mode: student.feeDetails.mode,
       },
-     // materialRecord:student.materialRecord
+      // materialRecord:student.materialRecord
     };
 
     return this.http
