@@ -72,6 +72,7 @@
     "prettier": "^2.0.5",
     "primeicons": "^1.0.0",
     "primeng": "^7.0.0",
+    "razorpay": "^2.0.6",
     "roboto-fontface": "0.8.0",
     "rxjs": "6.5.2",
     "rxjs-compat": "6.3.0",
