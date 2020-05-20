@@ -172,7 +172,7 @@
 
         <div class="col-sm-2">
           <label for="dis">Discount</label>
-          <nb-select placeholder="Discount" formControlName="discount" status="basic">
+          <nb-select placeholder="Discount" formControlName="discount" status="basic"  (selectedChange)="onSelectDiscount($event)">
             <nb-option value="">Select Discount</nb-option>
             <nb-option *ngFor="let i of discounts" [value]="i._id">{{
               i.discountCode + ' (' + i.amount + '%)'
@@ -189,6 +189,7 @@
             formControlName="additionalDiscount"
             fullWidth
             placeholder="Additional Discount"
+            (input) = "calculateNetPayableAmount()"
           />
         </div>
 
@@ -248,6 +249,7 @@
             formControlName="amountCollected"
             fullWidth
             placeholder="Amount Collected"
+            (input)="calculateAmountPending()"
           />
         </div>
 
@@ -258,6 +260,22 @@
             <nb-option *ngFor="let i of modes" value="{{ i }}">{{ i }}</nb-option>
           </nb-select>
         </div>
+      </div>
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-sm-3">
+          <label for="fee">Amount Pending</label>
+          <input
+            type="text"
+            id="amountPending"
+            nbInput
+            status="basic"
+            fullWidth
+            placeholder="Amount Pending"
+            disabled = "true"
+            [value]="amountPending"
+          />
+        </div>
+
       </div>
 
       <hr />

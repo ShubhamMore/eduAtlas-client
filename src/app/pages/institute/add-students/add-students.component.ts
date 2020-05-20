@@ -26,6 +26,9 @@ export class AddStudentsComponent implements OnInit {
   discounts: any[];
   courses: any[];
   batches: any[];
+  selectedCourse : any;
+  selectedDiscount : any;
+  amountPending : number = 0;
 
   edit: string;
 
@@ -103,6 +106,42 @@ export class AddStudentsComponent implements OnInit {
 
   onSelectCourse(id: string) {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    this.selectedCourse = this.courses.find((course:any) => course.id ===id);
+    this.students.get("courseDetails").patchValue({batch: '',discount:''});
+    this.calculateNetPayableAmount();
+  }
+  onSelectDiscount(id:string){
+    this.selectedDiscount = this.discounts.find((dicount:any) => dicount.id ===id);
+    this.calculateNetPayableAmount();
+  }
+
+  calculateNetPayableAmount(){
+    var calculatedAmount = 0;
+    var additionalDiscount =  this.students.get(["courseDetails","additionalDiscount"]).value;
+    if(this.selectedCourse && this.selectedCourse.fees){
+       calculatedAmount = this.selectedCourse.fees;
+       
+      if(this.selectedDiscount && this.selectedDiscount.amount){
+        calculatedAmount =  this.selectedCourse.fees - (this.selectedDiscount.amount/100)*this.selectedCourse.fees
+      }
+      if(additionalDiscount){
+        calculatedAmount = calculatedAmount - (additionalDiscount/100)*calculatedAmount
+      }
+    }
+    this.calculateAmountPending();
+    this.students.get("courseDetails").patchValue({netPayable: calculatedAmount})
+  }
+
+  calculateAmountPending(){
+    var netPayableAmount = this.students.get(["courseDetails","netPayable"]).value;
+    var amountCollected = this.students.get(["feeDetails","amountCollected"]).value; 
+
+    if(amountCollected && netPayableAmount){
+      this.amountPending =  netPayableAmount - amountCollected;
+    }else{
+      this.amountPending =  netPayableAmount;
+    }
+
   }
 
   getStudent(email: string) {
@@ -139,6 +178,7 @@ export class AddStudentsComponent implements OnInit {
         },
       });
     });
+    this.calculateAmountPending();
   }
 
   onSubmit() {
