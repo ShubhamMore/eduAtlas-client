@@ -128,8 +128,8 @@ export class AddStudentsComponent implements OnInit {
         calculatedAmount = calculatedAmount - (additionalDiscount/100)*calculatedAmount
       }
     }
-    this.calculateAmountPending();
     this.students.get("courseDetails").patchValue({netPayable: calculatedAmount})
+    this.calculateAmountPending();
   }
 
   calculateAmountPending(){
