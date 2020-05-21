@@ -2,6 +2,7 @@ import { PaymentService } from './../../services/payment.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../pages-menu';
 import { Router } from '@angular/router';
+
 declare var Razorpay: any;
 @Component({
   selector: 'ngx-membership',

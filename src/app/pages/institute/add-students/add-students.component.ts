@@ -14,14 +14,14 @@ import { MENU_ITEMS } from '../../pages-menu';
 export class AddStudentsComponent implements OnInit {
   students: FormGroup;
 
+  eduIdForm: FormGroup;
+
   routerId: string;
   submitted = false;
 
   institute: any;
 
   modes = ['Cash', 'Chaque/DD', 'Card', 'Others'];
-
-  studentEmail: string;
 
   discounts: any[];
   courses: any[];
@@ -32,6 +32,8 @@ export class AddStudentsComponent implements OnInit {
   amountPending: number = 0;
 
   edit: string;
+  studentEduId: string;
+  courseId: string;
 
   student: any;
 
@@ -53,14 +55,15 @@ export class AddStudentsComponent implements OnInit {
     this.routerId = this.active.snapshot.paramMap.get('id');
 
     this.active.queryParams.subscribe((data) => {
-      this.studentEmail = data.email;
+      this.studentEduId = data.student;
+      this.courseId = data.course;
       this.edit = data.edit;
     });
 
     this.getCourseTd(this.routerId);
 
     if (this.edit === 'true') {
-      this.getStudent(this.studentEmail, '');
+      this.getStudent(this.studentEduId, this.routerId, this.courseId);
     }
 
     this.students = this.fb.group({
@@ -111,7 +114,7 @@ export class AddStudentsComponent implements OnInit {
   onSelectCourse(id: string) {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
     this.selectedCourse = this.courses.find((course: any) => course.id === id);
-    this.students.get('courseDetails').patchValue({ batch: '', discount: '' });
+    this.students.get('courseDetails').patchValue({ batch: '' });
     this.calculateNetPayableAmount();
   }
 
@@ -150,42 +153,46 @@ export class AddStudentsComponent implements OnInit {
     }
   }
 
-  getStudent(email: string, course: string) {
-    let param = new HttpParams();
-    param = param.append('instituteId', this.routerId);
-    param = param.append('courseId', course);
-    param = param.append('studentEmail', email);
+  getStudent(student: string, institute: string, course: string) {
+    this.api
+      .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
+      .subscribe((data: any) => {
+        this.student = data[0];
+        this.students.patchValue({
+          name: this.student.basicDetails.name,
+          rollNo: this.student.basicDetails.rollNumber,
+          studentEmail: this.student.basicDetails.studentEmail,
+          contact: this.student.basicDetails.studentContact,
 
-    this.api.getStudent(param).subscribe((data) => {
-      this.student = data;
-      this.students.patchValue({
-        name: this.student.basicDetails.name,
-        rollNo: this.student.basicDetails.rollNumber,
+          parentName: this.student.parentDetails.name,
+          parentContact: this.student.parentDetails.parentContact,
+          parentEmail: this.student.parentDetails.parentEmail,
 
-        studentEmail: this.student.basicDetails.studentEmail,
-        contact: this.student.basicDetails.studentContact,
-        parentName: this.student.parentDetails.name,
+          address: this.student.parentDetails.address,
 
-        parentContact: this.student.parentDetails.parentContact,
-        parentEmail: this.student.parentDetails.parentEmail,
-        address: this.student.parentDetails.address,
-        courseDetails: {
-          course: this.student.courseDetails.course,
-          batch: this.student.courseDetails.batch,
-          discount: this.student.courseDetails.discount,
-          additionalDiscount: this.student.courseDetails.additionalDiscount,
-          netPayable: this.student.courseDetails.nextPayble,
-        },
+          courseDetails: {
+            course: this.student.instituteDetails.courseId,
+            discount: this.student.instituteDetails.discount,
+            additionalDiscount: this.student.instituteDetails.additionalDiscount,
+            netPayable: this.student.instituteDetails.nextPayble,
+          },
+          feeDetails: {
+            installments: this.student.fee.installmentNumber,
+            nextInstallment: this.student.fee.nextInstallment,
+            amountCollected: this.student.fee.amountCollected,
+            mode: this.student.fee.mode,
+          },
+          materialRecord: this.student.instituteDetails.materialRecord,
+        });
 
-        feeDetails: {
-          installments: this.student.fee.installmentNumber,
-          nextInstallment: this.student.fee.nextInstallment,
-          amountCollected: this.student.fee.amountCollected,
-          mode: this.student.fee.mode,
-        },
+        this.onSelectCourse(this.student.instituteDetails.courseId);
+
+        this.students
+          .get('courseDetails')
+          .patchValue({ batch: this.student.instituteDetails.batchId });
+
+        this.calculateAmountPending();
       });
-    });
-    this.calculateAmountPending();
   }
 
   onSubmit() {
@@ -203,10 +210,9 @@ export class AddStudentsComponent implements OnInit {
     }
 
     if (this.edit === 'true') {
-      let param = new HttpParams();
-      param = param.append('instituteId', this.routerId);
-      param = param.append('studentEmail', this.studentEmail);
-      this.api.updateStudent(param, this.students.value).subscribe(
+      const studentMetaData = {};
+
+      this.api.updateStudent(this.students.value, studentMetaData).subscribe(
         (res) => {
           this.updateToaster('top-right', 'success');
           this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);

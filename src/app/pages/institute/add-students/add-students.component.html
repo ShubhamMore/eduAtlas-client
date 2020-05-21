@@ -172,7 +172,12 @@
 
         <div class="col-sm-2">
           <label for="dis">Discount</label>
-          <nb-select placeholder="Discount" formControlName="discount" status="basic"  (selectedChange)="onSelectDiscount($event)">
+          <nb-select
+            placeholder="Discount"
+            formControlName="discount"
+            status="basic"
+            (selectedChange)="onSelectDiscount($event)"
+          >
             <nb-option value="">Select Discount</nb-option>
             <nb-option *ngFor="let i of discounts" [value]="i._id">{{
               i.discountCode + ' (' + i.amount + '%)'
@@ -189,7 +194,7 @@
             formControlName="additionalDiscount"
             fullWidth
             placeholder="Additional Discount"
-            (input) = "calculateNetPayableAmount()"
+            (input)="calculateNetPayableAmount()"
           />
         </div>
 
@@ -271,11 +276,10 @@
             status="basic"
             fullWidth
             placeholder="Amount Pending"
-            disabled = "true"
+            disabled="true"
             [value]="amountPending"
           />
         </div>
-
       </div>
 
       <hr />
@@ -301,7 +305,7 @@
 
       <div style="text-align: right;">
         <button type="submit" nbButton status="warning" style="color: black;">
-          {{ studentEmail ? 'Update Student' : 'Add Student' }}
+          {{ studentEduId ? 'Update Student' : 'Add Student' }}
         </button>
       </div>
     </form>

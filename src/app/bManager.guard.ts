@@ -13,7 +13,7 @@ export class bManagerGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     if ((localStorage.getItem('token') && this.role === 'branchManager') || 'institute') {
       console.log('bManagerGuard running', this.role);
