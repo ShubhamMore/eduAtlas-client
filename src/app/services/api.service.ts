@@ -172,9 +172,9 @@ export class ApiService {
     );
   }
 
-  updateStudentCourse(student: any, instituteId: string) {
+  updateStudentCourse(student: any, instituteId: string, eduAtlasId: string) {
     const data = {
-      eduAtlasId: 'EDU-2020-ST-100004',
+      eduAtlasId: eduAtlasId,
 
       instituteDetails: {
         instituteId: instituteId,
