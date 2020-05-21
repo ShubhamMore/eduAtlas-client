@@ -212,13 +212,25 @@ export class AddStudentsComponent implements OnInit {
     if (this.edit === 'true') {
       const studentMetaData = {};
 
-      this.api.updateStudent(this.students.value, studentMetaData).subscribe(
-        (res) => {
-          this.updateToaster('top-right', 'success');
-          this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
-        },
-        (err) => this.invalidToast('top-right', 'danger', err.error.message),
-      );
+      if (this.student.instituteDetails.courseId !== this.students.value.courseDetails.course) {
+        this.api
+          .updateStudentCourse(this.students.value, this.routerId, this.studentEduId)
+          .subscribe(
+            (res) => {
+              this.updateToaster('top-right', 'success');
+              this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+            },
+            (err) => this.invalidToast('top-right', 'danger', err.error.message),
+          );
+      } else {
+        this.api.updateStudent(this.students.value, studentMetaData).subscribe(
+          (res) => {
+            this.updateToaster('top-right', 'success');
+            this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+          },
+          (err) => this.invalidToast('top-right', 'danger', err.error.message),
+        );
+      }
     }
 
     if (!this.edit) {
