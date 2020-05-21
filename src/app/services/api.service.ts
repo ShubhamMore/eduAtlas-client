@@ -129,23 +129,91 @@ export class ApiService {
     );
   }
 
-  getStudent(params): Observable<any> {
+  getOneStudentByInstitute(data: any) {
     return this.http
-      .get<any>(environment.server + '/institute/student/', {
-        params: params,
-      })
+      .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
       .pipe(
-        tap((data) => {
-          // console.log(data);
+        tap((res) => {
+          // console.log(res);
         }),
-        map((data) => data.student),
+        map((res) => res),
         catchError(this.handleError),
       );
   }
 
-  addStudent(student): Observable<{ message: String }> {
+  getStudent(data: any): Observable<any> {
+    return this.http.post<any>(environment.server + '/institute/student/getStudent', data).pipe(
+      tap((res) => {
+        // console.log(res);
+      }),
+      map((res) => res.student),
+      catchError(this.handleError),
+    );
+  }
+
+  getActiveStudents(id: string, courseId: string, batchId: string) {
+    const data = { instituteId: id, courseId };
+    console.log(data);
+    return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getPendingStudents(id: string, courseId: string) {
+    const data = {};
+    return this.http
+      .post<{ message: string }>(environment.server + '/institute/student/updateStudent', data)
+      .pipe(
+        // tslint:disable-next-line: no-shadowed-variable
+        tap((data) => {
+          // console.log(data);
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  updateStudentCourse(student: any, instituteId: string) {
     const data = {
-      instituteId: student.id,
+      eduAtlasId: 'EDU-2020-ST-100004',
+
+      instituteDetails: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        batchId: student.courseDetails.batch,
+        discount: student.courseDetails.discount,
+        additionalDiscount: student.courseDetails.additionalDiscount,
+        nextPayble: student.courseDetails.netPayable,
+        active: student.courseDetails.batch === '' ? false : true,
+        materialRecord: student.materialRecord,
+      },
+
+      fee: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        installmentNumber: student.feeDetails.installments,
+        nextInstallment: student.feeDetails.nextInstallment,
+        amountCollected: student.feeDetails.amountCollected,
+        mode: student.feeDetails.mode,
+      },
+    };
+
+    return this.http
+      .post<{ message: string }>(environment.server + '/institute/student/updateStudent', data)
+      .pipe(
+        // tslint:disable-next-line: no-shadowed-variable
+        tap((data) => {
+          // console.log(data);
+        }),
+        catchError(this.handleError),
+      );
+  }
+
+  addStudent(student: any, instituteId: string): Observable<{ message: String }> {
+    const data = {
       basicDetails: {
         name: student.name,
         rollNumber: student.rollNo,
@@ -158,20 +226,25 @@ export class ApiService {
         parentEmail: student.parentEmail,
         address: student.address,
       },
-      courseDetails: {
-        course: student.courseDetails.course,
-        batch: student.courseDetails.batch,
+      instituteDetails: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        batchId: student.courseDetails.batch,
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
+        active: student.courseDetails.batch === '' ? false : true,
+        materialRecord: student.materialRecod,
       },
+
       fee: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
         installmentNumber: student.feeDetails.installments,
         nextInstallment: student.feeDetails.nextInstallment,
         amountCollected: student.feeDetails.amountCollected,
         mode: student.feeDetails.mode,
       },
-      // materialRecord:student.materialRecord
     };
 
     return this.http
@@ -185,7 +258,7 @@ export class ApiService {
       );
   }
 
-  updateStudent(params, student: any): Observable<any> {
+  updateStudent(student: any, studentMetaData: any): Observable<any> {
     const data = {
       instituteId: student.id,
       basicDetails: {
@@ -206,6 +279,8 @@ export class ApiService {
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
+        active: student.courseDetails.batch === '' ? false : true,
+        materialRecord: student.materialRecod,
       },
       fee: {
         installmentNumber: student.feeDetails.installments,
@@ -214,14 +289,10 @@ export class ApiService {
         mode: student.feeDetails.mode,
       },
     };
-    return this.http
-      .put<any>(environment.server + '/institute/student/', data, {
-        params: params,
-      })
-      .pipe(
-        map(() => student),
-        catchError(this.handleError),
-      );
+    return this.http.put<any>(environment.server + '/institute/student/updateStudent', data).pipe(
+      map(() => student),
+      catchError(this.handleError),
+    );
   }
 
   deleteStudent(param): Observable<void> {

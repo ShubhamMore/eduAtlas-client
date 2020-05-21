@@ -1,3 +1,4 @@
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
 import { MENU_ITEMS } from '../../../pages-menu';
@@ -12,29 +13,20 @@ import { HttpParams } from '@angular/common/http';
 export class PendingStudentComponent implements OnInit {
   institute: any;
   courses: any[];
-  batches: any[];
-
-  students = [
-    {
-      active: false,
-      basicDetails: { name: '', rollNumber: '', studentEmail: '', studentContact: '' },
-      courseDetails: { course: '', batch: '', discount: '', nextPayble: '' },
-      fee: { amountCollected: '', installmentNumber: '', mode: '', nextInstallment: '' },
-      instituteId: '',
-      parentdetails: { name: '', parentContact: '', parentEmail: '' },
-      _id: '',
-    },
-  ];
+  course: string;
+  students = [];
   routerId: string;
+
   constructor(private api: ApiService, private router: Router, private active: ActivatedRoute) {}
 
   ngOnInit() {
+    this.course = '';
     this.routerId = this.active.snapshot.paramMap.get('id');
-    this.getStudents(this.routerId);
+    // this.getStudents(this.routerId);
     this.getCourseTd(this.routerId);
   }
 
-  getStudents(id) {
+  getStudents(id: string) {
     this.api.getStudents(id).subscribe((data) => {
       // console.log(data);
       this.students = data;
@@ -64,10 +56,7 @@ export class PendingStudentComponent implements OnInit {
   }
 
   onSelectCourse(id: string) {
-    this.batches = this.institute.batch.filter((b: any) => b.course === id);
-  }
-
-  onSelectBatch(id: string) {
+    this.course = id;
     console.log(id);
   }
 

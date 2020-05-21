@@ -12,7 +12,7 @@ export class InstituteGuard implements CanActivate {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     if (localStorage.getItem('token') && this.role === 'institute') {
       console.log('InstituteGuard running', this.role);
