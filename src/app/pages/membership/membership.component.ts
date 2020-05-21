@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../pages-menu';
 import { Router } from '@angular/router';
 
-declare var Razorpay: any;
+// declare var Razorpay: any;
 @Component({
   selector: 'ngx-membership',
   templateUrl: './membership.component.html',
@@ -13,10 +13,10 @@ export class MembershipComponent implements OnInit {
   routerId: string;
 
   options = {
-    key: 'rzp_test_uyyXNzgLBF3hTU', // Enter the Key ID generated from the Dashboard
+    key: '', // Enter the Key ID generated from the Dashboard
     amount: '', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     currency: 'INR',
-    name: 'Shubham More',
+    name: 'eduatlas',
     description: 'Test Transaction',
     image: 'https://example.com/your_logo',
     order_id: '', //This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
@@ -30,9 +30,9 @@ export class MembershipComponent implements OnInit {
       },
     },
     prefill: {
-      name: 'Shubham More',
-      email: 'shubhammore1796@gmail.com',
-      contact: '9920589037',
+      name: '',
+      email: '',
+      contact: '',
     },
     notes: {
       address: 'Razorpay Corporate Office',
@@ -42,7 +42,7 @@ export class MembershipComponent implements OnInit {
     },
   };
 
-  rzp1 = new Razorpay(this.options);
+  // rzp1 = new Razorpay(this.options);
 
   constructor(private router: Router, private paymentService: PaymentService) {}
 
@@ -59,7 +59,7 @@ export class MembershipComponent implements OnInit {
   }
 
   pay() {
-    this.rzp1.open();
+    // this.rzp1.open();
   }
 
   generateOrder() {
@@ -69,7 +69,7 @@ export class MembershipComponent implements OnInit {
         this.options.amount = res.amount;
         this.options.order_id = res.id;
         this.options.currency = res.currency;
-        this.rzp1 = new Razorpay(this.options);
+        // this.rzp1 = new Razorpay(this.options);
         this.pay();
       },
       (err) => {
