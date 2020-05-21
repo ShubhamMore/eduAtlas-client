@@ -153,7 +153,6 @@ export class ApiService {
 
   getActiveStudents(id: string, courseId: string, batchId: string) {
     const data = { instituteId: id, courseId };
-    console.log(data);
     return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
       tap((data) => {
@@ -164,16 +163,14 @@ export class ApiService {
   }
 
   getPendingStudents(id: string, courseId: string) {
-    const data = {};
-    return this.http
-      .post<{ message: string }>(environment.server + '/institute/student/getActiveStudents', data)
-      .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    const data = { instituteId: id, courseId };
+    return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
   }
 
   updateStudentCourse(student: any, instituteId: string, eduAtlasId: string) {
@@ -258,9 +255,9 @@ export class ApiService {
       );
   }
 
-  updateStudent(student: any, studentMetaData: any): Observable<any> {
+  updateStudent(student: any, eduAtlasId: any): Observable<any> {
     const data = {
-      instituteId: student.id,
+      eduAtlasId: eduAtlasId,
       basicDetails: {
         name: student.name,
         rollNumber: student.rollNo,
@@ -273,23 +270,8 @@ export class ApiService {
         parentEmail: student.parentEmail,
         address: student.address,
       },
-      courseDetails: {
-        course: student.courseDetails.course,
-        batch: student.courseDetails.batch,
-        discount: student.courseDetails.discount,
-        additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
-        active: student.courseDetails.batch === '' ? false : true,
-        materialRecord: student.materialRecod,
-      },
-      fee: {
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
-    return this.http.put<any>(environment.server + '/institute/student/updateStudent', data).pipe(
+    return this.http.post(environment.server + '/institute/student/updateStudent', data).pipe(
       map(() => student),
       catchError(this.handleError),
     );
