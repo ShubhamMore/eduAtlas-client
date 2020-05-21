@@ -164,16 +164,12 @@ export class ApiService {
   }
 
   getPendingStudents(id: string, courseId: string) {
-    const data = {};
-    return this.http
-      .post<{ message: string }>(environment.server + '/institute/student/updateStudent', data)
-      .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    const data = { instituteId: id, courseId };
+    return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
+      tap((data) => {
+      }),
+      catchError(this.handleError),
+    );
   }
 
   updateStudentCourse(student: any, instituteId: string) {

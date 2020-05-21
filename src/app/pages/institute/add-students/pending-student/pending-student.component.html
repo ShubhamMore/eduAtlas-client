@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<nb-card>
+<nb-card *ngIf="students.length > 0"> 
   <nb-card-body>
     <table>
       <thead>
@@ -74,3 +74,6 @@
     </table>
   </nb-card-body>
 </nb-card>
+<div *ngIf="students.length == 0" class="noRecFound">
+  No Records Found
+</div>

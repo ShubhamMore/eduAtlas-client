@@ -20,17 +20,15 @@ export class PendingStudentComponent implements OnInit {
   constructor(private api: ApiService, private router: Router, private active: ActivatedRoute) {}
 
   ngOnInit() {
+    this.students = [];
     this.course = '';
     this.routerId = this.active.snapshot.paramMap.get('id');
-    // this.getStudents(this.routerId);
     this.getCourseTd(this.routerId);
   }
 
-  getStudents(id: string) {
-    this.api.getStudents(id).subscribe((data) => {
-      // console.log(data);
+  getStudents(instituteId:string,courseId: string) {
+    this.api.getPendingStudents(instituteId,courseId).subscribe((data:any) => {
       this.students = data;
-      // console.log('students =>', this.students);
     });
   }
 
@@ -55,9 +53,9 @@ export class PendingStudentComponent implements OnInit {
     });
   }
 
-  onSelectCourse(id: string) {
-    this.course = id;
-    console.log(id);
+  onSelectCourse(courseId: string) {
+    this.course = courseId;
+    this.getStudents(this.routerId, courseId);
   }
 
   delete(email: string, id: string) {
