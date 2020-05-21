@@ -20,19 +20,22 @@ export class AddStudentsComponent implements OnInit {
   institute: any;
 
   modes = ['Cash', 'Chaque/DD', 'Card', 'Others'];
-  selectedItem = '1';
+
   studentEmail: string;
 
   discounts: any[];
   courses: any[];
   batches: any[];
-  selectedCourse : any;
-  selectedDiscount : any;
-  amountPending : number = 0;
+
+  selectedCourse: any;
+  selectedDiscount: any;
+  amountPending: number = 0;
 
   edit: string;
 
   student: any;
+
+  alreadyRegistered: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +51,7 @@ export class AddStudentsComponent implements OnInit {
     this.discounts = [];
 
     this.routerId = this.active.snapshot.paramMap.get('id');
+
     this.active.queryParams.subscribe((data) => {
       this.studentEmail = data.email;
       this.edit = data.edit;
@@ -56,7 +60,7 @@ export class AddStudentsComponent implements OnInit {
     this.getCourseTd(this.routerId);
 
     if (this.edit === 'true') {
-      this.getStudent(this.studentEmail);
+      this.getStudent(this.studentEmail, '');
     }
 
     this.students = this.fb.group({
@@ -106,47 +110,50 @@ export class AddStudentsComponent implements OnInit {
 
   onSelectCourse(id: string) {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
-    this.selectedCourse = this.courses.find((course:any) => course.id ===id);
-    this.students.get("courseDetails").patchValue({batch: '',discount:''});
-    this.calculateNetPayableAmount();
-  }
-  onSelectDiscount(id:string){
-    this.selectedDiscount = this.discounts.find((dicount:any) => dicount.id ===id);
+    this.selectedCourse = this.courses.find((course: any) => course.id === id);
+    this.students.get('courseDetails').patchValue({ batch: '', discount: '' });
     this.calculateNetPayableAmount();
   }
 
-  calculateNetPayableAmount(){
-    var calculatedAmount = 0;
-    var additionalDiscount =  this.students.get(["courseDetails","additionalDiscount"]).value;
-    if(this.selectedCourse && this.selectedCourse.fees){
-       calculatedAmount = this.selectedCourse.fees;
-       
-      if(this.selectedDiscount && this.selectedDiscount.amount){
-        calculatedAmount =  this.selectedCourse.fees - (this.selectedDiscount.amount/100)*this.selectedCourse.fees
+  onSelectDiscount(id: string) {
+    this.selectedDiscount = this.discounts.find((dicount: any) => dicount.id === id);
+    this.calculateNetPayableAmount();
+  }
+
+  calculateNetPayableAmount() {
+    let calculatedAmount = 0;
+    const additionalDiscount = this.students.get(['courseDetails', 'additionalDiscount']).value;
+    if (this.selectedCourse && this.selectedCourse.fees) {
+      calculatedAmount = this.selectedCourse.fees;
+
+      if (this.selectedDiscount && this.selectedDiscount.amount) {
+        calculatedAmount =
+          this.selectedCourse.fees -
+          (this.selectedDiscount.amount / 100) * this.selectedCourse.fees;
       }
-      if(additionalDiscount){
-        calculatedAmount = calculatedAmount - (additionalDiscount/100)*calculatedAmount
+      if (additionalDiscount) {
+        calculatedAmount = calculatedAmount - (additionalDiscount / 100) * calculatedAmount;
       }
     }
     this.calculateAmountPending();
-    this.students.get("courseDetails").patchValue({netPayable: calculatedAmount})
+    this.students.get('courseDetails').patchValue({ netPayable: calculatedAmount });
   }
 
-  calculateAmountPending(){
-    var netPayableAmount = this.students.get(["courseDetails","netPayable"]).value;
-    var amountCollected = this.students.get(["feeDetails","amountCollected"]).value; 
+  calculateAmountPending() {
+    const netPayableAmount = this.students.get(['courseDetails', 'netPayable']).value;
+    const amountCollected = this.students.get(['feeDetails', 'amountCollected']).value;
 
-    if(amountCollected && netPayableAmount){
-      this.amountPending =  netPayableAmount - amountCollected;
-    }else{
-      this.amountPending =  netPayableAmount;
+    if (amountCollected && netPayableAmount) {
+      this.amountPending = netPayableAmount - amountCollected;
+    } else {
+      this.amountPending = netPayableAmount;
     }
-
   }
 
-  getStudent(email: string) {
+  getStudent(email: string, course: string) {
     let param = new HttpParams();
     param = param.append('instituteId', this.routerId);
+    param = param.append('courseId', course);
     param = param.append('studentEmail', email);
 
     this.api.getStudent(param).subscribe((data) => {
@@ -209,7 +216,7 @@ export class AddStudentsComponent implements OnInit {
     }
 
     if (!this.edit) {
-      this.api.addStudent(this.students.value).subscribe(
+      this.api.addStudent(this.students.value, this.routerId).subscribe(
         (data) => {
           this.showToaster('top-right', 'success');
           setTimeout(() => {

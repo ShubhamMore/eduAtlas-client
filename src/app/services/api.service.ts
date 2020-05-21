@@ -143,9 +143,8 @@ export class ApiService {
       );
   }
 
-  addStudent(student): Observable<{ message: String }> {
+  addStudent(student: any, instituteId: string): Observable<{ message: String }> {
     const data = {
-      instituteId: student.id,
       basicDetails: {
         name: student.name,
         rollNumber: student.rollNo,
@@ -158,20 +157,28 @@ export class ApiService {
         parentEmail: student.parentEmail,
         address: student.address,
       },
-      courseDetails: {
-        course: student.courseDetails.course,
-        batch: student.courseDetails.batch,
-        discount: student.courseDetails.discount,
-        additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
-      },
-      fee: {
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
-      // materialRecord:student.materialRecord
+      instituteDetails: [
+        {
+          instituteId: instituteId,
+          courseId: student.courseDetails.course,
+          batchId: student.courseDetails.batch,
+          discount: student.courseDetails.discount,
+          additionalDiscount: student.courseDetails.additionalDiscount,
+          nextPayble: student.courseDetails.netPayable,
+        },
+      ],
+      fee: [
+        {
+          instituteId: instituteId,
+          courseId: student.courseDetails.course,
+          installmentNumber: student.feeDetails.installments,
+          nextInstallment: student.feeDetails.nextInstallment,
+          amountCollected: student.feeDetails.amountCollected,
+          mode: student.feeDetails.mode,
+        },
+      ],
+      active: student.courseDetails.batch === '' ? false : true,
+      materialRecord: student.materialRecord,
     };
 
     return this.http
