@@ -96,7 +96,7 @@ export class AddStudentsComponent implements OnInit {
   }
 
   get f() {
-    return this.students.controls;
+     return this.students.controls;
   }
   getBatches(id) {
     this.api.getBatches(id).subscribe((data) => {

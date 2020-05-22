@@ -5,5 +5,6 @@
  */
 export const environment = {
   production: true,
-  server: 'http://139.59.26.154:5000',
+  server: 'http://localhost:5000',
+  server_local:'http://139.59.26.154:5000'
 };

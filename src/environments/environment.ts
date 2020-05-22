@@ -10,5 +10,6 @@
 //https://eduatlas-node-backend.herokuapp.com/
 export const environment = {
   production: false,
-  server: 'http://localhost:5000',
+  server:'http://localhost:5000',
+  server_local: '',
 };
