@@ -2,6 +2,61 @@
 
 <nb-card status="warning">
   <nb-card-body>
+    <form [formGroup]="eduAtlasStudentForm" (ngSubmit)="onStudentSearch()">
+      <p>Fetch student</p>
+      <div class="row">
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="3"
+          [status]="eduAtlasStudentFormControl.idInput1.errors && submitted ? 'danger' : 'basic'"
+          id="idInput1"
+          fullWidth
+          formControlName="idInput1"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="4"
+          [status]="eduAtlasStudentFormControl.idInput2.errors && submitted ? 'danger' : 'basic'"
+          id="idInput2"
+          fullWidth
+          formControlName="idInput2"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="3"
+          [status]="eduAtlasStudentFormControl.idInput3.errors && submitted ? 'danger' : 'basic'"
+          id="idInput3"
+          fullWidth
+          formControlName="idInput3"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="6"
+          [status]="eduAtlasStudentFormControl.idInput4.errors && submitted ? 'danger' : 'basic'"
+          id="idInput4"
+          fullWidth
+          formControlName="idInput4"
+        />
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" nbButton status="warning" style="color: black;">
+            Fetch
+          </button>
+        </div>
+      </div>
+      <hr/>
+    </form>
     <form [formGroup]="students" (ngSubmit)="onSubmit()">
       <p>Student Basic Details</p>
       <div class="row">
