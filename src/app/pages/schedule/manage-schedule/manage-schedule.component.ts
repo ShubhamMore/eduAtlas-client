@@ -26,7 +26,7 @@ export class ManageScheduleComponent implements OnInit {
   constructor(
     private router: Router,
     private active: ActivatedRoute,
-    private scheduleService: ScheduleService
+    private scheduleService: ScheduleService,
   ) {}
 
   ngOnInit() {
@@ -44,11 +44,11 @@ export class ManageScheduleComponent implements OnInit {
 
     this.scheduleService.getSchedule(param).subscribe((res) => {
       this.schedules = res;
-      console.log('sch==>', this.schedules);
+      // console.log('sch==>', this.schedules);
     });
   }
   view(code) {
-    console.log('batchCode', code);
+    // console.log('batchCode', code);
     this.router.navigate(['/pages/institute/view-schedule', this.routerId], {
       queryParams: { batchCode: code },
     });

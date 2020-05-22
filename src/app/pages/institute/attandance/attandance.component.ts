@@ -36,19 +36,19 @@ export class AttandanceComponent implements OnInit {
   getCourses(id) {
     this.api.getCourses(id).subscribe((data) => {
       this.courses = JSON.parse(JSON.stringify(data));
-      console.log('courses=> ', this.courses);
+      // console.log('courses=> ', this.courses);
     });
   }
   getBatches(id) {
     this.api.getBatches(id).subscribe((data) => {
       this.batches = JSON.parse(JSON.stringify(data));
-      console.log('batches=> ', this.batches);
+      // console.log('batches=> ', this.batches);
     });
   }
   getStudents(id) {
     this.api.getStudents(id).subscribe((res) => {
       this.students = res;
-      console.log('students=> ', this.students);
+      // console.log('students=> ', this.students);
     });
   }
   present(check) {
@@ -57,6 +57,6 @@ export class AttandanceComponent implements OnInit {
     });
   }
   clone(check) {
-    console.log(check);
+    // console.log(check);
   }
 }

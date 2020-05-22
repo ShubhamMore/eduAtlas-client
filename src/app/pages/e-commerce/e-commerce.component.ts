@@ -8,7 +8,7 @@ import { MENU_ITEMS } from '../pages-menu';
   templateUrl: './e-commerce.component.html',
   styleUrls: ['./e-commerce.component.scss'],
 })
-export class ECommerceComponent {
+export class ECommerceComponent implements OnInit {
   institutes: any[] = [];
   institute: any[] = [];
   myInstitute = {
@@ -58,7 +58,7 @@ export class ECommerceComponent {
     this.api.getInstitutes().subscribe((data) => {
       this.institutes = data;
 
-      //console.log('institutes - ' + JSON.stringify(this.institutes));
+      // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
       // console.log(this.institute);
     });
@@ -80,16 +80,16 @@ export class ECommerceComponent {
     this.api.getInstitute(id).subscribe((res) => {
       const inst = JSON.stringify(res);
       this.myInstitute = JSON.parse(inst);
-      console.log(this.myInstitute);
+      // console.log(this.myInstitute);
     });
   }
   getStudents(id) {
     this.api.getStudents(id).subscribe(
       (data) => {
         this.students = data;
-        console.log('students =>', this.students);
+        // console.log('students =>', this.students);
       },
-      (err) => console.error(err)
+      (err) => console.error(err),
     );
   }
 

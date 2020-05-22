@@ -18,8 +18,10 @@ export class RoleAssignService {
 
   addRole(role): Observable<any> {
     return this.http.post<any>(`${environment.server}/institute/role`, role, this.httpOptions).pipe(
-      tap((data) => console.log(data)),
-      catchError(this.handleError)
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
     );
   }
 
@@ -27,20 +29,24 @@ export class RoleAssignService {
     return this.http
       .get<any>(`${environment.server}/users/sendOTP/${phone}`, { params: params })
       .pipe(
-        tap((res: any) => console.log(res)),
-        catchError(this.handleError)
+        tap((res: any) => {
+          // console.log(res);
+        }),
+        catchError(this.handleError),
       );
   }
   verifyOtp(params) {
     return this.http
       .get<any>(environment.server + '/users/varifyOTP', { params: params })
       .pipe(
-        tap((res) => console.log(res)),
-        catchError((err) => this.handleError(err))
+        tap((res) => {
+          // console.log(res);
+        }),
+        catchError((err) => this.handleError(err)),
       );
   }
   private handleError(error: any) {
-    console.log(error);
+    // console.log(error);
     return throwError(error);
   }
 }

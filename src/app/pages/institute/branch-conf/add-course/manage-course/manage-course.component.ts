@@ -29,25 +29,27 @@ export class ManageCourseComponent implements OnInit {
   }
   getCourses(id) {
     this.api.getCourses(id).subscribe((data) => {
-      //console.log(data);
-      //this.courses = JSON.stringify(data);
+      // console.log(data);
+      // this.courses = JSON.stringify(data);
       const course = JSON.stringify(data);
       this.courses = JSON.parse(course);
-      console.log('=======> ', this.courses);
+      // console.log('=======> ', this.courses);
     });
   }
 
   delete(id) {
-    console.log(id);
+    // console.log(id);
     let param = new HttpParams();
     param = param.append('instituteId', this.routerId);
     param = param.append('courseId', id);
     this.api.deleteCourse(param).subscribe(
-      (res) => console.log(res),
-      (error) => console.log(error)
+      (res) => {
+        // console.log(res);
+      },
+      (error) => console.error(error),
     );
 
-    const i = this.courses.course.findIndex((e) => e._id == id);
+    const i = this.courses.course.findIndex((e) => e._id === id);
     if (i !== -1) {
       this.courses.course.splice(i, 1);
     }

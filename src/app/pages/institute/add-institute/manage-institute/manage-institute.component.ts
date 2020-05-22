@@ -14,6 +14,7 @@ import { SmartTableData } from '../../../../@core/data/smart-table';
 export class ManageInstituteComponent implements OnInit {
   confirmDelete: boolean;
   institutes: any;
+
   institute = [
     {
       address: { addressLine: '', locality: '', state: '', city: '' },
@@ -27,17 +28,18 @@ export class ManageInstituteComponent implements OnInit {
       metaTag: [],
     },
   ];
+
   user: instituteData;
   displayData: boolean;
 
   constructor(private api: ApiService, private router: Router) {}
+
   getInstitutes() {
     this.api.getInstitutes().subscribe((data) => {
       this.institutes = data;
-
-      //console.log('institutes - ' + JSON.stringify(this.institutes));
+      // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
-      console.log(this.institute);
+      // console.log(this.institute);
       MENU_ITEMS[2].hidden = true;
       MENU_ITEMS[3].hidden = true;
       MENU_ITEMS[4].hidden = true;
@@ -52,9 +54,11 @@ export class ManageInstituteComponent implements OnInit {
     // });
     this.router.navigate(['/pages/dashboard', id]);
   }
+
   ngOnInit() {
     this.getInstitutes();
   }
+
   updateInstitute(id: string) {
     this.router.navigate(['/pages/institute/add-institute'], {
       queryParams: { instituteId: id, edit: 'true' },
@@ -63,8 +67,12 @@ export class ManageInstituteComponent implements OnInit {
 
   delete(id: string) {
     this.api.deleteInstitute(id).subscribe(
-      () => console.log(`institute with id ${id} deleted`),
-      (err) => console.log(err)
+      (res) => {
+        // console.log(`institute with id ${id} deleted`);
+      },
+      (err) => {
+        // console.log(err);
+      },
     );
     const i = this.institute.findIndex((e) => e._id === id);
     if (i !== -1) {
@@ -76,6 +84,7 @@ export class ManageInstituteComponent implements OnInit {
       MENU_ITEMS[4].hidden = true;
     }
   }
+
   confirm(value: boolean) {
     this.confirmDelete = value;
   }

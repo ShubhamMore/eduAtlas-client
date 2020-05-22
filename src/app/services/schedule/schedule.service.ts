@@ -20,8 +20,10 @@ export class ScheduleService {
     return this.http
       .post<any>(`${environment.server}/institute/schedule`, schedule, this.httpOptions)
       .pipe(
-        tap((res) => console.log(res)),
-        catchError(this.handleError)
+        tap((res) => {
+          // console.log(res);
+        }),
+        catchError(this.handleError),
       );
   }
 
@@ -35,7 +37,7 @@ export class ScheduleService {
   }
 
   private handleError(error: any) {
-    console.log(error);
+    // console.log(error);
     return throwError(error);
   }
 }

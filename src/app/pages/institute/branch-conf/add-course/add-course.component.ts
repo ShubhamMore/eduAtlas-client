@@ -47,7 +47,7 @@ export class AddCourseComponent implements OnInit {
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.courseId = data.courseId;
       this.edit = data.edit;
     });
@@ -71,11 +71,11 @@ export class AddCourseComponent implements OnInit {
     param = param.append('courseId', id);
     this.api.getCourse(param).subscribe(
       (data) => {
-        console.log('getCourse ' + JSON.stringify(data[0]));
+        // console.log('getCourse ' + JSON.stringify(data[0]));
         this.updateCourse = JSON.parse(JSON.stringify(data[0]));
-        console.log('getOcurse ' + this.updateCourse.courseCode);
+        // console.log('getCourse ' + this.updateCourse.courseCode);
 
-        console.log(this.updateCourse);
+        // console.log(this.updateCourse);
         this.course.patchValue({
           name: this.updateCourse.name,
           courseCode: this.updateCourse.courseCode,
@@ -85,7 +85,7 @@ export class AddCourseComponent implements OnInit {
           discription: this.updateCourse.discription,
           totalFee: this.updateCourse.totalFee,
         });
-        if (this.updateCourse.gst == 'Inclusive') {
+        if (this.updateCourse.gst === 'Inclusive') {
           this.gstCheckBox = true;
           this.course.get('gstValue').disable();
         } else {
@@ -94,16 +94,16 @@ export class AddCourseComponent implements OnInit {
         }
         this.fees = Number(this.updateCourse.fees);
       },
-      (error) => console.log(error),
+      (error) => console.error(error),
     );
   }
   getInstitutes() {
     this.api.getInstitutes().subscribe((data) => {
       this.institutes = data;
 
-      console.log('institutes - ' + JSON.stringify(this.institutes));
+      // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
-      console.log(this.institute);
+      // console.log(this.institute);
     });
     this.display = true;
   }
@@ -118,31 +118,31 @@ export class AddCourseComponent implements OnInit {
     if (this.course.invalid) {
       return;
     }
-    console.log('editMode ' + this.edit);
+    // console.log('editMode ' + this.edit);
     if (this.edit === 'true') {
       let param = new HttpParams();
       param = param.append('instituteId', this.routerId);
       param = param.append('courseId', this.courseId);
       this.api.updateCourse(param, this.course.value).subscribe(
         (res) => {
-          console.log(res);
+          // console.log(res);
           this.showToast('top-right', 'success', 'Course Updated');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
           }, 1000);
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
           this.showToast('top-right', 'danger', 'Course Updation Failed');
         },
       );
     }
 
-    console.log(this.course.value);
+    // console.log(this.course.value);
     if (!this.edit) {
       this.api.addCourse(this.routerId, this.course.value).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           this.showToast('top-right', 'success', 'Course Added Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
@@ -156,7 +156,7 @@ export class AddCourseComponent implements OnInit {
     }
   }
   inclusiveGst(event) {
-    var inclusive = event;
+    const inclusive = event;
     if (inclusive) {
       this.course.get('gstValue').disable();
       this.course.patchValue({
@@ -174,7 +174,7 @@ export class AddCourseComponent implements OnInit {
 
   calculateTotalFees() {
     let total = 0;
-    if (this.course.get('gst').value == 'Inclusive') {
+    if (this.course.get('gst').value === 'Inclusive') {
       total = this.fees;
     } else {
       if (this.exclusiveGst == null) {
@@ -188,9 +188,9 @@ export class AddCourseComponent implements OnInit {
 
   exclusive(event) {
     this.exclusiveGst = +event;
-    console.log('exclusive ', this.exclusiveGst);
-    let total = this.fees + (this.exclusiveGst / 100) * this.fees;
-    console.log('type ', typeof this.fees, this.fees);
+    // console.log('exclusive ', this.exclusiveGst);
+    const total = this.fees + (this.exclusiveGst / 100) * this.fees;
+    // console.log('type ', typeof this.fees, this.fees);
     this.course.patchValue({
       totalFee: total + '',
       gstValue: this.exclusiveGst === 0 ? '' : this.exclusiveGst + '',

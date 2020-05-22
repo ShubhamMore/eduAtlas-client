@@ -45,7 +45,7 @@ export class AnnouncementsComponent implements OnInit {
   constructor(
     private api: ApiService,
     private active: ActivatedRoute,
-    private announceService: AnnouncementService
+    private announceService: AnnouncementService,
   ) {}
 
   ngOnInit() {
@@ -59,45 +59,44 @@ export class AnnouncementsComponent implements OnInit {
     this.api.getBatches(id).subscribe((data) => {
       const batch = JSON.stringify(data);
       this.batches = JSON.parse(batch);
-      console.log('my batch' + JSON.parse(JSON.stringify(data)));
+      // console.log('my batch' + JSON.parse(JSON.stringify(data)));
     });
   }
   getAnnouncement(id) {
     this.announceService.getAnnouncement(id).subscribe((data) => {
       this.announcement = data;
-      console.log('announce =>', this.announcement);
+      // console.log('announce =>', this.announcement);
     });
   }
   getInstitute(id) {
     this.api.getInstitute(id).subscribe((data) => {
       const inst = JSON.stringify(data);
       this.institute = JSON.parse(inst);
-      console.log(this.institute.institute);
+      // console.log(this.institute.institute);
     });
   }
   check(event) {
-    console.log(event);
+    // console.log(event);
     this.announce.selectAll = event;
   }
   onSubmit() {
-    //console.log('text =>', this.announce);
+    // console.log('text =>', this.announce);
 
     this.announceService.postAnnouncement(this.announce).subscribe((res) => {
       // this.announcement.push(res);
     });
-    this.getAnnouncement(this.routerId)
+    this.getAnnouncement(this.routerId);
   }
   onDelete(id) {
     this.announceService.deleteAnnouncement(id).subscribe((res) => {
-      //console.log(res);
+      // console.log(res);
     });
 
-    const i = this.announcement.findIndex((e) => e._id == id);
-    console.log(i);
+    const i = this.announcement.findIndex((e) => e._id === id);
+    // console.log(i);
     if (i !== -1) {
       this.announcement.splice(i, 1);
     }
-    this.getAnnouncement(this.routerId)
-    
+    this.getAnnouncement(this.routerId);
   }
 }

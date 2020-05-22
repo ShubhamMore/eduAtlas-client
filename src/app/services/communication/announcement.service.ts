@@ -20,24 +20,30 @@ export class AnnouncementService {
     return this.http
       .post(`${environment.server}/institute/announcement`, announcement, this.httpOptions)
       .pipe(
-        tap((response) => console.log(response)),
-        catchError((err) => this.handleError(err))
+        tap((response) => {
+          // console.log(response);
+        }),
+        catchError((err) => this.handleError(err)),
       );
   }
   getAnnouncement(id): Observable<any> {
     return this.http
       .get<any>(`${environment.server}/users/announcement/${id}`, this.httpOptions)
       .pipe(
-        tap((res) => console.log(res)),
-        catchError((err) => this.handleError(err))
+        tap((res) => {
+          // console.log(res);
+        }),
+        catchError((err) => this.handleError(err)),
       );
   }
   deleteAnnouncement(id): Observable<any> {
     return this.http
       .delete<any>(`${environment.server}/users/announcement/${id}`, this.httpOptions)
       .pipe(
-        tap((res) => console.log(res)),
-        catchError((err) => this.handleError(err))
+        tap((res) => {
+          // console.log(res);
+        }),
+        catchError((err) => this.handleError(err)),
       );
   }
 

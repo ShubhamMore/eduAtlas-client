@@ -25,9 +25,9 @@ export class ViewStudentComponent implements OnInit {
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.studentEmail = data.email;
-      console.log('studentId ' + this.studentEmail);
+      // console.log('studentId ' + this.studentEmail);
     });
     this.getStudent(this.routerId);
   }
@@ -38,7 +38,7 @@ export class ViewStudentComponent implements OnInit {
 
     this.api.getStudent(param).subscribe((data) => {
       this.student = data;
-      console.log('student ', this.student);
+      // console.log('student ', this.student);
     });
   }
 }

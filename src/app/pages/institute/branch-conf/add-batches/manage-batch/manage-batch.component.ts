@@ -16,7 +16,7 @@ export class ManageBatchComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private active: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
   ) {}
 
   ngOnInit() {
@@ -30,24 +30,29 @@ export class ManageBatchComponent implements OnInit {
       console.dir('my batch' + this.batches);
     });
   }
+
   edit(id: string) {
     this.router.navigate([`/pages/institute/branch-config/add-batch/${this.routerId}`], {
       queryParams: { batchId: id, edit: true },
     });
   }
-  delete(id) {
-    console.log(id);
+
+  delete(id: string) {
+    // console.log(id);
     this.params = this.params.append('instituteId', this.routerId);
     this.params = this.params.append('batchId', id);
     this.api.deleteBatch(this.params).subscribe(
-      () => console.log('successfully delete'),
-      (err) => console.error(err)
+      (res) => {
+        // console.log('successfully delete ' + res);
+      },
+      (err) => console.error(err),
     );
-    const i = this.batches.batch.findIndex((e) => e._id == id);
+    const i = this.batches.batch.findIndex((e) => e._id === id);
     if (i !== -1) {
       this.batches.batch.splice(i, 1);
     }
   }
+
   onClick() {
     this.router.navigate(['/pages/institute/branch-config/add-batch', this.routerId]);
   }

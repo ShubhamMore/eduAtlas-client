@@ -38,9 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getInstitutes();
 
-    this.api.getToken().subscribe((data) => {
-      // console.log('from home =>', data);
-    });
     MENU_ITEMS[1].hidden = false;
     MENU_ITEMS[2].hidden = true;
     MENU_ITEMS[3].hidden = true;
@@ -55,11 +52,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getInstitutes() {
     setTimeout(() => {
-      this.api.addToken();
       this.api.getInstitutes().subscribe((data) => {
         this.institutes = data;
 
-        //console.log('institutes - ' + JSON.stringify(this.institutes));
+        // console.log('institutes - ' + JSON.stringify(this.institutes));
         this.institute = JSON.parse(JSON.stringify(this.institutes));
         // console.log('from home===============>',this.institute);
 
@@ -67,11 +63,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.display = true;
           // console.log(this.display);
         }
+        // tslint:disable-next-line: no-shadowed-variable
         this.institute.forEach((data, i, a) => {
           // console.log('=>' ,data.basicInfo.logo.data.data)
-          let TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
+          const TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
           this.STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
           // console.log('string char => ', i , '  ', this.STRING_CHAR);
+          // tslint:disable-next-line: no-shadowed-variable
           this.STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
             return data + String.fromCharCode(byte);
           }, '');

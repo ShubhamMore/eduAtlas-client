@@ -22,7 +22,7 @@ export class AddScheduleComponent implements OnInit {
     private active: ActivatedRoute,
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class AddScheduleComponent implements OnInit {
   getBatches(id) {
     this.api.getBatches(id).subscribe((data) => {
       this.batches = JSON.parse(JSON.stringify(data));
-      console.log('my Batch =>', this.batches);
+      // console.log('my Batch =>', this.batches);
     });
   }
 
@@ -58,14 +58,14 @@ export class AddScheduleComponent implements OnInit {
     if (this.schedule.invalid) {
       return;
     }
-    console.log('onSubmit => ', this.schedule.value);
+    // console.log('onSubmit => ', this.schedule.value);
     const routerId = this.active.snapshot.paramMap.get('id');
     this.scheduleService.addSchedule(this.schedule.value).subscribe(
       (res) => {
-        console.log('from api =>', res);
+        // console.log('from api =>', res);
         this.showToast('top-right', 'success');
       },
-      (error) => console.log(error)
+      (error) => console.error(error),
     );
   }
 

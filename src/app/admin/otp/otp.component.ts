@@ -22,7 +22,7 @@ export class OtpComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((param: Params) => {
-      console.log(param);
+      // console.log(param);
       this.phone = param.phone;
       this.getOtp();
     });
@@ -33,13 +33,13 @@ export class OtpComponent implements OnInit {
   }
 
   getOtp() {
-    let param = new HttpParams();
+    const param = new HttpParams();
     this.otpService.getOtp(this.phone, param).subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
       },
       (error: any) => {
-        console.log(error);
+        // console.log(error);
       },
     );
   }
@@ -53,14 +53,14 @@ export class OtpComponent implements OnInit {
 
     this.otpService.userVerify(otpData).subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.showToast('top-right', 'success', 'Successfully Registered');
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 1000);
       },
       (err: any) => {
-        console.log(err);
+        // console.log(err);
         this.showToast('top-right', 'danger', 'Invalid OTP');
       },
     );

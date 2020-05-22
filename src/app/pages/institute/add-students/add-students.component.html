@@ -2,6 +2,61 @@
 
 <nb-card status="warning">
   <nb-card-body>
+    <form [formGroup]="eduAtlasStudentForm" (ngSubmit)="onStudentSearch()">
+      <p>Fetch student</p>
+      <div class="row">
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="3"
+          [status]="eduAtlasStudentFormControl.idInput1.errors && submitted ? 'danger' : 'basic'"
+          id="idInput1"
+          fullWidth
+          formControlName="idInput1"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="4"
+          [status]="eduAtlasStudentFormControl.idInput2.errors && submitted ? 'danger' : 'basic'"
+          id="idInput2"
+          fullWidth
+          formControlName="idInput2"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="3"
+          [status]="eduAtlasStudentFormControl.idInput3.errors && submitted ? 'danger' : 'basic'"
+          id="idInput3"
+          fullWidth
+          formControlName="idInput3"
+        />
+        </div><span>-</span>
+        <div class="col-sm-2">
+          <input
+          type="text"
+          nbInput
+          maxlength="6"
+          [status]="eduAtlasStudentFormControl.idInput4.errors && submitted ? 'danger' : 'basic'"
+          id="idInput4"
+          fullWidth
+          formControlName="idInput4"
+        />
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" nbButton status="warning" style="color: black;">
+            Fetch
+          </button>
+        </div>
+      </div>
+      <hr/>
+    </form>
     <form [formGroup]="students" (ngSubmit)="onSubmit()">
       <p>Student Basic Details</p>
       <div class="row">
@@ -20,6 +75,7 @@
             <small *ngIf="f.name.errors && submitted">*Student name is required</small>
           </div>
         </div>
+
         <div class="col-sm-3">
           <div class="form-group">
             <label for="roll">*Roll Number</label>
@@ -35,6 +91,7 @@
             <small *ngIf="f.rollNo.errors && submitted">*Student Roll no. is required</small>
           </div>
         </div>
+
         <div class="col-sm-3">
           <div class="form-group">
             <label for="email">*Email</label>
@@ -50,6 +107,7 @@
             <small *ngIf="f.studentEmail.errors && submitted">*Student email is required</small>
           </div>
         </div>
+
         <div class="col-sm-3">
           <div class="form-group">
             <label for="contact">*Student Contact Number</label>
@@ -63,13 +121,17 @@
               fullWidth
               placeholder="Student Contact No."
             />
-            <small *ngIf="f.contact.errors && submitted">*Enter Correct Phone no.</small>
+            <small *ngIf="f.contact.errors && submitted"
+              >*Student Contact Number is required.</small
+            >
           </div>
         </div>
       </div>
 
       <hr />
+
       <p>Parents Details</p>
+
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group">
@@ -85,6 +147,7 @@
             />
           </div>
         </div>
+
         <div class="col-sm-4">
           <div class="form-group">
             <label for="pcontact">Parent Contact</label>
@@ -101,6 +164,7 @@
             <small *ngIf="f.parentContact.errors">*Enter Correct Phone no.</small>
           </div>
         </div>
+
         <div class="col-sm-4">
           <label for="pemail">Parent Email Id</label>
           <input
@@ -115,6 +179,7 @@
           <small *ngIf="f.parentEmail.errors">*Enter Correct Email</small>
         </div>
       </div>
+
       <div class="row">
         <div class="col-sm-12">
           <label for="address">Address</label>
@@ -133,36 +198,48 @@
       </div>
 
       <hr />
+
       <p>Course Details</p>
 
       <div formGroupName="courseDetails" class="row">
         <div class="col-sm-3">
           <label for="cdetail">*Select Course</label>
-          <nb-select placeholder="Select Course" status="basic" formControlName="course">
+          <nb-select
+            placeholder="Select Course"
+            status="basic"
+            formControlName="course"
+            (selectedChange)="onSelectCourse($event)"
+          >
             <nb-option value="">Select Course</nb-option>
-            <nb-option *ngFor="let i of courses.course" value="{{ i.name }}">{{
-              i.name
-            }}</nb-option>
+            <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
           </nb-select>
         </div>
+
         <div class="col-sm-3">
           <label for="batch">Batch</label>
           <nb-select placeholder="Select Batch" formControlName="batch" status="basic">
             <nb-option value="">No Batch Assign</nb-option>
-            <nb-option *ngFor="let item of batches.batch" value="{{ item.batchCode }}">{{
+            <nb-option *ngFor="let item of batches" [value]="item._id">{{
               item.batchCode
             }}</nb-option>
           </nb-select>
         </div>
+
         <div class="col-sm-2">
           <label for="dis">Discount</label>
-          <nb-select placeholder="Discount" formControlName="discount" status="basic">
+          <nb-select
+            placeholder="Discount"
+            formControlName="discount"
+            status="basic"
+            (selectedChange)="onSelectDiscount($event)"
+          >
             <nb-option value="">Select Discount</nb-option>
-            <nb-option *ngFor="let i of discounts.discount" value="{{ i.amount }}">{{
-              i.amount
+            <nb-option *ngFor="let i of discounts" [value]="i._id">{{
+              i.discountCode + ' (' + i.amount + '%)'
             }}</nb-option>
           </nb-select>
         </div>
+
         <div class="col-sm-2">
           <label for="adis">Additional Discount</label>
           <input
@@ -172,8 +249,10 @@
             formControlName="additionalDiscount"
             fullWidth
             placeholder="Additional Discount"
+            (input)="calculateNetPayableAmount()"
           />
         </div>
+
         <div class="col-sm-2">
           <label for="net">Net Payable</label>
           <input
@@ -183,12 +262,14 @@
             status="basic"
             formControlName="netPayable"
             fullWidth
+            disabled="true"
             placeholder="Net Payable"
           />
         </div>
       </div>
 
       <hr />
+
       <p>Fees</p>
 
       <div formGroupName="feeDetails" class="row">
@@ -204,10 +285,9 @@
             placeholder="No. of Installments"
           />
         </div>
+
         <div class="col-sm-3">
           <label for="no">Next Installment</label>
-          <!-- <input type="text" nbInput id="no" status="basic" formControlName="nextInstallment" fullWidth placeholder="Next Installment">
-             -->
           <input
             nbInput
             status="basic"
@@ -218,6 +298,7 @@
           />
           <nb-datepicker #formpicker></nb-datepicker>
         </div>
+
         <div class="col-sm-3">
           <label for="amt">Amount Collected</label>
           <input
@@ -228,8 +309,10 @@
             formControlName="amountCollected"
             fullWidth
             placeholder="Amount Collected"
+            (input)="calculateAmountPending()"
           />
         </div>
+
         <div class="col-sm-3">
           <label>Mode</label>
           <nb-select placeholder="Select Mode" status="basic" formControlName="mode">
@@ -238,9 +321,26 @@
           </nb-select>
         </div>
       </div>
+      <div class="row" style="padding-top: 10px;">
+        <div class="col-sm-3">
+          <label for="fee">Amount Pending</label>
+          <input
+            type="text"
+            id="amountPending"
+            nbInput
+            status="basic"
+            fullWidth
+            placeholder="Amount Pending"
+            disabled="true"
+            [value]="amountPending"
+          />
+        </div>
+      </div>
 
       <hr />
+
       <p>Material Record</p>
+
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
@@ -260,7 +360,7 @@
 
       <div style="text-align: right;">
         <button type="submit" nbButton status="warning" style="color: black;">
-          {{ studentEmail ? 'Update Student' : 'Add Student' }}
+          {{ studentEduId ? 'Update Student' : 'Add Student' }}
         </button>
       </div>
     </form>

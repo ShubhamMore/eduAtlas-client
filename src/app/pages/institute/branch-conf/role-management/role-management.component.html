@@ -1,46 +1,59 @@
-<p style="font-weight:bold">Role Management</p>
-    <nb-card>
-      
-      <nb-card-body *ngIf="!display">
-        <form [formGroup]="roleManage" (ngSubmit)="onSubmit()">
-         
-              <div class="row">
-                <div class="col-sm-4">
-                  <label for="phone">*Phone Number</label>
-                <input type="phone" nbInput id="phone" maxlength="10" fullWidth [status]="f.phone.errors && submitted ? 'danger':'basic'" formControlName="phone" placeholder="Phone Number">
-                <small *ngIf="f.phone.errors && submitted">*Phone Number is required</small>
-              </div>
-              <div class="col-sm-4">
-                <label>*Password</label>
-                <input type="password" nbInput fullWidth formControlName="password" placeholder="Password" 
-                [status]="f.phone.errors && submitted ? 'danger':'basic'">
-                <small *ngIf="f.password.errors && submitted">*Password is required</small>
-              </div>
-              <div class="col-sm-4">
-                  <label for="role">*Assign Role</label>
-                      <nb-select status="basic" id="role" formControlName="role" fullWidth [size]="selectedSize" placeholder="Assign Role">
-                        <nb-option value="branchManager">Branch Manager</nb-option>
-                        <nb-option value="teacher">Teacher</nb-option>
-                        <nb-option value="councillor">Counselor</nb-option>
-                </nb-select>
-                <small *ngIf="f.role.errors && submitted">*Role is required</small>
-       
-              </div>
-            
-              </div>
-              <div style="margin: 1rem; text-align:right">
-                <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
-              </div>
-          
-     
-        </form>
-        </nb-card-body>
-        <nb-card-body [ngClass]="{'hide':!display}">
-          <input type="text" maxlength="4" [(ngModel)]=otp nbInput placeholder="Enter OTP">
-          <a class="btn btn-link">Resend OTP</a>
-          <button nbButton (click)="varifyOtp()">Varify OTP</button>
-        </nb-card-body>
-        </nb-card>
-
-        
-    
+<p style="font-weight: bold;">Role Management</p>
+<nb-card>
+  <nb-card-body *ngIf="!display">
+    <form [formGroup]="roleManage" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="phone">*Phone Number</label>
+          <input
+            type="phone"
+            nbInput
+            id="phone"
+            maxlength="10"
+            fullWidth
+            [status]="f.phone.errors && submitted ? 'danger' : 'basic'"
+            formControlName="phone"
+            placeholder="Phone Number"
+          />
+          <small *ngIf="f.phone.errors && submitted">*Phone Number is required</small>
+        </div>
+        <div class="col-sm-4">
+          <label>*Password</label>
+          <input
+            type="password"
+            nbInput
+            fullWidth
+            formControlName="password"
+            placeholder="Password"
+            [status]="f.phone.errors && submitted ? 'danger' : 'basic'"
+          />
+          <small *ngIf="f.password.errors && submitted">*Password is required</small>
+        </div>
+        <div class="col-sm-4">
+          <label for="role">*Assign Role</label>
+          <nb-select
+            status="basic"
+            id="role"
+            formControlName="role"
+            fullWidth
+            [size]="selectedSize"
+            placeholder="Assign Role"
+          >
+            <nb-option value="branchManager">Branch Manager</nb-option>
+            <nb-option value="teacher">Teacher</nb-option>
+            <nb-option value="councillor">Counselor</nb-option>
+          </nb-select>
+          <small *ngIf="f.role.errors && submitted">*Role is required</small>
+        </div>
+      </div>
+      <div style="margin: 1rem; text-align: right;">
+        <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
+      </div>
+    </form>
+  </nb-card-body>
+  <nb-card-body [ngClass]="{ hide: !display }">
+    <input type="text" maxlength="4" [(ngModel)]="otp" nbInput placeholder="Enter OTP" />
+    <a class="btn btn-link">Resend OTP</a>
+    <button nbButton (click)="varifyOtp()">Varify OTP</button>
+  </nb-card-body>
+</nb-card>

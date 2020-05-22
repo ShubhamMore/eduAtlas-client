@@ -20,7 +20,7 @@ export class RoleManagementComponent implements OnInit {
     private fb: FormBuilder,
     private roleService: RoleAssignService,
     private active: ActivatedRoute,
-    private toasterService: NbToastrService
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
@@ -40,37 +40,39 @@ export class RoleManagementComponent implements OnInit {
       return;
     }
 
-    console.log(this.roleManage.value);
+    // console.log(this.roleManage.value);
     this.roleService.addRole(this.roleManage.value).subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.display = true;
         this.getOtp(this.roleManage.value.phone);
       },
-      (error) => console.log(error)
+      // (error) => console.log(error),
     );
   }
 
   getOtp(phone) {
     let param = new HttpParams();
     param = param.append('register', '1');
-    this.roleService.getOtp(phone, param).subscribe((res) => console.log(res));
+    this.roleService.getOtp(phone, param).subscribe((res) => {
+      // console.log(res);
+    });
   }
   varifyOtp() {
-    console.log('otp====>', this.otp);
+    // console.log('otp====>', this.otp);
     let param = new HttpParams();
     param = param.append('varifyType', 'roleAssign');
     param = param.append('phone', this.roleManage.value.phone);
     param = param.append('otp', this.otp);
     this.roleService.verifyOtp(param).subscribe(
       (res) => {
-        console.log(res);
+        // console.log(res);
         this.valid('top-right', 'success');
       },
       (error) => {
-        console.log(error);
+        // console.log(error);
         this.invalid('top-right', 'danger');
-      }
+      },
     );
   }
 

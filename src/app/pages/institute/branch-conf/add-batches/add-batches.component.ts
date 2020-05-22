@@ -31,13 +31,13 @@ export class AddBatchesComponent implements OnInit {
 
   ngOnInit() {
     this.active.queryParams.subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.batchId = data.batchId;
       this.edit = data.edit;
     });
 
     this.routerId = this.active.snapshot.paramMap.get('id');
-    console.log('institute Id ' + this.routerId);
+    // console.log('institute Id ' + this.routerId);
     this.getBatch(this.batchId, this.routerId);
     this.getCourses(this.routerId);
     this.batch = this.fb.group({
@@ -46,23 +46,23 @@ export class AddBatchesComponent implements OnInit {
       description: [''],
     });
 
-    console.log('===============>', this.courses);
+    // console.log('===============>', this.courses);
   }
-  
+
   getBatch(id, instituteId) {
     let param = new HttpParams();
     param = param.append('instituteId', instituteId);
     param = param.append('batchId', id);
     this.api.getBatch(param).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       this.batchUpdate = JSON.parse(JSON.stringify(data[0]));
-      console.log('batchInfo' + this.batchUpdate.batchCode);
+      // console.log('batchInfo' + this.batchUpdate.batchCode);
     });
   }
   getCourses(id) {
     this.api.getCourses(id).subscribe((data) => {
       this.courses = JSON.parse(JSON.stringify(data));
-      console.log(this.courses);
+      // console.log(this.courses);
       this.batch.patchValue({
         course: this.batchUpdate.course,
         batchCode: this.batchUpdate.batchCode,
@@ -85,37 +85,37 @@ export class AddBatchesComponent implements OnInit {
       param = param.append('batchId', this.batchId);
       this.api.updateBatch(param, this.batch.value).subscribe(
         (res) => {
-          this.showToast('top-right', 'success','Successfully Updated');
+          this.showToast('top-right', 'success', 'Successfully Updated');
           this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
         },
-        (error) =>{
-          console.log(error);
-          this.invalid('top-right', 'danger',error.error.message);
-        } 
+        (error) => {
+          // console.log(error);
+          this.invalid('top-right', 'danger', error.error.message);
+        },
       );
     }
-    console.log('batch => ', this.batch.value);
+    // console.log('batch => ', this.batch.value);
     if (!this.edit) {
       this.api.addBatch(this.routerId, this.batch.value).subscribe(
         () => {
-          console.log('successfully added');
+          // console.log('successfully added');
 
-          this.showToast('top-right', 'success','Successfully Added');
+          this.showToast('top-right', 'success', 'Successfully Added');
           setTimeout(() => {
             this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger',err.error.message);
-        }
+          this.invalid('top-right', 'danger', err.error.message);
+        },
       );
     }
   }
-  showToast(position, status,message) {
+  showToast(position, status, message) {
     this.toasterService.show(status || 'Success', message, { position, status });
   }
-  invalid(position, status,errMessage) {
+  invalid(position, status, errMessage) {
     this.toasterService.show(status || 'Danger', errMessage, {
       position,
       status,

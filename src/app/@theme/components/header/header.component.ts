@@ -90,7 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   )
     //   .subscribe(themeName => this.currentTheme = themeName);
 
-    //localStorage.removeItem("username");
+    // localStorage.removeItem("username");
   }
   getInstitutes() {
     this.api.getInstitutes().subscribe((data) => {
@@ -98,11 +98,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
-      console.log(this.institute);
+      // console.log(this.institute);
     });
   }
   onSelect(event) {
-    console.log('Institute===================>', JSON.parse(JSON.stringify(event)));
+    // console.log('Institute===================>', JSON.parse(JSON.stringify(event)));
     if (event !== 'undefined') {
       this.router.navigate(['/pages/dashboard/', event]);
     }

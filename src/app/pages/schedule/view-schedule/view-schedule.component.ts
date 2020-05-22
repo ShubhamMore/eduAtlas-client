@@ -31,7 +31,7 @@ export class ViewScheduleComponent implements OnInit {
     private active: ActivatedRoute,
     private router: Router,
     private schduleService: ScheduleService,
-    private location: Location
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -48,9 +48,9 @@ export class ViewScheduleComponent implements OnInit {
     this.schduleService.getSchedule(param).subscribe(
       (res) => {
         this.batch = JSON.parse(JSON.stringify(res));
-        console.log('bathc=> ', this.batch);
+        // console.log('bathc=> ', this.batch);
       },
-      (error) => console.log(error)
+      (error) => console.error(error),
     );
   }
   back() {

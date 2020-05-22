@@ -1,45 +1,64 @@
-<p class="font-weight-bolder">Active Students</p>
-<nb-card>
-  <nb-card-body>
-    <table>
+<div class="row mb-4">
+  <div class="col-sm-6">
+    <p class="font-weight-bolder">Active Students</p>
+  </div>
+
+  <div class="col-sm-3"></div>
+
+  <div class="col-sm-3">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="course">Course</label>
+        </div>
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          (selectedChange)="onSelectCourse($event)"
+        >
+          <nb-option value="">Select Course</nb-option>
+          <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nb-card *ngIf="students.length > 0"> 
+  <nb-card-body >
+    <table >
       <thead>
         <tr>
           <th>Name</th>
           <th>Roll No.</th>
-
           <th>Contact</th>
-          <th>Course Name</th>
+          <!-- <th>Course Name</th> -->
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let item of students; let i = index" [hidden]="!item.active">
-          <td>{{ item.basicDetails.name }}</td>
-          <td>{{ item.basicDetails.rollNumber }}</td>
 
-          <td>{{ item.basicDetails.studentContact }}</td>
-          <td>{{ item.courseDetails.course }}</td>
+      <tbody>
+        <tr *ngFor="let student of students; let i = index">
+          <td>{{ student.basicDetails.name }}</td>
+          <td>{{ student.basicDetails.rollNumber }}</td>
+          <td>{{ student.basicDetails.studentContact }}</td>
+          <!-- <td>{{ student.courseDetails.course }}</td> -->
           <td>
             <button
               class="mr-2"
               nbButton
               status="primary"
-              (click)="view(item.basicDetails.studentEmail)"
+              (click)="view(student.basicDetails.studentEmail)"
             >
               View
             </button>
-            <button
-              class="mr-2"
-              nbButton
-              status="warning"
-              (click)="edit(item.basicDetails.studentEmail)"
-            >
+            <button class="mr-2" nbButton status="warning`" (click)="edit(student.eduAtlasId)">
               Edit
             </button>
             <button
               class="mr-2"
               nbButton
               status="danger"
-              (click)="delete(item.basicDetails.studentEmail, item._id)"
+              (click)="delete(student.basicDetails.studentEmail, student._id)"
             >
               Delete
             </button>
@@ -49,3 +68,6 @@
     </table>
   </nb-card-body>
 </nb-card>
+<div *ngIf="students.length == 0" class="noRecFound">
+   No Records Found
+</div>

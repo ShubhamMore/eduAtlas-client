@@ -1,7 +1,7 @@
 <div class="text-right">
   <button (click)="back()" nbButton status="warning" style="color: black;">Manage Receipt</button>
 </div>
-<p style="font-weight: bold;">Reciept Configuration</p>
+<p style="font-weight: bold;">Receipt Configuration</p>
 <nb-card>
   <nb-card-body>
     <form [formGroup]="receipt" (ngSubmit)="onSubmit()">
@@ -80,12 +80,14 @@
             fullWidth
             formControlName="termsAndCondition"
             [status]="f.termsAndCondition.errors && submitted ? 'danger' : 'basic'"
-            placeholder="Terms and Condtions"
+            placeholder="Terms and Conditions"
             cols="15"
             rows="7"
           >
           </textarea>
-          <small *ngIf="f.termsAndCondition.errors && submitted">*Terms & Conditions is Required</small>
+          <small *ngIf="f.termsAndCondition.errors && submitted"
+            >*Terms & Conditions is Required</small
+          >
         </div>
       </div>
 

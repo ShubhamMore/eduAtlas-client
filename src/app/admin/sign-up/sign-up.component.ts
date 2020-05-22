@@ -51,7 +51,7 @@ export class SignUpComponent implements OnInit {
 
   acceptTermsAndConditions(tnc: boolean) {
     this.tnc = tnc;
-    console.log(tnc);
+    // console.log(tnc);
   }
 
   onSignUp() {
@@ -68,11 +68,11 @@ export class SignUpComponent implements OnInit {
     };
 
     // this.registerUser.removeControl(name)
-    console.log(user);
+    // console.log(user);
     this.authService.findUser(user.phone).subscribe((res: any) => {
       this.userExist = res.user ? true : false;
 
-      console.log('User Exist' + this.userExist);
+      // console.log('User Exist' + this.userExist);
 
       if (this.userExist) {
         this.showToast('top-right', 'danger', 'This User already Exist');
@@ -81,7 +81,7 @@ export class SignUpComponent implements OnInit {
 
       this.authService.signUp(user).subscribe(
         (signupRes: any) => {
-          console.log(signupRes);
+          // console.log(signupRes);
           //  this.dialog.open(SuccessComponent,
           //   {context:{title:'title'},
           // })
@@ -89,7 +89,7 @@ export class SignUpComponent implements OnInit {
           this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
         },
         (err: any) => {
-          console.log(err);
+          // console.log(err);
           this.showToast('top-right', 'danger', 'This Email or Phone already exist');
         },
       );
