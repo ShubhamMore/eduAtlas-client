@@ -13,6 +13,7 @@ import { MENU_ITEMS } from '../../pages-menu';
 })
 export class AddStudentsComponent implements OnInit {
   students: FormGroup;
+  eduAtlasStudentForm : FormGroup;
 
   eduIdForm: FormGroup;
 
@@ -58,6 +59,7 @@ export class AddStudentsComponent implements OnInit {
       this.studentEduId = data.student;
       this.courseId = data.course;
       this.edit = data.edit;
+
     });
 
     this.getCourseTd(this.routerId);
@@ -65,6 +67,13 @@ export class AddStudentsComponent implements OnInit {
     if (this.edit === 'true') {
       this.getStudent(this.studentEduId, this.routerId, this.courseId);
     }
+
+    this.eduAtlasStudentForm = this.fb.group({
+      idInput1:['', Validators.required],
+      idInput2:['', Validators.required],
+      idInput3:['', Validators.required],
+      idInput4:['', Validators.required],
+    })
 
     this.students = this.fb.group({
       name: ['', Validators.required],
@@ -100,6 +109,10 @@ export class AddStudentsComponent implements OnInit {
 
   get f() {
     return this.students.controls;
+  }
+
+  get eduAtlasStudentFormControl(){
+    return this.eduAtlasStudentForm.controls;
   }
 
   getCourseTd(id: string) {
