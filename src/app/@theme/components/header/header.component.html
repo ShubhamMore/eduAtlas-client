@@ -4,12 +4,9 @@
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
     <a class="logo" href="#" (click)="navigateHome()">
-      <img src="assets/img/eduatlas.png" width="100%" />
+      <img src="../../../../assets/img/eduatlas.png" width="100%" />
     </a>
   </div>
-  <!-- <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary" fullWidth>
-    <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
-  </nb-select> -->
   <nb-card class="mt-4">
     <nb-select status="primary" placeholder="Select Institute" (selectedChange)="onSelect($event)">
       <nb-option value="undefined">Select Institute</nb-option>
@@ -22,11 +19,6 @@
 
 <div class="header-container">
   <nb-actions size="small">
-    <!-- 
-    <nb-action class="control-item">
-      <nb-search type="rotate-layout" tag="rotate-layout"></nb-search>
-    </nb-action> -->
-
     <nb-action class="control-item" icon="email-outline"></nb-action>
     <nb-action class="control-item" icon="bell-outline"></nb-action>
     <nb-action class="control-item" icon="power" (click)="logout()"></nb-action>
