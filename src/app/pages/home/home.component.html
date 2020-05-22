@@ -21,7 +21,7 @@
       </nb-card-header>
       <nb-list>
         <nb-list-item *ngFor="let item of institute; let i = index">
-          <a (click)="viewInstitute(item._id)" style="width: 100%;">
+          <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
             <span
               ><img [src]="imageUrl[i]" width="30px" height="30px" style="border-radius: 100%;"
             /></span>

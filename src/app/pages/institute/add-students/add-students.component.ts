@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { HttpParams } from '@angular/common/http';
 import { MENU_ITEMS } from '../../pages-menu';
 
 @Component({
@@ -13,7 +12,7 @@ import { MENU_ITEMS } from '../../pages-menu';
 })
 export class AddStudentsComponent implements OnInit {
   students: FormGroup;
-  eduAtlasStudentForm : FormGroup;
+  eduAtlasStudentForm: FormGroup;
 
   eduIdForm: FormGroup;
 
@@ -53,27 +52,29 @@ export class AddStudentsComponent implements OnInit {
     this.batches = [];
     this.discounts = [];
 
+    this.alreadyRegistered = false;
+
     this.routerId = this.active.snapshot.paramMap.get('id');
 
     this.active.queryParams.subscribe((data) => {
       this.studentEduId = data.student;
       this.courseId = data.course;
       this.edit = data.edit;
-
     });
 
     this.getCourseTd(this.routerId);
 
     if (this.edit === 'true') {
+      this.alreadyRegistered = true;
       this.getStudent(this.studentEduId, this.routerId, this.courseId);
     }
 
     this.eduAtlasStudentForm = this.fb.group({
-      idInput1:['', Validators.required],
-      idInput2:['', Validators.required],
-      idInput3:['', Validators.required],
-      idInput4:['', Validators.required],
-    })
+      idInput1: ['', Validators.required],
+      idInput2: ['', Validators.required],
+      idInput3: ['', Validators.required],
+      idInput4: ['', Validators.required],
+    });
 
     this.students = this.fb.group({
       name: ['', Validators.required],
@@ -111,8 +112,37 @@ export class AddStudentsComponent implements OnInit {
     return this.students.controls;
   }
 
-  get eduAtlasStudentFormControl(){
+  get eduAtlasStudentFormControl() {
     return this.eduAtlasStudentForm.controls;
+  }
+
+  onStudentSearch() {
+    if (this.eduAtlasStudentForm.valid) {
+      const studentEduId = `${this.eduAtlasStudentForm.value.idInput1}-${this.eduAtlasStudentForm.value.idInput2}-${this.eduAtlasStudentForm.value.idInput3}-${this.eduAtlasStudentForm.value.idInput4}`;
+      this.api.getOneStudent(studentEduId).subscribe((data: any) => {
+        this.students.patchValue({
+          name: data.basicDetails.name,
+          rollNo: data.basicDetails.rollNumber,
+          studentEmail: data.basicDetails.studentEmail,
+          contact: data.basicDetails.studentContact,
+
+          parentName: data.parentDetails.name,
+          parentContact: data.parentDetails.parentContact,
+          parentEmail: data.parentDetails.parentEmail,
+
+          address: data.parentDetails.address,
+        });
+        this.studentEduId = studentEduId;
+      });
+    }
+  }
+
+  changeAlreadyRegistered(e: any) {
+    this.alreadyRegistered = e;
+    if (!e) {
+      this.eduAtlasStudentForm.reset();
+      this.students.reset();
+    }
   }
 
   getCourseTd(id: string) {
@@ -128,7 +158,9 @@ export class AddStudentsComponent implements OnInit {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
     this.selectedCourse = this.courses.find((course: any) => course.id === id);
     this.students.get('courseDetails').patchValue({ batch: '' });
-    this.calculateNetPayableAmount();
+    this.students.get('feeDetails').reset(),
+      this.students.get('materialRecord').reset(),
+      this.calculateNetPayableAmount();
   }
 
   onSelectDiscount(id: string) {
@@ -171,6 +203,16 @@ export class AddStudentsComponent implements OnInit {
       .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
       .subscribe((data: any) => {
         this.student = data[0];
+        // console.log(this.student);
+        const eduAtlId = this.studentEduId.split('-');
+
+        this.eduAtlasStudentForm.patchValue({
+          idInput1: eduAtlId[0],
+          idInput2: eduAtlId[1],
+          idInput3: eduAtlId[2],
+          idInput4: eduAtlId[3],
+        });
+
         this.students.patchValue({
           name: this.student.basicDetails.name,
           rollNo: this.student.basicDetails.rollNumber,
@@ -224,8 +266,26 @@ export class AddStudentsComponent implements OnInit {
 
     if (this.edit === 'true') {
       if (this.student.instituteDetails.courseId !== this.students.value.courseDetails.course) {
+        // console.log('addStudentCourse');
+        this.api.addStudentCourse(this.students.value, this.routerId, this.studentEduId).subscribe(
+          (res) => {
+            this.updateToaster('top-right', 'success');
+            this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+          },
+          (err) => this.invalidToast('top-right', 'danger', err.error.message),
+        );
+      } else if (
+        this.student.instituteDetails.batchId !== this.students.value.courseDetails.batch
+      ) {
+        // console.log('updateStudentCourse');
         this.api
-          .updateStudentCourse(this.students.value, this.routerId, this.studentEduId)
+          .updateStudentCourse(
+            this.students.value,
+            this.student._id,
+            this.student.instituteDetails._id,
+            this.routerId,
+            this.studentEduId,
+          )
           .subscribe(
             (res) => {
               this.updateToaster('top-right', 'success');
@@ -234,7 +294,43 @@ export class AddStudentsComponent implements OnInit {
             (err) => this.invalidToast('top-right', 'danger', err.error.message),
           );
       } else {
-        this.api.updateStudent(this.students.value, this.studentEduId).subscribe(
+        // console.log('updateStudentPersonalDetails');
+        this.api
+          .updateStudentPersonalDetails(this.student._id, this.students.value, this.studentEduId)
+          .subscribe(
+            (res: any) => {
+              this.updateToaster('top-right', 'success');
+              this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+            },
+            (err) => this.invalidToast('top-right', 'danger', err.error.message),
+          );
+      }
+    }
+
+    if (!this.edit) {
+      if (!this.alreadyRegistered) {
+        this.api.addStudent(this.students.value, this.routerId).subscribe(
+          (data) => {
+            this.showToaster('top-right', 'success');
+            setTimeout(() => {
+              this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+            }, 1000);
+          },
+          (err) => {
+            if (err.error.message.includes('E11000 duplicate key error collection')) {
+              this.invalidToast(
+                'top-right',
+                'danger',
+                'This Student Already Exist, Please Search Student By EDU-Atlas ID',
+              );
+              this.alreadyRegistered = true;
+              return;
+            }
+            this.invalidToast('top-right', 'danger', err.error.message);
+          },
+        );
+      } else {
+        this.api.addStudentCourse(this.students.value, this.routerId, this.studentEduId).subscribe(
           (res) => {
             this.updateToaster('top-right', 'success');
             this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
@@ -242,18 +338,6 @@ export class AddStudentsComponent implements OnInit {
           (err) => this.invalidToast('top-right', 'danger', err.error.message),
         );
       }
-    }
-
-    if (!this.edit) {
-      this.api.addStudent(this.students.value, this.routerId).subscribe(
-        (data) => {
-          this.showToaster('top-right', 'success');
-          setTimeout(() => {
-            this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
-          }, 1000);
-        },
-        (err) => this.invalidToast('top-right', 'danger', err.error.message),
-      );
     }
   }
 

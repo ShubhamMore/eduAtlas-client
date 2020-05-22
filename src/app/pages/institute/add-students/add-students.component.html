@@ -2,61 +2,81 @@
 
 <nb-card status="warning">
   <nb-card-body>
-    <form [formGroup]="eduAtlasStudentForm" (ngSubmit)="onStudentSearch()">
+    <nb-checkbox
+      (checkedChange)="changeAlreadyRegistered($event)"
+      [checked]="alreadyRegistered"
+      fullWidth
+      status="warning"
+      *ngIf="!edit"
+      >Already Registered Student</nb-checkbox
+    >
+    <form
+      [formGroup]="eduAtlasStudentForm"
+      (ngSubmit)="onStudentSearch()"
+      *ngIf="alreadyRegistered"
+    >
       <p>Fetch student</p>
       <div class="row">
         <div class="col-sm-2">
           <input
-          type="text"
-          nbInput
-          maxlength="3"
-          [status]="eduAtlasStudentFormControl.idInput1.errors && submitted ? 'danger' : 'basic'"
-          id="idInput1"
-          fullWidth
-          formControlName="idInput1"
-        />
-        </div><span>-</span>
+            type="text"
+            nbInput
+            maxlength="3"
+            [status]="eduAtlasStudentFormControl.idInput1.errors && submitted ? 'danger' : 'basic'"
+            id="idInput1"
+            fullWidth
+            formControlName="idInput1"
+            [disabled]="!!edit"
+          />
+        </div>
+        <span>-</span>
         <div class="col-sm-2">
           <input
-          type="text"
-          nbInput
-          maxlength="4"
-          [status]="eduAtlasStudentFormControl.idInput2.errors && submitted ? 'danger' : 'basic'"
-          id="idInput2"
-          fullWidth
-          formControlName="idInput2"
-        />
-        </div><span>-</span>
+            type="text"
+            nbInput
+            maxlength="4"
+            [status]="eduAtlasStudentFormControl.idInput2.errors && submitted ? 'danger' : 'basic'"
+            id="idInput2"
+            fullWidth
+            formControlName="idInput2"
+            [disabled]="!!edit"
+          />
+        </div>
+        <span>-</span>
         <div class="col-sm-2">
           <input
-          type="text"
-          nbInput
-          maxlength="3"
-          [status]="eduAtlasStudentFormControl.idInput3.errors && submitted ? 'danger' : 'basic'"
-          id="idInput3"
-          fullWidth
-          formControlName="idInput3"
-        />
-        </div><span>-</span>
+            type="text"
+            nbInput
+            maxlength="3"
+            [status]="eduAtlasStudentFormControl.idInput3.errors && submitted ? 'danger' : 'basic'"
+            id="idInput3"
+            fullWidth
+            formControlName="idInput3"
+            [disabled]="!!edit"
+          />
+        </div>
+        <span>-</span>
         <div class="col-sm-2">
           <input
-          type="text"
-          nbInput
-          maxlength="6"
-          [status]="eduAtlasStudentFormControl.idInput4.errors && submitted ? 'danger' : 'basic'"
-          id="idInput4"
-          fullWidth
-          formControlName="idInput4"
-        />
+            type="text"
+            nbInput
+            maxlength="6"
+            [status]="eduAtlasStudentFormControl.idInput4.errors && submitted ? 'danger' : 'basic'"
+            id="idInput4"
+            fullWidth
+            formControlName="idInput4"
+            [disabled]="!!edit"
+          />
         </div>
         <div style="text-align: right;">
-          <button type="submit" nbButton status="warning" style="color: black;">
+          <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
             Fetch
           </button>
         </div>
       </div>
-      <hr/>
+      <hr />
     </form>
+
     <form [formGroup]="students" (ngSubmit)="onSubmit()">
       <p>Student Basic Details</p>
       <div class="row">

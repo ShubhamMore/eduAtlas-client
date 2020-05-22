@@ -24,9 +24,9 @@
   </div>
 </div>
 
-<nb-card *ngIf="students.length > 0"> 
-  <nb-card-body >
-    <table >
+<nb-card *ngIf="students.length > 0">
+  <nb-card-body>
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -58,7 +58,7 @@
               class="mr-2"
               nbButton
               status="danger"
-              (click)="delete(student.basicDetails.studentEmail, student._id)"
+              (click)="delete(student.eduAtlasId, student.instituteDetails._id)"
             >
               Delete
             </button>
@@ -69,5 +69,5 @@
   </nb-card-body>
 </nb-card>
 <div *ngIf="students.length == 0" class="noRecFound">
-   No Records Found
+  No Records Found
 </div>
