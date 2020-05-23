@@ -62,9 +62,9 @@ export class ManageStudentsComponent implements OnInit {
   //   this.getStudents(this.routerId, this.form.value.course, id);
   // }
 
-  view(email: string) {
+  view(student: string) {
     this.router.navigate([`/pages/institute/view-student/${this.routerId}`], {
-      queryParams: { email: email },
+      queryParams: { student, course: this.course },
     });
   }
 
@@ -75,17 +75,12 @@ export class ManageStudentsComponent implements OnInit {
     });
   }
 
-  delete(email: string, id: string) {
-    let param = new HttpParams();
-    param = param.append('instituteId', this.routerId);
-    param = param.append('studentEmail', email);
-
-    this.api.deleteStudent(param).subscribe(() => {
-      // console.log('success delete');
+  delete(eduAtlId: string, courseObjId: string) {
+    this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
+      const i = this.students.findIndex((student) => student.instituteDetails._id === courseObjId);
+      if (i !== -1) {
+        this.students.splice(i, 1);
+      }
     });
-    const i = this.students.findIndex((e) => e._id === id);
-    if (i !== -1) {
-      this.students.splice(i, 1);
-    }
   }
 }

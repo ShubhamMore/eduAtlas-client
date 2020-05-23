@@ -98,7 +98,7 @@ export class AddCourseComponent implements OnInit {
     );
   }
   getInstitutes() {
-    this.api.getInstitutes().subscribe((data) => {
+    this.api.getInstitutes().subscribe((data: any) => {
       this.institutes = data;
 
       // console.log('institutes - ' + JSON.stringify(this.institutes));

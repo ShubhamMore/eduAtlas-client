@@ -68,41 +68,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.name = `Welcome ${this.user.name}
       (${this.user.role})`;
     this.getInstitutes();
-
-    // this.currentTheme = this.themeService.currentTheme;
-
-    //  this.userService.getUsers()
-    //    .pipe(takeUntil(this.destroy$))
-    //  .subscribe((users: any) => this.user = users.nick);
-
-    // const { xl } = this.breakpointService.getBreakpointsMap();
-    // this.themeService.onMediaQueryChange()
-    //   .pipe(
-    //     map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
-    //     takeUntil(this.destroy$),
-    //   )
-    //   .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
-
-    // this.themeService.onThemeChange()
-    //   .pipe(
-    //     map(({ name }) => name),
-    //     takeUntil(this.destroy$),
-    //   )
-    //   .subscribe(themeName => this.currentTheme = themeName);
-
-    // localStorage.removeItem("username");
   }
   getInstitutes() {
     this.api.getInstitutes().subscribe((data) => {
       this.institutes = data;
 
-      // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
-      // console.log(this.institute);
     });
   }
   onSelect(event) {
-    // console.log('Institute===================>', JSON.parse(JSON.stringify(event)));
     if (event !== 'undefined') {
       this.router.navigate(['/pages/dashboard/', event]);
     }

@@ -53,7 +53,6 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
     SignUpComponent,
     OtpComponent,
     ForgotPasswordComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -72,7 +71,7 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
     NbStepperModule,
     NbInputModule,
     NbEvaIconsModule,
-    //InMemoryWebApiModule.forRoot(UserData),
+    // InMemoryWebApiModule.forRoot(UserData),
     NbToastrModule.forRoot(),
     ReactiveFormsModule,
     ThemeModule.forRoot(),

@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getInstitutes() {
     setTimeout(() => {
-      this.api.getInstitutes().subscribe((data) => {
+      this.api.getInstitutes().subscribe((data: any) => {
         this.institutes = data;
 
         // console.log('institutes - ' + JSON.stringify(this.institutes));

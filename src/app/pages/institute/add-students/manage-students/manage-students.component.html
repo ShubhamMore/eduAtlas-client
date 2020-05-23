@@ -7,26 +7,21 @@
 
   <div class="col-sm-3">
     <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <label class="input-group-text" for="course">Course</label>
-        </div>
-        <nb-select
-          placeholder="Select Course"
-          status="basic"
-          (selectedChange)="onSelectCourse($event)"
-        >
-          <nb-option value="">Select Course</nb-option>
-          <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
-        </nb-select>
-      </div>
+      <nb-select
+        placeholder="Select Course"
+        status="basic"
+        (selectedChange)="onSelectCourse($event)"
+      >
+        <nb-option value="">Select Course</nb-option>
+        <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
+      </nb-select>
     </div>
   </div>
 </div>
 
-<nb-card *ngIf="students.length > 0"> 
-  <nb-card-body >
-    <table >
+<nb-card *ngIf="students.length > 0">
+  <nb-card-body>
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -43,12 +38,7 @@
           <td>{{ student.basicDetails.studentContact }}</td>
           <!-- <td>{{ student.courseDetails.course }}</td> -->
           <td>
-            <button
-              class="mr-2"
-              nbButton
-              status="primary"
-              (click)="view(student.basicDetails.studentEmail)"
-            >
+            <button class="mr-2" nbButton status="primary" (click)="view(student.eduAtlasId)">
               View
             </button>
             <button class="mr-2" nbButton status="warning`" (click)="edit(student.eduAtlasId)">
@@ -58,7 +48,7 @@
               class="mr-2"
               nbButton
               status="danger"
-              (click)="delete(student.basicDetails.studentEmail, student._id)"
+              (click)="delete(student.eduAtlasId, student.instituteDetails._id)"
             >
               Delete
             </button>
@@ -69,5 +59,5 @@
   </nb-card-body>
 </nb-card>
 <div *ngIf="students.length == 0" class="noRecFound">
-   No Records Found
+  No Records Found
 </div>

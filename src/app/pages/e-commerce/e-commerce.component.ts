@@ -55,7 +55,7 @@ export class ECommerceComponent implements OnInit {
     MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.routerId;
   }
   getInstitutes() {
-    this.api.getInstitutes().subscribe((data) => {
+    this.api.getInstitutes().subscribe((data: any) => {
       this.institutes = data;
 
       // console.log('institutes - ' + JSON.stringify(this.institutes));
@@ -85,7 +85,7 @@ export class ECommerceComponent implements OnInit {
   }
   getStudents(id) {
     this.api.getStudents(id).subscribe(
-      (data) => {
+      (data: any) => {
         this.students = data;
         // console.log('students =>', this.students);
       },

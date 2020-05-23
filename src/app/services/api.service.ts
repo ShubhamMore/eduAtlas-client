@@ -12,6 +12,7 @@ import {
 } from '../../assets/dataTypes/dataType';
 
 import { environment } from '../../environments/environment';
+import { StringDecoder } from 'string_decoder';
 
 @Injectable({
   providedIn: 'root',
@@ -21,13 +22,13 @@ export class ApiService {
 
   // =====================INSTITUTE API==============================
 
-  getInstitutes(): Observable<any[]> {
+  getInstitutes() {
     return this.http
-      .get<any[]>(environment.server + '/institute/all')
+      .get(environment.server + '/institute/all')
       .pipe(tap(), catchError(this.handleError));
   }
 
-  getInstitute(id: string): Observable<any> {
+  getInstitute(id: string) {
     const url = `${environment.server}/institute/oneInstitute/${id}`;
     return this.http.get<instituteData>(url).pipe(
       tap((data) => {
@@ -61,17 +62,15 @@ export class ApiService {
     postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
     postData.append('category', JSON.stringify(institute.category));
     postData.append('logo', institute.logo, institute.name);
-    return this.http
-      .post<{ message: string }>(environment.server + '/institute/addInstitute', postData)
-      .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data: any) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    return this.http.post(environment.server + '/institute/addInstitute', postData).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data: any) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
   }
-  updateInstitute(id: string, institute: any): Observable<any> {
+  updateInstitute(id: string, institute: any) {
     const url = `${environment.server}/institute/updateInstitute/${id}`;
 
     const data = {
@@ -97,21 +96,21 @@ export class ApiService {
     postData.append('category', JSON.stringify(institute.category));
     postData.append('logo', institute.logo, institute.name);
 
-    return this.http.put<{ message: string }>(url, postData).pipe(
+    return this.http.put(url, postData).pipe(
       map(() => institute),
       catchError(this.handleError),
     );
   }
-  deleteInstitute(id: string): Observable<void> {
+  deleteInstitute(id: string) {
     const url = environment.server + '/institute/' + id;
-    return this.http.delete<void>(url).pipe(catchError(this.handleError));
+    return this.http.delete(url).pipe(catchError(this.handleError));
   }
 
   // =====================STUDENT API===================
 
   getCourseTD(id: string) {
     const url = `${environment.server}/institute/getCourseTD/${id}`;
-    return this.http.get<any[]>(url).pipe(
+    return this.http.get(url).pipe(
       tap((data) => {
         // console.log(data);
       }),
@@ -119,9 +118,44 @@ export class ApiService {
     );
   }
 
-  getStudents(instituteId): Observable<any[]> {
-    const url = `${environment.server}/institute/student/all/${instituteId}`;
-    return this.http.get<any[]>(url).pipe(
+  //  ADD NEW STUDENT
+  addStudent(student: any, instituteId: string) {
+    const data = {
+      basicDetails: {
+        name: student.name,
+        rollNumber: student.rollNo,
+        studentEmail: student.studentEmail,
+        studentContact: student.contact,
+      },
+      parentDetails: {
+        name: student.parentName,
+        parentContact: student.parentContact,
+        parentEmail: student.parentEmail,
+        address: student.address,
+      },
+      instituteDetails: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        batchId: student.courseDetails.batch,
+        discount: student.courseDetails.discount,
+        additionalDiscount: student.courseDetails.additionalDiscount,
+        nextPayble: student.courseDetails.netPayable,
+        active: student.courseDetails.batch === '' ? false : true,
+        materialRecord: student.materialRecod,
+      },
+
+      fee: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        installmentNumber: student.feeDetails.installments,
+        nextInstallment: student.feeDetails.nextInstallment,
+        amountCollected: student.feeDetails.amountCollected,
+        mode: student.feeDetails.mode,
+      },
+    };
+
+    return this.http.post(environment.server + '/institute/student/add', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
       tap((data) => {
         // console.log(data);
       }),
@@ -129,9 +163,10 @@ export class ApiService {
     );
   }
 
-  getOneStudentByInstitute(data: any) {
+  //  GET ONE STUDENT BY EDU-ATLAS ID
+  getOneStudent(data: any) {
     return this.http
-      .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
+      .post(environment.server + '/institute/student/getOneStudent', { eduatlasId: data })
       .pipe(
         tap((res) => {
           // console.log(res);
@@ -141,19 +176,22 @@ export class ApiService {
       );
   }
 
-  getStudent(data: any): Observable<any> {
-    return this.http.post<any>(environment.server + '/institute/student/getStudent', data).pipe(
-      tap((res) => {
-        // console.log(res);
-      }),
-      map((res) => res.student),
-      catchError(this.handleError),
-    );
+  //  GET ONE STUDENT FOR EDITING AND VIEWING
+  getOneStudentByInstitute(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
+      .pipe(
+        tap((res) => {
+          // console.log(dres);
+        }),
+        map((res) => res),
+        catchError(this.handleError),
+      );
   }
 
+  //  GET ACTIVE STUDENTs
   getActiveStudents(id: string, courseId: string, batchId: string) {
     const data = { instituteId: id, courseId };
-    console.log(data);
     return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
       tap((data) => {
@@ -163,16 +201,17 @@ export class ApiService {
     );
   }
 
+  //  GET PENDING STUDENTs
   getPendingStudents(id: string, courseId: string) {
     const data = { instituteId: id, courseId };
     return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
-      tap((data) => {
-      }),
+      tap((data: any) => {}),
       catchError(this.handleError),
     );
   }
 
-  updateStudentCourse(student: any, instituteId: string, eduAtlasId: string) {
+  //  ADD STUDENT COURSE
+  addStudentCourse(student: any, instituteId: string, eduAtlasId: string) {
     const data = {
       eduAtlasId: eduAtlasId,
 
@@ -197,31 +236,27 @@ export class ApiService {
       },
     };
 
-    return this.http
-      .post<{ message: string }>(environment.server + '/institute/student/updateStudent', data)
-      .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    return this.http.post(environment.server + '/institute/student/addCourseStudent', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
   }
 
-  addStudent(student: any, instituteId: string): Observable<{ message: String }> {
+  //  UPDATE STUDENT COURSE
+  updateStudentCourse(
+    student: any,
+    stdId: string,
+    instObjId: string,
+    instituteId: string,
+    eduAtlasId: string,
+  ) {
     const data = {
-      basicDetails: {
-        name: student.name,
-        rollNumber: student.rollNo,
-        studentEmail: student.studentEmail,
-        studentContact: student.contact,
-      },
-      parentDetails: {
-        name: student.parentName,
-        parentContact: student.parentContact,
-        parentEmail: student.parentEmail,
-        address: student.address,
-      },
+      studentId: stdId,
+      eduAtlasId: eduAtlasId,
+      instituteId: instObjId,
       instituteDetails: {
         instituteId: instituteId,
         courseId: student.courseDetails.course,
@@ -230,7 +265,7 @@ export class ApiService {
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
-        materialRecord: student.materialRecod,
+        materialRecord: student.materialRecord,
       },
 
       fee: {
@@ -243,20 +278,20 @@ export class ApiService {
       },
     };
 
-    return this.http
-      .post<{ message: string }>(environment.server + '/institute/student/add', data)
-      .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    return this.http.post(environment.server + '/institute/student/updateStudentCourse', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
   }
 
-  updateStudent(student: any, studentMetaData: any): Observable<any> {
+  //  UPDATE STUDENT PERSONAL DETAILS
+  updateStudentPersonalDetails(id: string, student: any, eduAtlasId: any) {
     const data = {
-      instituteId: student.id,
+      _id: id,
+      eduAtlasId: eduAtlasId,
       basicDetails: {
         name: student.name,
         rollNumber: student.rollNo,
@@ -269,50 +304,24 @@ export class ApiService {
         parentEmail: student.parentEmail,
         address: student.address,
       },
-      courseDetails: {
-        course: student.courseDetails.course,
-        batch: student.courseDetails.batch,
-        discount: student.courseDetails.discount,
-        additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
-        active: student.courseDetails.batch === '' ? false : true,
-        materialRecord: student.materialRecod,
-      },
-      fee: {
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
-    return this.http.put<any>(environment.server + '/institute/student/updateStudent', data).pipe(
-      map(() => student),
-      catchError(this.handleError),
-    );
-  }
-
-  deleteStudent(param): Observable<void> {
     return this.http
-      .delete<void>(environment.server + '/institute/student/', {
-        params: param,
-      })
-      .pipe(catchError(this.handleError));
-  }
-
-  // ========================COURSE API=====================
-
-  getCourses(id): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.server}/institute/course/all/${id}`).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
-      catchError(this.handleError),
-    );
-  }
-  addCourse(id: string, course: any): Observable<any> {
-    return this.http
-      .post<any>(`${environment.server}/institute/course/addCourse/${id}`, course)
+      .post(environment.server + '/institute/student/updateStudentPersonalDetails', data)
       .pipe(
+        map(() => student),
+        catchError(this.handleError),
+      );
+  }
+
+  //  DELETE STUDENT COURSE
+  deleteStudentCourse(instituteId: string, eduAtlasId: string) {
+    return this.http
+      .post(environment.server + '/institute/student/deleteStudentCourse', {
+        _id: instituteId,
+        eduatlasId: eduAtlasId,
+      })
+      .pipe(
+        // tslint:disable-next-line: no-shadowed-variable
         tap((data) => {
           // console.log(data);
         }),
@@ -320,36 +329,29 @@ export class ApiService {
       );
   }
 
-  getCourse(params): Observable<any> {
-    return this.http
-      .get<any>(environment.server + '/institute/course/one', {
-        params: params,
-      })
-      .pipe(catchError(this.handleError));
+  /* ********************* ONLY FOR E-COMMERCE ****************** */
+
+  getStudent(data: any) {
+    return this.http.post(environment.server + '/institute/student/getStudent', data).pipe(
+      tap((res) => {
+        // console.log(res);
+      }),
+      map((res: any) => res.student),
+      catchError(this.handleError),
+    );
   }
 
-  updateCourse(params, course): Observable<any> {
+  deleteStudent(param) {
     return this.http
-      .patch<any>(environment.server + '/institute/course/', course, {
-        params: params,
-      })
-      .pipe(
-        map(() => course),
-        catchError(this.handleError),
-      );
-  }
-  deleteCourse(param): Observable<void> {
-    return this.http
-      .delete<void>(environment.server + '/institute/course/course/', {
+      .delete(environment.server + '/institute/student/', {
         params: param,
       })
       .pipe(catchError(this.handleError));
   }
 
-  // =====================BATCHES API=================
-
-  getBatches(branchId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.server}/institute/course/batches/${branchId}`).pipe(
+  getStudents(instituteId) {
+    const url = `${environment.server}/institute/student/all/${instituteId}`;
+    return this.http.get(url).pipe(
       tap((data) => {
         // console.log(data);
       }),
@@ -357,15 +359,71 @@ export class ApiService {
     );
   }
 
-  getBatch(params): Observable<any> {
+  // ========================COURSE API=====================
+
+  getCourses(id) {
+    return this.http.get(`${environment.server}/institute/course/all/${id}`).pipe(
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
+  }
+  addCourse(id: string, course: any) {
+    return this.http.post(`${environment.server}/institute/course/addCourse/${id}`, course).pipe(
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getCourse(params) {
     return this.http
-      .get<any>(environment.server + '/institute/course/batch/', {
+      .get(environment.server + '/institute/course/one', {
         params: params,
       })
       .pipe(catchError(this.handleError));
   }
 
-  addBatch(branchId: string, batch: any): Observable<batchData> {
+  updateCourse(params, course) {
+    return this.http
+      .patch(environment.server + '/institute/course/', course, {
+        params: params,
+      })
+      .pipe(
+        map(() => course),
+        catchError(this.handleError),
+      );
+  }
+  deleteCourse(param) {
+    return this.http
+      .delete(environment.server + '/institute/course/course/', {
+        params: param,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  // =====================BATCHES API=================
+
+  getBatches(branchId: string) {
+    return this.http.get(`${environment.server}/institute/course/batches/${branchId}`).pipe(
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  getBatch(params) {
+    return this.http
+      .get(environment.server + '/institute/course/batch/', {
+        params: params,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  addBatch(branchId: string, batch: any) {
     return this.http
       .post<batchData>(`${environment.server}/institute/course/addBatch/${branchId}`, batch)
       .pipe(
@@ -375,16 +433,17 @@ export class ApiService {
         catchError(this.handleError),
       );
   }
-  deleteBatch(params): Observable<void> {
+
+  deleteBatch(params) {
     return this.http
-      .delete<void>(environment.server + '/institute/course/batch/', {
+      .delete(environment.server + '/institute/course/batch/', {
         params: params,
       })
       .pipe(catchError(this.handleError));
   }
-  updateBatch(params, batch: batchData): Observable<any> {
+  updateBatch(params, batch: batchData) {
     return this.http
-      .patch<any>(environment.server + '/institute/course/batch/', batch, {
+      .patch(environment.server + '/institute/course/batch/', batch, {
         params: params,
       })
       .pipe(
@@ -395,25 +454,26 @@ export class ApiService {
 
   // =======================DISCOUNT API======================
 
-  getDiscounts(id: string): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.server}/institute/course/discounts/${id}`).pipe(
+  getDiscounts(id: string) {
+    return this.http.get(`${environment.server}/institute/course/discounts/${id}`).pipe(
       tap((data) => {
         // console.log(data);
       }),
       catchError(this.handleError),
     );
   }
-  getDiscount(params): Observable<any> {
+
+  getDiscount(params) {
     return this.http
-      .get<any>(environment.server + '/institute/course/discount', {
+      .get(environment.server + '/institute/course/discount', {
         params: params,
       })
       .pipe(catchError(this.handleError));
   }
 
-  addDiscount(id: string, discount: any): Observable<any> {
+  addDiscount(id: string, discount: any) {
     return this.http
-      .post<any>(`${environment.server}/institute/course/addDiscount/${id}`, discount)
+      .post(`${environment.server}/institute/course/addDiscount/${id}`, discount)
       .pipe(
         tap((data) => {
           // console.log(data);
@@ -422,17 +482,17 @@ export class ApiService {
       );
   }
 
-  deleteDiscount(params): Observable<void> {
+  deleteDiscount(params) {
     return this.http
-      .delete<void>(environment.server + '/institute/course/discount/', {
+      .delete(environment.server + '/institute/course/discount/', {
         params: params,
       })
       .pipe(catchError(this.handleError));
   }
 
-  updateDiscount(params, discount): Observable<any> {
+  updateDiscount(params, discount) {
     return this.http
-      .patch<any>(environment.server + '/institute/course/discount/', discount, {
+      .patch(environment.server + '/institute/course/discount/', discount, {
         params: params,
       })
       .pipe(
@@ -443,35 +503,33 @@ export class ApiService {
 
   // ==========================RECEIPT API====================
 
-  getReceipt(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.server}/institute/course/reciept/${id}`).pipe(
-      map((data) => data.reciept),
+  getReceipt(id: string) {
+    return this.http.get(`${environment.server}/institute/course/reciept/${id}`).pipe(
+      map((data: any) => data.reciept),
       catchError(this.handleError),
     );
   }
 
-  addReceipt(id: string, receipt: any): Observable<receiptData> {
+  addReceipt(id: string, receipt: any) {
     receipt.id = null;
-    return this.http
-      .post<any>(`${environment.server}/institute/course/addReciept/${id}`, receipt)
-      .pipe(
-        tap((data) => {
-          // console.log(data);
-        }),
-        catchError(this.handleError),
-      );
+    return this.http.post(`${environment.server}/institute/course/addReciept/${id}`, receipt).pipe(
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
   }
-  updateReceipt(id: string, reciept): Observable<any> {
+  updateReceipt(id: string, reciept) {
     const url = `${environment.server}/institute/course/reciept/${id}`;
-    return this.http.patch<any>(url, reciept).pipe(
+    return this.http.patch(url, reciept).pipe(
       map(() => reciept),
       catchError(this.handleError),
     );
   }
 
-  deleteReceipt(id: string): Observable<void> {
+  deleteReceipt(id: string) {
     return this.http
-      .delete<void>(`${environment.server}/institute/course/reciept/${id}`)
+      .delete(`${environment.server}/institute/course/reciept/${id}`)
       .pipe(catchError(this.handleError));
   }
 

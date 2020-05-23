@@ -46,7 +46,7 @@ export class AttandanceComponent implements OnInit {
     });
   }
   getStudents(id) {
-    this.api.getStudents(id).subscribe((res) => {
+    this.api.getStudents(id).subscribe((res: any) => {
       this.students = res;
       // console.log('students=> ', this.students);
     });
