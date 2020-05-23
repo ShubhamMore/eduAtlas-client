@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card *ngIf="student">
   <nb-card-body>
     <div class="row">
       <div class="col-sm-1"></div>
@@ -95,37 +95,6 @@
       </div>
       <div class="col-sm-5">
         <p>{{ student.parentDetails.parentContact }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Course Details</p>
-      </div>
-      <div class="col-sm-5">
-        <p>
-          {{ student.courseDetails.course }} {{ student.courseDetails.batch }}
-          {{ student.courseDetails.discount }}
-          {{ student.courseDetails.additionalDiscount }}
-          {{ student.courseDetails.nextPayble }}
-        </p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Fees Detail</p>
-      </div>
-      <div class="col-sm-5">
-        <p>
-          {{ student.fee.installmentNumber }}
-          {{ student.fee.nextInstallment }}
-          {{ student.fee.amountCollected }}
-        </p>
       </div>
       <div class="col-sm-1"></div>
     </div>

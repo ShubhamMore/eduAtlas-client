@@ -66,4 +66,4 @@ export class LoginComponent implements OnInit {
       status,
     });
   }
-}
+ }
