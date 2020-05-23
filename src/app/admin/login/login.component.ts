@@ -41,15 +41,22 @@ export class LoginComponent implements OnInit {
 
     authObs.subscribe(
       (resData: any) => {
-        if (resData.role === 'institute') {
-          this.showToast('top-right', 'success', `Login Success`);
-          this.router.navigate(['/pages/home'], {
+        if (resData.verifyOtp) {
+          this.router.navigate(['/otp'], {
             relativeTo: this.route,
+            queryParams: { phone, type: 'login' },
           });
         } else {
-          this.router.navigate(['/login'], {
-            relativeTo: this.route,
-          });
+          if (resData.role === 'institute') {
+            this.showToast('top-right', 'success', `Login Success`);
+            this.router.navigate(['/pages/home'], {
+              relativeTo: this.route,
+            });
+          } else {
+            this.router.navigate(['/login'], {
+              relativeTo: this.route,
+            });
+          }
         }
         this.loginForm.reset();
       },
@@ -66,4 +73,4 @@ export class LoginComponent implements OnInit {
       status,
     });
   }
- }
+}

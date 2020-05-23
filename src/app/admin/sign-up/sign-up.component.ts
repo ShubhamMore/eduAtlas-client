@@ -11,8 +11,6 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
-  userExist: boolean;
-
   signUpForm: FormGroup;
 
   tnc: boolean = false;
@@ -69,31 +67,30 @@ export class SignUpComponent implements OnInit {
 
     // this.registerUser.removeControl(name)
     // console.log(user);
-    this.authService.findUser(user.phone).subscribe((res: any) => {
-      this.userExist = res.user ? true : false;
-
-      // console.log('User Exist' + this.userExist);
-
-      if (this.userExist) {
-        this.showToast('top-right', 'danger', 'This User already Exist');
-        return;
-      }
-
-      this.authService.signUp(user).subscribe(
-        (signupRes: any) => {
-          // console.log(signupRes);
-          //  this.dialog.open(SuccessComponent,
-          //   {context:{title:'title'},
-          // })
-
-          this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
-        },
-        (err: any) => {
-          // console.log(err);
-          this.showToast('top-right', 'danger', 'This Email or Phone already exist');
-        },
-      );
-    });
+    this.authService.findUser(user.phone, user.email).subscribe(
+      (res: any) => {
+        // console.log(res);
+        if (res.success) {
+          this.authService.signUp(user).subscribe(
+            (signupRes: any) => {
+              // console.log(signupRes);
+              //  this.dialog.open(SuccessComponent,
+              //   {context:{title:'title'},
+              // })
+              this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
+            },
+            (err: any) => {
+              // console.log(err);
+              this.showToast('top-right', 'danger', 'This Email or Phone already exist');
+            },
+          );
+        }
+      },
+      (err: any) => {
+        // console.log(err.error.message);
+        this.showToast('top-right', 'danger', err.error.message);
+      },
+    );
   }
 
   showToast(position: any, status: any, message: any) {

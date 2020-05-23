@@ -27,6 +27,7 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
+
   {
     path: 'sign-up',
     component: SignUpComponent,
@@ -36,6 +37,7 @@ const routes: Routes = [
     path: 'otp',
     component: OtpComponent,
   },
+
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,

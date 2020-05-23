@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth-services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OtpService } from '../../services/auth-services/otp/otp.service';
@@ -13,16 +14,19 @@ export class OtpComponent implements OnInit {
   phone: string;
   otp: string;
 
+  loginOTP: boolean;
+
   constructor(
     public router: Router,
     private route: ActivatedRoute,
     private otpService: OtpService,
     private toasterService: NbToastrService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((param: Params) => {
-      // console.log(param);
+      this.loginOTP = param.type === 'login' ? true : false;
       this.phone = param.phone;
       this.getOtp();
     });
@@ -33,8 +37,7 @@ export class OtpComponent implements OnInit {
   }
 
   getOtp() {
-    const param = new HttpParams();
-    this.otpService.getOtp(this.phone, param).subscribe(
+    this.otpService.getOtp(this.phone).subscribe(
       (res: any) => {
         // console.log(res);
       },
@@ -46,22 +49,33 @@ export class OtpComponent implements OnInit {
 
   verifyOtp(otp: any) {
     const otpData = {
-      verifyType: 'creatUser',
+      verifyType: this.loginOTP ? 'loginUser' : 'createUser',
       otp: otp,
       phone: this.phone,
     };
 
     this.otpService.userVerify(otpData).subscribe(
       (res: any) => {
-        // console.log(res);
-        this.showToast('top-right', 'success', 'Successfully Registered');
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 1000);
+        if (this.loginOTP) {
+          if (res._id) {
+            this.authService.loginSuccess(res);
+            this.showToast('top-right', 'success', 'OTO Verification Successful');
+            setTimeout(() => {
+              this.router.navigate(['/pages/home'], {
+                relativeTo: this.route,
+              });
+            }, 1000);
+          }
+        } else {
+          this.showToast('top-right', 'success', 'Successfully Registered');
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 1000);
+        }
       },
       (err: any) => {
         // console.log(err);
-        this.showToast('top-right', 'danger', 'Invalid OTP');
+        this.showToast('top-right', 'danger', err.error.message);
       },
     );
   }

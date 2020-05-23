@@ -17,6 +17,10 @@ export interface AuthResponseData {
   expiresIn: string;
 }
 
+interface VerifyOTP {
+  verifyOtp: boolean;
+}
+
 export class UserData {
   // tslint:disable-next-line: variable-name
   _id: string;
@@ -44,8 +48,11 @@ export class AuthService {
     return user;
   }
 
-  findUser(phone: string) {
-    return this.http.get<{ User: any }>(environment.server + '/users/' + phone);
+  findUser(phone: string, email: any) {
+    return this.http.post(environment.server + '/users/findUser', {
+      phone,
+      email,
+    });
   }
 
   signUp(data: any) {
@@ -72,19 +79,36 @@ export class AuthService {
       phone,
       password,
     };
-    return this.http.post<AuthResponseData>(environment.server + '/users/login', data).pipe(
-      catchError(this.handleError),
-      tap((resData) => {
-        this.handleAuthentication(
-          resData._id,
-          resData.name,
-          resData.email,
-          resData.phone,
-          resData.role,
-          resData.token,
-          +resData.expiresIn,
-        );
-      }),
+
+    return this.http
+      .post<VerifyOTP | ActivatedRoute>(environment.server + '/users/login', data)
+      .pipe(
+        catchError(this.handleError),
+        tap((resData: any) => {
+          if (!resData.verifyOtp) {
+            this.handleAuthentication(
+              resData._id,
+              resData.name,
+              resData.email,
+              resData.phone,
+              resData.role,
+              resData.token,
+              +resData.expiresIn,
+            );
+          }
+        }),
+      );
+  }
+
+  loginSuccess(user: AuthResponseData) {
+    this.handleAuthentication(
+      user._id,
+      user.name,
+      user.email,
+      user.phone,
+      user.role,
+      user.token,
+      +user.expiresIn,
     );
   }
 
