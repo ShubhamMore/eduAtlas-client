@@ -13,12 +13,11 @@ import { MENU_ITEMS } from '../../pages-menu';
 export class AddStudentsComponent implements OnInit {
   students: FormGroup;
   eduAtlasStudentForm: FormGroup;
-
   eduIdForm: FormGroup;
 
   routerId: string;
   submitted = false;
-
+  disable:boolean;
   institute: any;
 
   modes = ['Cash', 'Chaque/DD', 'Card', 'Others'];
@@ -47,6 +46,8 @@ export class AddStudentsComponent implements OnInit {
     private toasterService: NbToastrService,
   ) {}
 
+  
+
   ngOnInit() {
     this.courses = [];
     this.batches = [];
@@ -60,52 +61,53 @@ export class AddStudentsComponent implements OnInit {
       this.studentEduId = data.student;
       this.courseId = data.course;
       this.edit = data.edit;
+      this.edit?this.disable=true:this.disable=false;
+
+      this.students = this.fb.group({
+        name: ['', Validators.required],
+        rollNo: ['', Validators.required],
+        studentEmail: [{value:'',disabled:this.disable}, Validators.compose([Validators.required, Validators.email])],
+        contact: [{value:'',disabled:this.disable}, Validators.compose([Validators.required])],
+  
+        parentName: [''],
+        parentContact: [''],
+        parentEmail: ['', Validators.email],
+  
+        address: [''],
+  
+        courseDetails: this.fb.group({
+          course: [''],
+          batch: [''],
+          discount: [''],
+          additionalDiscount: [''],
+          netPayable: [{value:'',disabled:true}],
+        }),
+  
+        feeDetails: this.fb.group({
+          installments: [''],
+          nextInstallment: [''],
+          amountCollected: [''],
+          mode: [''],
+        }),
+  
+        materialRecord: [''],
+      });
+
+      this.eduAtlasStudentForm = this.fb.group({
+        idInput1: [{value:'EDU',disabled:true}, Validators.required],
+        idInput2: [{value:'',disabled:this.disable}, Validators.required],
+        idInput3: [{value:'ST',disabled:true}, Validators.required],
+        idInput4: [{value:'',disabled:this.disable}, Validators.required],
+      });
+
+      this.getCourseTd(this.routerId);
+
+      if (this.edit === 'true') {
+        this.alreadyRegistered = true;
+        this.getStudent(this.studentEduId, this.routerId, this.courseId);
+      }
     });
 
-    this.getCourseTd(this.routerId);
-
-    if (this.edit === 'true') {
-      this.alreadyRegistered = true;
-      this.getStudent(this.studentEduId, this.routerId, this.courseId);
-    }
-
-    this.eduAtlasStudentForm = this.fb.group({
-      idInput1: ['', Validators.required],
-      idInput2: ['', Validators.required],
-      idInput3: ['', Validators.required],
-      idInput4: ['', Validators.required],
-    });
-
-    this.students = this.fb.group({
-      name: ['', Validators.required],
-      rollNo: ['', Validators.required],
-      studentEmail: ['', Validators.compose([Validators.required, Validators.email])],
-      contact: ['', Validators.compose([Validators.required])],
-
-      parentName: [''],
-      parentContact: [''],
-      parentEmail: ['', Validators.email],
-
-      address: [''],
-
-      courseDetails: this.fb.group({
-        course: [''],
-        batch: [''],
-        discount: [''],
-        additionalDiscount: [''],
-        netPayable: [''],
-      }),
-
-      feeDetails: this.fb.group({
-        installments: [''],
-        nextInstallment: [''],
-        amountCollected: [''],
-        mode: [''],
-      }),
-
-      materialRecord: [''],
-    });
-    // console.log(this.mode[1].name)
   }
 
   get f() {
@@ -118,7 +120,7 @@ export class AddStudentsComponent implements OnInit {
 
   onStudentSearch() {
     if (this.eduAtlasStudentForm.valid) {
-      const studentEduId = `${this.eduAtlasStudentForm.value.idInput1}-${this.eduAtlasStudentForm.value.idInput2}-${this.eduAtlasStudentForm.value.idInput3}-${this.eduAtlasStudentForm.value.idInput4}`;
+      const studentEduId = `${this.eduAtlasStudentFormControl['idInput1'].value}-${this.eduAtlasStudentFormControl['idInput2'].value}-${this.eduAtlasStudentFormControl['idInput3'].value}-${this.eduAtlasStudentFormControl['idInput4'].value}`;
       this.api.getOneStudent(studentEduId).subscribe((data: any) => {
         this.students.patchValue({
           name: data.basicDetails.name,
@@ -158,8 +160,8 @@ export class AddStudentsComponent implements OnInit {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
     this.selectedCourse = this.courses.find((course: any) => course.id === id);
     this.students.get('courseDetails').patchValue({ batch: '' });
-    this.students.get('feeDetails').reset(),
-      this.students.get('materialRecord').reset(),
+    this.students.get('feeDetails').reset();
+      this.students.get('materialRecord').reset();
       this.calculateNetPayableAmount();
   }
 
@@ -242,9 +244,12 @@ export class AddStudentsComponent implements OnInit {
 
         this.onSelectCourse(this.student.instituteDetails.courseId);
 
-        this.students
+        setTimeout(()=>{
+          this.students
           .get('courseDetails')
           .patchValue({ batch: this.student.instituteDetails.batchId });
+        },200);
+       
 
         this.calculateAmountPending();
       });
