@@ -89,7 +89,7 @@ export class AddStudentsComponent implements OnInit {
       address: [''],
 
       courseDetails: this.fb.group({
-        course: [''],
+        course: ['', Validators.required],
         batch: [''],
         discount: [''],
         additionalDiscount: [''],
@@ -105,7 +105,6 @@ export class AddStudentsComponent implements OnInit {
 
       materialRecord: [''],
     });
-    // console.log(this.mode[1].name)
   }
 
   get f() {
@@ -120,19 +119,23 @@ export class AddStudentsComponent implements OnInit {
     if (this.eduAtlasStudentForm.valid) {
       const studentEduId = `${this.eduAtlasStudentForm.value.idInput1}-${this.eduAtlasStudentForm.value.idInput2}-${this.eduAtlasStudentForm.value.idInput3}-${this.eduAtlasStudentForm.value.idInput4}`;
       this.api.getOneStudent(studentEduId).subscribe((data: any) => {
-        this.students.patchValue({
-          name: data.basicDetails.name,
-          rollNo: data.basicDetails.rollNumber,
-          studentEmail: data.basicDetails.studentEmail,
-          contact: data.basicDetails.studentContact,
+        if (data) {
+          this.students.patchValue({
+            name: data.basicDetails.name,
+            rollNo: data.basicDetails.rollNumber,
+            studentEmail: data.basicDetails.studentEmail,
+            contact: data.basicDetails.studentContact,
 
-          parentName: data.parentDetails.name,
-          parentContact: data.parentDetails.parentContact,
-          parentEmail: data.parentDetails.parentEmail,
+            parentName: data.parentDetails.name,
+            parentContact: data.parentDetails.parentContact,
+            parentEmail: data.parentDetails.parentEmail,
 
-          address: data.parentDetails.address,
-        });
-        this.studentEduId = studentEduId;
+            address: data.parentDetails.address,
+          });
+          this.studentEduId = studentEduId;
+        } else {
+          this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+        }
       });
     }
   }
@@ -269,10 +272,10 @@ export class AddStudentsComponent implements OnInit {
         // console.log('addStudentCourse');
         this.api.addStudentCourse(this.students.value, this.routerId, this.studentEduId).subscribe(
           (res) => {
-            this.updateToaster('top-right', 'success');
+            this.showToaster('top-right', 'success', 'New Student Course Added Successfully!');
             this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
           },
-          (err) => this.invalidToast('top-right', 'danger', err.error.message),
+          (err) => this.showToaster('top-right', 'danger', err.error.message),
         );
       } else if (
         this.student.instituteDetails.batchId !== this.students.value.courseDetails.batch
@@ -288,10 +291,10 @@ export class AddStudentsComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              this.updateToaster('top-right', 'success');
+              this.showToaster('top-right', 'success', 'Student Course Updated Successfully!');
               this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
             },
-            (err) => this.invalidToast('top-right', 'danger', err.error.message),
+            (err) => this.showToaster('top-right', 'danger', err.error.message),
           );
       } else {
         // console.log('updateStudentPersonalDetails');
@@ -299,10 +302,10 @@ export class AddStudentsComponent implements OnInit {
           .updateStudentPersonalDetails(this.student._id, this.students.value, this.studentEduId)
           .subscribe(
             (res: any) => {
-              this.updateToaster('top-right', 'success');
+              this.showToaster('top-right', 'success', 'Student Personal details Updated!');
               this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
             },
-            (err) => this.invalidToast('top-right', 'danger', err.error.message),
+            (err) => this.showToaster('top-right', 'danger', err.error.message),
           );
       }
     }
@@ -311,14 +314,14 @@ export class AddStudentsComponent implements OnInit {
       if (!this.alreadyRegistered) {
         this.api.addStudent(this.students.value, this.routerId).subscribe(
           (data) => {
-            this.showToaster('top-right', 'success');
+            this.showToaster('top-right', 'success', 'New Student Added Successfully!');
             setTimeout(() => {
               this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
             }, 1000);
           },
           (err) => {
             if (err.error.message.includes('E11000 duplicate key error collection')) {
-              this.invalidToast(
+              this.showToaster(
                 'top-right',
                 'danger',
                 'This Student Already Exist, Please Search Student By EDU-Atlas ID',
@@ -326,36 +329,25 @@ export class AddStudentsComponent implements OnInit {
               this.alreadyRegistered = true;
               return;
             }
-            this.invalidToast('top-right', 'danger', err.error.message);
+            this.showToaster('top-right', 'danger', err.error.message);
           },
         );
       } else {
         this.api.addStudentCourse(this.students.value, this.routerId, this.studentEduId).subscribe(
           (res) => {
-            this.updateToaster('top-right', 'success');
+            this.showToaster('top-right', 'success', 'Student Course Added Successfully!');
             this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
           },
-          (err) => this.invalidToast('top-right', 'danger', err.error.message),
+          (err) => this.showToaster('top-right', 'danger', err.error.message),
         );
       }
     }
   }
 
-  showToaster(position, status) {
-    this.toasterService.show(status || 'Success', `Student successfully added`, {
+  showToaster(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
       position,
       status,
     });
-  }
-
-  updateToaster(position, status) {
-    this.toasterService.show(status || 'Success', `Student successfully Updated`, {
-      position,
-      status,
-    });
-  }
-
-  invalidToast(position, status, message) {
-    this.toasterService.show(status || 'Danger', message, { position, status });
   }
 }
