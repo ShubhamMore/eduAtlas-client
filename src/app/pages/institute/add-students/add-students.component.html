@@ -22,8 +22,14 @@
             type="text"
             nbInput
             maxlength="3"
-            [status]="eduAtlasStudentFormControl.idInput1.errors && submitted ? 'danger' : 'basic'"
+            [status]="
+              eduAtlasStudentFormControl.idInput1.errors &&
+              eduAtlasStudentFormControl.idInput1.touched
+                ? 'danger'
+                : 'basic'
+            "
             id="idInput1"
+            disabled="true"
             fullWidth
             formControlName="idInput1"
           />
@@ -34,7 +40,12 @@
             type="text"
             nbInput
             maxlength="4"
-            [status]="eduAtlasStudentFormControl.idInput2.errors && submitted ? 'danger' : 'basic'"
+            [status]="
+              eduAtlasStudentFormControl.idInput2.errors &&
+              eduAtlasStudentFormControl.idInput2.touched
+                ? 'danger'
+                : 'basic'
+            "
             id="idInput2"
             fullWidth
             formControlName="idInput2"
@@ -46,8 +57,14 @@
             type="text"
             nbInput
             maxlength="3"
-            [status]="eduAtlasStudentFormControl.idInput3.errors && submitted ? 'danger' : 'basic'"
+            [status]="
+              eduAtlasStudentFormControl.idInput3.errors &&
+              eduAtlasStudentFormControl.idInput3.touched
+                ? 'danger'
+                : 'basic'
+            "
             id="idInput3"
+            disabled="true"
             fullWidth
             formControlName="idInput3"
           />
@@ -58,7 +75,12 @@
             type="text"
             nbInput
             maxlength="6"
-            [status]="eduAtlasStudentFormControl.idInput4.errors && submitted ? 'danger' : 'basic'"
+            [status]="
+              eduAtlasStudentFormControl.idInput4.errors &&
+              eduAtlasStudentFormControl.idInput4.touched
+                ? 'danger'
+                : 'basic'
+            "
             id="idInput4"
             fullWidth
             formControlName="idInput4"
@@ -82,13 +104,13 @@
             <input
               type="text"
               nbInput
-              [status]="f.name.errors && submitted ? 'danger' : 'basic'"
+              [status]="f.name.errors && f.name.touched ? 'danger' : 'basic'"
               id="name"
               fullWidth
               formControlName="name"
               placeholder="Name"
             />
-            <small *ngIf="f.name.errors && submitted">*Student name is required</small>
+            <small *ngIf="f.name.errors && f.name.touched">*Student name is required</small>
           </div>
         </div>
 
@@ -98,13 +120,13 @@
             <input
               type="text"
               nbInput
-              [status]="f.rollNo.errors && submitted ? 'danger' : 'basic'"
+              [status]="f.rollNo.errors && f.rollNo.touched ? 'danger' : 'basic'"
               id="roll"
               formControlName="rollNo"
               fullWidth
               placeholder="Roll Number"
             />
-            <small *ngIf="f.rollNo.errors && submitted">*Student Roll no. is required</small>
+            <small *ngIf="f.rollNo.errors && f.rollNo.touched">*Student Roll no. is required</small>
           </div>
         </div>
 
@@ -114,13 +136,15 @@
             <input
               type="email"
               nbInput
-              [status]="f.studentEmail.errors && submitted ? 'danger' : 'basic'"
+              [status]="f.studentEmail.errors && f.studentEmail.touched ? 'danger' : 'basic'"
               id="email"
               formControlName="studentEmail"
               fullWidth
               placeholder="Email"
             />
-            <small *ngIf="f.studentEmail.errors && submitted">*Student email is required</small>
+            <small *ngIf="f.studentEmail.errors && f.studentEmail.touched"
+              >*Student email is required</small
+            >
           </div>
         </div>
 
@@ -131,13 +155,13 @@
               type="text"
               nbInput
               maxlength="10"
-              [status]="f.contact.errors && submitted ? 'danger' : 'basic'"
+              [status]="f.contact.errors && f.contact.touched ? 'danger' : 'basic'"
               id="contact"
               formControlName="contact"
               fullWidth
               placeholder="Student Contact No."
             />
-            <small *ngIf="f.contact.errors && submitted"
+            <small *ngIf="f.contact.errors && f.contact.touched"
               >*Student Contact Number is required.</small
             >
           </div>
@@ -279,6 +303,7 @@
             formControlName="netPayable"
             fullWidth
             placeholder="Net Payable"
+            disabled="true"
           />
         </div>
       </div>

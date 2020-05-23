@@ -24,6 +24,7 @@ const routes: Routes = [
     children: [
       { path: 'add-institute', component: AddInstituteComponent },
       { path: 'add-students/:id', component: AddStudentsComponent },
+      { path: 'add-students/:id/edit', component: AddStudentsComponent },
       { path: 'manage-institute', component: ManageInstituteComponent },
       { path: 'manage-students/:id', component: ManageStudentsComponent },
       { path: 'manage-institute', component: ManageInstituteComponent },
@@ -34,6 +35,7 @@ const routes: Routes = [
       { path: 'view-student/:id', component: ViewStudentComponent },
       { path: 'manage-schedule/:id', component: ManageScheduleComponent },
       { path: 'pending-students/:id', component: PendingStudentComponent },
+
       { path: 'view-schedule/:id', component: ViewScheduleComponent },
       {
         path: 'branch-config',

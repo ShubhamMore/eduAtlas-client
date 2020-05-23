@@ -71,7 +71,7 @@ export class PendingStudentComponent implements OnInit {
 
   edit(student: string) {
     // console.log('from manag edit => ', email);
-    this.router.navigate([`/pages/institute/add-students/${this.routerId}`], {
+    this.router.navigate([`/pages/institute/add-students/${this.routerId}/edit`], {
       queryParams: { student, course: this.course, edit: 'true' },
     });
   }

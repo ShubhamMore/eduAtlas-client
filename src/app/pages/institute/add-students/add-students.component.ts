@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,8 +16,6 @@ export class AddStudentsComponent implements OnInit {
   eduIdForm: FormGroup;
 
   routerId: string;
-  submitted = false;
-  disable:boolean;
   institute: any;
 
   modes = ['Cash', 'Chaque/DD', 'Card', 'Others'];
@@ -46,8 +44,6 @@ export class AddStudentsComponent implements OnInit {
     private toasterService: NbToastrService,
   ) {}
 
-  
-
   ngOnInit() {
     this.courses = [];
     this.batches = [];
@@ -61,43 +57,42 @@ export class AddStudentsComponent implements OnInit {
       this.studentEduId = data.student;
       this.courseId = data.course;
       this.edit = data.edit;
-      this.edit?this.disable=true:this.disable=false;
 
       this.students = this.fb.group({
         name: ['', Validators.required],
         rollNo: ['', Validators.required],
-        studentEmail: [{value:'',disabled:this.disable}, Validators.compose([Validators.required, Validators.email])],
-        contact: [{value:'',disabled:this.disable}, Validators.compose([Validators.required])],
-  
+        studentEmail: ['', Validators.compose([Validators.required, Validators.email])],
+        contact: ['', Validators.compose([Validators.required])],
+
         parentName: [''],
         parentContact: [''],
         parentEmail: ['', Validators.email],
-  
+
         address: [''],
-  
+
         courseDetails: this.fb.group({
-          course: [''],
+          course: ['', Validators.required],
           batch: [''],
           discount: [''],
           additionalDiscount: [''],
-          netPayable: [{value:'',disabled:true}],
+          netPayable: [''],
         }),
-  
+
         feeDetails: this.fb.group({
           installments: [''],
           nextInstallment: [''],
           amountCollected: [''],
           mode: [''],
         }),
-  
+
         materialRecord: [''],
       });
 
       this.eduAtlasStudentForm = this.fb.group({
-        idInput1: [{value:'EDU',disabled:true}, Validators.required],
-        idInput2: [{value:'',disabled:this.disable}, Validators.required],
-        idInput3: [{value:'ST',disabled:true}, Validators.required],
-        idInput4: [{value:'',disabled:this.disable}, Validators.required],
+        idInput1: ['EDU', Validators.required],
+        idInput2: ['', Validators.required],
+        idInput3: ['ST', Validators.required],
+        idInput4: ['', Validators.required],
       });
 
       this.getCourseTd(this.routerId);
@@ -107,11 +102,10 @@ export class AddStudentsComponent implements OnInit {
         this.getStudent(this.studentEduId, this.routerId, this.courseId);
       }
     });
-
   }
 
   get f() {
-     return this.students.controls;
+    return this.students.controls;
   }
 
   get eduAtlasStudentFormControl() {
@@ -165,8 +159,8 @@ export class AddStudentsComponent implements OnInit {
     this.selectedCourse = this.courses.find((course: any) => course.id === id);
     this.students.get('courseDetails').patchValue({ batch: '' });
     this.students.get('feeDetails').reset();
-      this.students.get('materialRecord').reset();
-      this.calculateNetPayableAmount();
+    this.students.get('materialRecord').reset();
+    this.calculateNetPayableAmount();
   }
 
   onSelectDiscount(id: string) {
@@ -204,9 +198,13 @@ export class AddStudentsComponent implements OnInit {
     }
   }
 
-  getStudent(student: string, institute: string, course: string) {
+  getStudent(studentEduId: string, institute: string, course: string) {
     this.api
-      .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
+      .getOneStudentByInstitute({
+        eduatlasId: studentEduId,
+        instituteId: institute,
+        courseId: course,
+      })
       .subscribe((data: any) => {
         this.student = data[0];
         // console.log(this.student);
@@ -218,6 +216,9 @@ export class AddStudentsComponent implements OnInit {
           idInput3: eduAtlId[2],
           idInput4: eduAtlId[3],
         });
+
+        this.eduAtlasStudentForm.get('idInput2').disable();
+        this.eduAtlasStudentForm.get('idInput4').disable();
 
         this.students.patchValue({
           name: this.student.basicDetails.name,
@@ -246,21 +247,22 @@ export class AddStudentsComponent implements OnInit {
           materialRecord: this.student.instituteDetails.materialRecord,
         });
 
+        this.students.get('studentEmail').disable();
+        this.students.get('contact').disable();
+
         this.onSelectCourse(this.student.instituteDetails.courseId);
 
-        setTimeout(()=>{
+        setTimeout(() => {
           this.students
-          .get('courseDetails')
-          .patchValue({ batch: this.student.instituteDetails.batchId });
-        },200);
-       
+            .get('courseDetails')
+            .patchValue({ batch: this.student.instituteDetails.batchId });
+        }, 200);
 
         this.calculateAmountPending();
       });
   }
 
   onSubmit() {
-    this.submitted = true;
     if (this.students.invalid) {
       return;
     }
@@ -339,13 +341,19 @@ export class AddStudentsComponent implements OnInit {
           },
         );
       } else {
-        this.api.addStudentCourse(this.students.value, this.routerId, this.studentEduId).subscribe(
-          (res) => {
-            this.showToaster('top-right', 'success', 'Student Course Added Successfully!');
-            this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
-          },
-          (err) => this.showToaster('top-right', 'danger', err.error.message),
-        );
+        if (this.studentEduId) {
+          this.api
+            .addStudentCourse(this.students.value, this.routerId, this.studentEduId)
+            .subscribe(
+              (res) => {
+                this.showToaster('top-right', 'success', 'Student Course Added Successfully!');
+                this.router.navigate([`/pages/institute/manage-students/${this.routerId}`]);
+              },
+              (err) => this.showToaster('top-right', 'danger', err.error.message),
+            );
+        } else {
+          this.showToaster('top-right', 'danger', 'Invalud Eduatlas ID');
+        }
       }
     }
   }
