@@ -4,8 +4,6 @@ import { instituteData } from '../../../../../assets/dataTypes/dataType';
 import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
-import { LocalDataSource } from 'ng2-smart-table';
-import { SmartTableData } from '../../../../@core/data/smart-table';
 
 @Component({
   selector: 'ngx-manage-institute',
@@ -26,6 +24,11 @@ export class ManageInstituteComponent implements OnInit {
     private toastrService: NbToastrService,
   ) {}
 
+  ngOnInit() {
+    this.institutes = [];
+    this.getInstitutes();
+  }
+
   getInstitutes() {
     this.api.getInstitutes().subscribe((institutes: any) => {
       this.institutes = institutes;
@@ -39,10 +42,6 @@ export class ManageInstituteComponent implements OnInit {
 
   getInstitute(id: string) {
     this.router.navigate(['/pages/dashboard', id]);
-  }
-
-  ngOnInit() {
-    this.getInstitutes();
   }
 
   updateInstitute(id: string) {

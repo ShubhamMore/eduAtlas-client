@@ -1,4 +1,4 @@
-<p style="color: black; font-weight: bold;">Add Employees Here</p>
+<p style="color: black; font-weight: bold;">Add employeeForm Here</p>
 
 <nb-card status="warning">
   <nb-card-body>
@@ -12,7 +12,7 @@
     >
     <form
       [formGroup]="eduAtlasEmployeeForm"
-      (ngSubmit)="onEmployeeSearch()"
+      (ngSubmit)="onEmployeeFormSearch()"
       *ngIf="alreadyRegistered"
     >
       <p>Fetch Employee</p>
@@ -95,7 +95,7 @@
       <hr />
     </form>
 
-    <form [formGroup]="employees" (ngSubmit)="onSubmit()">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
       <p>Employee Basic Details</p>
       <div class="row">
         <div class="col-sm-3">

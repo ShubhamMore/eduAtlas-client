@@ -364,13 +364,30 @@ export class ApiService {
       );
   }
 
-  //  GET PENDING STUDENTs
-  getPendingEmployees(id: string) {
+  //  GET INSTITUTE EMPLOYEES
+  getEmployeesByInstituteId(id: string) {
     const data = { instituteId: id };
     return this.http
       .post(environment.server + '/institute/employee/getEmployeesByInstituteId', data)
       .pipe(
-        tap((data: any) => {}),
+        tap((res: any) => {}),
+        catchError(this.handleError),
+      );
+  }
+
+  // ADD EMPLOYEE TO INSTITUTE
+  addEmployeeInstitute(eduId: string, instituteId: any, employee: any) {
+    const data = {
+      eduatlasId: eduId,
+      instituteDetails: {
+        instituteId: instituteId,
+        role: employee.role,
+      },
+    };
+    return this.http
+      .post(environment.server + '/institute/employee/addEmployeeInstitute', data)
+      .pipe(
+        tap((res: any) => {}),
         catchError(this.handleError),
       );
   }

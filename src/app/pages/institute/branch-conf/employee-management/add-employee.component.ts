@@ -10,9 +10,9 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./add-employee.component.scss'],
 })
 export class AddEmployee implements OnInit {
-  employees: FormGroup;
+  employeeForm: FormGroup;
   eduAtlasEmployeeForm: FormGroup;
-  routerId: string;
+  instituteId: string;
   institute: any;
   edit: string;
   employeeEduId: string;
@@ -30,15 +30,16 @@ export class AddEmployee implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.alreadyRegistered = false;
+
+    this.instituteId = this.active.snapshot.paramMap.get('id');
 
     this.active.queryParams.subscribe((data) => {
-      this.alreadyRegistered = false;
       this.employeeEduId = data.eduAtlasId;
       const employeeObjId = data.employeeObjId;
       this.edit = data.edit;
 
-      this.employees = this.fb.group({
+      this.employeeForm = this.fb.group({
         name: ['', Validators.required],
         employeeEmail: ['', Validators.compose([Validators.required, Validators.email])],
         contact: ['', Validators.compose([Validators.required])],
@@ -55,49 +56,53 @@ export class AddEmployee implements OnInit {
 
       if (this.edit === 'true') {
         this.alreadyRegistered = true;
-        this.getOneEmployeeByInstitute(employeeObjId, this.routerId);
+        this.getOneEmployeeByInstitute(employeeObjId, this.instituteId);
       }
     });
   }
 
   get f() {
-    return this.employees.controls;
+    return this.employeeForm.controls;
   }
 
   get eduAtlasEmployeeFormControl() {
     return this.eduAtlasEmployeeForm.controls;
   }
 
-  onEmployeeSearch() {
+  onEmployeeFormSearch() {
     if (this.eduAtlasEmployeeForm.valid) {
       const employeeEduId = `${this.eduAtlasEmployeeFormControl['idInput1'].value}-${this.eduAtlasEmployeeFormControl['idInput2'].value}-${this.eduAtlasEmployeeFormControl['idInput3'].value}-${this.eduAtlasEmployeeFormControl['idInput4'].value}`;
-      this.api.getOneEmployee(employeeEduId).subscribe((data: any) => {
-        if (data) {
-          this.employeeEduId = employeeEduId;
-          this.edit = 'true';
-          this.employees.patchValue({
-            name: data[0].basicDetails.name,
-            employeeEmail: data[0].basicDetails.employeeEmail,
-            contact: data[0].basicDetails.employeeContact,
-            address: data[0].basicDetails.employeeAddress,
-            role: data[0].instituteDetails[0].role,
-          });
-          this.employeeEduId = data[0].eduAtlasId;
-          this.employee._id = data[0]._id;
-        } else {
+      this.api.getOneEmployee(employeeEduId).subscribe(
+        (data: any) => {
+          if (data) {
+            this.employeeEduId = employeeEduId;
+            this.employee = data[0];
+            console.log(this.employee);
+            this.employeeForm.patchValue({
+              name: this.employee.basicDetails.name,
+              employeeEmail: this.employee.basicDetails.employeeEmail,
+              contact: this.employee.basicDetails.employeeContact,
+              address: this.employee.basicDetails.employeeAddress,
+            });
+          } else {
+            this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+          }
+        },
+        (error: any) => {
           this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
-        }
-      });
+        },
+      );
     }
   }
 
   changeAlreadyRegistered(e: any) {
     this.alreadyRegistered = e;
     if (!e) {
-      this.eduAtlasEmployeeForm.reset();
-      this.employees.reset();
+      this.eduAtlasEmployeeForm.reset({ idInput1: 'EDU', idInput3: 'EMP' });
+      this.employeeForm.reset();
     }
   }
+
   getOneEmployeeByInstitute(employeeObjId: string, institute: string) {
     this.api
       .getOneEmployeeByInstitute({
@@ -119,33 +124,34 @@ export class AddEmployee implements OnInit {
         this.eduAtlasEmployeeForm.get('idInput2').disable();
         this.eduAtlasEmployeeForm.get('idInput4').disable();
 
-        this.employees.patchValue({
+        this.employeeForm.patchValue({
           name: this.employee.basicDetails.name,
           employeeEmail: this.employee.basicDetails.employeeEmail,
           contact: this.employee.basicDetails.employeeContact,
           address: this.employee.basicDetails.employeeAddress,
           role: this.employee.instituteDetails[0].role,
         });
-        this.employees.get('name').disable();
-        this.employees.get('address').disable();
-        this.employees.get('employeeEmail').disable();
-        this.employees.get('contact').disable();
+
+        this.employeeForm.get('name').disable();
+        this.employeeForm.get('address').disable();
+        this.employeeForm.get('employeeEmail').disable();
+        this.employeeForm.get('contact').disable();
       });
   }
 
   onSubmit() {
-    if (this.employees.invalid) {
+    if (this.employeeForm.invalid) {
       return;
     }
 
     if (this.edit === 'true') {
       this.api
-        .updateEmployeeInstituteDetails(this.employee._id, this.routerId, this.f['role'].value)
+        .updateEmployeeInstituteDetails(this.employee._id, this.instituteId, this.f['role'].value)
         .subscribe(
           (res) => {
             this.showToaster('top-right', 'success', 'Employee Updated Successfully!');
             this.router.navigate([
-              `/pages/institute/branch-config/manage-employee/${this.routerId}`,
+              `/pages/institute/branch-config/manage-employee/${this.instituteId}`,
             ]);
           },
           (err) => this.showToaster('top-right', 'danger', err.error.message),
@@ -154,17 +160,17 @@ export class AddEmployee implements OnInit {
 
     if (!this.edit) {
       if (!this.alreadyRegistered) {
-        this.api.addEmployee(this.employees.value, this.routerId).subscribe(
+        this.api.addEmployee(this.employeeForm.value, this.instituteId).subscribe(
           (data) => {
             this.showToaster('top-right', 'success', 'New Employee Added Successfully!');
             setTimeout(() => {
               this.router.navigate([
-                `/pages/institute/branch-config/manage-employee/${this.routerId}`,
+                `/pages/institute/branch-config/manage-employee/${this.instituteId}`,
               ]);
             }, 1000);
           },
           (err) => {
-            if (err.error.message.includes('User Already Exists')) {
+            if (err.error.message.includes('E11000 duplicate key error collection')) {
               this.showToaster(
                 'top-right',
                 'danger',
@@ -176,6 +182,26 @@ export class AddEmployee implements OnInit {
             this.showToaster('top-right', 'danger', err.error.message);
           },
         );
+      } else {
+        if (this.employeeEduId) {
+          this.api
+            .addEmployeeInstitute(this.employeeEduId, this.instituteId, this.employeeForm.value)
+            .subscribe(
+              (res) => {
+                this.showToaster(
+                  'top-right',
+                  'success',
+                  'Employee Added to Institute Successfully!',
+                );
+                this.router.navigate([
+                  `/pages/institute/branch-config/manage-employee/${this.instituteId}`,
+                ]);
+              },
+              (err) => this.showToaster('top-right', 'danger', err.error.message),
+            );
+        } else {
+          this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+        }
       }
     }
   }
