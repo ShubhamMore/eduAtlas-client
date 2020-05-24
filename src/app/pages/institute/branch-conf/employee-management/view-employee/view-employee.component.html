@@ -1,0 +1,60 @@
+<nb-card *ngIf="employee">
+    <nb-card-body>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <p class="font-weight-bold">Name</p>
+        </div>
+        <div class="col-sm-5">
+          <p>{{ employee.basicDetails.name }}</p>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <p class="font-weight-bold">Role</p>
+        </div>
+        <div class="col-sm-5">
+          <p>{{ employee.instituteDetails[0].role }}</p>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <p class="font-weight-bold">Email</p>
+        </div>
+        <div class="col-sm-5">
+          <p>{{ employee.basicDetails.employeeEmail }}</p>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <p class="font-weight-bold">Contact</p>
+        </div>
+        <div class="col-sm-5">
+          <p>{{ employee.basicDetails.employeeContact }}</p>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <p class="font-weight-bold">Address</p>
+        </div>
+        <div class="col-sm-5">
+          <p>{{ employee.basicDetails.employeeAddress }}</p>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <hr />
+    </nb-card-body>
+  </nb-card>
+  

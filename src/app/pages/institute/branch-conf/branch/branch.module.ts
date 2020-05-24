@@ -22,6 +22,7 @@ import { ManageBatchComponent } from '../../branch-conf/add-batches/manage-batch
 import { ManageDiscountComponent } from '../../branch-conf/discount/manage-discount/manage-discount.component';
 
 import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
+import { ViewEmployee } from '../employee-management/view-employee/view-employee.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-re
   RoleManagementComponent,
   ManageEmployee,
   AddEmployee,
+  ViewEmployee,
   DiscountComponent,
   ReceiptConfComponent,
   ManageCourseComponent,
