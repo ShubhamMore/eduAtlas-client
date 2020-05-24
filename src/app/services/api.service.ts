@@ -323,8 +323,8 @@ export class ApiService {
       },
       instituteDetails: {
         instituteId: instituteId,
-        role :employee.role
-      }
+        role: employee.role,
+      },
     };
 
     return this.http.post(environment.server + '/institute/employee/addEmployee', data).pipe(
@@ -339,7 +339,9 @@ export class ApiService {
   //  GET ONE EMPLOYEE BY EDU-ATLAS ID
   getOneEmployee(data: any) {
     return this.http
-      .post(environment.server + '/institute/employee/getEmployeeByEduatlasId', { eduAtlasId: data })
+      .post(environment.server + '/institute/employee/getEmployeeByEduatlasId', {
+        eduAtlasId: data,
+      })
       .pipe(
         tap((res) => {
           // console.log(res);
@@ -365,20 +367,22 @@ export class ApiService {
   //  GET PENDING STUDENTs
   getPendingEmployees(id: string) {
     const data = { instituteId: id };
-    return this.http.post(environment.server + '/institute/employee/getEmployeesByInstituteId', data).pipe(
-      tap((data: any) => {}),
-      catchError(this.handleError),
-    );
+    return this.http
+      .post(environment.server + '/institute/employee/getEmployeesByInstituteId', data)
+      .pipe(
+        tap((data: any) => {}),
+        catchError(this.handleError),
+      );
   }
 
-  //UPDATE EMPLOYEE Role Details
-  updateEmployeeInstitueDetails(employeeObjectId:string,instituteId: string,role: string){
+  // UPDATE EMPLOYEE Role Details
+  updateEmployeeInstituteDetails(employeeObjectId: string, instituteId: string, role: string) {
     const data = {
       empId: employeeObjectId,
       instituteDetails: {
         role: role,
         instituteId: instituteId,
-      }
+      },
     };
     return this.http
       .post(environment.server + '/institute/employee/updateEmployeeInstituteDetails', data)
@@ -387,7 +391,6 @@ export class ApiService {
         catchError(this.handleError),
       );
   }
-
 
   //  UPDATE EMPLOYEE PERSONAL DETAILS
   updateEmployeePersonalDetails(id: string, employee: any, eduAtlasId: any) {
@@ -399,7 +402,7 @@ export class ApiService {
         rollNumber: employee.rollNo,
         employeeEmail: employee.employeeEmail,
         employeeContact: employee.contact,
-      }
+      },
     };
     return this.http
       .post(environment.server + '/institute/student/updateStudentPersonalDetails', data)

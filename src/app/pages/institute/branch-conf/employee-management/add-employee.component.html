@@ -152,24 +152,20 @@
         </div>
         <div class="col-sm-3">
           <label>*Role</label>
-          <nb-select placeholder="Select Role" 
-          [status]="
-          f.role.errors &&
-          f.role.touched
-            ? 'danger'
-            : 'basic'"
-          status="basic" formControlName="role">
+          <nb-select
+            placeholder="Select Role"
+            [status]="f.role.errors && f.role.touched ? 'danger' : 'basic'"
+            status="basic"
+            formControlName="role"
+          >
             <nb-option [value]="null">Select Role</nb-option>
             <nb-option *ngFor="let role of roles" value="{{ role }}">{{ role }}</nb-option>
           </nb-select>
-          <small *ngIf="f.role.errors && f.role.touched"
-              >*Employee Role is required.</small
-            >
+          <small *ngIf="f.role.errors && f.role.touched">*Employee Role is required.</small>
         </div>
       </div>
 
       <hr />
-
 
       <div class="row">
         <div class="col-sm-12">

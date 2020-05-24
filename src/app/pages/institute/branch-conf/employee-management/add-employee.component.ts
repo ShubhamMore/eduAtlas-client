@@ -35,7 +35,7 @@ export class AddEmployee implements OnInit {
     this.active.queryParams.subscribe((data) => {
       this.alreadyRegistered = false;
       this.employeeEduId = data.eduAtlasId;
-      var employeeObjId = data.employeeObjId;
+      const employeeObjId = data.employeeObjId;
       this.edit = data.edit;
 
       this.employees = this.fb.group({
@@ -60,12 +60,12 @@ export class AddEmployee implements OnInit {
     });
   }
 
-  changeAlreadyRegistered(e: any) {
-    this.alreadyRegistered = e;
-    if (!e) {
-      this.eduAtlasEmployeeForm.reset();
-      this.employees.reset();
-    }
+  get f() {
+    return this.employees.controls;
+  }
+
+  get eduAtlasEmployeeFormControl() {
+    return this.eduAtlasEmployeeForm.controls;
   }
 
   onEmployeeSearch() {
@@ -89,11 +89,15 @@ export class AddEmployee implements OnInit {
         }
       });
     }
-    if (additionalDiscount) {
-      calculatedAmount = calculatedAmount - (additionalDiscount / 100) * calculatedAmount;
-    }
   }
 
+  changeAlreadyRegistered(e: any) {
+    this.alreadyRegistered = e;
+    if (!e) {
+      this.eduAtlasEmployeeForm.reset();
+      this.employees.reset();
+    }
+  }
   getOneEmployeeByInstitute(employeeObjId: string, institute: string) {
     this.api
       .getOneEmployeeByInstitute({
@@ -136,7 +140,7 @@ export class AddEmployee implements OnInit {
 
     if (this.edit === 'true') {
       this.api
-        .updateEmployeeInstitueDetails(this.employee._id, this.routerId, this.f['role'].value)
+        .updateEmployeeInstituteDetails(this.employee._id, this.routerId, this.f['role'].value)
         .subscribe(
           (res) => {
             this.showToaster('top-right', 'success', 'Employee Updated Successfully!');
@@ -175,6 +179,7 @@ export class AddEmployee implements OnInit {
       }
     }
   }
+
   showToaster(position: any, status: any, message: any) {
     this.toasterService.show(status, message, {
       position,

@@ -23,18 +23,23 @@
           <td>{{ employee.instituteDetails[0].role }}</td>
           <!-- <td>{{ employee.courseDetails.course }}</td> -->
           <td>
-            <button class="mr-2" nbButton status="primary" (click)="view(employee.eduAtlasId,employee._id)">
+            <button
+              class="mr-2"
+              nbButton
+              status="primary"
+              (click)="view(employee.eduAtlasId, employee._id)"
+            >
               View
-            </button>
-            <button class="mr-2" nbButton status="warning`" (click)="edit(employee.eduAtlasId,employee._id)">
-              Edit
             </button>
             <button
               class="mr-2"
               nbButton
-              status="danger"
-              (click)="delete(employee._id)"
+              status="warning`"
+              (click)="edit(employee.eduAtlasId, employee._id)"
             >
+              Edit
+            </button>
+            <button class="mr-2" nbButton status="danger" (click)="delete(employee._id)">
               Delete
             </button>
           </td>
