@@ -52,6 +52,10 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/branch-config/manage-receipt/' + this.routerId;
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-role-management/' + this.routerId;
+    MENU_ITEMS[4].children[4].children[0].link =
+    '/pages/institute/branch-config/add-employee/' + this.routerId;
+    MENU_ITEMS[4].children[4].children[1].link =
+    '/pages/institute/branch-config/manage-employee/' + this.routerId;
     MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.routerId;
   }
   getInstitutes() {

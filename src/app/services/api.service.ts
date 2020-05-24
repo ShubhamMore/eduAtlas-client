@@ -329,6 +329,117 @@ export class ApiService {
       );
   }
 
+
+   // =====================Employee API===================
+
+  //  ADD NEW STUDENT
+  addEmployee(student: any, instituteId: string) {
+    const data = {
+      basicDetails: {
+        name: student.name,
+        rollNumber: student.rollNo,
+        studentEmail: student.studentEmail,
+        studentContact: student.contact,
+      },
+      parentDetails: {
+        name: student.parentName,
+        parentContact: student.parentContact,
+        parentEmail: student.parentEmail,
+        address: student.address,
+      },
+      instituteDetails: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        batchId: student.courseDetails.batch,
+        discount: student.courseDetails.discount,
+        additionalDiscount: student.courseDetails.additionalDiscount,
+        nextPayble: student.courseDetails.netPayable,
+        active: student.courseDetails.batch === '' ? false : true,
+        materialRecord: student.materialRecod,
+      },
+
+      fee: {
+        instituteId: instituteId,
+        courseId: student.courseDetails.course,
+        installmentNumber: student.feeDetails.installments,
+        nextInstallment: student.feeDetails.nextInstallment,
+        amountCollected: student.feeDetails.amountCollected,
+        mode: student.feeDetails.mode,
+      },
+    };
+
+    return this.http.post(environment.server + '/institute/student/add', data).pipe(
+      // tslint:disable-next-line: no-shadowed-variable
+      tap((data) => {
+        // console.log(data);
+      }),
+      catchError(this.handleError),
+    );
+  }
+
+  //  GET ONE EMPLOYEE BY EDU-ATLAS ID
+  getOneEmployee(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getOneStudent', { eduatlasId: data })
+      .pipe(
+        tap((res) => {
+          // console.log(res);
+        }),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
+  //  GET ONE EMPLOYEE FOR EDITING AND VIEWING
+  getOneEmployeeByInstitute(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
+      .pipe(
+        tap((res) => {
+          // console.log(dres);
+        }),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
+  
+  //  GET PENDING STUDENTs
+  getPendingEmployees(id: string, courseId: string) {
+    const data = { instituteId: id, courseId };
+    return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
+      tap((data: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  //  UPDATE EMPLOYEE PERSONAL DETAILS
+  updateEmployeePersonalDetails(id: string, student: any, eduAtlasId: any) {
+    const data = {
+      _id: id,
+      eduAtlasId: eduAtlasId,
+      basicDetails: {
+        name: student.name,
+        rollNumber: student.rollNo,
+        studentEmail: student.studentEmail,
+        studentContact: student.contact,
+      },
+      parentDetails: {
+        name: student.parentName,
+        parentContact: student.parentContact,
+        parentEmail: student.parentEmail,
+        address: student.address,
+      },
+    };
+    return this.http
+      .post(environment.server + '/institute/student/updateStudentPersonalDetails', data)
+      .pipe(
+        map(() => student),
+        catchError(this.handleError),
+      );
+  }
+
+
   /* ********************* ONLY FOR E-COMMERCE ****************** */
 
   getStudent(data: any) {
