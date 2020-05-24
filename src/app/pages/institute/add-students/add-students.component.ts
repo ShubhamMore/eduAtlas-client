@@ -343,6 +343,7 @@ export class AddStudentsComponent implements OnInit {
               this.alreadyRegistered = true;
               return;
             }
+            this.alreadyRegistered = true;
             this.showToaster('top-right', 'danger', err.error.message);
           },
         );
