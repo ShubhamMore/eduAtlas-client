@@ -378,7 +378,7 @@ export class ApiService {
   // ADD EMPLOYEE TO INSTITUTE
   addEmployeeInstitute(eduId: string, instituteId: any, employee: any) {
     const data = {
-      eduatlasId: eduId,
+      eduAtlasId: eduId,
       instituteDetails: {
         instituteId: instituteId,
         role: employee.role,
