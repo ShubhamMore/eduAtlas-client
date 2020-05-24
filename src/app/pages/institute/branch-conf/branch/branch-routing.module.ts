@@ -14,6 +14,8 @@ import { ManageBatchComponent } from '../add-batches/manage-batch/manage-batch.c
 import { ManageDiscountComponent } from '../discount/manage-discount/manage-discount.component';
 
 import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
+import { ManageEmployee } from '../employee-management/manage-employee/manage-employee.component';
+import { AddEmployee } from '../employee-management/add-employee.component';
 
 const routes = [
   {
@@ -30,7 +32,8 @@ const routes = [
       { path: 'manage-receipt/:id', component: ManageReceiptComponent },
       { path: 'add-receipt/:id', component: ReceiptConfComponent },
       { path: 'manage-role-management/:id', component: RoleManagementComponent },
-
+      { path: 'add-employee/:id', component: AddEmployee },
+      { path: 'manage-employee/:id', component: ManageEmployee },
       { path: '', redirectTo: 'add-courses', pathMatch: 'full' },
     ],
   },

@@ -62,8 +62,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/institute/branch-config/manage-receipt',
       },
       {
-        title: 'Role',
-        link: '/pages/institute/branch-config/role-management',
+        title: 'Employee',
+        children: [
+          {
+            title: 'Add Employee',
+            link: '/pages/institute/branch-config/add-employee',
+          },
+          {
+            title: 'Manage Employee',
+            link: '/pages/institute/branch-config/manage-employee',
+          },
+        ],
+        // children:[
+        //   {
+        //     title:'Add Role',
+        // link: '/pages/institute/branch-config/role-management',
+        //   },
+        //   {
+        //     title:'Manage Role',
+        //   }
+        // ]
       },
     ],
   },

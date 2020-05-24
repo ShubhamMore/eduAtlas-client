@@ -44,12 +44,16 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/branch-config/manage-receipt/' + this.instituteId;
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-role-management/' + this.instituteId;
+    MENU_ITEMS[4].children[4].children[0].link =
+    '/pages/institute/branch-config/add-employee/' + this.instituteId;
+    MENU_ITEMS[4].children[4].children[1].link =
+    '/pages/institute/branch-config/manage-employee/' + this.instituteId;
     MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.instituteId;
 
     this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
   }
-
+ 
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((res) => {
       this.myInstitute = res;
