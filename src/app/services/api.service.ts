@@ -310,42 +310,21 @@ export class ApiService {
    // =====================Employee API===================
 
   //  ADD NEW STUDENT
-  addEmployee(student: any, instituteId: string) {
+  addEmployee(employee: any, instituteId: string) {
     const data = {
       basicDetails: {
-        name: student.name,
-        rollNumber: student.rollNo,
-        studentEmail: student.studentEmail,
-        studentContact: student.contact,
-      },
-      parentDetails: {
-        name: student.parentName,
-        parentContact: student.parentContact,
-        parentEmail: student.parentEmail,
-        address: student.address,
+        name: employee.name,
+        employeeAddress: employee.address,
+        employeeEmail: employee.employeeEmail,
+        employeeContact: employee.contact,
       },
       instituteDetails: {
         instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        batchId: student.courseDetails.batch,
-        discount: student.courseDetails.discount,
-        additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
-        active: student.courseDetails.batch === '' ? false : true,
-        materialRecord: student.materialRecod,
-      },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
+        role :employee.role
+      }
     };
 
-    return this.http.post(environment.server + '/institute/student/add', data).pipe(
+    return this.http.post(environment.server + '/institute/employee/addEmployee', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
       tap((data) => {
         // console.log(data);
@@ -357,7 +336,7 @@ export class ApiService {
   //  GET ONE EMPLOYEE BY EDU-ATLAS ID
   getOneEmployee(data: any) {
     return this.http
-      .post(environment.server + '/institute/student/getOneStudent', { eduatlasId: data })
+      .post(environment.server + '/institute/employee/getEmployeeByEduatlasId', { eduAtlasId: data })
       .pipe(
         tap((res) => {
           // console.log(res);
@@ -370,7 +349,7 @@ export class ApiService {
   //  GET ONE EMPLOYEE FOR EDITING AND VIEWING
   getOneEmployeeByInstitute(data: any) {
     return this.http
-      .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
+      .post(environment.server + '/institute/employee/getOneEmployeeByInstitute', data)
       .pipe(
         tap((res) => {
           // console.log(dres);
@@ -382,36 +361,61 @@ export class ApiService {
 
   
   //  GET PENDING STUDENTs
-  getPendingEmployees(id: string, courseId: string) {
-    const data = { instituteId: id, courseId };
-    return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
+  getPendingEmployees(id: string) {
+    const data = { instituteId: id };
+    return this.http.post(environment.server + '/institute/employee/getEmployeesByInstituteId', data).pipe(
       tap((data: any) => {}),
       catchError(this.handleError),
     );
   }
 
+  //UPDATE EMPLOYEE Role Details
+  updateEmployeeInstitueDetails(employeeObjectId:string,instituteId: string,role: string){
+    const data = {
+      empId: employeeObjectId,
+      instituteDetails: {
+        role: role,
+        instituteId: instituteId,
+      }
+    };
+    return this.http
+      .post(environment.server + '/institute/employee/updateEmployeeInstituteDetails', data)
+      .pipe(
+        map(() => {}),
+        catchError(this.handleError),
+      );
+  }
+
+
   //  UPDATE EMPLOYEE PERSONAL DETAILS
-  updateEmployeePersonalDetails(id: string, student: any, eduAtlasId: any) {
+  updateEmployeePersonalDetails(id: string, employee: any, eduAtlasId: any) {
     const data = {
       _id: id,
       eduAtlasId: eduAtlasId,
       basicDetails: {
-        name: student.name,
-        rollNumber: student.rollNo,
-        studentEmail: student.studentEmail,
-        studentContact: student.contact,
-      },
-      parentDetails: {
-        name: student.parentName,
-        parentContact: student.parentContact,
-        parentEmail: student.parentEmail,
-        address: student.address,
-      },
+        name: employee.name,
+        rollNumber: employee.rollNo,
+        employeeEmail: employee.employeeEmail,
+        employeeContact: employee.contact,
+      }
     };
     return this.http
       .post(environment.server + '/institute/student/updateStudentPersonalDetails', data)
       .pipe(
-        map(() => student),
+        map(() => employee),
+        catchError(this.handleError),
+      );
+  }
+
+  //  DELETE STUDENT COURSE
+  deleteEmployeeInstitute(instituteId: string, eduAtlasId: string) {
+    return this.http
+      .post(environment.server + '/institute/employee/deleteEmployeeInstitute', {
+        instituteId: instituteId,
+        empId: eduAtlasId,
+      })
+      .pipe(
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }

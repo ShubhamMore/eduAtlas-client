@@ -16,6 +16,7 @@ import { ManageDiscountComponent } from '../discount/manage-discount/manage-disc
 import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
 import { ManageEmployee } from '../employee-management/manage-employee/manage-employee.component';
 import { AddEmployee } from '../employee-management/add-employee.component';
+import { ViewEmployee } from '../employee-management/view-employee/view-employee.component';
 
 const routes = [
   {
@@ -33,7 +34,9 @@ const routes = [
       { path: 'add-receipt/:id', component: ReceiptConfComponent },
       { path: 'manage-role-management/:id', component: RoleManagementComponent },
       { path: 'add-employee/:id', component: AddEmployee },
+      { path: 'add-employee/:id/edit', component: AddEmployee },
       { path: 'manage-employee/:id', component: ManageEmployee },
+      { path: 'view-employee/:id', component: ViewEmployee },
       { path: '', redirectTo: 'add-courses', pathMatch: 'full' },
     ],
   },

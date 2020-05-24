@@ -18,68 +18,48 @@ import { ActivatedRoute, Router } from '@angular/router';
   
     batches: any[];
   
-    students = [];
+    employees = [];
     routerId: string;
   
     constructor(private api: ApiService, private router: Router, private active: ActivatedRoute) {}
   
     ngOnInit() {
-      this.students = [];
+      this.employees = [];
       this.course = '';
       this.form = new FormGroup({
         course: new FormControl('', { validators: [] }),
         batch: new FormControl('', { validators: [] }),
       });
       this.routerId = this.active.snapshot.paramMap.get('id');
-      this.getCourseTd(this.routerId);
+      this.getPendingEmployees(this.routerId);
     }
   
-    getStudents(id: string, courseId: string, batchId: string) {
-      this.api.getActiveStudents(id, courseId, batchId).subscribe((data: any) => {
+    getPendingEmployees(instituteId: string) {
+      this.api.getPendingEmployees(instituteId).subscribe((data: any) => {
         console.log(data);
-        this.students = data;
+        this.employees = data;
       });
     }
   
-    getCourseTd(id: string) {
-      this.api.getCourseTD(id).subscribe((data: any) => {
-        this.institute = data;
-        this.courses = data.course;
+  
+    view(eduAtlasId: string,employeeObjId: string) {
+      this.router.navigate([`/pages/institute/branch-config/view-employee/${this.routerId}`], {
+        queryParams: { eduAtlasId,employeeObjId},
       });
     }
   
-    onSelectCourse(id: string) {
-      if (id !== '') {
-        this.course = id;
-        // this.form.patchValue({ batch: '' });
-        this.getStudents(this.routerId, id, id);
-        // this.batches = this.institute.batch.filter((b: any) => b.course === id);
-      }
-    }
-  
-    // onSelectBatch(id: string) {
-    //   console.log(id);
-    //   this.getStudents(this.routerId, this.form.value.course, id);
-    // }
-  
-    view(student: string) {
-      this.router.navigate([`/pages/institute/view-student/${this.routerId}`], {
-        queryParams: { student, course: this.course },
-      });
-    }
-  
-    edit(student: string) {
+    edit(eduAtlasId: string,employeeObjId: string) {
       // console.log('from manag edit => ', email);
-      this.router.navigate([`/pages/institute/add-students/${this.routerId}/edit`], {
-        queryParams: { student, course: this.course, edit: 'true' },
+      this.router.navigate([`/pages/institute/branch-config/add-employee/${this.routerId}/edit`], {
+        queryParams: { eduAtlasId,employeeObjId, edit: 'true' },
       });
     }
   
-    delete(eduAtlId: string, courseObjId: string) {
-      this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
-        const i = this.students.findIndex((student) => student.instituteDetails._id === courseObjId);
+    delete(employeeObjId: string) {
+      this.api.deleteEmployeeInstitute(this.routerId, employeeObjId).subscribe(() => {
+        const i = this.employees.findIndex((employee) => employee._id === employeeObjId);
         if (i !== -1) {
-          this.students.splice(i, 1);
+          this.employees.splice(i, 1);
         }
       });
     }
