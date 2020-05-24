@@ -28,7 +28,7 @@ export class ApiService {
     );
   }
 
-  addInstitute(institute: any) {
+  addInstitute(institute: any, paymentDetails: any) {
     const postData = new FormData();
     const data = {
       basicInfo: {
@@ -50,6 +50,7 @@ export class ApiService {
     postData.append('address', JSON.stringify(data.address));
     postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
     postData.append('category', JSON.stringify(institute.category));
+    postData.append('paymentDetails', JSON.stringify(paymentDetails));
     postData.append('logo', institute.logo, institute.name);
     return this.http.post(environment.server + '/institute/addInstitute', postData).pipe(
       // tslint:disable-next-line: no-shadowed-variable
@@ -309,8 +310,7 @@ export class ApiService {
       );
   }
 
-
-   // =====================Employee API===================
+  // =====================Employee API===================
 
   //  ADD NEW STUDENT
   addEmployee(student: any, instituteId: string) {
@@ -383,7 +383,6 @@ export class ApiService {
       );
   }
 
-  
   //  GET PENDING STUDENTs
   getPendingEmployees(id: string, courseId: string) {
     const data = { instituteId: id, courseId };
@@ -418,7 +417,6 @@ export class ApiService {
         catchError(this.handleError),
       );
   }
-
 
   /* ********************* ONLY FOR E-COMMERCE ****************** */
 

@@ -209,6 +209,7 @@ export class AddStudentsComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.student = data[0];
+
         const eduAtlId = this.studentEduId.split('-');
 
         this.eduAtlasStudentIdForm.patchValue({

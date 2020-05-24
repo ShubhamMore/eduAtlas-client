@@ -8,7 +8,21 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class PaymentService {
+  private paymentDetails = {
+    amount: null,
+    planType: null,
+  };
+
   constructor(private http: HttpClient) {}
+
+  getPaymentDetails() {
+    return this.paymentDetails;
+  }
+
+  setPaymentDetails(amount: string, planType: string) {
+    this.paymentDetails.amount = amount;
+    this.paymentDetails.planType = planType;
+  }
 
   deleteOrder(id: string) {
     return this.http

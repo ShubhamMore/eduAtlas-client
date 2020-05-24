@@ -26,13 +26,14 @@ export class AddInstituteComponent implements OnInit {
   secondForm: FormGroup;
   thirdForm: FormGroup;
 
+  paymentDetails: any;
+
   imageRequired: boolean;
 
   user: any;
 
   options: any;
   razorPay: any;
-  amount: string;
   placedOrderReceipt: any;
 
   institute = {
@@ -88,7 +89,6 @@ export class AddInstituteComponent implements OnInit {
     this.user = this.authService.getUser();
 
     this.route.queryParams.subscribe((param: Params) => {
-      this.amount = param.amount;
       this.edit = param.edit;
       this.instituteId = param.instituteId;
     });
@@ -177,7 +177,8 @@ export class AddInstituteComponent implements OnInit {
       (res: any) => {
         // console.log(res);
         this.placedOrderReceipt = res.receipt;
-        this.options.amount = res.order.amount;
+        // this.options.amount = res.order.amount;
+        this.options.amount = '1';
         this.options.order_id = res.order.id;
         this.options.currency = res.order.currency;
         this.options.prefill.name = this.user.name;
@@ -197,9 +198,9 @@ export class AddInstituteComponent implements OnInit {
     this.paymentService.verifyPayment(payment, this.placedOrderReceipt).subscribe(
       (res: any) => {
         // console.log(res);
-        this.showToast('top-right', 'danger', 'Payment Verified Successfully');
+        this.showToast('top-right', 'success', 'Payment Verified Successfully');
         setTimeout(() => {
-          this.addInstituteAfterPayment(this.institute);
+          this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
         }, 1000);
       },
       (err: any) => {
@@ -209,8 +210,14 @@ export class AddInstituteComponent implements OnInit {
     );
   }
 
-  addInstituteAfterPayment(institute: any) {
-    this.api.addInstitute(institute).subscribe(
+  addInstituteAfterPayment(institute: any, orderId: string, ReceiptId: string) {
+    const paymentDetails = {
+      amount: this.paymentDetails.amount,
+      planType: this.paymentDetails.planType,
+      orderId: orderId,
+      receiptId: ReceiptId,
+    };
+    this.api.addInstitute(institute, paymentDetails).subscribe(
       (data) => {
         this.user = data;
         this.showToast('top-right', 'success', 'Institute Added Successfully');
@@ -378,13 +385,15 @@ export class AddInstituteComponent implements OnInit {
     }
 
     if (!this.edit) {
-      // this.addInstituteAfterPayment(this.institute);
+      // this.addInstituteAfterPayment(this.institute, '1233', '1234');
+      this.paymentDetails = this.paymentService.getPaymentDetails();
       const orderDetails = {
         userId: this.user._id,
         userPhone: this.user._phone,
         userName: this.user.name,
         userEmail: this.user.email,
-        amount: this.amount,
+        amount: this.paymentDetails.amount,
+        planType: this.paymentDetails.planType,
       };
       this.generateOrder(orderDetails);
     }
