@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./view-schedule.component.scss'],
 })
 export class ViewScheduleComponent implements OnInit {
-  routerId: string;
+  instituteId: string;
   batchCode: string;
   batch = [
     {
@@ -36,11 +36,11 @@ export class ViewScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.active.queryParams.subscribe((data) => (this.batchCode = data.batchCode));
-    this.routerId = this.active.snapshot.paramMap.get('id');
-    this.getSchedule(this.routerId, this.batchCode);
+    this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.getSchedule(this.instituteId, this.batchCode);
   }
 
-  getSchedule(id, code) {
+  getSchedule(id: string, code: any) {
     let param = new HttpParams();
     param = param.append('many', '0');
     param = param.append('instituteId', id);
@@ -48,11 +48,11 @@ export class ViewScheduleComponent implements OnInit {
     this.schduleService.getSchedule(param).subscribe(
       (res) => {
         this.batch = JSON.parse(JSON.stringify(res));
-        // console.log('bathc=> ', this.batch);
       },
       (error) => console.error(error),
     );
   }
+
   back() {
     this.location.back();
   }

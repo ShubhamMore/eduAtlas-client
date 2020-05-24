@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { Router } from '@angular/router';
-import { OtpService } from '../../services/auth-services/otp/otp.service';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({
@@ -19,7 +18,6 @@ export class SignUpComponent implements OnInit {
     public authService: AuthService,
     public router: Router,
     private toasterService: NbToastrService,
-    private otpService: OtpService,
   ) {}
 
   ngOnInit() {
@@ -49,7 +47,6 @@ export class SignUpComponent implements OnInit {
 
   acceptTermsAndConditions(tnc: boolean) {
     this.tnc = tnc;
-    // console.log(tnc);
   }
 
   onSignUp() {
@@ -65,29 +62,20 @@ export class SignUpComponent implements OnInit {
       role: this.signUpForm.value.role,
     };
 
-    // this.registerUser.removeControl(name)
-    // console.log(user);
     this.authService.findUser(user.phone, user.email).subscribe(
       (res: any) => {
-        // console.log(res);
         if (res.success) {
           this.authService.signUp(user).subscribe(
-            (signupRes: any) => {
-              // console.log(signupRes);
-              //  this.dialog.open(SuccessComponent,
-              //   {context:{title:'title'},
-              // })
+            (signUpRes: any) => {
               this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
             },
             (err: any) => {
-              // console.log(err);
               this.showToast('top-right', 'danger', 'This Email or Phone already exist');
             },
           );
         }
       },
       (err: any) => {
-        // console.log(err.error.message);
         this.showToast('top-right', 'danger', err.error.message);
       },
     );

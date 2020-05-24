@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  //  console.log(this.login.value);
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, {
       position,

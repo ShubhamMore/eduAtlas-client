@@ -1,13 +1,14 @@
-<h4 class="font-weight-bolder text-center mb-5" style="text-transform: uppercase;">
+<h4 class="font-weight-bolder text-center mb-5" style="text-transform: uppercase;" *ngIf="display">
   {{ myInstitute.institute.basicInfo.name }}
 </h4>
+
 <div class="row" [hidden]="!display">
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;">
-      <nb-card-header
-        >UPCOMING CLASS
-        <input id="date" placeholder="Date" [nbDatepicker]="formpicker" />
-        <nb-datepicker #formpicker></nb-datepicker>
+      <nb-card-header>
+        UPCOMING CLASS
+        <input id="date" placeholder="Date" [nbDatepicker]="formPicker" />
+        <nb-datepicker #formPicker></nb-datepicker>
       </nb-card-header>
       <nb-list>
         <nb-list-item>
@@ -27,7 +28,7 @@
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;">
-      <nb-card-header>STUDENT REQUETS </nb-card-header>
+      <nb-card-header>STUDENT REQUESTS </nb-card-header>
       <nb-list>
         <nb-list-item>
           <div
@@ -47,10 +48,10 @@
 
             <div style="text-align: right;">
               <a href="#" class="mr-2">
-                <img src="assets/img/check.png" width="30px" height="30px" />
+                <img src="../../../assets/img/check.png" width="30px" height="30px" />
               </a>
               <a href="#">
-                <img src="assets/img/cross.png" width="30px" height="30px" />
+                <img src="../../../assets/img/cross.png" width="30px" height="30px" />
               </a>
             </div>
           </div>
@@ -70,7 +71,7 @@
         <nb-list-item>
           <div style="display: grid; grid-template-columns: 50px auto; width: 100%;">
             <img
-              src="assets/images/nick.png"
+              src="../../../assets/images/nick.png"
               width="30px"
               height="30px"
               style="border-radius: 100%;"
@@ -85,7 +86,7 @@
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;">
-      <nb-card-header>LEADS </nb-card-header>
+      <nb-card-header>LEADS</nb-card-header>
       <nb-list>
         <nb-list-item>
           <div class="mb-3" style="display: grid; grid-template-columns: auto; width: 100%;">

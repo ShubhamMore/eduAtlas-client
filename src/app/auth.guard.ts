@@ -14,7 +14,6 @@ import { take, map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  // Inject Router so we can hand off the user to the Login Page
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(

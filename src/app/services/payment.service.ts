@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, tap, map } from 'rxjs/operators';
-import { throwError, Observable, Subject, from } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { catchError, tap } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -32,7 +32,6 @@ export class PaymentService {
   }
 
   private handleError(error: any) {
-    // console.log(error);
     return throwError(error);
   }
 }

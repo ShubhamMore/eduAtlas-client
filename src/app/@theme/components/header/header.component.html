@@ -7,8 +7,14 @@
       <img src="../../../../assets/img/eduatlas.png" width="100%" />
     </a>
   </div>
+
   <nb-card class="mt-4">
-    <nb-select status="primary" placeholder="Select Institute" (selectedChange)="onSelect($event)">
+    <nb-select
+      status="primary"
+      placeholder="Select Institute"
+      fullWidth
+      (selectedChange)="onSelect($event)"
+    >
       <nb-option value="undefined">Select Institute</nb-option>
       <nb-option *ngFor="let item of institute" value="{{ item._id }}">{{
         item.basicInfo.name
@@ -22,7 +28,6 @@
     <nb-action class="control-item" icon="email-outline"></nb-action>
     <nb-action class="control-item" icon="bell-outline"></nb-action>
     <nb-action class="control-item" icon="power" (click)="logout()"></nb-action>
-
     <nb-action class="user-action" *nbIsGranted="['view', 'user']">
       <nb-user [name]="name" [nbContextMenu]="userMenu"> </nb-user>
     </nb-action>

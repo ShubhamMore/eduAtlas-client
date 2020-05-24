@@ -9,7 +9,7 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./manage-schedule.component.scss'],
 })
 export class ManageScheduleComponent implements OnInit {
-  routerId: string;
+  instituteId: string;
   schedules = [
     {
       batchCode: '',
@@ -23,6 +23,7 @@ export class ManageScheduleComponent implements OnInit {
       topic: '',
     },
   ];
+
   constructor(
     private router: Router,
     private active: ActivatedRoute,
@@ -30,28 +31,29 @@ export class ManageScheduleComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getSchedules();
   }
+
   goAddSchedule() {
-    this.router.navigate(['/pages/institute/add-schedule', this.routerId]);
+    this.router.navigate(['/pages/institute/add-schedule', this.instituteId]);
   }
 
   getSchedules() {
     let param = new HttpParams();
     param = param.append('many', '1');
-    param = param.append('instituteId', this.routerId);
+    param = param.append('instituteId', this.instituteId);
 
-    this.scheduleService.getSchedule(param).subscribe((res) => {
+    this.scheduleService.getSchedule(param).subscribe((res: any) => {
       this.schedules = res;
-      // console.log('sch==>', this.schedules);
     });
   }
-  view(code) {
-    // console.log('batchCode', code);
-    this.router.navigate(['/pages/institute/view-schedule', this.routerId], {
+
+  view(code: any) {
+    this.router.navigate(['/pages/institute/view-schedule', this.instituteId], {
       queryParams: { batchCode: code },
     });
   }
+
   delete() {}
 }

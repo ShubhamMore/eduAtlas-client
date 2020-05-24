@@ -14,7 +14,7 @@ import { MENU_ITEMS } from '../../../pages-menu';
 })
 export class DiscountComponent implements OnInit {
   discount: FormGroup;
-  routerId: string;
+  instituteId: string;
   edit: string;
   discountId: string;
   discountUpdate = { discountCode: '', description: '', amount: '', _id: '' };
@@ -30,9 +30,8 @@ export class DiscountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
-      // console.log(data);
       this.edit = data.edit;
       this.discountId = data.discountId;
       if (this.edit) {
@@ -49,12 +48,10 @@ export class DiscountComponent implements OnInit {
 
   getDiscount(id) {
     let param = new HttpParams();
-    param = param.append('instituteId', this.routerId);
+    param = param.append('instituteId', this.instituteId);
     param = param.append('discountId', id);
-    this.api.getDiscount(param).subscribe((data) => {
-      // console.log('discount Data ', data);
-      this.discountUpdate = JSON.parse(JSON.stringify(data[0]));
-      // console.log('CODE ', this.discountUpdate.discountCode);
+    this.api.getDiscount(param).subscribe((data: any) => {
+      this.discountUpdate = data[0];
 
       this.discount.patchValue({
         discountCode: this.discountUpdate.discountCode,
@@ -63,6 +60,7 @@ export class DiscountComponent implements OnInit {
       });
     });
   }
+
   get f() {
     return this.discount.controls;
   }
@@ -74,35 +72,30 @@ export class DiscountComponent implements OnInit {
     }
     if (this.edit === 'true') {
       let param = new HttpParams();
-      param = param.append('instituteId', this.routerId);
+      param = param.append('instituteId', this.instituteId);
       param = param.append('discountId', this.discountId);
       this.api.updateDiscount(param, this.discount.value).subscribe(
         (res) => {
-          // console.log(res);
           this.showToast('top-right', 'success', 'Discount Updated');
           setTimeout(() => {
             this.router.navigate([
               '/pages/institute/branch-config/manage-discount/',
-              this.routerId,
+              this.instituteId,
             ]);
           }, 1000);
         },
         (error) => {
-          // console.log(error);
           this.showToast('top-right', 'danger', 'Discount Updation Failed');
         },
       );
     } else {
-      // console.log(this.discount.value);
-      this.api.addDiscount(this.routerId, this.discount.value).subscribe(
+      this.api.addDiscount(this.instituteId, this.discount.value).subscribe(
         (data) => {
-          // console.log('add success' + ' ' + data);
-
           this.showToast('top-right', 'success', 'Discount Added Successfully');
           setTimeout(() => {
             this.router.navigate([
               '/pages/institute/branch-config/manage-discount/',
-              this.routerId,
+              this.instituteId,
             ]);
           }, 1000);
         },
@@ -113,6 +106,7 @@ export class DiscountComponent implements OnInit {
       );
     }
   }
+
   back() {
     this.location.back();
   }

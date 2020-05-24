@@ -3,7 +3,6 @@ import { ApiService } from '../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-
 import { HostListener } from '@angular/core';
 
 @Component({
@@ -12,21 +11,26 @@ import { HostListener } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  display: boolean;
+
   institutes: SafeUrl[];
   institute: any[] = [];
 
   images: number[] = [];
   STRING_CHAR: string;
   base64String: string;
-  students: any[] = [];
-  display: boolean = false;
-  studentReq: any[] = [];
   imageUrl: SafeUrl[] = [];
-  classes = [];
+
+  students: any[] = [];
+  studentReq: any[] = [];
+
+  classes: any[] = [];
   fee = ['week', 'month'];
-  studentPendingFee = [];
-  messages = [];
-  newLeads = [];
+
+  studentPendingFee: any[] = [];
+
+  messages: any[] = [];
+  newLeads: any[] = [];
 
   constructor(
     private api: ApiService,
@@ -36,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.display = false;
     this.getInstitutes();
 
     MENU_ITEMS[1].hidden = false;
@@ -48,57 +53,35 @@ export class HomeComponent implements OnInit, OnDestroy {
     MENU_ITEMS[8].hidden = true;
     MENU_ITEMS[9].hidden = true;
     MENU_ITEMS[10].hidden = true;
+    MENU_ITEMS[11].hidden = true;
+    MENU_ITEMS[12].hidden = true;
   }
 
   getInstitutes() {
-    setTimeout(() => {
-      this.api.getInstitutes().subscribe((data: any) => {
-        this.institutes = data;
+    this.api.getInstitutes().subscribe((data: any) => {
+      this.institutes = data;
 
-        // console.log('institutes - ' + JSON.stringify(this.institutes));
-        this.institute = JSON.parse(JSON.stringify(this.institutes));
-        // console.log('from home===============>',this.institute);
+      this.institute = JSON.parse(JSON.stringify(this.institutes));
 
-        if (this.institute.length) {
-          this.display = true;
-          // console.log(this.display);
-        }
+      if (this.institute.length) {
+        this.display = true;
+      }
+      // tslint:disable-next-line: no-shadowed-variable
+      this.institute.forEach((data, i, a) => {
+        const TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
+        this.STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
         // tslint:disable-next-line: no-shadowed-variable
-        this.institute.forEach((data, i, a) => {
-          // console.log('=>' ,data.basicInfo.logo.data.data)
-          const TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
-          this.STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-          // console.log('string char => ', i , '  ', this.STRING_CHAR);
-          // tslint:disable-next-line: no-shadowed-variable
-          this.STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
-            return data + String.fromCharCode(byte);
-          }, '');
+        this.STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
+          return data + String.fromCharCode(byte);
+        }, '');
 
-          this.base64String = btoa(this.STRING_CHAR);
-          // console.log('base64'+ i, this.base64String);
-          this.imageUrl.push(
-            this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + this.base64String),
-          );
-
-          // console.log('imageUrls => ', this.imageUrl);
-        }, this);
-      });
-    }, 0);
+        this.base64String = btoa(this.STRING_CHAR);
+        this.imageUrl.push(
+          this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + this.base64String),
+        );
+      }, this);
+    });
   }
-
-  // getInstitutes(){
-  // 	this.api.getInstitutes().subscribe(data => {
-  // 		this.institutes = data;
-  // 			console.log(this.institutes);
-  // 			if(this.institutes[1])
-  // 		{
-  // 			this.display = true;
-  // 			console.log(this.display);
-
-  // 		}
-  // 	},err=>console.error(err))
-
-  // }
 
   onClick() {
     this.router.navigate(['/pages/membership']);

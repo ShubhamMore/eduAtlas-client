@@ -11,7 +11,7 @@
       >Already Registered Student</nb-checkbox
     >
     <form
-      [formGroup]="eduAtlasStudentForm"
+      [formGroup]="eduAtlasStudentIdForm"
       (ngSubmit)="onStudentSearch()"
       *ngIf="alreadyRegistered"
     >
@@ -23,8 +23,7 @@
             nbInput
             maxlength="3"
             [status]="
-              eduAtlasStudentFormControl.idInput1.errors &&
-              eduAtlasStudentFormControl.idInput1.touched
+              eduAtlasStudentIdControl.idInput1.errors && eduAtlasStudentIdControl.idInput1.touched
                 ? 'danger'
                 : 'basic'
             "
@@ -41,8 +40,7 @@
             nbInput
             maxlength="4"
             [status]="
-              eduAtlasStudentFormControl.idInput2.errors &&
-              eduAtlasStudentFormControl.idInput2.touched
+              eduAtlasStudentIdControl.idInput2.errors && eduAtlasStudentIdControl.idInput2.touched
                 ? 'danger'
                 : 'basic'
             "
@@ -58,8 +56,7 @@
             nbInput
             maxlength="3"
             [status]="
-              eduAtlasStudentFormControl.idInput3.errors &&
-              eduAtlasStudentFormControl.idInput3.touched
+              eduAtlasStudentIdControl.idInput3.errors && eduAtlasStudentIdControl.idInput3.touched
                 ? 'danger'
                 : 'basic'
             "
@@ -76,8 +73,7 @@
             nbInput
             maxlength="6"
             [status]="
-              eduAtlasStudentFormControl.idInput4.errors &&
-              eduAtlasStudentFormControl.idInput4.touched
+              eduAtlasStudentIdControl.idInput4.errors && eduAtlasStudentIdControl.idInput4.touched
                 ? 'danger'
                 : 'basic'
             "
@@ -95,7 +91,7 @@
       <hr />
     </form>
 
-    <form [formGroup]="students" (ngSubmit)="onSubmit()">
+    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
       <p>Student Basic Details</p>
       <div class="row">
         <div class="col-sm-3">

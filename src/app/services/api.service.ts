@@ -1,18 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
-import { throwError, Observable, Subject, from } from 'rxjs';
-import {
-  batchData,
-  discountData,
-  courseData,
-  studentsData,
-  instituteData,
-  receiptData,
-} from '../../assets/dataTypes/dataType';
+import { throwError } from 'rxjs';
+import { batchData, instituteData } from '../../assets/dataTypes/dataType';
 
 import { environment } from '../../environments/environment';
-import { StringDecoder } from 'string_decoder';
 
 @Injectable({
   providedIn: 'root',
@@ -31,15 +23,12 @@ export class ApiService {
   getInstitute(id: string) {
     const url = `${environment.server}/institute/oneInstitute/${id}`;
     return this.http.get<instituteData>(url).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
-  addInstitute(institute) {
-    // console.log('Institute - ', institute);
+  addInstitute(institute: any) {
     const postData = new FormData();
     const data = {
       basicInfo: {
@@ -64,12 +53,11 @@ export class ApiService {
     postData.append('logo', institute.logo, institute.name);
     return this.http.post(environment.server + '/institute/addInstitute', postData).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data: any) => {
-        // console.log(data);
-      }),
+      tap((data: any) => {}),
       catchError(this.handleError),
     );
   }
+
   updateInstitute(id: string, institute: any) {
     const url = `${environment.server}/institute/updateInstitute/${id}`;
 
@@ -101,6 +89,7 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
   deleteInstitute(id: string) {
     const url = environment.server + '/institute/' + id;
     return this.http.delete(url).pipe(catchError(this.handleError));
@@ -111,9 +100,7 @@ export class ApiService {
   getCourseTD(id: string) {
     const url = `${environment.server}/institute/getCourseTD/${id}`;
     return this.http.get(url).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -156,9 +143,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/add', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -168,9 +153,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getOneStudent', { eduatlasId: data })
       .pipe(
-        tap((res) => {
-          // console.log(res);
-        }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -181,10 +164,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
       .pipe(
-        tap((res) => {
-          // console.log(dres);
-        }),
-        map((res) => res),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -193,10 +173,7 @@ export class ApiService {
   getActiveStudents(id: string, courseId: string, batchId: string) {
     const data = { instituteId: id, courseId };
     return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
-      // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((res) => {}),
       catchError(this.handleError),
     );
   }
@@ -205,7 +182,7 @@ export class ApiService {
   getPendingStudents(id: string, courseId: string) {
     const data = { instituteId: id, courseId };
     return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
-      tap((data: any) => {}),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -238,9 +215,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/addCourseStudent', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -280,23 +255,27 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/updateStudentCourse', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
   //  UPDATE STUDENT PERSONAL DETAILS
-  updateStudentPersonalDetails(id: string, student: any, eduAtlasId: any) {
+  updateStudentPersonalDetails(
+    id: string,
+    student: any,
+    eduAtlasId: any,
+    studentContact: string,
+    studentEmail: string,
+  ) {
     const data = {
       _id: id,
       eduAtlasId: eduAtlasId,
       basicDetails: {
         name: student.name,
         rollNumber: student.rollNo,
-        studentEmail: student.studentEmail,
-        studentContact: student.contact,
+        studentEmail: studentEmail,
+        studentContact: studentContact,
       },
       parentDetails: {
         name: student.parentName,
@@ -305,6 +284,7 @@ export class ApiService {
         address: student.address,
       },
     };
+
     return this.http
       .post(environment.server + '/institute/student/updateStudentPersonalDetails', data)
       .pipe(
@@ -321,10 +301,7 @@ export class ApiService {
         eduatlasId: eduAtlasId,
       })
       .pipe(
-        // tslint:disable-next-line: no-shadowed-variable
-        tap((data) => {
-          // console.log(data);
-        }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -333,15 +310,13 @@ export class ApiService {
 
   getStudent(data: any) {
     return this.http.post(environment.server + '/institute/student/getStudent', data).pipe(
-      tap((res) => {
-        // console.log(res);
-      }),
+      tap((res) => {}),
       map((res: any) => res.student),
       catchError(this.handleError),
     );
   }
 
-  deleteStudent(param) {
+  deleteStudent(param: any) {
     return this.http
       .delete(environment.server + '/institute/student/', {
         params: param,
@@ -352,33 +327,27 @@ export class ApiService {
   getStudents(instituteId) {
     const url = `${environment.server}/institute/student/all/${instituteId}`;
     return this.http.get(url).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
   // ========================COURSE API=====================
 
-  getCourses(id) {
+  getCourses(id: any) {
     return this.http.get(`${environment.server}/institute/course/all/${id}`).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   addCourse(id: string, course: any) {
     return this.http.post(`${environment.server}/institute/course/addCourse/${id}`, course).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
-  getCourse(params) {
+  getCourse(params: any) {
     return this.http
       .get(environment.server + '/institute/course/one', {
         params: params,
@@ -386,7 +355,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  updateCourse(params, course) {
+  updateCourse(params: any, course: any) {
     return this.http
       .patch(environment.server + '/institute/course/', course, {
         params: params,
@@ -396,7 +365,8 @@ export class ApiService {
         catchError(this.handleError),
       );
   }
-  deleteCourse(param) {
+
+  deleteCourse(param: any) {
     return this.http
       .delete(environment.server + '/institute/course/course/', {
         params: param,
@@ -408,9 +378,7 @@ export class ApiService {
 
   getBatches(branchId: string) {
     return this.http.get(`${environment.server}/institute/course/batches/${branchId}`).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -425,23 +393,22 @@ export class ApiService {
 
   addBatch(branchId: string, batch: any) {
     return this.http
-      .post<batchData>(`${environment.server}/institute/course/addBatch/${branchId}`, batch)
+      .post(`${environment.server}/institute/course/addBatch/${branchId}`, batch)
       .pipe(
-        tap((data) => {
-          // console.log(data);
-        }),
+        tap((data) => {}),
         catchError(this.handleError),
       );
   }
 
-  deleteBatch(params) {
+  deleteBatch(params: any) {
     return this.http
       .delete(environment.server + '/institute/course/batch/', {
         params: params,
       })
       .pipe(catchError(this.handleError));
   }
-  updateBatch(params, batch: batchData) {
+
+  updateBatch(params: any, batch: batchData) {
     return this.http
       .patch(environment.server + '/institute/course/batch/', batch, {
         params: params,
@@ -456,14 +423,12 @@ export class ApiService {
 
   getDiscounts(id: string) {
     return this.http.get(`${environment.server}/institute/course/discounts/${id}`).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
-  getDiscount(params) {
+  getDiscount(params: any) {
     return this.http
       .get(environment.server + '/institute/course/discount', {
         params: params,
@@ -475,14 +440,12 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/course/addDiscount/${id}`, discount)
       .pipe(
-        tap((data) => {
-          // console.log(data);
-        }),
+        tap((data) => {}),
         catchError(this.handleError),
       );
   }
 
-  deleteDiscount(params) {
+  deleteDiscount(params: any) {
     return this.http
       .delete(environment.server + '/institute/course/discount/', {
         params: params,
@@ -490,7 +453,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  updateDiscount(params, discount) {
+  updateDiscount(params: any, discount: any) {
     return this.http
       .patch(environment.server + '/institute/course/discount/', discount, {
         params: params,
@@ -513,13 +476,12 @@ export class ApiService {
   addReceipt(id: string, receipt: any) {
     receipt.id = null;
     return this.http.post(`${environment.server}/institute/course/addReciept/${id}`, receipt).pipe(
-      tap((data) => {
-        // console.log(data);
-      }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
-  updateReceipt(id: string, reciept) {
+
+  updateReceipt(id: string, reciept: any) {
     const url = `${environment.server}/institute/course/reciept/${id}`;
     return this.http.patch(url, reciept).pipe(
       map(() => reciept),
@@ -533,14 +495,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  //
-  display(show: boolean) {
-    const display: boolean = show;
-    return display;
-  }
-
   private handleError(error: any) {
-    // console.log(error);
     return throwError(error);
   }
 }

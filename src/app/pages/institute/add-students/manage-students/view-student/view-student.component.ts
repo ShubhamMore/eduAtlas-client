@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
-import { MENU_ITEMS } from '../../../../pages-menu';
 @Component({
   selector: 'ngx-view-student',
   templateUrl: './view-student.component.html',
@@ -10,21 +8,21 @@ import { MENU_ITEMS } from '../../../../pages-menu';
 })
 export class ViewStudentComponent implements OnInit {
   student: any;
-  routerId: string;
+  instituteId: string;
   studentEduId: string;
   courseId: string;
 
-  constructor(private api: ApiService, private active: ActivatedRoute) {}
+  constructor(private api: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.route.snapshot.paramMap.get('id');
 
-    this.active.queryParams.subscribe((data) => {
+    this.route.queryParams.subscribe((data) => {
       this.studentEduId = data.student;
       this.courseId = data.course;
     });
 
-    this.getStudent(this.studentEduId, this.routerId, this.courseId);
+    this.getStudent(this.studentEduId, this.instituteId, this.courseId);
   }
   getStudent(student: string, institute: string, course: string) {
     this.api

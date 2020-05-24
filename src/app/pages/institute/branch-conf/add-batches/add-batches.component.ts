@@ -16,37 +16,33 @@ export class AddBatchesComponent implements OnInit {
   linearMode = true;
   batch: FormGroup;
   submitted = false;
-  routerId: string;
+  instituteId: string;
   batchId: string;
   edit: string;
 
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private active: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     private location: Location,
     private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
-    this.active.queryParams.subscribe((data) => {
-      // console.log(data);
+    this.route.queryParams.subscribe((data) => {
       this.batchId = data.batchId;
       this.edit = data.edit;
     });
 
-    this.routerId = this.active.snapshot.paramMap.get('id');
-    // console.log('institute Id ' + this.routerId);
-    this.getBatch(this.batchId, this.routerId);
-    this.getCourses(this.routerId);
+    this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.getBatch(this.batchId, this.instituteId);
+    this.getCourses(this.instituteId);
     this.batch = this.fb.group({
       course: ['', Validators.required],
       batchCode: ['', Validators.required],
       description: [''],
     });
-
-    // console.log('===============>', this.courses);
   }
 
   getBatch(id, instituteId) {
@@ -54,15 +50,12 @@ export class AddBatchesComponent implements OnInit {
     param = param.append('instituteId', instituteId);
     param = param.append('batchId', id);
     this.api.getBatch(param).subscribe((data) => {
-      // console.log(data);
       this.batchUpdate = JSON.parse(JSON.stringify(data[0]));
-      // console.log('batchInfo' + this.batchUpdate.batchCode);
     });
   }
   getCourses(id) {
     this.api.getCourses(id).subscribe((data) => {
       this.courses = JSON.parse(JSON.stringify(data));
-      // console.log(this.courses);
       this.batch.patchValue({
         course: this.batchUpdate.course,
         batchCode: this.batchUpdate.batchCode,
@@ -70,9 +63,11 @@ export class AddBatchesComponent implements OnInit {
       });
     });
   }
+
   get f() {
     return this.batch.controls;
   }
+
   onSubmit() {
     this.submitted = true;
 
@@ -81,46 +76,42 @@ export class AddBatchesComponent implements OnInit {
     }
     if (this.edit === 'true') {
       let param = new HttpParams();
-      param = param.append('instituteId', this.routerId);
+      param = param.append('instituteId', this.instituteId);
       param = param.append('batchId', this.batchId);
       this.api.updateBatch(param, this.batch.value).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Successfully Updated');
-          this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
+          this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.instituteId]);
         },
         (error) => {
-          // console.log(error);
-          this.invalid('top-right', 'danger', error.error.message);
+          this.showToast('top-right', 'danger', error.error.message);
         },
       );
     }
-    // console.log('batch => ', this.batch.value);
-    if (!this.edit) {
-      this.api.addBatch(this.routerId, this.batch.value).subscribe(
-        () => {
-          // console.log('successfully added');
 
+    if (!this.edit) {
+      this.api.addBatch(this.instituteId, this.batch.value).subscribe(
+        () => {
           this.showToast('top-right', 'success', 'Successfully Added');
           setTimeout(() => {
-            this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.routerId]);
+            this.router.navigate([
+              '/pages/institute/branch-config/manage-batch/',
+              this.instituteId,
+            ]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger', err.error.message);
+          this.showToast('top-right', 'danger', err.error.message);
         },
       );
     }
   }
-  showToast(position, status, message) {
-    this.toasterService.show(status || 'Success', message, { position, status });
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
-  invalid(position, status, errMessage) {
-    this.toasterService.show(status || 'Danger', errMessage, {
-      position,
-      status,
-    });
-  }
+
   goManage() {
     this.location.back();
   }

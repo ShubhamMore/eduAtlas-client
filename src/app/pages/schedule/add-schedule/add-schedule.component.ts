@@ -13,23 +13,23 @@ import { Location } from '@angular/common';
 })
 export class AddScheduleComponent implements OnInit {
   schedule: FormGroup;
-  routerId: string;
+  instituteId: string;
   submitted = false;
   batches = { batch: [{ _id: '', course: '', batchCode: '', description: '' }] };
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private active: ActivatedRoute,
+    private route: ActivatedRoute,
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
     private location: Location,
   ) {}
 
   ngOnInit() {
-    this.getBatches(this.active.snapshot.paramMap.get('id'));
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.getBatches(this.route.snapshot.paramMap.get('id'));
+    this.instituteId = this.route.snapshot.paramMap.get('id');
     this.schedule = this.fb.group({
-      instituteId: [this.routerId],
+      instituteId: [this.instituteId],
       scheduleStart: ['', Validators.required],
       scheduleEnd: ['', Validators.required],
       batchCode: ['', Validators.required],
@@ -44,7 +44,6 @@ export class AddScheduleComponent implements OnInit {
   getBatches(id) {
     this.api.getBatches(id).subscribe((data) => {
       this.batches = JSON.parse(JSON.stringify(data));
-      // console.log('my Batch =>', this.batches);
     });
   }
 
@@ -58,23 +57,22 @@ export class AddScheduleComponent implements OnInit {
     if (this.schedule.invalid) {
       return;
     }
-    // console.log('onSubmit => ', this.schedule.value);
-    const routerId = this.active.snapshot.paramMap.get('id');
+    const instituteId = this.route.snapshot.paramMap.get('id');
     this.scheduleService.addSchedule(this.schedule.value).subscribe(
       (res) => {
-        // console.log('from api =>', res);
-        this.showToast('top-right', 'success');
+        this.showToast('top-right', 'success', 'Schedule Added Successfully');
       },
       (error) => console.error(error),
     );
   }
 
-  showToast(position, status) {
-    this.toasterService.show(status || 'Success', 'Schedule Added Successfully', {
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
       position,
       status,
     });
   }
+
   back() {
     this.location.back();
   }

@@ -1,3 +1,4 @@
+import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { instituteData } from '../../../../../assets/dataTypes/dataType';
 import { ApiService } from '../../../../services/api.service';
@@ -29,17 +30,19 @@ export class ManageInstituteComponent implements OnInit {
     },
   ];
 
-  user: instituteData;
+  instituteUser: instituteData;
   displayData: boolean;
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private toastrService: NbToastrService,
+  ) {}
 
   getInstitutes() {
     this.api.getInstitutes().subscribe((data) => {
       this.institutes = data;
-      // console.log('institutes - ' + JSON.stringify(this.institutes));
       this.institute = JSON.parse(JSON.stringify(this.institutes));
-      // console.log(this.institute);
       MENU_ITEMS[2].hidden = true;
       MENU_ITEMS[3].hidden = true;
       MENU_ITEMS[4].hidden = true;
@@ -47,11 +50,6 @@ export class ManageInstituteComponent implements OnInit {
   }
 
   getInstitute(id: string) {
-    // this.api.getInstitute(id).subscribe(data=>{
-    // 	this.user = data;
-    // 	this.displayData = true;
-
-    // });
     this.router.navigate(['/pages/dashboard', id]);
   }
 
@@ -66,26 +64,32 @@ export class ManageInstituteComponent implements OnInit {
   }
 
   delete(id: string) {
-    this.api.deleteInstitute(id).subscribe(
-      (res) => {
-        // console.log(`institute with id ${id} deleted`);
-      },
-      (err) => {
-        // console.log(err);
-      },
-    );
-    const i = this.institute.findIndex((e) => e._id === id);
-    if (i !== -1) {
-      this.institute.splice(i, 1);
-    }
-    if (this.institutes.length < 2) {
-      MENU_ITEMS[2].hidden = true;
-      MENU_ITEMS[3].hidden = true;
-      MENU_ITEMS[4].hidden = true;
+    const confirm = window.confirm('Are u sure, You want to delete this Institute/Branch?');
+    if (confirm) {
+      this.api.deleteInstitute(id).subscribe(
+        (res) => {
+          const i = this.institute.findIndex((inst) => inst._id === id);
+          if (i !== -1) {
+            this.institute.splice(i, 1);
+            this.showToast('top-right', 'danger', 'Institute Successfully deleted.');
+          }
+          if (this.institutes.length < 2) {
+            MENU_ITEMS[2].hidden = true;
+            MENU_ITEMS[3].hidden = true;
+            MENU_ITEMS[4].hidden = true;
+          }
+        },
+        (err) => {
+          this.showToast('top-right', 'danger', 'Institute deletion Failed.');
+        },
+      );
     }
   }
 
-  confirm(value: boolean) {
-    this.confirmDelete = value;
+  showToast(position: any, status: any, message: any) {
+    this.toastrService.show(status, message, {
+      position,
+      status,
+    });
   }
 }

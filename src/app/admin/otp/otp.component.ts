@@ -2,7 +2,6 @@ import { AuthService } from './../../services/auth-services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { OtpService } from '../../services/auth-services/otp/otp.service';
-import { HttpParams } from '@angular/common/http';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({
@@ -39,10 +38,10 @@ export class OtpComponent implements OnInit {
   getOtp() {
     this.otpService.getOtp(this.phone).subscribe(
       (res: any) => {
-        // console.log(res);
+        this.showToast('top-right', 'danger', 'OTP Sent to ' + this.phone);
       },
-      (error: any) => {
-        // console.log(error);
+      (err: any) => {
+        this.showToast('top-right', 'danger', err.error.message);
       },
     );
   }
@@ -59,7 +58,7 @@ export class OtpComponent implements OnInit {
         if (this.loginOTP) {
           if (res._id) {
             this.authService.loginSuccess(res);
-            this.showToast('top-right', 'success', 'OTO Verification Successful');
+            this.showToast('top-right', 'success', 'OTP Verification Successful');
             setTimeout(() => {
               this.router.navigate(['/pages/home'], {
                 relativeTo: this.route,
@@ -67,14 +66,13 @@ export class OtpComponent implements OnInit {
             }, 1000);
           }
         } else {
-          this.showToast('top-right', 'success', 'Successfully Registered');
+          this.showToast('top-right', 'success', 'OTP verified, Successfully Registered');
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 1000);
         }
       },
       (err: any) => {
-        // console.log(err);
         this.showToast('top-right', 'danger', err.error.message);
       },
     );

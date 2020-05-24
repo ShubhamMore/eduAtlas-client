@@ -6,9 +6,8 @@ import { MENU_ITEMS } from './pages/pages-menu';
 @Injectable({
   providedIn: 'root',
 })
-export class bManagerGuard implements CanActivate {
+export class BranchManagerGuard implements CanActivate {
   role = localStorage.getItem('role');
-  // Inject Router so we can hand off the user to the Login Page
   constructor(private router: Router) {}
 
   canActivate(
@@ -16,8 +15,6 @@ export class bManagerGuard implements CanActivate {
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     if ((localStorage.getItem('token') && this.role === 'branchManager') || 'institute') {
-      console.log('bManagerGuard running', this.role);
-
       // Token from the LogIn is avaiable, so the user can pass to the route
       return true;
     } else {
