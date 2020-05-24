@@ -1,7 +1,7 @@
 <nb-card [hidden]="display">
   <nb-card-body>
     <div class="text-center">
-      <img src="assets/img/institute.png" width="100px" height="100px" />
+      <img src="../../../assets/img/institute.png" width="100px" height="100px" />
       <h3 class="mt-4">NO INSTITUTE ADDED</h3>
       <small>Click on add Institute Button to create other branches</small>
       <div class="mt-4">
@@ -23,13 +23,17 @@
         <nb-list-item *ngFor="let item of institute; let i = index">
           <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
             <span
-              ><img [src]="imageUrl[i]" width="30px" height="30px" style="border-radius: 100%;"
+              ><img
+                [src]="item.basicInfo.logo.secure_url"
+                width="30px"
+                height="30px"
+                style="border-radius: 100%;"
             /></span>
 
             <span class="ml-3">{{ item.basicInfo.name }}</span>
             <span class="ml-3">{{ item.address.city }}</span>
             <span style="float: right;">
-              <img src="assets/img/rarrow.png" width="30px" height="30px" />
+              <img src="../../../assets/img/rarrow.png" width="30px" height="30px" />
             </span>
           </a>
         </nb-list-item>
