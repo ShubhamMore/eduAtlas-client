@@ -1,4 +1,4 @@
-<p style="color: black; font-weight: bold;">Create New Branch</p>
+<p style="color: black; font-weight: bold;">{{ !edit ? 'Create New Branch' : 'Edit Branch' }}</p>
 <nb-card>
   <nb-card-body>
     <nb-stepper #stepper [linear]="true">
@@ -26,7 +26,7 @@
 
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="logo">Add logo/avatar *</label>
+                <label for="logo">*Add Logo</label>
 
                 <input
                   type="file"
@@ -37,15 +37,20 @@
                   (change)="onImagePicked($event)"
                 />
               </div>
-              <div *ngIf="imagePreview !== '' || (imagePreview && firstForm.get('logo').valid)">
+
+              <div div *ngIf="imagePreview">
                 <img [src]="imagePreview" alt="logo" width="100px" height="100px" />
               </div>
-              <div *ngIf="first.logo.errors">
-                <small>Format should be .png, .jpg, .jpeg</small>
+              <div *ngIf="imageRequired">
+                <small>*Logo Required</small>
+              </div>
+              <div *ngIf="invalidImage">
+                <small>Logo Format should be *.png, *.jpg, *.jpeg</small>
               </div>
             </div>
           </div>
-          <button type="submit" nbButton status="warning">Next</button>
+
+          <button class="float-right mt-3" type="submit" nbButton status="warning">Next</button>
         </form>
       </nb-step>
 
@@ -54,7 +59,7 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
-                <label for="contact">Institute Contact Number</label>
+                <label for="contact">*Institute Contact Number</label>
                 <input
                   type="text"
                   nbInput
@@ -147,7 +152,7 @@
               </div>
             </div>
           </div>
-          <button type="submit" nbButton status="warning">Next</button>
+          <button class="float-right mt-3" type="submit" nbButton status="warning">Next</button>
         </form>
       </nb-step>
 
@@ -200,15 +205,9 @@
               </div>
             </div>
           </div>
-          <button type="submit" nbButton>Submit</button>
+          <button class="float-right mt-3" type="submit" nbButton>Submit</button>
         </form>
       </nb-step>
-      <!-- <nb-step [stepControl]="forthForm" [hidden]="true" label="Form Complete">
-          <div class="step-container">
-            <h1>Final Step</h1>
-            <button nbButton (click)="onSubmit()">Submit</button>
-          </div>
-        </nb-step> -->
     </nb-stepper>
   </nb-card-body>
 </nb-card>

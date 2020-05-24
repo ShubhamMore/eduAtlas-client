@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card *ngIf="institutes.length > 0; else no_institute">
   <nb-card-body>
     <div class="row">
       <div class="col-sm-2 text-center"><b>Institute/Branch Name</b></div>
@@ -6,7 +6,7 @@
       <div class="col-sm-2 text-center"><b>Institute Contact</b></div>
     </div>
 
-    <div class="row mt-3" *ngFor="let i of institute">
+    <div class="row mt-3" *ngFor="let i of institutes">
       <div class="col-sm-2 text-center">
         {{ i.basicInfo.name }}
       </div>
@@ -29,3 +29,19 @@
     </div>
   </nb-card-body>
 </nb-card>
+<ng-template #no_institute>
+  <nb-card>
+    <nb-card-body>
+      <div class="text-center">
+        <img src="../../../assets/img/institute.png" width="100px" height="100px" />
+        <h3 class="mt-4">NO INSTITUTE ADDED</h3>
+        <small>Click on add Institute Button to create other branches</small>
+        <div class="mt-4">
+          <button nbButton status="warning" style="color: black;" (click)="onClick()">
+            ADD INSTITUTE
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>

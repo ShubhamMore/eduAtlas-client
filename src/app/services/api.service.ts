@@ -82,7 +82,10 @@ export class ApiService {
     postData.append('address', JSON.stringify(data.address));
     postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
     postData.append('category', JSON.stringify(institute.category));
-    postData.append('logo', institute.logo, institute.name);
+
+    if (institute.logo) {
+      postData.append('logo', institute.logo, institute.name);
+    }
 
     return this.http.put(url, postData).pipe(
       map(() => institute),

@@ -16,11 +16,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   institutes: SafeUrl[];
   institute: any[] = [];
 
-  images: number[] = [];
-  STRING_CHAR: string;
-  base64String: string;
-  imageUrl: SafeUrl[] = [];
-
   students: any[] = [];
   studentReq: any[] = [];
 
@@ -66,34 +61,19 @@ export class HomeComponent implements OnInit, OnDestroy {
       if (this.institute.length) {
         this.display = true;
       }
-      // tslint:disable-next-line: no-shadowed-variable
-      this.institute.forEach((data, i, a) => {
-        const TYPED_ARRAY = new Uint8Array(data.basicInfo.logo.data.data);
-        this.STRING_CHAR = String.fromCharCode.apply(null, TYPED_ARRAY);
-        // tslint:disable-next-line: no-shadowed-variable
-        this.STRING_CHAR = TYPED_ARRAY.reduce((data, byte) => {
-          return data + String.fromCharCode(byte);
-        }, '');
-
-        this.base64String = btoa(this.STRING_CHAR);
-        this.imageUrl.push(
-          this.domSanitizer.bypassSecurityTrustUrl('data:image/jpg;base64, ' + this.base64String),
-        );
-      }, this);
     });
   }
 
   onClick() {
     this.router.navigate(['/pages/membership']);
   }
+
   viewInstitute(id: string, name: string) {
     this.router.navigate(['/pages/dashboard', id]);
   }
 
   @HostListener('unloaded')
   ngOnDestroy() {
-    setTimeout(() => {
-      this.institutes = null;
-    }, 0);
+    this.institutes = null;
   }
 }
