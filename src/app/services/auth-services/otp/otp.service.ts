@@ -9,15 +9,13 @@ import { tap, catchError } from 'rxjs/operators';
 })
 export class OtpService {
   constructor(private http: HttpClient) {}
-  getOtp(phone: any, param: any) {
-    return this.http
-      .get<any>(`${environment.server}/users/sendOTP/${phone}`, { params: param })
-      .pipe(
-        tap((res: any) => {
-          // console.log(res);
-        }),
-        catchError(this.handleError),
-      );
+  getOtp(phone: any) {
+    return this.http.get<any>(`${environment.server}/users/sendOTP/${phone}`).pipe(
+      tap((res: any) => {
+        // console.log(res);
+      }),
+      catchError(this.handleError),
+    );
   }
 
   getOtpForRegisteredUser(phone: any, param: any) {

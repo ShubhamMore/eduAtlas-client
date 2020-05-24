@@ -1,9 +1,8 @@
+import { NbToastrService } from '@nebular/theme';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
-import { MENU_ITEMS } from '../../../pages-menu';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'ngx-pending-student',
@@ -20,9 +19,14 @@ export class PendingStudentComponent implements OnInit {
   batches: any[];
 
   students = [];
-  routerId: string;
+  instituteId: string;
 
-  constructor(private api: ApiService, private router: Router, private active: ActivatedRoute) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+  ) {}
 
   ngOnInit() {
     this.students = [];
@@ -31,13 +35,12 @@ export class PendingStudentComponent implements OnInit {
       course: new FormControl('', { validators: [] }),
       batch: new FormControl('', { validators: [] }),
     });
-    this.routerId = this.active.snapshot.paramMap.get('id');
-    this.getCourseTd(this.routerId);
+    this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.getCourseTd(this.instituteId);
   }
 
   getStudents(id: string, courseId: string, batchId: string) {
     this.api.getPendingStudents(id, courseId).subscribe((data: any) => {
-      console.log(data);
       this.students = data;
     });
   }
@@ -52,36 +55,41 @@ export class PendingStudentComponent implements OnInit {
   onSelectCourse(id: string) {
     if (id !== '') {
       this.course = id;
-      // this.form.patchValue({ batch: '' });
-      this.getStudents(this.routerId, id, id);
-      // this.batches = this.institute.batch.filter((b: any) => b.course === id);
+      this.getStudents(this.instituteId, id, id);
     }
   }
 
-  // onSelectBatch(id: string) {
-  //   console.log(id);
-  //   this.getStudents(this.routerId, this.form.value.course, id);
-  // }
-
   view(student: string) {
-    this.router.navigate([`/pages/institute/view-student/${this.routerId}`], {
+    this.router.navigate([`/pages/institute/view-student/${this.instituteId}`], {
       queryParams: { student, course: this.course },
     });
   }
 
   edit(student: string) {
-    // console.log('from manag edit => ', email);
-    this.router.navigate([`/pages/institute/add-students/${this.routerId}/edit`], {
+    this.router.navigate([`/pages/institute/add-students/${this.instituteId}/edit`], {
       queryParams: { student, course: this.course, edit: 'true' },
     });
   }
 
   delete(eduAtlId: string, courseObjId: string) {
-    this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
-      const i = this.students.findIndex((student) => student.instituteDetails._id === courseObjId);
-      if (i !== -1) {
-        this.students.splice(i, 1);
-      }
+    const confirm = window.prompt('Are u sure, You want to delete this Student?');
+    if (confirm) {
+      this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
+        const i = this.students.findIndex(
+          (student) => student.instituteDetails._id === courseObjId,
+        );
+        if (i !== -1) {
+          this.students.splice(i, 1);
+          this.showToaster('top-right', 'success', 'New Student Deleted Successfully!');
+        }
+      });
+    }
+  }
+
+  showToaster(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
     });
   }
 }

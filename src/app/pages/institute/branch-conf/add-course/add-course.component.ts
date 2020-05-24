@@ -17,10 +17,8 @@ export class AddCourseComponent implements OnInit {
   course: FormGroup;
   submitted = false;
   institutes: any[] = [];
-  institute: any[] = [];
-  // students:any[]=[];
   display: boolean = false;
-  routerId: string;
+  instituteId: string;
   edit: string;
   courseId: string;
   exclusiveGst: number = null;
@@ -38,18 +36,17 @@ export class AddCourseComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private active: ActivatedRoute,
+    private route: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
     private router: Router,
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
-    this.active.queryParams.subscribe((data) => {
-      // console.log(data);
-      this.courseId = data.courseId;
-      this.edit = data.edit;
+    this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.route.queryParams.subscribe((param) => {
+      this.courseId = param.courseId;
+      this.edit = param.edit;
     });
     if (this.edit === 'true') {
       this.getCourse(this.courseId);
@@ -67,15 +64,11 @@ export class AddCourseComponent implements OnInit {
   }
   getCourse(id) {
     let param = new HttpParams();
-    param = param.append('instituteId', this.routerId);
+    param = param.append('instituteId', this.instituteId);
     param = param.append('courseId', id);
     this.api.getCourse(param).subscribe(
-      (data) => {
-        // console.log('getCourse ' + JSON.stringify(data[0]));
-        this.updateCourse = JSON.parse(JSON.stringify(data[0]));
-        // console.log('getCourse ' + this.updateCourse.courseCode);
-
-        // console.log(this.updateCourse);
+      (res) => {
+        this.updateCourse = res[0];
         this.course.patchValue({
           name: this.updateCourse.name,
           courseCode: this.updateCourse.courseCode,
@@ -100,16 +93,14 @@ export class AddCourseComponent implements OnInit {
   getInstitutes() {
     this.api.getInstitutes().subscribe((data: any) => {
       this.institutes = data;
-
-      // console.log('institutes - ' + JSON.stringify(this.institutes));
-      this.institute = JSON.parse(JSON.stringify(this.institutes));
-      // console.log(this.institute);
     });
     this.display = true;
   }
+
   get f() {
     return this.course.controls;
   }
+
   back() {
     this.location.back();
   }
@@ -118,44 +109,50 @@ export class AddCourseComponent implements OnInit {
     if (this.course.invalid) {
       return;
     }
-    // console.log('editMode ' + this.edit);
     if (this.edit === 'true') {
       let param = new HttpParams();
-      param = param.append('instituteId', this.routerId);
+      param = param.append('instituteId', this.instituteId);
       param = param.append('courseId', this.courseId);
       this.api.updateCourse(param, this.course.value).subscribe(
         (res) => {
-          // console.log(res);
           this.showToast('top-right', 'success', 'Course Updated');
           setTimeout(() => {
-            this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
+            this.router.navigate([
+              '/pages/institute/branch-config/manage-course/',
+              this.instituteId,
+            ]);
           }, 1000);
         },
         (error) => {
-          // console.log(error);
           this.showToast('top-right', 'danger', 'Course Updation Failed');
         },
       );
     }
 
-    // console.log(this.course.value);
     if (!this.edit) {
-      this.api.addCourse(this.routerId, this.course.value).subscribe(
+      this.api.addCourse(this.instituteId, this.course.value).subscribe(
         (data) => {
-          // console.log(data);
           this.showToast('top-right', 'success', 'Course Added Successfully');
           setTimeout(() => {
-            this.router.navigate(['/pages/institute/branch-config/manage-course/', this.routerId]);
+            this.router.navigate([
+              '/pages/institute/branch-config/manage-course/',
+              this.instituteId,
+            ]);
           }, 1000);
         },
         (err) => {
           console.error(err);
-          this.invalid('top-right', 'danger', err.error.message);
+          this.showToast(
+            'top-right',
+            'danger',
+            err.error.message ? err.error.message : 'This course id already added',
+          );
         },
       );
     }
   }
-  inclusiveGst(event) {
+
+  inclusiveGst(event: any) {
     const inclusive = event;
     if (inclusive) {
       this.course.get('gstValue').disable();
@@ -186,39 +183,25 @@ export class AddCourseComponent implements OnInit {
     this.course.get('totalFee').setValue(total.toString());
   }
 
-  exclusive(event) {
+  exclusive(event: any) {
     this.exclusiveGst = +event;
-    // console.log('exclusive ', this.exclusiveGst);
     const total = this.fees + (this.exclusiveGst / 100) * this.fees;
-    // console.log('type ', typeof this.fees, this.fees);
     this.course.patchValue({
       totalFee: total + '',
       gstValue: this.exclusiveGst === 0 ? '' : this.exclusiveGst + '',
     });
     this.calculateTotalFees();
   }
-  courseFee(event) {
+
+  courseFee(event: any) {
     this.fees = +event;
     this.calculateTotalFees();
   }
 
-  showToast(position, status, message) {
-    this.toasterService.show(status || 'Success', message, {
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
       position,
       status,
     });
-  }
-  invalid(position, status, errorMessage) {
-    if (errorMessage) {
-      this.toasterService.show(status || 'Danger', errorMessage, {
-        position,
-        status,
-      });
-    } else {
-      this.toasterService.show(status || 'Danger', 'This course id already added', {
-        position,
-        status,
-      });
-    }
   }
 }

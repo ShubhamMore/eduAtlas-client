@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NbEvaIconsModule} from '@nebular/eva-icons';
-
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { BranchConfComponent } from '../branch-conf.component';
 import { AddCourseComponent } from '../add-course/add-course.component';
 import { AddBatchesComponent } from '../add-batches/add-batches.component';
-import {BranchRoutingModule} from './branch-routing.module';
+import { BranchRoutingModule } from './branch-routing.module';
 import { RoleManagementComponent } from '../role-management/role-management.component';
 import {ManageEmployee} from '../employee-management/manage-employee/manage-employee.component';
 import {AddEmployee} from '../employee-management/add-employee.component';
@@ -15,14 +14,14 @@ import { NbCardModule, NbLayoutModule, NbInputModule, NbButtonModule, NbSelectMo
    NbMenuModule, NbStepperModule, NbAccordionModule,NbCheckboxModule ,NbDatepickerModule} from '@nebular/theme';
 import { DiscountComponent } from '../discount/discount.component';
 import { ReceiptConfComponent } from '../receipt-conf/receipt-conf.component';
-import {ManageCourseComponent} from '../../branch-conf/add-course/manage-course/manage-course.component';
-import {ViewCourseComponent} from '../../branch-conf/add-course/view-course/view-course.component';
+import { ManageCourseComponent } from '../../branch-conf/add-course/manage-course/manage-course.component';
+import { ViewCourseComponent } from '../../branch-conf/add-course/view-course/view-course.component';
 
-import {ManageBatchComponent} from '../../branch-conf/add-batches/manage-batch/manage-batch.component';
+import { ManageBatchComponent } from '../../branch-conf/add-batches/manage-batch/manage-batch.component';
 
-import {ManageDiscountComponent} from '../../branch-conf/discount/manage-discount/manage-discount.component';
+import { ManageDiscountComponent } from '../../branch-conf/discount/manage-discount/manage-discount.component';
 
-import {ManageReceiptComponent} from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component'
+import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
 
 @NgModule({
   declarations: [
@@ -54,10 +53,7 @@ import {ManageReceiptComponent} from '../../branch-conf/receipt-conf/manage-rece
     NbSelectModule,
     NbMenuModule,
     NbAccordionModule,
-    NbEvaIconsModule
-
+    NbEvaIconsModule,
   ],
-
 })
-
-export class BranchModule { }
+export class BranchModule {}

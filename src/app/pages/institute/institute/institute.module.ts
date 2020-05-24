@@ -34,7 +34,7 @@ import { AttandanceComponent } from '../attandance/attandance.component';
 import { ManageScheduleComponent } from '../../schedule/manage-schedule/manage-schedule.component';
 import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedule.component';
 import { TeacherGuard } from '../../../teacher.guard';
-import { bManagerGuard } from '../../../bManager.guard';
+import { BranchManagerGuard } from '../../../bManager.guard';
 
 @NgModule({
   declarations: [
@@ -68,6 +68,6 @@ import { bManagerGuard } from '../../../bManager.guard';
     NbStepperModule,
     NbToastrModule.forRoot(),
   ],
-  providers: [TeacherGuard, bManagerGuard],
+  providers: [TeacherGuard, BranchManagerGuard],
 })
 export class InstituteModule {}

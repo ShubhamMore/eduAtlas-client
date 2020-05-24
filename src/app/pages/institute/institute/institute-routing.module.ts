@@ -15,7 +15,7 @@ import { PendingStudentComponent } from '../add-students/pending-student/pending
 import { ManageScheduleComponent } from '../../schedule/manage-schedule/manage-schedule.component';
 import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedule.component';
 import { TeacherGuard } from '../../../teacher.guard';
-import { bManagerGuard } from '../../../bManager.guard';
+import { BranchManagerGuard } from '../../../bManager.guard';
 
 const routes: Routes = [
   {
@@ -41,7 +41,7 @@ const routes: Routes = [
         path: 'branch-config',
         loadChildren: () =>
           import('../branch-conf/branch/branch.module').then((m) => m.BranchModule),
-        canActivate: [bManagerGuard],
+        canActivate: [BranchManagerGuard],
       },
     ],
   },

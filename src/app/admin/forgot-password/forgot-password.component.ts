@@ -41,18 +41,15 @@ export class ForgotPasswordComponent implements OnInit {
   getOtp() {
     if (this.forgotPasswordForm.controls.phone.valid) {
       this.phone = this.forgotPasswordForm.value.phone;
-      // console.log(this.phone);
 
       let param = new HttpParams();
       param = param.append('register', '0');
       this.otpService.getOtpForRegisteredUser(this.phone, param).subscribe(
         (data) => {
-          // console.log(data);
           this.otpSend = true;
           this.showToast('top-right', 'success', 'OTP Send');
         },
         (error) => {
-          // console.log(error);
           this.showToast('top-right', 'danger', 'This Phone Number is not valid');
         },
       );
@@ -72,12 +69,10 @@ export class ForgotPasswordComponent implements OnInit {
       };
       this.otpService.verifyOtp(verificationData).subscribe(
         (data) => {
-          // console.log(data);
           this.otpVerified = true;
           this.showToast('top-right', 'success', 'Verified Successfully');
         },
         (error) => {
-          // console.log(error);
           this.showToast('top-right', 'danger', 'Invalid OTP');
         },
       );
@@ -97,13 +92,11 @@ export class ForgotPasswordComponent implements OnInit {
 
       this.otpService.setPassword(data).subscribe(
         (res: any) => {
-          // console.log(res);
           this.showToast('top-right', 'success', 'Successfully set password');
 
           this.router.navigate(['/login'], { relativeTo: this.route });
         },
         (err) => {
-          // console.log(err);
           this.showToast('top-right', 'danger', 'Error While Resetting Password');
         },
       );

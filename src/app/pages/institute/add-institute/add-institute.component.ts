@@ -1,3 +1,5 @@
+import { PaymentService } from './../../../services/payment.service';
+import { AuthService } from './../../../services/auth-services/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
@@ -5,9 +7,13 @@ import { ApiService } from '../../../services/api.service';
 import { CountryService } from '../../../services/country.service';
 import { MENU_ITEMS } from '../../pages-menu';
 import { mimeType } from './mime-type.validator';
+import { environment } from '../../../../environments/environment';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+declare var Razorpay: any;
+
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
@@ -19,6 +25,13 @@ export class AddInstituteComponent implements OnInit {
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
+
+  user: any;
+
+  options: any;
+  razorPay: any;
+  amount: string;
+  placedOrderReceipt: any;
 
   institute = {
     name: '',
@@ -46,7 +59,6 @@ export class AddInstituteComponent implements OnInit {
   };
 
   imagePreview: string;
-  user: any;
   stateInfo: any[] = [];
   countryInfo: any[] = [];
   cityInfo: any[] = [];
@@ -71,14 +83,53 @@ export class AddInstituteComponent implements OnInit {
     private router: Router,
     private toastrService: NbToastrService,
     private domSanitizer: DomSanitizer,
+    private paymentService: PaymentService,
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
-    this.active.queryParams.subscribe((data) => {
-      // console.log('query params ', data);
-      this.edit = data.edit;
-      this.instituteId = data.instituteId;
+    this.user = this.authService.getUser();
+
+    this.active.queryParams.subscribe((param: Params) => {
+      this.amount = param.amount;
+      this.edit = param.edit;
+      this.instituteId = param.instituteId;
     });
+
+    if (!this.edit) {
+      this.options = {
+        key: environment.razorpayKeyId, // Enter the Key ID generated from the Dashboard
+        amount: '', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: 'INR',
+        name: 'eduatlas',
+        description: 'Test Transaction',
+        image: 'https://example.com/your_logo',
+        // tslint:disable-next-line: max-line-length
+        order_id: '', // This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
+        handler: (response: any) => {
+          console.log(response);
+          this.verifyPayment(response);
+        },
+        modal: {
+          ondismiss: () => {
+            this.deleteOrder();
+          },
+        },
+        prefill: {
+          name: '',
+          email: '',
+          contact: '',
+        },
+        notes: {
+          address: 'Eduatlas Office',
+        },
+        theme: {
+          color: '#ffd500',
+        },
+      };
+
+      this.razorPay = new Razorpay(this.options);
+    }
 
     this.firstForm = this.fb.group({
       name: ['', Validators.required],
@@ -111,6 +162,69 @@ export class AddInstituteComponent implements OnInit {
     if (this.edit) {
       this.getInstitute(this.instituteId);
     }
+  }
+
+  pay() {
+    this.razorPay.open();
+  }
+
+  deleteOrder() {
+    this.paymentService.deleteOrder(this.placedOrderReceipt._id).subscribe(
+      (res: any) => {
+        this.placedOrderReceipt = null;
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  }
+
+  generateOrder(order: any) {
+    this.paymentService.generateOrder(order).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.placedOrderReceipt = res.receipt;
+        this.options.amount = res.order.amount;
+        this.options.order_id = res.order.id;
+        this.options.currency = res.order.currency;
+        this.options.prefill.name = this.user.name;
+        this.options.prefill.email = this.user.email;
+        this.options.prefill.contact = this.user.phone;
+        this.razorPay = new Razorpay(this.options);
+        this.pay();
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  }
+
+  verifyPayment(payment: any) {
+    this.paymentService.verifyPayment(payment, this.placedOrderReceipt).subscribe(
+      (res: any) => {
+        this.addInstituteAfterPayment(this.institute);
+        console.log(res);
+      },
+      (err: any) => {
+        console.log(err);
+      },
+    );
+  }
+
+  addInstituteAfterPayment(institute: any) {
+    this.api.addInstitute(institute).subscribe(
+      (data) => {
+        this.user = data;
+        this.showToast('top-right', 'success', 'Institute Added Successfully');
+        setTimeout(() => {
+          this.router.navigate(['/pages/home']);
+        }, 1000);
+      },
+      (error) => {
+        this.showToast('top-right', 'danger', error.message || 'Something bad happened');
+      },
+    );
   }
 
   onImagePicked(event: Event) {
@@ -247,22 +361,14 @@ export class AddInstituteComponent implements OnInit {
 
     // console.log(this.institute);
     if (!this.edit) {
-      this.api.addInstitute(this.institute).subscribe(
-        (data) => {
-          this.user = data;
-          // console.log(this.user);
-
-          this.showToast('top-right', 'success', 'Institute Added Successfully');
-          setTimeout(() => {
-            this.router.navigate(['/pages/home']);
-          }, 1000);
-
-          // this.stepper.reset();
-        },
-        (error) => {
-          this.showToast('top-right', 'danger', error.message || 'Something bad happened');
-        },
-      );
+      const orderDetails = {
+        userId: this.user._id,
+        userPhone: this.user._phone,
+        userName: this.user.name,
+        userEmail: this.user.email,
+        amount: this.amount,
+      };
+      this.generateOrder(orderDetails);
     }
 
     // console.log('forth form =>', this.institute);

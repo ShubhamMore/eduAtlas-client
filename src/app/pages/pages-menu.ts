@@ -5,14 +5,14 @@ import { Title } from '@angular/platform-browser';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Home',
-    icon: 'home-outline', //0
+    icon: 'home-outline', //  0
     link: '/pages/home',
     home: true,
   },
 
   {
     title: 'Institute',
-    icon: 'home-outline', //1
+    icon: 'home-outline', //  1
     hidden: true,
     children: [
       {
@@ -28,74 +28,38 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Dashboard',
-    icon: 'layout-outline', //2
+    icon: 'layout-outline', // 2
     link: '',
     pathMatch: 'full',
     hidden: true,
   },
   {
     title: 'Daily Links',
-    hidden: true, //3
+    hidden: true, // 3
   },
 
   {
     title: 'Branch Configuration',
 
-    icon: 'share-outline', //4
+    icon: 'share-outline', // 4
     link: '/pages/institute/branch-config',
     hidden: true,
     children: [
       {
         title: 'Courses',
-        // children:[
-        //   {
-        //     title:'Add Course',
-        // link:'/pages/institute/branch-config/add-courses'
-        // },
-        // {
-        //   title:'Manage Courses',
         link: '/pages/institute/branch-config/manage-course',
-        // }
-        // ]
       },
       {
         title: 'Batches',
-        //  children:[
-        //   {
-        //     title:'Add Batches',
-        // link:'/pages/institute/branch-config/add-batches'
-        //   },
-        //   {
-        //     title:'Manage Batches',
         link: '/pages/institute/branch-config/manage-batch',
-        //   }
-        //  ]
       },
       {
         title: 'Discount',
-        //  children:[
-        //   {
-        //     title:'Add Discount',
-        // link:'/pages/institute/branch-config/discount'
-        //   },
-        //   {
-        //     title:'Manage Discount',
         link: '/pages/institute/branch-config/manage-discount',
-        //   }
-        //  ]
       },
       {
         title: 'Receipt',
-        // children:[
-        //   {
-        //     title:'Add Receipt',
-        // link:'/pages/institute/branch-config/receipt-conf'
-        //   },
-        //   {
-        //     title:'Manage Receipt',
         link: '/pages/institute/branch-config/manage-receipt',
-        //   }
-        // ]
       },
       {
         title: 'Employee',
@@ -126,7 +90,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Students',
 
     icon: 'person-outline',
-    hidden: true, //5
+    hidden: true, // 5
     children: [
       {
         title: 'Add Students',
@@ -150,15 +114,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Announcements',
         link: '',
       },
-      // {                                                             //6
-      //   title: 'Chats'
-      // },
-      // {
-      //   title: 'Forums'
-      // },
-      // {
-      //   title: 'Logs'
-      // }
     ],
   },
 
@@ -168,7 +123,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Define Test',
-      }, //7
+      }, // 7
       {
         title: 'Upload Scores',
       },
@@ -181,7 +136,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Attendance Summary',
-      }, //8
+      }, // 8
       {
         title: 'Performance',
       },
@@ -202,7 +157,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden: true,
     children: [
       {
-        title: 'Finance reports', //9
+        title: 'Finance reports', // 9
       },
       {
         title: 'ETC',
@@ -210,17 +165,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'LEAD MANAGER', //10
+    title: 'LEAD MANAGER', // 10
     hidden: true,
   },
   {
-    title: 'Schedule', //11
+    title: 'Schedule', // 11
     link: '/pages/institute/add-schedule/1',
     hidden: true,
   },
   {
     title: 'Attendance',
     link: '',
-    hidden: true, //12
+    hidden: true, // 12
   },
 ];

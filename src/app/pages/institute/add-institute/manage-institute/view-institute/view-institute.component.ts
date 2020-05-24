@@ -9,23 +9,16 @@ import { MENU_ITEMS } from '../../../../pages-menu';
   styleUrls: ['./view-institute.component.scss'],
 })
 export class ViewInstituteComponent implements OnInit {
-  institute = {
-    institute: {
-      basicInfo: { logo: '', name: '', contactNumber: null },
-      address: { addressLine: '', locality: '', state: '', city: '' },
-      category: [''],
-      metaTag: [''],
-    },
-  };
+  institute: any;
   user: any;
-  routerId: string;
+  instituteId: string;
+
   constructor(private api: ApiService, private router: ActivatedRoute) {}
 
   ngOnInit() {
-    this.routerId = this.router.snapshot.paramMap.get('id');
+    this.instituteId = this.router.snapshot.paramMap.get('id');
 
-    this.getInstitute(this.routerId);
-    this.api.display(true); //
+    this.getInstitute(this.instituteId);
 
     MENU_ITEMS[2].hidden = false;
     MENU_ITEMS[3].hidden = false;

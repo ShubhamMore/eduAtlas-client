@@ -9,15 +9,13 @@ import { courseData } from '../../../../../../assets/dataTypes/dataType';
 })
 export class ViewCourseComponent implements OnInit {
   courses: courseData;
-  routerId: number;
+  instituteId: number;
   constructor(private api: ApiService, private active: ActivatedRoute) {}
 
   ngOnInit() {
-    this.routerId = +this.active.snapshot.paramMap.get('id');
-    // console.log(this.active.snapshot.paramMap);
-    this.api.getCourse(this.routerId).subscribe(
+    this.instituteId = +this.active.snapshot.paramMap.get('id');
+    this.api.getCourse(this.instituteId).subscribe(
       (data: any) => {
-        // console.log(data);
         this.courses = data;
       },
       (err) => console.error(err),

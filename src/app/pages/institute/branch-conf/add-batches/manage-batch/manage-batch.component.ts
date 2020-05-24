@@ -1,3 +1,4 @@
+import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiService } from '../../../../../services/api.service';
@@ -10,21 +11,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ManageBatchComponent implements OnInit {
   batches = { batch: [{ _id: '', course: '', batchCode: '', description: '' }] };
-  routerId: string;
+  instituteId: string;
   params = new HttpParams();
   constructor(
     private api: ApiService,
     private router: Router,
-    private active: ActivatedRoute,
-    private http: HttpClient,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
-    this.getBatches(this.routerId);
+    this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.getBatches(this.instituteId);
   }
 
-  getBatches(id) {
+  getBatches(id: any) {
     this.api.getBatches(id).subscribe((data) => {
       this.batches = JSON.parse(JSON.stringify(data));
       console.dir('my batch' + this.batches);
@@ -32,19 +33,16 @@ export class ManageBatchComponent implements OnInit {
   }
 
   edit(id: string) {
-    this.router.navigate([`/pages/institute/branch-config/add-batch/${this.routerId}`], {
+    this.router.navigate([`/pages/institute/branch-config/add-batch/${this.instituteId}`], {
       queryParams: { batchId: id, edit: true },
     });
   }
 
   delete(id: string) {
-    // console.log(id);
-    this.params = this.params.append('instituteId', this.routerId);
+    this.params = this.params.append('instituteId', this.instituteId);
     this.params = this.params.append('batchId', id);
     this.api.deleteBatch(this.params).subscribe(
-      (res) => {
-        // console.log('successfully delete ' + res);
-      },
+      (res) => {},
       (err) => console.error(err),
     );
     const i = this.batches.batch.findIndex((e) => e._id === id);
@@ -53,7 +51,11 @@ export class ManageBatchComponent implements OnInit {
     }
   }
 
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
+  }
+
   onClick() {
-    this.router.navigate(['/pages/institute/branch-config/add-batch', this.routerId]);
+    this.router.navigate(['/pages/institute/branch-config/add-batch', this.instituteId]);
   }
 }

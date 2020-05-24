@@ -15,7 +15,7 @@ export class ReceiptConfComponent implements OnInit {
   receipt: FormGroup;
   submitted = false;
   updateReceipt = { businessName: '', address: '', gstNumber: '', termsAndCondition: '', fee: '' };
-  routerId: string;
+  instituteId: string;
   receiptId: string;
   edit: string;
   message: string;
@@ -30,12 +30,12 @@ export class ReceiptConfComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
       this.receiptId = data.receiptId;
       this.edit = data.edit;
       if (this.edit === 'true') {
-        this.getReceipt(this.routerId);
+        this.getReceipt(this.instituteId);
       }
     });
     this.receipt = this.fb.group({
@@ -73,40 +73,41 @@ export class ReceiptConfComponent implements OnInit {
       return;
     }
     if (this.edit === 'true') {
-      this.api.updateReceipt(this.routerId, this.receipt.value).subscribe(
+      this.api.updateReceipt(this.instituteId, this.receipt.value).subscribe(
         (data) => {
-          this.message = 'receipt Updated Successfully';
-          this.showToast('top-right', 'success');
-          this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
+          this.showToast('top-right', 'success', 'receipt Updated Successfully');
+          this.router.navigate([
+            '/pages/institute/branch-config/manage-receipt/',
+            this.instituteId,
+          ]);
         },
         (err) => {
-          this.message = err.error.message;
-          this.invalidToast('top-right', 'danger');
+          this.showToast('top-right', 'danger', err.error.message);
         },
       );
     }
 
     if (!this.edit) {
-      this.api.addReceipt(this.routerId, this.receipt.value).subscribe(
+      this.api.addReceipt(this.instituteId, this.receipt.value).subscribe(
         () => {
-          this.message = 'receipt Added Successfully';
-          this.showToast('top-right', 'success');
-          this.router.navigate(['/pages/institute/branch-config/manage-receipt/', this.routerId]);
+          this.showToast('top-right', 'success', 'Receipt Added Successfully');
+          this.router.navigate([
+            '/pages/institute/branch-config/manage-receipt/',
+            this.instituteId,
+          ]);
         },
         (err) => {
-          this.message = err.error.message;
-          this.invalidToast('top-right', 'danger');
+          this.showToast('top-right', 'danger', err.error.message);
         },
       );
     }
   }
+
   back() {
     this.location.back();
   }
-  showToast(position: any, status: any) {
-    this.toasterService.show(status || 'Success', `${this.message}`, { position, status });
-  }
-  invalidToast(position: any, status: any) {
-    this.toasterService.show(status || 'Danger', `${this.message}`, { position, status });
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
 }
