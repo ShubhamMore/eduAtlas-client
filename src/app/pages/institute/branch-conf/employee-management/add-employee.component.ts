@@ -306,15 +306,15 @@ import { NbToastrService } from '@nebular/theme';
             );
         } else {
           // console.log('updateStudentPersonalDetails');
-          this.api
-            .updateStudentPersonalDetails(this.employee._id, this.employees.value, this.employeeEduId)
-            .subscribe(
-              (res: any) => {
-                this.showToaster('top-right', 'success', 'Student Personal details Updated!');
-                this.router.navigate([`/pages/institute/manage-employees/${this.routerId}`]);
-              },
-              (err) => this.showToaster('top-right', 'danger', err.error.message),
-            );
+          // this.api
+          //   .updateStudentPersonalDetails(this.employee._id, this.employees.value, this.employeeEduId)
+          //   .subscribe(
+          //     (res: any) => {
+          //       this.showToaster('top-right', 'success', 'Student Personal details Updated!');
+          //       this.router.navigate([`/pages/institute/manage-employees/${this.routerId}`]);
+          //     },
+          //     (err) => this.showToaster('top-right', 'danger', err.error.message),
+          //   );
         }
       }
   
