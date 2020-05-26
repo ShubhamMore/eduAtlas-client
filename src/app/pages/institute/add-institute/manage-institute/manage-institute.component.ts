@@ -4,8 +4,6 @@ import { instituteData } from '../../../../../assets/dataTypes/dataType';
 import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
-import { LocalDataSource } from 'ng2-smart-table';
-import { SmartTableData } from '../../../../@core/data/smart-table';
 
 @Component({
   selector: 'ngx-manage-institute',
@@ -14,21 +12,8 @@ import { SmartTableData } from '../../../../@core/data/smart-table';
 })
 export class ManageInstituteComponent implements OnInit {
   confirmDelete: boolean;
-  institutes: any;
 
-  institute = [
-    {
-      address: { addressLine: '', locality: '', state: '', city: '' },
-      attendance: [],
-      basicInfo: { logo: null, name: '', instituteContact: '' },
-      batch: [],
-      category: [],
-      course: [],
-      discount: [],
-      _id: '',
-      metaTag: [],
-    },
-  ];
+  institutes: any[];
 
   instituteUser: instituteData;
   displayData: boolean;
@@ -39,22 +24,24 @@ export class ManageInstituteComponent implements OnInit {
     private toastrService: NbToastrService,
   ) {}
 
+  ngOnInit() {
+    this.institutes = [];
+    this.getInstitutes();
+  }
+
   getInstitutes() {
-    this.api.getInstitutes().subscribe((data) => {
-      this.institutes = data;
-      this.institute = JSON.parse(JSON.stringify(this.institutes));
-      MENU_ITEMS[2].hidden = true;
-      MENU_ITEMS[3].hidden = true;
-      MENU_ITEMS[4].hidden = true;
+    this.api.getInstitutes().subscribe((institutes: any) => {
+      this.institutes = institutes;
+      if (institutes.length > 0) {
+        MENU_ITEMS[2].hidden = true;
+        MENU_ITEMS[3].hidden = true;
+        MENU_ITEMS[4].hidden = true;
+      }
     });
   }
 
   getInstitute(id: string) {
     this.router.navigate(['/pages/dashboard', id]);
-  }
-
-  ngOnInit() {
-    this.getInstitutes();
   }
 
   updateInstitute(id: string) {
@@ -68,10 +55,10 @@ export class ManageInstituteComponent implements OnInit {
     if (confirm) {
       this.api.deleteInstitute(id).subscribe(
         (res) => {
-          const i = this.institute.findIndex((inst) => inst._id === id);
+          const i = this.institutes.findIndex((inst) => inst._id === id);
           if (i !== -1) {
-            this.institute.splice(i, 1);
-            this.showToast('top-right', 'danger', 'Institute Successfully deleted.');
+            this.institutes.splice(i, 1);
+            this.showToast('top-right', 'success', 'Institute Successfully deleted.');
           }
           if (this.institutes.length < 2) {
             MENU_ITEMS[2].hidden = true;
@@ -91,5 +78,9 @@ export class ManageInstituteComponent implements OnInit {
       position,
       status,
     });
+  }
+
+  onClick() {
+    this.router.navigate(['/pages/membership']);
   }
 }

@@ -1,8 +1,7 @@
-import { AuthService } from './../../services/auth-services/auth.service';
 import { PaymentService } from './../../services/payment.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../pages-menu';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-membership',
@@ -10,7 +9,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./membership.component.scss'],
 })
 export class MembershipComponent implements OnInit {
-  constructor(private router: Router) {}
+  constructor(
+    private paymentService: PaymentService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     MENU_ITEMS[1].hidden = false;
@@ -24,7 +27,8 @@ export class MembershipComponent implements OnInit {
     MENU_ITEMS[10].hidden = true;
   }
 
-  activate(amount: string) {
-    this.router.navigate(['/pages/institute/add-institute'], { queryParams: { amount } });
+  activate(amount: string, planType: string) {
+    this.paymentService.setPaymentDetails(amount, planType);
+    this.router.navigate(['/pages/institute/add-institute'], { relativeTo: this.route });
   }
 }

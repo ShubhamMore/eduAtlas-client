@@ -209,6 +209,7 @@ export class AddStudentsComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.student = data[0];
+
         const eduAtlId = this.studentEduId.split('-');
 
         this.eduAtlasStudentIdForm.patchValue({
@@ -342,6 +343,7 @@ export class AddStudentsComponent implements OnInit {
               this.alreadyRegistered = true;
               return;
             }
+            this.alreadyRegistered = true;
             this.showToaster('top-right', 'danger', err.error.message);
           },
         );

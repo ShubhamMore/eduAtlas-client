@@ -1,19 +1,17 @@
 import { PaymentService } from './../../../services/payment.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { Component, OnInit, HostBinding, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { CountryService } from '../../../services/country.service';
 import { MENU_ITEMS } from '../../pages-menu';
-import { mimeType } from './mime-type.validator';
 import { environment } from '../../../../environments/environment';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 declare var Razorpay: any;
-
 @Component({
   selector: 'ngx-add-institute',
   templateUrl: './add-institute.component.html',
@@ -22,15 +20,20 @@ declare var Razorpay: any;
 export class AddInstituteComponent implements OnInit {
   @ViewChild('stepper', { static: false }) stepper: NbStepperComponent;
 
+  display: boolean;
+
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
+
+  paymentDetails: any;
+
+  imageRequired: boolean;
 
   user: any;
 
   options: any;
   razorPay: any;
-  amount: string;
   placedOrderReceipt: any;
 
   institute = {
@@ -45,20 +48,12 @@ export class AddInstituteComponent implements OnInit {
   submitted = false;
   inputValue: string;
 
-  myInstitute = {
-    institute: {
-      address: { addressLine: '', locality: '', state: '', city: '', pincode: '' },
-      basicInfo: { name: '', instituteContact: '', logo: '' },
-      category: [],
-      course: [{ name: '' }],
-      batch: [{ code: '' }],
-      discount: [{ amount: '' }],
-      metaTag: [],
-      location: { type: '', coordinates: [] },
-    },
-  };
+  myInstitute: any;
 
+  logo: File;
   imagePreview: string;
+  invalidImage: boolean;
+
   stateInfo: any[] = [];
   countryInfo: any[] = [];
   cityInfo: any[] = [];
@@ -79,7 +74,7 @@ export class AddInstituteComponent implements OnInit {
     private fb: FormBuilder,
     private api: ApiService,
     private country: CountryService,
-    private active: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     private toastrService: NbToastrService,
     private domSanitizer: DomSanitizer,
@@ -88,10 +83,12 @@ export class AddInstituteComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.display = true;
+    this.invalidImage = false;
+    this.imageRequired = false;
     this.user = this.authService.getUser();
 
-    this.active.queryParams.subscribe((param: Params) => {
-      this.amount = param.amount;
+    this.route.queryParams.subscribe((param: Params) => {
       this.edit = param.edit;
       this.instituteId = param.instituteId;
     });
@@ -107,7 +104,7 @@ export class AddInstituteComponent implements OnInit {
         // tslint:disable-next-line: max-line-length
         order_id: '', // This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
         handler: (response: any) => {
-          console.log(response);
+          // console.log(response);
           this.verifyPayment(response);
         },
         modal: {
@@ -133,7 +130,6 @@ export class AddInstituteComponent implements OnInit {
 
     this.firstForm = this.fb.group({
       name: ['', Validators.required],
-      logo: [null, { Validators: [Validators.required], asyncValidators: [mimeType] }],
     });
 
     this.secondForm = this.fb.group({
@@ -158,10 +154,6 @@ export class AddInstituteComponent implements OnInit {
     MENU_ITEMS[1].hidden = false;
 
     this.getCountries();
-
-    if (this.edit) {
-      this.getInstitute(this.instituteId);
-    }
   }
 
   pay() {
@@ -172,10 +164,10 @@ export class AddInstituteComponent implements OnInit {
     this.paymentService.deleteOrder(this.placedOrderReceipt._id).subscribe(
       (res: any) => {
         this.placedOrderReceipt = null;
-        console.log(res);
+        // console.log(res);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
       },
     );
   }
@@ -183,9 +175,10 @@ export class AddInstituteComponent implements OnInit {
   generateOrder(order: any) {
     this.paymentService.generateOrder(order).subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.placedOrderReceipt = res.receipt;
-        this.options.amount = res.order.amount;
+        // this.options.amount = res.order.amount;
+        this.options.amount = '1';
         this.options.order_id = res.order.id;
         this.options.currency = res.order.currency;
         this.options.prefill.name = this.user.name;
@@ -195,7 +188,8 @@ export class AddInstituteComponent implements OnInit {
         this.pay();
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
+        this.showToast('top-right', 'danger', err.error.message || 'Order Generation Failed');
       },
     );
   }
@@ -203,17 +197,27 @@ export class AddInstituteComponent implements OnInit {
   verifyPayment(payment: any) {
     this.paymentService.verifyPayment(payment, this.placedOrderReceipt).subscribe(
       (res: any) => {
-        this.addInstituteAfterPayment(this.institute);
-        console.log(res);
+        // console.log(res);
+        this.showToast('top-right', 'success', 'Payment Verified Successfully');
+        setTimeout(() => {
+          this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
+        }, 1000);
       },
       (err: any) => {
-        console.log(err);
+        // console.log(err);
+        this.showToast('top-right', 'danger', err.error.message || 'Payment Verification Failed');
       },
     );
   }
 
-  addInstituteAfterPayment(institute: any) {
-    this.api.addInstitute(institute).subscribe(
+  addInstituteAfterPayment(institute: any, orderId: string, ReceiptId: string) {
+    const paymentDetails = {
+      amount: this.paymentDetails.amount,
+      planType: this.paymentDetails.planType,
+      orderId: orderId,
+      receiptId: ReceiptId,
+    };
+    this.api.addInstitute(institute, paymentDetails).subscribe(
       (data) => {
         this.user = data;
         this.showToast('top-right', 'success', 'Institute Added Successfully');
@@ -229,8 +233,16 @@ export class AddInstituteComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.firstForm.patchValue({ logo: file });
-    this.firstForm.get('logo').updateValueAndValidity();
+
+    const imgExt: string[] = ['jpg', 'png'];
+    const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+    if (!(imgExt.indexOf(ext) !== -1)) {
+      this.invalidImage = true;
+      return;
+    }
+    this.imageRequired = false;
+    this.invalidImage = false;
+    this.logo = file;
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;
@@ -241,13 +253,12 @@ export class AddInstituteComponent implements OnInit {
   getInstitute(id: any) {
     this.api.getInstitute(id).subscribe((data: any) => {
       this.myInstitute = data;
-      // console.log('myInstitute==========>', this.myInstitute);
-      // console.log('myInstitute==========>', this.myInstitute.institute.basicInfo.name);
 
       this.firstForm.patchValue({
         name: this.myInstitute.institute.basicInfo.name,
-        logo: this.myInstitute.institute.basicInfo.logo,
       });
+
+      this.imagePreview = this.myInstitute.institute.basicInfo.logo.secure_url;
 
       this.secondForm.patchValue({
         instituteContact: this.myInstitute.institute.basicInfo.instituteContact,
@@ -255,23 +266,35 @@ export class AddInstituteComponent implements OnInit {
           addressLine: this.myInstitute.institute.address.addressLine,
           locality: this.myInstitute.institute.address.locality,
           state: this.myInstitute.institute.address.state,
-          city: this.myInstitute.institute.address.city,
           pincode: this.myInstitute.institute.address.pincode,
         },
       });
 
+      if (this.myInstitute.institute.address.state) {
+        this.onChangeState(this.myInstitute.institute.address.state);
+      }
+
+      setTimeout(() => {
+        this.secondForm.patchValue({
+          address: {
+            city: this.myInstitute.institute.address.city,
+          },
+        });
+      }, 2000);
+
       this.thirdForm.patchValue({
         category: this.myInstitute.institute.category,
-        // instituteMetaTag: this.myInstitute.institute.metaTag,
       });
 
       this.thirdForm.get('instituteMetaTag').setValue([this.myInstitute.institute.metaTag[0]]);
-      this.myInstitute.institute.metaTag.forEach((tag, i) => {
+      this.myInstitute.institute.metaTag.forEach((tag: any, i: any) => {
         if (i !== 0) {
           this.instituteMetaTag.push(this.fb.control(this.myInstitute.institute.metaTag[i]));
         }
       });
     });
+
+    this.display = false;
   }
 
   getCountries() {
@@ -280,19 +303,20 @@ export class AddInstituteComponent implements OnInit {
         this.countryInfo = data.Countries;
         this.stateInfo = this.countryInfo[100].States;
         this.cityInfo = this.stateInfo[0].Cities;
-        // console.log(this.stateInfo[0]);
+        if (this.edit) {
+          this.getInstitute(this.instituteId);
+        } else {
+          this.display = false;
+        }
       },
       (err) => {
-        // console.log(err);
-      },
-      () => {
-        // console.log('complete');
+        this.showToast('top-right', 'danger', err.error.message || 'Cant fetch Countries');
+        this.display = false;
       },
     );
   }
 
   onChangeState(stateValue: any) {
-    // console.log(stateValue);
     this.cityInfo = this.stateInfo[stateValue].Cities;
   }
 
@@ -323,10 +347,15 @@ export class AddInstituteComponent implements OnInit {
   firstFormSubmit() {
     this.firstForm.markAsDirty();
     this.institute.name = this.firstForm.value.name;
-    this.institute.logo = this.firstForm.value.logo;
-    // console.log(this.first.logo.errors);
+    if (!this.edit && !this.logo) {
+      this.imageRequired = true;
+      return;
+    }
+    if (this.invalidImage) {
+      return;
+    }
+    this.institute.logo = this.logo;
     this.stepper.next();
-    // console.log('firstForm=>', this.institute);
   }
 
   secondFormSubmit() {
@@ -334,19 +363,16 @@ export class AddInstituteComponent implements OnInit {
     this.institute.instituteContact = this.secondForm.value.instituteContact;
     this.institute.address = this.secondForm.value.address;
     this.stepper.next();
-    // console.log('sec form=>', this.institute);
   }
 
   thirdFormSubmit() {
     this.thirdForm.markAsDirty();
     this.institute.category = this.thirdForm.value.category;
     this.institute.instituteMetaTag = this.thirdForm.value.instituteMetaTag;
-    // console.log(this.institute);
 
     if (this.edit === 'true') {
       this.api.updateInstitute(this.instituteId, this.institute).subscribe(
         (res) => {
-          // console.log(res);
           this.showToast('top-right', 'success', 'Institute Updated Successfully');
           setTimeout(() => {
             this.router.navigate(['/pages/home']);
@@ -354,24 +380,23 @@ export class AddInstituteComponent implements OnInit {
         },
         (error) => {
           this.showToast('top-right', 'danger', error.message || 'Something bad happened');
-          // console.log(err);
         },
       );
     }
 
-    // console.log(this.institute);
     if (!this.edit) {
+      // this.addInstituteAfterPayment(this.institute, '1233', '1234');
+      this.paymentDetails = this.paymentService.getPaymentDetails();
       const orderDetails = {
         userId: this.user._id,
         userPhone: this.user._phone,
         userName: this.user.name,
         userEmail: this.user.email,
-        amount: this.amount,
+        amount: this.paymentDetails.amount,
+        planType: this.paymentDetails.planType,
       };
       this.generateOrder(orderDetails);
     }
-
-    // console.log('forth form =>', this.institute);
   }
 
   showToast(position: any, status: any, message: any) {
@@ -379,9 +404,5 @@ export class AddInstituteComponent implements OnInit {
       position,
       status,
     });
-  }
-
-  change(event) {
-    // console.log(event.target.value);
   }
 }

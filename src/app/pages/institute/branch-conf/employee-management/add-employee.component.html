@@ -1,4 +1,4 @@
-<p style="color: black; font-weight: bold;">Add Employees Here</p>
+<p style="color: black; font-weight: bold;">Add employeeForm Here</p>
 
 <nb-card status="warning">
   <nb-card-body>
@@ -12,7 +12,7 @@
     >
     <form
       [formGroup]="eduAtlasEmployeeForm"
-      (ngSubmit)="onStudentSearch()"
+      (ngSubmit)="onEmployeeFormSearch()"
       *ngIf="alreadyRegistered"
     >
       <p>Fetch Employee</p>
@@ -95,12 +95,12 @@
       <hr />
     </form>
 
-    <form [formGroup]="employees" (ngSubmit)="onSubmit()">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
       <p>Employee Basic Details</p>
       <div class="row">
         <div class="col-sm-3">
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">*Name</label>
             <input
               type="text"
               nbInput
@@ -111,22 +111,6 @@
               placeholder="Name"
             />
             <small *ngIf="f.name.errors && f.name.touched">*Employee name is required</small>
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label for="roll">*Roll Number</label>
-            <input
-              type="text"
-              nbInput
-              [status]="f.rollNo.errors && f.rollNo.touched ? 'danger' : 'basic'"
-              id="roll"
-              formControlName="rollNo"
-              fullWidth
-              placeholder="Roll Number"
-            />
-            <small *ngIf="f.rollNo.errors && f.rollNo.touched">*Employee Roll no. is required</small>
           </div>
         </div>
 
@@ -166,59 +150,22 @@
             >
           </div>
         </div>
+        <div class="col-sm-3">
+          <label>*Role</label>
+          <nb-select
+            placeholder="Select Role"
+            [status]="f.role.errors && f.role.touched ? 'danger' : 'basic'"
+            status="basic"
+            formControlName="role"
+          >
+            <nb-option [value]="null">Select Role</nb-option>
+            <nb-option *ngFor="let role of roles" value="{{ role }}">{{ role }}</nb-option>
+          </nb-select>
+          <small *ngIf="f.role.errors && f.role.touched">*Employee Role is required.</small>
+        </div>
       </div>
 
       <hr />
-
-      <p>Parents Details</p>
-
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label for="pname">Parent Name</label>
-            <input
-              type="text"
-              nbInput
-              status="basic"
-              id="pname"
-              formControlName="parentName"
-              fullWidth
-              placeholder="Parent Name"
-            />
-          </div>
-        </div>
-
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label for="pcontact">Parent Contact</label>
-            <input
-              type="text"
-              nbInput
-              status="basic"
-              maxlength="10"
-              id="pcontact"
-              formControlName="parentContact"
-              fullWidth
-              placeholder="Parent Contact"
-            />
-            <small *ngIf="f.parentContact.errors">*Enter Correct Phone no.</small>
-          </div>
-        </div>
-
-        <div class="col-sm-4">
-          <label for="pemail">Parent Email Id</label>
-          <input
-            type="email"
-            nbInput
-            status="basic"
-            id="pemail"
-            formControlName="parentEmail"
-            fullWidth
-            placeholder="Parent Email Id"
-          />
-          <small *ngIf="f.parentEmail.errors">*Enter Correct Email</small>
-        </div>
-      </div>
 
       <div class="row">
         <div class="col-sm-12">
@@ -236,168 +183,6 @@
           </textarea>
         </div>
       </div>
-
-      <hr />
-
-      <p>Course Details</p>
-
-      <div formGroupName="courseDetails" class="row">
-        <div class="col-sm-3">
-          <label for="cdetail">*Select Course</label>
-          <nb-select
-            placeholder="Select Course"
-            status="basic"
-            formControlName="course"
-            (selectedChange)="onSelectCourse($event)"
-          >
-            <nb-option value="">Select Course</nb-option>
-            <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-sm-3">
-          <label for="batch">Batch</label>
-          <nb-select placeholder="Select Batch" formControlName="batch" status="basic">
-            <nb-option value="">No Batch Assign</nb-option>
-            <nb-option *ngFor="let item of batches" [value]="item._id">{{
-              item.batchCode
-            }}</nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-sm-2">
-          <label for="dis">Discount</label>
-          <nb-select
-            placeholder="Discount"
-            formControlName="discount"
-            status="basic"
-            (selectedChange)="onSelectDiscount($event)"
-          >
-            <nb-option value="">Select Discount</nb-option>
-            <nb-option *ngFor="let i of discounts" [value]="i._id">{{
-              i.discountCode + ' (' + i.amount + '%)'
-            }}</nb-option>
-          </nb-select>
-        </div>
-
-        <div class="col-sm-2">
-          <label for="adis">Additional Discount</label>
-          <input
-            type="text"
-            nbInput
-            status="basic"
-            formControlName="additionalDiscount"
-            fullWidth
-            placeholder="Additional Discount"
-            (input)="calculateNetPayableAmount()"
-          />
-        </div>
-
-        <div class="col-sm-2">
-          <label for="net">Net Payable</label>
-          <input
-            type="text"
-            nbInput
-            id="net"
-            status="basic"
-            formControlName="netPayable"
-            fullWidth
-            placeholder="Net Payable"
-            disabled="true"
-          />
-        </div>
-      </div>
-
-      <hr />
-
-      <p>Fees</p>
-
-      <div formGroupName="feeDetails" class="row">
-        <div class="col-sm-3">
-          <label for="fee">No. of Installments</label>
-          <input
-            type="text"
-            id="fee"
-            nbInput
-            status="basic"
-            formControlName="installments"
-            fullWidth
-            placeholder="No. of Installments"
-          />
-        </div>
-
-        <div class="col-sm-3">
-          <label for="no">Next Installment</label>
-          <input
-            nbInput
-            status="basic"
-            formControlName="nextInstallment"
-            fullWidth
-            placeholder="Next Installment"
-            [nbDatepicker]="formpicker"
-          />
-          <nb-datepicker #formpicker></nb-datepicker>
-        </div>
-
-        <div class="col-sm-3">
-          <label for="amt">Amount Collected</label>
-          <input
-            type="text"
-            nbInput
-            id="amt"
-            status="basic"
-            formControlName="amountCollected"
-            fullWidth
-            placeholder="Amount Collected"
-            (input)="calculateAmountPending()"
-          />
-        </div>
-
-        <div class="col-sm-3">
-          <label>Mode</label>
-          <nb-select placeholder="Select Mode" status="basic" formControlName="mode">
-            <nb-option [value]="null">Select Mode</nb-option>
-            <nb-option *ngFor="let i of modes" value="{{ i }}">{{ i }}</nb-option>
-          </nb-select>
-        </div>
-      </div>
-      <div class="row" style="padding-top: 10px;">
-        <div class="col-sm-3">
-          <label for="fee">Amount Pending</label>
-          <input
-            type="text"
-            id="amountPending"
-            nbInput
-            status="basic"
-            fullWidth
-            placeholder="Amount Pending"
-            disabled="true"
-            [value]="amountPending"
-          />
-        </div>
-      </div>
-
-      <hr />
-
-      <p>Material Record</p>
-
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <textarea
-              type="text"
-              nbInput
-              id="material"
-              status="basic"
-              fullWidth
-              formControlName="materialRecord"
-              placeholder="Material Record"
-            >
-            </textarea>
-          </div>
-        </div>
-      </div>
-
       <div style="text-align: right;">
         <button type="submit" nbButton status="warning" style="color: black;">
           {{ employeeEduId ? 'Update Employee' : 'Add Employee' }}
