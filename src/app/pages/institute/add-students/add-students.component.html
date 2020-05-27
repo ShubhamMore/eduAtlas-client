@@ -277,7 +277,7 @@
         </div>
 
         <div class="col-sm-2">
-          <label for="adis">Additional Discount</label>
+          <label for="additionalDiscount">Additional Discount</label>
           <input
             type="text"
             nbInput
@@ -308,68 +308,168 @@
 
       <p>Fees</p>
 
-      <div formGroupName="feeDetails" class="row">
-        <div class="col-sm-3">
-          <label for="fee">No. of Installments</label>
-          <input
-            type="text"
-            id="fee"
-            nbInput
-            status="basic"
-            formControlName="installments"
-            fullWidth
-            placeholder="No. of Installments"
-          />
-        </div>
+      <div class="row" [formGroup]="feeDetailsForm">
+        <div class="col-12">
+          <div class="row">
+            <div class="col-sm-3">
+              <label for="installmentType">Installment Type</label>
+              <nb-select
+                placeholder="Select Installment Type"
+                formControlName="installmentType"
+                status="basic"
+                (selectedChange)="onSelectInstallmentType($event)"
+              >
+                <nb-option value="0">Yearly</nb-option>
+                <nb-option value="1">Half Yearly</nb-option>
+                <nb-option value="2">Quarterly</nb-option>
+                <nb-option value="3">Custom</nb-option>
+              </nb-select>
+            </div>
 
-        <div class="col-sm-3">
-          <label for="no">Next Installment</label>
-          <input
-            nbInput
-            status="basic"
-            formControlName="nextInstallment"
-            fullWidth
-            placeholder="Next Installment"
-            [nbDatepicker]="formpicker"
-          />
-          <nb-datepicker #formpicker></nb-datepicker>
-        </div>
+            <div class="col-sm-3">
+              <label for="noOfInstallments">No. of Installments</label>
+              <input
+                type="text"
+                pattern="\d*"
+                maxlength="2"
+                id="noOfInstallments"
+                nbInput
+                status="basic"
+                formControlName="noOfInstallments"
+                fullWidth
+                placeholder="No. of Installments"
+                (input)="customNoOfInstallments($event.target.value)"
+              />
+            </div>
 
-        <div class="col-sm-3">
-          <label for="amt">Amount Collected</label>
-          <input
-            type="text"
-            nbInput
-            id="amt"
-            status="basic"
-            formControlName="amountCollected"
-            fullWidth
-            placeholder="Amount Collected"
-            (input)="calculateAmountPending()"
-          />
-        </div>
+            <div class="col-sm-3">
+              <label for="amountCollected">Amount Collected</label>
+              <input
+                type="text"
+                pattern="\d*"
+                nbInput
+                id="amt"
+                status="basic"
+                formControlName="amountCollected"
+                fullWidth
+                placeholder="Amount Collected"
+              />
+            </div>
 
-        <div class="col-sm-3">
-          <label>Mode</label>
-          <nb-select placeholder="Select Mode" status="basic" formControlName="mode">
-            <nb-option [value]="null">Select Mode</nb-option>
-            <nb-option *ngFor="let i of modes" value="{{ i }}">{{ i }}</nb-option>
-          </nb-select>
-        </div>
-      </div>
-      <div class="row" style="padding-top: 10px;">
-        <div class="col-sm-3">
-          <label for="fee">Amount Pending</label>
-          <input
-            type="text"
-            id="amountPending"
-            nbInput
-            status="basic"
-            fullWidth
-            placeholder="Amount Pending"
-            disabled="true"
-            [value]="amountPending"
-          />
+            <div class="col-sm-3">
+              <label for="amountCollected">Date</label>
+              <input
+                type="date"
+                (input)="constructDate($event.target.value)"
+                nbInput
+                status="basic"
+                formControlName="date"
+                fullWidth
+                placeholder="Installment Date"
+              />
+              <!-- [nbDatepicker]="datePicker"
+              <nb-datepicker #datePicker></nb-datepicker> -->
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-12">
+              <div class="table-responsive">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>Installment No.</th>
+                      <th>Paid</th>
+                      <th>Installment Date</th>
+                      <th>Amount</th>
+                      <th>payment Mode</th>
+                      <th>Amount Pending</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="installments">
+                    <ng-container
+                      *ngFor="
+                        let installment of feeDetailsForm.get('installments')['controls'];
+                        let i = index
+                      "
+                    >
+                      <tr [formGroupName]="i">
+                        <td>
+                          <input
+                            type="text"
+                            pattern="\d*"
+                            nbInput
+                            status="basic"
+                            formControlName="installmentNo"
+                            fullWidth
+                            placeholder="Installment No"
+                            disabled="true"
+                          />
+                        </td>
+
+                        <td>
+                          <nb-checkbox formControlName="paidStatus" status="basic"></nb-checkbox>
+                        </td>
+
+                        <td>
+                          <input
+                            type="date"
+                            nbInput
+                            status="basic"
+                            formControlName="paidOn"
+                            fullWidth
+                            placeholder="Installment Date"
+                          />
+                          <!-- [nbDatepicker]="datePicker"
+                          <nb-datepicker #datePicker></nb-datepicker> -->
+                        </td>
+
+                        <td>
+                          <input
+                            type="text"
+                            pattern="\d*"
+                            nbInput
+                            status="basic"
+                            fullWidth
+                            formControlName="amount"
+                            placeholder="Amount"
+                          />
+                        </td>
+
+                        <td>
+                          <nb-select
+                            placeholder="Select Mode"
+                            status="basic"
+                            formControlName="paymentMode"
+                            placeholder="Payment Mode"
+                          >
+                            <nb-option *ngFor="let mode of modes" [value]="mode">{{
+                              mode
+                            }}</nb-option>
+                          </nb-select>
+                        </td>
+
+                        <td>
+                          <input
+                            type="text"
+                            pattern="\d*"
+                            nbInput
+                            status="basic"
+                            formControlName="amountPending"
+                            fullWidth
+                            placeholder="Amount Pending"
+                            disabled="true"
+                          />
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

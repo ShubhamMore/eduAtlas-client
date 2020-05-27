@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
@@ -11,6 +11,7 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class AddStudentsComponent implements OnInit {
   studentForm: FormGroup;
+  feeDetailsForm: FormGroup;
   eduAtlasStudentIdForm: FormGroup;
 
   instituteId: string;
@@ -24,7 +25,11 @@ export class AddStudentsComponent implements OnInit {
 
   selectedCourse: any;
   selectedDiscount: any;
-  amountPending: number;
+  netPayable: number;
+  pendingAmount: number;
+
+  installmentType: string;
+  noOfInstallments: string;
 
   edit: string;
   studentEduId: string;
@@ -34,6 +39,7 @@ export class AddStudentsComponent implements OnInit {
 
   alreadyRegistered: boolean;
 
+  date: string;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -44,10 +50,14 @@ export class AddStudentsComponent implements OnInit {
 
   ngOnInit() {
     this.alreadyRegistered = false;
-    this.amountPending = 0;
+    this.installmentType = '0';
+    this.netPayable = 0;
+    this.pendingAmount = 0;
     this.courses = [];
     this.batches = [];
     this.discounts = [];
+
+    this.date = this.constructDate(new Date());
 
     this.instituteId = this.route.snapshot.paramMap.get('id');
 
@@ -55,6 +65,13 @@ export class AddStudentsComponent implements OnInit {
       this.studentEduId = data.student;
       this.courseId = data.course;
       this.edit = data.edit;
+
+      this.eduAtlasStudentIdForm = this.fb.group({
+        idInput1: ['EDU', Validators.required],
+        idInput2: ['', Validators.required],
+        idInput3: ['ST', Validators.required],
+        idInput4: ['', Validators.required],
+      });
 
       this.studentForm = this.fb.group({
         name: ['', Validators.required],
@@ -64,6 +81,7 @@ export class AddStudentsComponent implements OnInit {
 
         parentName: [''],
         parentContact: [''],
+
         parentEmail: ['', Validators.email],
 
         address: [''],
@@ -76,22 +94,21 @@ export class AddStudentsComponent implements OnInit {
           netPayable: [''],
         }),
 
-        feeDetails: this.fb.group({
-          installments: [''],
-          nextInstallment: [''],
-          amountCollected: [''],
-          mode: [''],
-        }),
-
         materialRecord: [''],
       });
 
-      this.eduAtlasStudentIdForm = this.fb.group({
-        idInput1: ['EDU', Validators.required],
-        idInput2: ['', Validators.required],
-        idInput3: ['ST', Validators.required],
-        idInput4: ['', Validators.required],
+      this.feeDetailsForm = this.fb.group({
+        installmentType: [this.installmentType],
+        date: [this.date],
+        noOfInstallments: [''],
+        amountCollected: [''],
+        totalAmount: [''],
+        installments: this.fb.array([]),
       });
+
+      this.feeDetailsForm.get('installmentType').disable();
+
+      this.onSelectInstallmentType(this.installmentType);
 
       this.getCourseTd(this.instituteId);
 
@@ -156,12 +173,26 @@ export class AddStudentsComponent implements OnInit {
     });
   }
 
+  constructDate(date: any) {
+    date = new Date(date);
+    return `${date.getFullYear()}-${this.appendZero(date.getMonth())}-${this.appendZero(
+      date.getDate(),
+    )}`;
+  }
+
+  appendZero(n: number): string {
+    if (n < 10) {
+      return '0' + n;
+    }
+    return '' + n;
+  }
+
   onSelectCourse(id: string) {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
     this.selectedCourse = this.courses.find((course: any) => course.id === id);
     this.studentForm.get('courseDetails').patchValue({ batch: '' });
-    this.studentForm.get('feeDetails').reset();
     this.studentForm.get('materialRecord').reset();
+    this.feeDetailsForm.get('installmentType').enable();
     this.calculateNetPayableAmount();
   }
 
@@ -185,19 +216,102 @@ export class AddStudentsComponent implements OnInit {
         calculatedAmount = calculatedAmount - (additionalDiscount / 100) * calculatedAmount;
       }
     }
+
+    this.netPayable = calculatedAmount;
     this.studentForm.get('courseDetails').patchValue({ netPayable: calculatedAmount });
-    this.calculateAmountPending();
+    this.setFees();
   }
 
-  calculateAmountPending() {
-    const netPayableAmount = this.studentForm.get(['courseDetails', 'netPayable']).value;
-    const amountCollected = this.studentForm.get(['feeDetails', 'amountCollected']).value;
-
-    if (amountCollected && netPayableAmount) {
-      this.amountPending = netPayableAmount - amountCollected;
+  onSelectInstallmentType(installmentType: any) {
+    this.installmentType = installmentType;
+    if (installmentType === '0') {
+      this.customNoOfInstallments('1');
+    } else if (installmentType === '1') {
+      this.customNoOfInstallments('2');
+    } else if (installmentType === '2') {
+      this.customNoOfInstallments('4');
     } else {
-      this.amountPending = netPayableAmount;
     }
+
+    if (this.installmentType === '3') {
+      this.enableFeeDetailsFields();
+    } else {
+      this.disableFeeDetailsFields();
+    }
+  }
+
+  customNoOfInstallments(noOfInstallments: string) {
+    this.noOfInstallments = noOfInstallments;
+
+    this.feeDetailsForm.patchValue({ noOfInstallments: this.noOfInstallments });
+
+    const installment = this.feeDetailsForm.get('installments') as FormArray;
+    installment.controls = [];
+    for (let i = 0; i < +noOfInstallments; i++) {
+      let date = this.date;
+      if (i > 0) {
+        date = '';
+      }
+      const installmentData = {
+        installmentNo: (i + 1).toString(),
+        paidStatus: '0',
+        paidOn: date,
+        amount: '',
+        paymentMode: '',
+        amountPending: '',
+      };
+      this.addInstallment(installmentData);
+    }
+    this.setFees();
+  }
+
+  setFees() {
+    const amount = (this.netPayable / +this.noOfInstallments).toFixed(2);
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls.forEach((installment, i) => {
+      let amountPending = this.netPayable - +amount * (i + 1);
+      amountPending = amountPending < 0 ? 0 : amountPending;
+      installment.patchValue({ amount, amountPending });
+    });
+  }
+
+  disableFeeDetailsFields() {
+    this.feeDetailsForm.get('noOfInstallments').disable();
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls.forEach((installment) => {
+      installment.get('paidOn').disable();
+      installment.get('amount').disable();
+    });
+  }
+
+  enableFeeDetailsFields() {
+    this.feeDetailsForm.get('noOfInstallments').enable();
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls.forEach((installment) => {
+      installment.get('paidOn').enable();
+      installment.get('amount').enable();
+    });
+  }
+
+  installment(installmentData: any) {
+    return this.fb.group({
+      installmentNo: [installmentData.installmentNo ? installmentData.installmentNo : ''],
+      paidStatus: [installmentData.paidStatus === '1' ? true : false],
+      paidOn: [installmentData.paidOn ? installmentData.paidOn : ''],
+      amount: [installmentData.amount ? installmentData.amount : ''],
+      paymentMode: [installmentData.paymentMode ? installmentData.paymentMode : ''],
+      amountPending: [installmentData.amountPending ? installmentData.amountPending : ''],
+    });
+  }
+
+  addInstallment(installmentData: any) {
+    const installment = this.feeDetailsForm.get('installments') as FormArray;
+    installment.push(this.installment(installmentData));
+  }
+
+  removeInstallment(i: number) {
+    const installment = this.feeDetailsForm.get('installments') as FormArray;
+    installment.removeAt(installment[i]);
   }
 
   getStudent(studentEduId: string, institute: string, course: string) {
@@ -239,12 +353,6 @@ export class AddStudentsComponent implements OnInit {
             additionalDiscount: this.student.instituteDetails.additionalDiscount,
             netPayable: this.student.instituteDetails.nextPayble,
           },
-          feeDetails: {
-            installments: this.student.fee.installmentNumber,
-            nextInstallment: this.student.fee.nextInstallment,
-            amountCollected: this.student.fee.amountCollected,
-            mode: this.student.fee.mode,
-          },
           materialRecord: this.student.instituteDetails.materialRecord,
         });
 
@@ -259,7 +367,7 @@ export class AddStudentsComponent implements OnInit {
             .patchValue({ batch: this.student.instituteDetails.batchId });
         }, 200);
 
-        this.calculateAmountPending();
+        // this.calculateAmountPending();
       });
   }
 
