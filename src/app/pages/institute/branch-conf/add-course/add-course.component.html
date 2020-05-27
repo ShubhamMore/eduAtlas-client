@@ -32,7 +32,7 @@
             formControlName="courseCode"
             placeholder="Course Code"
           />
-          <small *ngIf="f.courseCode.errors && submitted">*Course code is req.</small>
+          <small *ngIf="f.courseCode.errors && submitted">*Course code is required</small>
         </div>
         <div class="col-sm-4">
           <label for="fees">Course Fees</label>
@@ -52,7 +52,20 @@
       <hr />
 
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+          <label for="gst">Course Duration</label>
+          <input
+            nbInput
+            type="text"
+            pattern="\d*"
+            fullWidth
+            formControlName="duration"
+            maxlength="2"
+            minlength="1"
+            placeholder="Duration"
+          />
+        </div>
+        <div class="col-sm-3">
           <label for="gst">GST</label>
           <input
             nbInput
@@ -66,13 +79,18 @@
           />
         </div>
         <div class="col-sm-1"><br /><br />Or</div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
           <br />
-          <nb-checkbox (checkedChange)="inclusiveGst($event)" [(ngModel)]="gstCheckBox" [ngModelOptions]="{standalone: true}" fullWidth status="warning"
+          <nb-checkbox
+            (checkedChange)="inclusiveGst($event)"
+            [(ngModel)]="gstCheckBox"
+            [ngModelOptions]="{ standalone: true }"
+            fullWidth
+            status="warning"
             >Inclusive GST</nb-checkbox
           >
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <label>Total Fees</label>
           <input
             type="text"

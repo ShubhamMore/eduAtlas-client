@@ -22,17 +22,9 @@ export class AddCourseComponent implements OnInit {
   edit: string;
   courseId: string;
   exclusiveGst: number = null;
-  fees: number = null;
+  fees: number = 0;
   gstCheckBox: boolean;
-  updateCourse = {
-    courseCode: '',
-    name: '',
-    fees: '',
-    gst: '',
-    gstValue: '',
-    discription: '',
-    totalFee: '',
-  };
+  updateCourse: any;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -48,20 +40,24 @@ export class AddCourseComponent implements OnInit {
       this.courseId = param.courseId;
       this.edit = param.edit;
     });
-    if (this.edit === 'true') {
-      this.getCourse(this.courseId);
-    }
     this.course = this.fb.group({
       name: ['', Validators.required],
       courseCode: ['', Validators.required],
       fees: [''],
+      duration: ['', Validators.required],
       gst: [''],
       gstValue: [''],
       discription: [''],
       totalFee: [''],
     });
-    this.inclusiveGst(false);
+
+    if (this.edit === 'true') {
+      this.getCourse(this.courseId);
+    } else {
+      this.inclusiveGst(false);
+    }
   }
+
   getCourse(id) {
     let param = new HttpParams();
     param = param.append('instituteId', this.instituteId);
@@ -73,19 +69,22 @@ export class AddCourseComponent implements OnInit {
           name: this.updateCourse.name,
           courseCode: this.updateCourse.courseCode,
           fees: this.updateCourse.fees,
+          duration: this.updateCourse.duration,
           gst: this.updateCourse.gst,
           gstValue: this.updateCourse.gstValue,
           discription: this.updateCourse.discription,
           totalFee: this.updateCourse.totalFee,
         });
+        this.exclusiveGst = Number(this.updateCourse.gstValue);
+        this.fees = Number(this.updateCourse.fees);
         if (this.updateCourse.gst === 'Inclusive') {
           this.gstCheckBox = true;
+          this.inclusiveGst(true);
           this.course.get('gstValue').disable();
         } else {
           this.gstCheckBox = false;
-          this.exclusiveGst = Number(this.updateCourse.gstValue);
+          this.inclusiveGst(false);
         }
-        this.fees = Number(this.updateCourse.fees);
       },
       (error) => console.error(error),
     );
@@ -159,8 +158,7 @@ export class AddCourseComponent implements OnInit {
       this.course.patchValue({
         gst: 'Inclusive',
       });
-    }
-    if (!inclusive || null) {
+    } else if (!inclusive || null) {
       this.course.get('gstValue').enable();
       this.course.patchValue({
         gst: 'Exclusive',

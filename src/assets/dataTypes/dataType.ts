@@ -3,6 +3,7 @@ export interface courseData {
   name: string;
   code: string;
   fees: string;
+  duration: string;
   gst: string;
   discription: string;
   totalFee: string;

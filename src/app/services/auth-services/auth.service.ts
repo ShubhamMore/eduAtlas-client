@@ -74,9 +74,9 @@ export class AuthService {
     );
   }
 
-  login(phone: string, password: string) {
+  login(userId: string, password: string) {
     const data = {
-      phone,
+      userId,
       password,
     };
 

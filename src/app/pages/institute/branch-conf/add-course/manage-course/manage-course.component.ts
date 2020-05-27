@@ -11,11 +11,7 @@ import { MENU_ITEMS } from '../../../../pages-menu';
 })
 export class ManageCourseComponent implements OnInit {
   display: boolean = false;
-  courses = {
-    course: [
-      { courseCode: '', discription: '', fees: '', gst: '', name: '', totalFee: '', _id: '' },
-    ],
-  };
+  courses: any[] = [];
   institutes: any[] = [];
   institute: any[] = [];
   instituteId: string;
@@ -29,7 +25,7 @@ export class ManageCourseComponent implements OnInit {
 
   getCourses(id: any) {
     this.api.getCourses(id).subscribe((data: any) => {
-      this.courses = data;
+      this.courses = data.course;
     });
   }
 
@@ -38,14 +34,14 @@ export class ManageCourseComponent implements OnInit {
     param = param.append('instituteId', this.instituteId);
     param = param.append('courseId', id);
     this.api.deleteCourse(param).subscribe(
-      (res) => {},
+      (res) => {
+        const i = this.courses.findIndex((e) => e._id === id);
+        if (i !== -1) {
+          this.courses.splice(i, 1);
+        }
+      },
       (error) => console.error(error),
     );
-
-    const i = this.courses.course.findIndex((e) => e._id === id);
-    if (i !== -1) {
-      this.courses.course.splice(i, 1);
-    }
   }
 
   edit(id: string) {

@@ -21,10 +21,13 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loginForm = new FormGroup({
-      phone: new FormControl(null, { validators: [Validators.required] }),
-      password: new FormControl(null, { validators: [Validators.required] }),
-    });
+    this.loginForm = new FormGroup(
+      {
+        userId: new FormControl(null, { validators: [Validators.required] }),
+        password: new FormControl(null, { validators: [Validators.required] }),
+      },
+      {},
+    );
   }
 
   onSubmit() {
@@ -32,19 +35,19 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const phone = this.loginForm.value.phone;
+    const userId = this.loginForm.value.userId;
     const password = this.loginForm.value.password;
 
     let authObs: Observable<AuthResponseData>;
 
-    authObs = this.authService.login(phone, password);
+    authObs = this.authService.login(userId, password);
 
     authObs.subscribe(
       (resData: any) => {
         if (resData.verifyOtp) {
           this.router.navigate(['/otp'], {
             relativeTo: this.route,
-            queryParams: { phone, type: 'login' },
+            queryParams: { phone: resData.phone, type: 'login' },
           });
         } else {
           if (resData.role === 'institute') {
@@ -61,7 +64,7 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset();
       },
       (errorMessage: any) => {
-        this.showToast('top-right', 'danger', 'Invalid Password');
+        this.showToast('top-right', 'danger', 'Invalid User Id or Password');
       },
     );
   }

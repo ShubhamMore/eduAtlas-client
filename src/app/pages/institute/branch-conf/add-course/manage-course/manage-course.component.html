@@ -11,15 +11,17 @@
         <tr>
           <th>Course Name</th>
           <th>Code</th>
+          <th>Duration</th>
           <th>Fees</th>
           <th>GST</th>
           <th>Total Fees (Rs.)</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of courses.course; let i = index">
+        <tr *ngFor="let item of courses; let i = index">
           <td>{{ item.name }}</td>
           <td>{{ item.courseCode }}</td>
+          <td>{{ item.duration }}</td>
           <td>{{ item.fees }}</td>
           <td>{{ item.gst }}</td>
           <td>&#x20B9; {{ item.totalFee }}</td>
