@@ -319,10 +319,8 @@
                 status="basic"
                 (selectedChange)="onSelectInstallmentType($event)"
               >
-                <nb-option value="0">Yearly</nb-option>
-                <nb-option value="1">Half Yearly</nb-option>
-                <nb-option value="2">Quarterly</nb-option>
-                <nb-option value="3">Custom</nb-option>
+                <nb-option value="0">Paid Once</nb-option>
+                <nb-option value="1">Custom</nb-option>
               </nb-select>
             </div>
 
@@ -338,7 +336,37 @@
                 formControlName="noOfInstallments"
                 fullWidth
                 placeholder="No. of Installments"
-                (input)="customNoOfInstallments($event.target.value)"
+                (input)="generateNoOfInstallments($event.target.value)"
+              />
+            </div>
+
+            <div class="col-sm-3">
+              <label for="totalAmount">Total Amount</label>
+              <input
+                type="text"
+                pattern="\d*"
+                nbInput
+                id="totalAmount"
+                status="basic"
+                formControlName="totalAmount"
+                fullWidth
+                placeholder="Total Amount"
+                disabled="true"
+              />
+            </div>
+
+            <div class="col-sm-3">
+              <label for="pendingAmount">Pending Amount</label>
+              <input
+                type="text"
+                pattern="\d*"
+                nbInput
+                id="pendingAmount"
+                status="basic"
+                formControlName="pendingAmount"
+                fullWidth
+                placeholder="Pending Amount"
+                disabled="true"
               />
             </div>
 
@@ -348,24 +376,25 @@
                 type="text"
                 pattern="\d*"
                 nbInput
-                id="amt"
+                id="amountCollected"
                 status="basic"
                 formControlName="amountCollected"
                 fullWidth
                 placeholder="Amount Collected"
+                disabled="true"
               />
             </div>
 
             <div class="col-sm-3">
-              <label for="amountCollected">Date</label>
+              <label for="date">Date</label>
               <input
                 type="date"
-                (input)="constructDate($event.target.value)"
                 nbInput
                 status="basic"
                 formControlName="date"
                 fullWidth
                 placeholder="Installment Date"
+                (input)="dateChanged($event.target.value)"
               />
               <!-- [nbDatepicker]="datePicker"
               <nb-datepicker #datePicker></nb-datepicker> -->
@@ -410,7 +439,11 @@
                         </td>
 
                         <td>
-                          <nb-checkbox formControlName="paidStatus" status="basic"></nb-checkbox>
+                          <nb-checkbox
+                            formControlName="paidStatus"
+                            status="basic"
+                            (checkedChange)="onPaidAmount($event, i)"
+                          ></nb-checkbox>
                         </td>
 
                         <td>
@@ -421,6 +454,7 @@
                             formControlName="paidOn"
                             fullWidth
                             placeholder="Installment Date"
+                            disabled="true"
                           />
                           <!-- [nbDatepicker]="datePicker"
                           <nb-datepicker #datePicker></nb-datepicker> -->
@@ -435,6 +469,7 @@
                             fullWidth
                             formControlName="amount"
                             placeholder="Amount"
+                            disabled="true"
                           />
                         </td>
 

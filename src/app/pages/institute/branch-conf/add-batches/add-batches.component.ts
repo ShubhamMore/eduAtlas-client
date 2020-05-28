@@ -78,7 +78,9 @@ export class AddBatchesComponent implements OnInit {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('batchId', this.batchId);
-      this.api.updateBatch(param, this.batch.value).subscribe(
+      const batch = this.batch.value;
+      batch._id = this.batchId;
+      this.api.updateBatch(param, batch).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Successfully Updated');
           this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.instituteId]);

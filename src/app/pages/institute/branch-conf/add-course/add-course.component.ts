@@ -112,7 +112,9 @@ export class AddCourseComponent implements OnInit {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('courseId', this.courseId);
-      this.api.updateCourse(param, this.course.value).subscribe(
+      const course = this.course.value;
+      course._id = this.courseId;
+      this.api.updateCourse(param, course).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Course Updated');
           setTimeout(() => {
