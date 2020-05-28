@@ -1,3 +1,4 @@
+import { FormArray } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
@@ -310,9 +311,120 @@ export class ApiService {
       );
   }
 
+  // =====================Fees API===================
+  addStudentFees(
+    studentObjId: string,
+    studentInstituteId: string,
+    studentEduAtlasId: string,
+    studentCourseId: string,
+    studentFees: any,
+  ) {
+    const data = {
+      studentId: studentObjId,
+      eduAtlasId: studentEduAtlasId,
+      instituteId: studentInstituteId,
+      courseID: studentCourseId,
+      installmentType: studentFees.installmentType,
+      date: studentFees.date,
+      noOfInstallments: studentFees.noOfInstallments,
+      amountCollected: studentFees.amountCollected,
+      totalAmount: studentFees.totalFees,
+      pendingAmount: studentFees.pendingFees,
+      installments: [],
+    };
+
+    (studentFees.installments as FormArray).controls.forEach((curInstallment: any) => {
+      const installment = {
+        installmentNo: curInstallment.installmentNo,
+        paidStatus: curInstallment.paidStatus ? 'true' : 'false',
+        paidOn: curInstallment.paidOn,
+        amount: curInstallment.amount,
+        paymentMode: curInstallment.paymentMode,
+        amountPending: curInstallment.amountPending,
+      };
+      data.installments.push(installment);
+    });
+
+    const url = `${environment.server}/institute/addFees`;
+    return this.http.post(url, data).pipe(
+      tap((res) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateStudentFees(
+    feeObjId: string,
+    studentObjId: string,
+    studentInstituteId: string,
+    studentEduAtlasId: string,
+    studentCourseId: string,
+    studentFees: any,
+  ) {
+    const data = {
+      _id: feeObjId,
+      studentId: studentObjId,
+      eduAtlasId: studentEduAtlasId,
+      instituteId: studentInstituteId,
+      courseID: studentCourseId,
+      installmentType: studentFees.installmentType,
+      date: studentFees.date,
+      noOfInstallments: studentFees.noOfInstallments,
+      amountCollected: studentFees.amountCollected,
+      totalAmount: studentFees.totalFees,
+      pendingAmount: studentFees.pendingFees,
+      installments: [],
+    };
+
+    (studentFees.installments as FormArray).controls.forEach((curInstallment: any) => {
+      const installment = {
+        installmentNo: curInstallment.installmentNo,
+        paidStatus: curInstallment.paidStatus ? 'true' : 'false',
+        paidOn: curInstallment.paidOn,
+        amount: curInstallment.amount,
+        paymentMode: curInstallment.paymentMode,
+        amountPending: curInstallment.amountPending,
+      };
+      data.installments.push(installment);
+    });
+
+    const url = `${environment.server}/institute/updateFees`;
+    return this.http.post(url, data).pipe(
+      tap((res) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getStudentFees(
+    studentObjId: string,
+    studentInstituteId: string,
+    studentEduAtlasId: string,
+    studentCourseId: string,
+  ) {
+    const url = `${environment.server}/institute/getFees`;
+    return this.http
+      .post(url, {
+        studentId: studentObjId,
+        instituteId: studentInstituteId,
+        eduatlasID: studentEduAtlasId,
+        courseId: studentCourseId,
+      })
+      .pipe(
+        tap((data) => {}),
+        catchError(this.handleError),
+      );
+  }
+
+  deleteStudentFees(id: string) {
+    const url = `${environment.server}/institute/deleteFees`;
+    return this.http.post(url, { _id: id }).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   // =====================Employee API===================
 
-  //  ADD NEW STUDENT
+  //  ADD NEW EMPLOYEE
   addEmployee(employee: any, instituteId: string) {
     const data = {
       basicDetails: {
@@ -375,7 +487,7 @@ export class ApiService {
       );
   }
 
-  // ADD EMPLOYEE TO INSTITUTE
+  // ADD INSTITUTE TO EMPLOYEE
   addEmployeeInstitute(eduId: string, instituteId: any, employee: any) {
     const data = {
       eduAtlasId: eduId,
