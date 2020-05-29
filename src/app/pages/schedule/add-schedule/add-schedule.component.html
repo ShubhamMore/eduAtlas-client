@@ -2,88 +2,175 @@
   <button nbButton status="warning" (click)="back()" style="color: black;">Manage Schedule</button>
 </div>
 <p style="font-weight: bold;">Add Schedule</p>
-<nb-card>
+<nb-card *ngIf="display">
   <nb-card-body>
-    <form [formGroup]="schedule" (ngSubmit)="onSubmit()">
+    <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-sm-6">
-          <label>From</label>
+        <div class="col-sm-3">
+          <label for="scheduleStart">From</label>
           <input
+            type="date"
             nbInput
-            placeholder="Pick Date"
-            [nbDatepicker]="from"
+            id="scheduleStart"
+            status="basic"
             formControlName="scheduleStart"
             fullWidth
+            placeholder="Schedule From"
+            (input)="fromDatePicked($event.target.value)"
           />
-          <nb-datepicker #from></nb-datepicker>
-          <div *ngIf="f.scheduleStart.errors && submitted">
+          <!-- [nbDatepicker]="fromDatePicker"
+        <nb-datepicker #fromDatePicker></nb-datepicker> -->
+
+          <div
+            *ngIf="
+              scheduleForm.get('scheduleStart').invalid && scheduleForm.get('scheduleStart').touched
+            "
+          >
             <small>*This field is required</small>
           </div>
         </div>
 
-        <div class="col-sm-6">
-          <label>To</label>
+        <div class="col-sm-3">
+          <label for="scheduleEnd">To</label>
           <input
+            type="date"
             nbInput
-            placeholder="Pick Date"
-            [nbDatepicker]="to"
+            id="scheduleEnd"
+            status="basic"
             formControlName="scheduleEnd"
             fullWidth
+            placeholder="Schedule To"
+            (input)="toDatePicked($event.target.value)"
           />
-          <nb-datepicker #to></nb-datepicker>
-          <div *ngIf="f.scheduleEnd.errors && submitted">
+          <!-- [nbDatepicker]="toDatePicker"
+        <nb-datepicker #toDatePicker></nb-datepicker> -->
+          <div
+            *ngIf="
+              scheduleForm.get('scheduleEnd').invalid && scheduleForm.get('scheduleEnd').touched
+            "
+          >
+            <small>*This field is required</small>
+          </div>
+          <div
+            *ngIf="scheduleForm.hasError('invalidDate') && scheduleForm.get('scheduleEnd').touched"
+          >
+            <small>*Select Valid End Date</small>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="course">*Select Course</label>
+          <nb-select
+            placeholder="Select Course"
+            status="basic"
+            fullWidth
+            formControlName="course"
+            (selectedChange)="onSelectCourse($event)"
+          >
+            <nb-option value="">Select Course</nb-option>
+            <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
+              course.name
+            }}</nb-option>
+          </nb-select>
+          <div *ngIf="scheduleForm.get('course').invalid && scheduleForm.get('course').touched">
             <small>*This field is required</small>
           </div>
         </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-sm-4">
-          <label>Select Batch</label>
-          <nb-select
-            formControlName="batchCode"
-            placeholder="Select Batch"
-            status="basic"
-            fullWidth
-          >
-            <nb-option *ngFor="let batch of batches.batch" value="{{ batch.batchCode }}">{{
+
+        <div class="col-sm-3">
+          <label for="batch">Batch</label>
+          <nb-select placeholder="Select Batch" formControlName="batch" fullWidth status="basic">
+            <nb-option value="">Select Batch</nb-option>
+            <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
               batch.batchCode
             }}</nb-option>
           </nb-select>
-          <div *ngIf="f.batchCode.errors && submitted">
-            <small>*This field is required</small>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <label for="topic">Topic</label>
-          <input
-            type="text"
-            nbInput
-            placeholder="Select Topic"
-            id="topic"
-            formControlName="topic"
-            fullWidth
-          />
-        </div>
-        <div class="col-sm-4">
-          <label for="teacher">Teacher</label>
-          <input
-            type="text"
-            nbInput
-            placeholder="Select Teacher"
-            id="teacher"
-            formControlName="teacher"
-            fullWidth
-          />
-          <div *ngIf="f.teacher.errors && submitted">
+          <div *ngIf="scheduleForm.get('batch').invalid && scheduleForm.get('batch').touched">
             <small>*This field is required</small>
           </div>
         </div>
       </div>
+
+      <hr />
+
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Topic</th>
+                  <th>Teacher</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="days">
+                <ng-container
+                  *ngFor="let scheduleDay of scheduleForm.get('days')['controls']; let i = index"
+                >
+                  <tr [formGroupName]="i">
+                    <td>
+                      <input
+                        type="date"
+                        nbInput
+                        status="basic"
+                        formControlName="date"
+                        fullWidth
+                        placeholder="Date"
+                        disabled="true"
+                      />
+                      <!-- [nbDatepicker]="datePicker"
+                      <nb-datepicker #datePicker></nb-datepicker> -->
+                    </td>
+
+                    <td>
+                      <input
+                        type="time"
+                        nbInput
+                        status="basic"
+                        formControlName="time"
+                        fullWidth
+                        placeholder="Time"
+                      />
+                    </td>
+
+                    <td>
+                      <input
+                        type="text"
+                        nbInput
+                        status="basic"
+                        formControlName="topic"
+                        fullWidth
+                        placeholder="Topic"
+                      />
+                    </td>
+
+                    <td>
+                      <nb-select
+                        placeholder="Select Teacher"
+                        status="basic"
+                        formControlName="teacher"
+                      >
+                        <nb-option *ngFor="let teacher of teachers" [value]="teacher._id">{{
+                          teacher.name
+                        }}</nb-option>
+                      </nb-select>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="mt-4">
-        <nb-checkbox (checkedChange)="recurrance($event)">
+        <nb-checkbox (checkedChange)="recurrence($event)">
           Ask for recurrence at the time of definition
         </nb-checkbox>
       </div>
+
       <div class="text-right mt-4">
         <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
       </div>

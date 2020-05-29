@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { generate } from 'rxjs';
 
 @Component({
   selector: 'ngx-add-students',
@@ -35,6 +36,8 @@ export class AddStudentsComponent implements OnInit {
 
   // Course Duration in months (default 12)
   duration: number;
+  // Check if Fees are updated or not only in editing mode
+  feesUpdated: boolean;
 
   // Course set in editing Mode
   selectedCourse: any;
@@ -79,6 +82,7 @@ export class AddStudentsComponent implements OnInit {
 
   ngOnInit() {
     this.alreadyRegistered = false;
+    this.feesUpdated = false;
     this.installmentType = '0';
     this.netPayable = 0;
     this.pendingAmount = 0;
@@ -137,7 +141,7 @@ export class AddStudentsComponent implements OnInit {
       this.feeDetailsForm = this.fb.group({
         installmentType: [this.installmentType],
         date: [this.constructDate(this.date)],
-        noOfInstallments: [''],
+        noOfInstallments: ['1'],
         amountCollected: ['0'],
         totalAmount: ['0'],
         pendingAmount: ['0'],
@@ -270,6 +274,14 @@ export class AddStudentsComponent implements OnInit {
     this.studentForm.get('materialRecord').reset();
     // Enable Installment Type
     this.feeDetailsForm.get('installmentType').enable();
+
+    this.installmentType = '0';
+    this.feeDetailsForm.patchValue({ installmentType: this.installmentType });
+    if (this.edit) {
+      this.date = new Date().getTime();
+      this.feeDetailsForm.get('date').enable();
+      this.feeDetailsForm.patchValue({ date: this.constructDate(this.date) });
+    }
     // Calculate Net Payable Amount
     this.calculateNetPayableAmount();
   }
@@ -326,6 +338,9 @@ export class AddStudentsComponent implements OnInit {
   onPaidAmount(paid: any, i: number) {
     // Initially confirm is true
     let confirm = true;
+    if (this.edit) {
+      this.feesUpdated = true;
+    }
     if (paid) {
       confirm = null;
       // Confirm if User really wants to make this installment as paid ot not
@@ -342,12 +357,12 @@ export class AddStudentsComponent implements OnInit {
         // Set paid Status to true
         installment.controls[i].patchValue({ paidStatus: true });
         // Calculate and set Amount collected
-        this.amountCollected = this.amountCollected + amount;
+        this.amountCollected = +this.amountCollected + amount;
       } else {
         // Set paid Status to false i.e. Unchecked
         installment.controls[i].patchValue({ paidStatus: false });
         // Calculate and set Amount collected
-        this.amountCollected = this.amountCollected - amount;
+        this.amountCollected = +this.amountCollected - amount;
       }
       // Set amount collected in DOM
       this.feeDetailsForm.patchValue({ amountCollected: this.amountCollected });
@@ -437,7 +452,7 @@ export class AddStudentsComponent implements OnInit {
     // Construct and return Installment Form Group and set default control values to given values if provided
     return this.fb.group({
       installmentNo: [installmentData.installmentNo ? installmentData.installmentNo : ''],
-      paidStatus: [installmentData.paidStatus === '1' ? true : false],
+      paidStatus: [installmentData.paidStatus === 'true' ? true : false],
       paidOn: [installmentData.paidOn ? installmentData.paidOn : ''],
       amount: [installmentData.amount ? installmentData.amount : ''],
       paymentMode: [installmentData.paymentMode ? installmentData.paymentMode : ''],
@@ -467,6 +482,7 @@ export class AddStudentsComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.student = data[0];
+        console.log(data);
         // Assign student fees (Later change)
         this.studentFees = this.student.fees;
 
@@ -525,7 +541,6 @@ export class AddStudentsComponent implements OnInit {
         }, 200);
 
         // Set Fee Details Form
-        /************************ WRITE CODE HERE *****************************/
 
         this.feeDetailsForm.patchValue({
           installmentType: this.studentFees.installmentType,
@@ -547,10 +562,10 @@ export class AddStudentsComponent implements OnInit {
         const installment = this.feeDetailsForm.get('installments') as FormArray;
         installment.controls = [];
 
-        this.studentFees.installments.foeEach((curInstallment: any, i: number) => {
+        this.studentFees.installments.forEach((curInstallment: any, i: number) => {
           const installmentData = {
             installmentNo: curInstallment.installmentNo,
-            paidStatus: curInstallment.paidStatus === 'true' ? true : false,
+            paidStatus: curInstallment.paidStatus,
             paidOn: curInstallment.paidOn,
             amount: curInstallment.amount,
             paymentMode: curInstallment.paymentMode,
@@ -558,12 +573,54 @@ export class AddStudentsComponent implements OnInit {
           };
           this.addInstallment(installmentData);
 
-          if (curInstallment.paidStatus === 'true') {
-            installment.controls[i].get('paidStatus').disable();
-            installment.controls[i].get('paymentMode').disable();
-          }
+          // if (curInstallment.paidStatus === 'true') {
+          //   installment.controls[i].get('paidStatus').disable();
+          //   installment.controls[i].get('paymentMode').disable();
+          // }
         });
       });
+  }
+
+  addFees(studentId: string, studentEduatlasId: string) {
+    this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
+    this.api
+      .addStudentFees(
+        studentId,
+        this.instituteId,
+        studentEduatlasId,
+        this.studentForm.get('courseDetails').value.course,
+        this.feeDetailsForm.value,
+      )
+      .subscribe(
+        (res: any) => {
+          console.log(res);
+          this.showToaster('top-right', 'success', 'New Student Course Added Successfully!');
+          this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+        },
+        (err: any) => {
+          console.log(err);
+        },
+      );
+  }
+
+  onSelectPaymentMode() {
+    if (this.edit) {
+      this.feesUpdated = true;
+    }
+  }
+
+  updateFees(studentId: string, feeId: string) {
+    this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
+    this.api.updateStudentFees(this.studentFees._id, this.feeDetailsForm.value).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.showToaster('top-right', 'success', 'Student Fees Successfully!');
+        this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+      },
+      (err: any) => {
+        console.log(err);
+      },
+    );
   }
 
   // Submit form From DOM
@@ -585,12 +642,11 @@ export class AddStudentsComponent implements OnInit {
         this.api
           .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)
           .subscribe(
-            (res) => {
+            (res: any) => {
+              console.log(res);
               // Call Student Add Fees Api
               /************************ WRITE CODE HERE *****************************/
-
-              this.showToaster('top-right', 'success', 'New Student Course Added Successfully!');
-              this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+              this.addFees(this.student._id, this.studentEduId);
             },
             (err) => this.showToaster('top-right', 'danger', err.error.message),
           );
@@ -608,28 +664,35 @@ export class AddStudentsComponent implements OnInit {
           )
           .subscribe(
             (res) => {
-              this.showToaster('top-right', 'success', 'Student Course Updated Successfully!');
-              this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+              if (this.feesUpdated) {
+                this.updateFees(this.student._id, this.studentFees._id);
+              } else {
+                this.showToaster('top-right', 'success', 'Student Course Updated Successfully!');
+                this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+              }
             },
             (err) => this.showToaster('top-right', 'danger', err.error.message),
           );
+      } else if (this.feesUpdated) {
+        this.updateFees(this.student._id, this.studentFees._id);
       } else {
         // Student Personal Details Changed
-        this.api
-          .updateStudentPersonalDetails(
-            this.student._id,
-            this.studentForm.value,
-            this.studentEduId,
-            this.student.basicDetails.studentContact,
-            this.student.basicDetails.studentEmail,
-          )
-          .subscribe(
-            (res: any) => {
-              this.showToaster('top-right', 'success', 'Student Personal details Updated!');
-              this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
-            },
-            (err) => this.showToaster('top-right', 'danger', err.error.message),
-          );
+        //   this.api
+        //     .updateStudentPersonalDetails(
+        //       this.student._id,
+        //       this.studentForm.value,
+        //       this.studentEduId,
+        //       this.student.basicDetails.studentContact,
+        //       this.student.basicDetails.studentEmail,
+        //     )
+        //     .subscribe(
+        //       (res: any) => {
+        //         this.showToaster('top-right', 'success', 'Student Personal details Updated!');
+        //         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+        //       },
+        //       (err) => this.showToaster('top-right', 'danger', err.error.message),
+        //     );
+        this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       }
     }
 
@@ -638,11 +701,9 @@ export class AddStudentsComponent implements OnInit {
       if (!this.alreadyRegistered) {
         // If student is not already registered then Add new Student in DB
         this.api.addStudent(this.studentForm.value, this.instituteId).subscribe(
-          (data) => {
-            this.showToaster('top-right', 'success', 'New Student Added Successfully!');
-            setTimeout(() => {
-              this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
-            }, 1000);
+          (res: any) => {
+            console.log(res);
+            this.addFees(res._id, res.eduAtlasId);
           },
           (err) => {
             if (err.error.message.includes('E11000 duplicate key error collection')) {
@@ -664,12 +725,12 @@ export class AddStudentsComponent implements OnInit {
           this.api
             .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)
             .subscribe(
-              (res) => {
+              (res: any) => {
+                console.log(res);
+
                 // Call Student Add Fees Api
                 /************************ WRITE CODE HERE *****************************/
-
-                this.showToaster('top-right', 'success', 'Student Course Added Successfully!');
-                this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
+                this.addFees(this.student._id, this.studentEduId);
               },
               (err) => this.showToaster('top-right', 'danger', err.error.message),
             );

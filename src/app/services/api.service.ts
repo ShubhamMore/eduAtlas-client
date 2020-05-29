@@ -135,15 +135,6 @@ export class ApiService {
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecod,
       },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
 
     return this.http.post(environment.server + '/institute/student/add', data).pipe(
@@ -207,15 +198,6 @@ export class ApiService {
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
       },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
 
     return this.http.post(environment.server + '/institute/student/addCourseStudent', data).pipe(
@@ -246,15 +228,6 @@ export class ApiService {
         nextPayble: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
-      },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
       },
     };
 
@@ -323,17 +296,17 @@ export class ApiService {
       studentId: studentObjId,
       eduAtlasId: studentEduAtlasId,
       instituteId: studentInstituteId,
-      courseID: studentCourseId,
+      courseId: studentCourseId,
       installmentType: studentFees.installmentType,
       date: studentFees.date,
       noOfInstallments: studentFees.noOfInstallments,
       amountCollected: studentFees.amountCollected,
-      totalAmount: studentFees.totalFees,
-      pendingAmount: studentFees.pendingFees,
+      totalAmount: studentFees.totalAmount,
+      pendingAmount: studentFees.pendingAmount,
       installments: [],
     };
 
-    (studentFees.installments as FormArray).controls.forEach((curInstallment: any) => {
+    studentFees.installments.forEach((curInstallment: any) => {
       const installment = {
         installmentNo: curInstallment.installmentNo,
         paidStatus: curInstallment.paidStatus ? 'true' : 'false',
@@ -345,27 +318,18 @@ export class ApiService {
       data.installments.push(installment);
     });
 
-    const url = `${environment.server}/institute/addFees`;
+    console.log(data);
+
+    const url = `${environment.server}/institute/fee/addFee`;
     return this.http.post(url, data).pipe(
       tap((res) => {}),
       catchError(this.handleError),
     );
   }
 
-  updateStudentFees(
-    feeObjId: string,
-    studentObjId: string,
-    studentInstituteId: string,
-    studentEduAtlasId: string,
-    studentCourseId: string,
-    studentFees: any,
-  ) {
+  updateStudentFees(feeObjId: string, studentFees: any) {
     const data = {
       _id: feeObjId,
-      studentId: studentObjId,
-      eduAtlasId: studentEduAtlasId,
-      instituteId: studentInstituteId,
-      courseID: studentCourseId,
       installmentType: studentFees.installmentType,
       date: studentFees.date,
       noOfInstallments: studentFees.noOfInstallments,
@@ -375,7 +339,7 @@ export class ApiService {
       installments: [],
     };
 
-    (studentFees.installments as FormArray).controls.forEach((curInstallment: any) => {
+    studentFees.installments.forEach((curInstallment: any) => {
       const installment = {
         installmentNo: curInstallment.installmentNo,
         paidStatus: curInstallment.paidStatus ? 'true' : 'false',
@@ -387,7 +351,7 @@ export class ApiService {
       data.installments.push(installment);
     });
 
-    const url = `${environment.server}/institute/updateFees`;
+    const url = `${environment.server}/institute/fee/updateFeeOfStudent`;
     return this.http.post(url, data).pipe(
       tap((res) => {}),
       catchError(this.handleError),
