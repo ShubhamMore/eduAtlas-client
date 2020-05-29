@@ -1,3 +1,4 @@
+import { FormArray } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
@@ -134,15 +135,6 @@ export class ApiService {
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecod,
       },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
 
     return this.http.post(environment.server + '/institute/student/add', data).pipe(
@@ -206,15 +198,6 @@ export class ApiService {
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
       },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
-      },
     };
 
     return this.http.post(environment.server + '/institute/student/addCourseStudent', data).pipe(
@@ -245,15 +228,6 @@ export class ApiService {
         nextPayble: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
-      },
-
-      fee: {
-        instituteId: instituteId,
-        courseId: student.courseDetails.course,
-        installmentNumber: student.feeDetails.installments,
-        nextInstallment: student.feeDetails.nextInstallment,
-        amountCollected: student.feeDetails.amountCollected,
-        mode: student.feeDetails.mode,
       },
     };
 
@@ -310,9 +284,111 @@ export class ApiService {
       );
   }
 
+  // =====================Fees API===================
+  addStudentFees(
+    studentObjId: string,
+    studentInstituteId: string,
+    studentEduAtlasId: string,
+    studentCourseId: string,
+    studentFees: any,
+  ) {
+    const data = {
+      studentId: studentObjId,
+      eduAtlasId: studentEduAtlasId,
+      instituteId: studentInstituteId,
+      courseId: studentCourseId,
+      installmentType: studentFees.installmentType,
+      date: studentFees.date,
+      noOfInstallments: studentFees.noOfInstallments,
+      amountCollected: studentFees.amountCollected,
+      totalAmount: studentFees.totalAmount,
+      pendingAmount: studentFees.pendingAmount,
+      installments: [],
+    };
+
+    studentFees.installments.forEach((curInstallment: any) => {
+      const installment = {
+        installmentNo: curInstallment.installmentNo,
+        paidStatus: curInstallment.paidStatus ? 'true' : 'false',
+        paidOn: curInstallment.paidOn,
+        amount: curInstallment.amount,
+        paymentMode: curInstallment.paymentMode,
+        amountPending: curInstallment.amountPending,
+      };
+      data.installments.push(installment);
+    });
+
+    console.log(data);
+
+    const url = `${environment.server}/institute/fee/addFee`;
+    return this.http.post(url, data).pipe(
+      tap((res) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateStudentFees(feeObjId: string, studentFees: any) {
+    const data = {
+      _id: feeObjId,
+      installmentType: studentFees.installmentType,
+      date: studentFees.date,
+      noOfInstallments: studentFees.noOfInstallments,
+      amountCollected: studentFees.amountCollected,
+      totalAmount: studentFees.totalFees,
+      pendingAmount: studentFees.pendingFees,
+      installments: [],
+    };
+
+    studentFees.installments.forEach((curInstallment: any) => {
+      const installment = {
+        installmentNo: curInstallment.installmentNo,
+        paidStatus: curInstallment.paidStatus ? 'true' : 'false',
+        paidOn: curInstallment.paidOn,
+        amount: curInstallment.amount,
+        paymentMode: curInstallment.paymentMode,
+        amountPending: curInstallment.amountPending,
+      };
+      data.installments.push(installment);
+    });
+
+    const url = `${environment.server}/institute/fee/updateFeeOfStudent`;
+    return this.http.post(url, data).pipe(
+      tap((res) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getStudentFees(
+    studentObjId: string,
+    studentInstituteId: string,
+    studentEduAtlasId: string,
+    studentCourseId: string,
+  ) {
+    const url = `${environment.server}/institute/getFees`;
+    return this.http
+      .post(url, {
+        studentId: studentObjId,
+        instituteId: studentInstituteId,
+        eduatlasID: studentEduAtlasId,
+        courseId: studentCourseId,
+      })
+      .pipe(
+        tap((data) => {}),
+        catchError(this.handleError),
+      );
+  }
+
+  deleteStudentFees(id: string) {
+    const url = `${environment.server}/institute/deleteFees`;
+    return this.http.post(url, { _id: id }).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   // =====================Employee API===================
 
-  //  ADD NEW STUDENT
+  //  ADD NEW EMPLOYEE
   addEmployee(employee: any, instituteId: string) {
     const data = {
       basicDetails: {
@@ -375,7 +451,7 @@ export class ApiService {
       );
   }
 
-  // ADD EMPLOYEE TO INSTITUTE
+  // ADD INSTITUTE TO EMPLOYEE
   addEmployeeInstitute(eduId: string, instituteId: any, employee: any) {
     const data = {
       eduAtlasId: eduId,
