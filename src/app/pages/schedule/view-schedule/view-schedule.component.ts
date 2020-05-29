@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { Location } from '@angular/common';
@@ -11,43 +11,30 @@ import { Location } from '@angular/common';
 })
 export class ViewScheduleComponent implements OnInit {
   instituteId: string;
-  batchCode: string;
-  batch = [
-    {
-      batchCode: '',
-      instututeId: '',
-      letter: '',
-      recurrence: false,
-      scheduleEnd: '',
-      scheduleStart: '',
-      teacher: '',
-      topic: '',
-      _id: '',
-      institute: [{ batch: [{ batchCode: '', course: '', description: '', _id: '' }] }],
-    },
-  ];
+  schedule: any;
+  display: boolean;
 
   constructor(
     private active: ActivatedRoute,
-    private router: Router,
-    private schduleService: ScheduleService,
+    private scheduleService: ScheduleService,
     private location: Location,
   ) {}
 
   ngOnInit() {
-    this.active.queryParams.subscribe((data) => (this.batchCode = data.batchCode));
+    this.display = false;
     this.instituteId = this.active.snapshot.paramMap.get('id');
-    this.getSchedule(this.instituteId, this.batchCode);
+    this.active.queryParams.subscribe((param: Params) => {
+      const schedule = param.schedule;
+      this.getSchedule(schedule);
+    });
   }
 
-  getSchedule(id: string, code: any) {
-    let param = new HttpParams();
-    param = param.append('many', '0');
-    param = param.append('instituteId', id);
-    param = param.append('batchCode', code);
-    this.schduleService.getSchedule(param).subscribe(
-      (res) => {
-        this.batch = JSON.parse(JSON.stringify(res));
+  getSchedule(id: string) {
+    console.log(id);
+    this.scheduleService.getSchedule(id).subscribe(
+      (res: any) => {
+        this.schedule = res;
+        this.display = true;
       },
       (error) => console.error(error),
     );

@@ -64,7 +64,7 @@
             placeholder="Select Course"
             status="basic"
             fullWidth
-            formControlName="course"
+            formControlName="courseId"
             (selectedChange)="onSelectCourse($event)"
           >
             <nb-option value="">Select Course</nb-option>
@@ -72,20 +72,20 @@
               course.name
             }}</nb-option>
           </nb-select>
-          <div *ngIf="scheduleForm.get('course').invalid && scheduleForm.get('course').touched">
+          <div *ngIf="scheduleForm.get('courseId').invalid && scheduleForm.get('courseId').touched">
             <small>*This field is required</small>
           </div>
         </div>
 
         <div class="col-sm-3">
           <label for="batch">Batch</label>
-          <nb-select placeholder="Select Batch" formControlName="batch" fullWidth status="basic">
+          <nb-select placeholder="Select Batch" formControlName="batchId" fullWidth status="basic">
             <nb-option value="">Select Batch</nb-option>
             <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
               batch.batchCode
             }}</nb-option>
           </nb-select>
-          <div *ngIf="scheduleForm.get('batch').invalid && scheduleForm.get('batch').touched">
+          <div *ngIf="scheduleForm.get('batchId').invalid && scheduleForm.get('batchId').touched">
             <small>*This field is required</small>
           </div>
         </div>
@@ -99,6 +99,7 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
+                  <th>Day</th>
                   <th>Date</th>
                   <th>Time</th>
                   <th>Topic</th>
@@ -110,6 +111,17 @@
                   *ngFor="let scheduleDay of scheduleForm.get('days')['controls']; let i = index"
                 >
                   <tr [formGroupName]="i">
+                    <td>
+                      <input
+                        type="text"
+                        nbInput
+                        formControlName="day"
+                        status="basic"
+                        fullWidth
+                        placeholder="Day"
+                        disabled="true"
+                      />
+                    </td>
                     <td>
                       <input
                         type="date"
@@ -151,9 +163,11 @@
                         placeholder="Select Teacher"
                         status="basic"
                         formControlName="teacher"
+                        fullWidth
                       >
+                        <nb-option value="">Select Teacher</nb-option>
                         <nb-option *ngFor="let teacher of teachers" [value]="teacher._id">{{
-                          teacher.name
+                          teacher.basicDetails.name
                         }}</nb-option>
                       </nb-select>
                     </td>
@@ -166,7 +180,7 @@
       </div>
 
       <div class="mt-4">
-        <nb-checkbox (checkedChange)="recurrence($event)">
+        <nb-checkbox formControlName="recurrence" (checkedChange)="recurrence($event)">
           Ask for recurrence at the time of definition
         </nb-checkbox>
       </div>

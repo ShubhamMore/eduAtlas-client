@@ -1,28 +1,28 @@
 <button nbButton (click)="back()" status="warning" style="color: black;">Manage Schedule</button>
-<nb-card>
+<nb-card *ngIf="display">
   <nb-card-body>
-    <div class="row" *ngIf="batch.length || batch[0].institute[0].batch.length">
+    <div class="row">
       <div class="col-sm-6">
         <h6>Course</h6>
       </div>
       <div class="col-sm-6">
-        <p>{{ batch[0].institute[0].batch[0].course }}</p>
+        <p>{{ schedule.courseId }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h6>Batch Code</h6>
+        <h6>Batch</h6>
       </div>
       <div class="col-sm-6">
-        <p>{{ batch[0].batchCode }}</p>
+        <p>{{ schedule.batchId }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h6>Schdule Start</h6>
+        <h6>Schedule Start</h6>
       </div>
       <div class="col-sm-6">
-        <p>{{ batch[0].scheduleStart }}</p>
+        <p>{{ schedule.scheduleStart }}</p>
       </div>
     </div>
     <div class="row">
@@ -30,31 +30,56 @@
         <h6>Schedule End</h6>
       </div>
       <div class="col-sm-6">
-        <p>{{ batch[0].scheduleEnd }}</p>
+        <p>{{ schedule.scheduleEnd }}</p>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <h6>Teacher</h6>
+        <h6>Recurrence at the time of definition</h6>
       </div>
       <div class="col-sm-6">
-        <p>{{ batch[0].teacher }}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <h6>Topic</h6>
-      </div>
-      <div class="col-sm-6">
-        <p>{{ batch[0].topic }}</p>
+        {{ schedule.recurrence === 'true' ? 'Yes' : 'No' }}
       </div>
     </div>
+
     <div class="row">
-      <div class="col-sm-6">
-        <h6>Recurrance at the time of definition</h6>
-      </div>
-      <div class="col-sm-6">
-        {{ batch[0].recurrence ? 'Yes' : 'No' }}
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Topic</th>
+                <th>Teacher</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let day of schedule.days; let i = index">
+                <td>
+                  {{ i + 1 }}
+                </td>
+                <td>
+                  {{ day.day }}
+                </td>
+                <td>
+                  {{ day.date }}
+                </td>
+                <td>
+                  {{ day.time ? day.time : '--' }}
+                </td>
+                <td>
+                  {{ day.topic ? day.topic : '--' }}
+                </td>
+                <td>
+                  {{ day.teacher ? day.teacher : '--' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </nb-card-body>

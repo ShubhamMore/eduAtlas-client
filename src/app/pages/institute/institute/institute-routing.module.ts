@@ -28,15 +28,17 @@ const routes: Routes = [
       { path: 'manage-institute', component: ManageInstituteComponent },
       { path: 'manage-students/:id', component: ManageStudentsComponent },
       { path: 'manage-institute', component: ManageInstituteComponent },
-      { path: 'add-schedule/:id', component: AddScheduleComponent },
       { path: 'attandance/:id', component: AttandanceComponent, canActivate: [] },
       { path: 'view-institute/:id', component: ViewInstituteComponent },
 
       { path: 'view-student/:id', component: ViewStudentComponent },
-      { path: 'manage-schedule/:id', component: ManageScheduleComponent },
       { path: 'pending-students/:id', component: PendingStudentComponent },
 
+      { path: 'add-schedule/:id', component: AddScheduleComponent },
+      { path: 'manage-schedule/:id', component: ManageScheduleComponent },
       { path: 'view-schedule/:id', component: ViewScheduleComponent },
+      { path: 'edit-schedule/:id', component: AddScheduleComponent },
+
       {
         path: 'branch-config',
         loadChildren: () =>

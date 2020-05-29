@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
-import { GeneratedFile } from '@angular/compiler';
 
 @Component({
   selector: 'ngx-add-schedule',
@@ -15,7 +14,11 @@ import { GeneratedFile } from '@angular/compiler';
 export class AddScheduleComponent implements OnInit {
   display: boolean;
 
+  edit: string;
+  scheduleId: string;
+
   scheduleForm: FormGroup;
+  schedule: any;
 
   instituteId: string;
   institute: any;
@@ -23,11 +26,14 @@ export class AddScheduleComponent implements OnInit {
   batches: any[] = [];
   teachers: any[] = [];
 
+  days: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
   date: number;
   noOfDays: number;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
+    private router: Router,
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
@@ -38,21 +44,28 @@ export class AddScheduleComponent implements OnInit {
     this.display = false;
     this.date = Date.now();
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    this.getCourses(this.instituteId);
+
+    this.route.queryParams.subscribe((param: Params) => {
+      this.edit = param.edit;
+      this.scheduleId = param.schedule;
+    });
+
     this.scheduleForm = this.fb.group(
       {
         instituteId: [this.instituteId],
+        courseId: ['', Validators.required],
+        batchId: ['', Validators.required],
         scheduleStart: [this.constructDate(this.date), Validators.required],
         scheduleEnd: ['', Validators.required],
-        course: ['', Validators.required],
-        batch: ['', Validators.required],
         days: this.fb.array([]),
-        recurrence: [],
+        recurrence: [false],
       },
       {
         validators: this.dateValidator.bind(this),
       },
     );
+
+    this.getCourses(this.instituteId);
 
     this.fromDatePicked(this.date);
   }
@@ -67,8 +80,57 @@ export class AddScheduleComponent implements OnInit {
     return null;
   }
 
+  getEmployees(instituteId: string) {
+    this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
+      this.teachers = data;
+      if (this.edit) {
+        this.getSchedule(this.scheduleId);
+      } else {
+        this.display = true;
+      }
+    });
+  }
+
+  getSchedule(id: string) {
+    this.scheduleService.getSchedule(id).subscribe(
+      (res: any) => {
+        this.schedule = res;
+        this.scheduleForm.patchValue({
+          courseId: this.schedule.courseId,
+          scheduleStart: this.schedule.scheduleStart,
+          scheduleEnd: this.schedule.scheduleEnd,
+          recurrence: this.schedule.recurrence === 'true' ? true : false,
+        });
+        this.onSelectCourse(this.schedule.courseId);
+        this.scheduleForm.patchValue({ batchId: this.schedule.batchId });
+
+        this.scheduleForm.get('scheduleStart').disable();
+        this.scheduleForm.get('scheduleEnd').disable();
+
+        const scheduleDays = this.scheduleForm.get('days') as FormArray;
+        scheduleDays.controls = [];
+        this.schedule.days.forEach((day: any) => {
+          const scheduleData = {
+            day: day.day,
+            date: day.date,
+            time: day.time,
+            teacher: day.teacher,
+            topic: day.topic,
+          };
+          this.addScheduleDay(scheduleData);
+        });
+        this.display = true;
+      },
+      (error: any) => {
+        this.showToast('top-right', 'danger', error.error.message);
+        console.error(error);
+      },
+    );
+  }
+
   scheduleDay(dayData: any) {
     return this.fb.group({
+      day: [dayData.day ? dayData.day : ''],
       date: [dayData.date ? dayData.date : ''],
       time: [dayData.time ? dayData.time : ''],
       teacher: [dayData.teacher ? dayData.teacher : ''],
@@ -87,8 +149,10 @@ export class AddScheduleComponent implements OnInit {
     // const currentDay = this.getDate(this.date).getDay();
     for (let i = 0; i < this.noOfDays; i++) {
       const date = this.constructDate(this.date + i * 24 * 60 * 60 * 1000);
+      const day = new Date(date).getDay();
 
       const scheduleData = {
+        day: this.days[day],
         date: date,
         time: '',
         teacher: '',
@@ -105,10 +169,8 @@ export class AddScheduleComponent implements OnInit {
   fromDatePicked(date: any) {
     this.date = new Date(date).getTime();
     const noOfDays = 7 - this.getDate(this.date).getDay();
-    const nextSunday = this.constructDate(this.date + this.noOfDays * (24 * 60 * 60 * 1000));
-    setTimeout(() => {
-      this.scheduleForm.patchValue({ scheduleEnd: nextSunday });
-    }, 200);
+    const nextSunday = this.constructDate(this.date + noOfDays * (24 * 60 * 60 * 1000));
+    this.scheduleForm.patchValue({ scheduleEnd: nextSunday });
     this.noOfDays = noOfDays + 1;
     this.generateSchedule();
   }
@@ -138,7 +200,7 @@ export class AddScheduleComponent implements OnInit {
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
-      this.display = true;
+      this.getEmployees(this.instituteId);
     });
   }
 
@@ -156,13 +218,36 @@ export class AddScheduleComponent implements OnInit {
     if (this.scheduleForm.invalid) {
       return;
     }
-    const instituteId = this.route.snapshot.paramMap.get('id');
-    this.scheduleService.addSchedule(this.scheduleForm.value).subscribe(
-      (res) => {
-        this.showToast('top-right', 'success', 'Schedule Added Successfully');
-      },
-      (error) => console.error(error),
-    );
+    if (!this.edit) {
+      this.scheduleService.addSchedule(this.scheduleForm.value).subscribe(
+        (res: any) => {
+          this.showToast('top-right', 'success', 'Schedule Added Successfully');
+          setTimeout(() => {
+            this.back();
+          }, 1000);
+        },
+        (error: any) => {
+          this.showToast('top-right', 'danger', error.error.message);
+          console.error(error);
+        },
+      );
+    } else {
+      this.scheduleForm.value.scheduleStart = this.schedule.scheduleStart;
+      this.scheduleForm.value.scheduleEnd = this.schedule.scheduleEnd;
+
+      this.scheduleService.updateSchedule(this.scheduleForm.value, this.schedule._id).subscribe(
+        (res: any) => {
+          this.showToast('top-right', 'success', 'Schedule Updated Successfully');
+          setTimeout(() => {
+            this.back();
+          }, 1000);
+        },
+        (error: any) => {
+          this.showToast('top-right', 'danger', error.error.message);
+          console.error(error);
+        },
+      );
+    }
   }
 
   showToast(position: any, status: any, message: any) {

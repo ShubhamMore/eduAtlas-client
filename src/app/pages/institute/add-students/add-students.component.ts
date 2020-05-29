@@ -482,7 +482,6 @@ export class AddStudentsComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.student = data[0];
-        console.log(data);
         // Assign student fees (Later change)
         this.studentFees = this.student.fees;
 
@@ -593,12 +592,11 @@ export class AddStudentsComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
-          console.log(res);
           this.showToaster('top-right', 'success', 'New Student Course Added Successfully!');
           this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
         },
         (err: any) => {
-          console.log(err);
+          this.showToaster('top-right', 'danger', err.error.message);
         },
       );
   }
@@ -613,12 +611,11 @@ export class AddStudentsComponent implements OnInit {
     this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
     this.api.updateStudentFees(this.studentFees._id, this.feeDetailsForm.value).subscribe(
       (res: any) => {
-        console.log(res);
         this.showToaster('top-right', 'success', 'Student Fees Successfully!');
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       },
       (err: any) => {
-        console.log(err);
+        this.showToaster('top-right', 'danger', err.error.message);
       },
     );
   }
@@ -643,9 +640,7 @@ export class AddStudentsComponent implements OnInit {
           .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)
           .subscribe(
             (res: any) => {
-              console.log(res);
               // Call Student Add Fees Api
-              /************************ WRITE CODE HERE *****************************/
               this.addFees(this.student._id, this.studentEduId);
             },
             (err) => this.showToaster('top-right', 'danger', err.error.message),
@@ -702,7 +697,6 @@ export class AddStudentsComponent implements OnInit {
         // If student is not already registered then Add new Student in DB
         this.api.addStudent(this.studentForm.value, this.instituteId).subscribe(
           (res: any) => {
-            console.log(res);
             this.addFees(res._id, res.eduAtlasId);
           },
           (err) => {
@@ -726,10 +720,7 @@ export class AddStudentsComponent implements OnInit {
             .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)
             .subscribe(
               (res: any) => {
-                console.log(res);
-
                 // Call Student Add Fees Api
-                /************************ WRITE CODE HERE *****************************/
                 this.addFees(this.student._id, this.studentEduId);
               },
               (err) => this.showToaster('top-right', 'danger', err.error.message),
