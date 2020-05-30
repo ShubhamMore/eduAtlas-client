@@ -185,6 +185,8 @@ export class ApiService {
 
   //  ADD STUDENT COURSE
   addStudentCourse(student: any, instituteId: string, eduAtlasId: string) {
+    console.log(student.courseDetails.rollNo);
+
     const data = {
       eduAtlasId: eduAtlasId,
 
@@ -216,6 +218,7 @@ export class ApiService {
     instituteId: string,
     eduAtlasId: string,
   ) {
+    console.log(student.courseDetails.rollNo);
     const data = {
       studentId: stdId,
       eduAtlasId: eduAtlasId,
@@ -713,18 +716,22 @@ export class ApiService {
     return throwError(error);
   }
 
-   // =====================Attendance API===================
+  // =====================Attendance API===================
 
   //  ADD NEW EMPLOYEE
   getStudentsAttendance(attendanceRequest: any) {
-    const url = `${environment.server}/institute/attendance/getAttendanceByDate`
-    return this.http.post(url,attendanceRequest)
-    .pipe(tap((data)=>{}), catchError(this.handleError));
+    const url = `${environment.server}/institute/attendance/getAttendanceByDate`;
+    return this.http.post(url, attendanceRequest).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
   }
 
-  addAttendance(attendanceRequest:any){
-    const url = `${environment.server}/institute/attendance/addAttendance`
-    return this.http.post(url,attendanceRequest)
-    .pipe(tap((data)=>{}), catchError(this.handleError));
+  addAttendance(attendanceRequest: any) {
+    const url = `${environment.server}/institute/attendance/addAttendance`;
+    return this.http.post(url, attendanceRequest).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
   }
 }

@@ -1,20 +1,30 @@
 <p style="font-weight: bold;">Add Attandance</p>
 <nb-card>
   <nb-card-body>
-    <form [formGroup]="attandanceform"  (ngSubmit)="onSubmit()">
+    <form [formGroup]="attandanceform" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-6">
-          <nb-select placeholder="Select Course" formControlName="courseId" 
-          (selectedChange)="onSelectCourse($event)" state="basic" fullWidth>
-            <nb-option *ngFor="let course of courses" value="{{course.id}}">{{
+          <nb-select
+            placeholder="Select Course"
+            formControlName="courseId"
+            (selectedChange)="onSelectCourse($event)"
+            state="basic"
+            fullWidth
+          >
+            <nb-option *ngFor="let course of courses" value="{{ course.id }}">{{
               course.name
             }}</nb-option>
           </nb-select>
         </div>
         <div class="col-sm-6">
-          <nb-select formControlName="batchId" placeholder="Select Batch"
-          (selectedChange)="onSelectBatch()" state="basic" fullWidth>
-            <nb-option *ngFor="let batch of availableBatches" value="{{batch._id}}">{{
+          <nb-select
+            formControlName="batchId"
+            placeholder="Select Batch"
+            (selectedChange)="onSelectBatch()"
+            state="basic"
+            fullWidth
+          >
+            <nb-option *ngFor="let batch of availableBatches" value="{{ batch._id }}">{{
               batch.batchCode
             }}</nb-option>
           </nb-select>
@@ -31,29 +41,37 @@
             placeholder="Pick Date"
             (input)="getStudents()"
           />
-         </div>
-
-         <div class="col-sm-6 text-right" *ngIf="students.length > 0">
-           <button nbButton type="submit" status="warning" [disabled]="!attandanceform.valid" style="color: black;">Submit</button>
-          </div>
         </div>
+
+        <div class="col-sm-6 text-right" *ngIf="students.length > 0">
+          <button
+            nbButton
+            type="submit"
+            status="warning"
+            [disabled]="!attandanceform.valid"
+            style="color: black;"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
     </form>
-    <hr>
+    <hr />
     <div class="row attendanceList" *ngIf="students.length > 0; else empty_students">
       <div class="table-responsive">
         <table>
           <thead>
             <tr>
-              <th class=" text-center">Roll No</th>
-              <th class=" text-center">Student</th>
-              <th class=" text-center">Mark Attendance</th>
+              <th class="text-center">Roll No</th>
+              <th class="text-center">Student</th>
+              <th class="text-center">Mark Attendance</th>
             </tr>
           </thead>
           <tbody>
-            <tr  *ngFor="let student of students; let i = index">
-              <td>{{student.basicDetails.rollNumber}}</td>
+            <tr *ngFor="let student of students; let i = index">
+              <td>{{ student.basicDetails.rollNumber }}</td>
               <td>
-                {{student.basicDetails.name}}
+                {{ student.basicDetails.name }}
               </td>
               <td>
                 <div class="attendance-selector text-center">

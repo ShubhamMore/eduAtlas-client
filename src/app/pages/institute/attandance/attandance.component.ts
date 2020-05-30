@@ -76,11 +76,10 @@ export class AttandanceComponent implements OnInit {
           }
         });
 
-        if(data.attendance){
-         
-        }else{
-          this.students.map(function(student) { 
-            student.attendance = true; 
+        if (data.attendance) {
+        } else {
+          this.students.map(function (student) {
+            student.attendance = true;
             return student;
           });
         }
@@ -88,7 +87,7 @@ export class AttandanceComponent implements OnInit {
         this.students.forEach((student) => {
           const attendance = {
             studentId: student._id,
-            attendanceStatus: student.attendance?'1':'0',
+            attendanceStatus: student.attendance ? '1' : '0',
           };
           this.attendance.push(attendance);
         });
@@ -137,7 +136,7 @@ export class AttandanceComponent implements OnInit {
       attendance: this.attendance,
     };
     this.api.addAttendance(attendanceRequest).subscribe(
-      (res) =>{
+      (res) => {
         this.attandanceform.reset();
         this.attandanceform.get('date').setValue(this.constructDate(this.date));
         this.students = [];

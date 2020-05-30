@@ -633,10 +633,7 @@ export class AddStudentsComponent implements OnInit {
 
     // In editing Mode
     if (this.edit === 'true') {
-      if (
-        this.student.instituteDetails.courseId !== this.studentForm.value.courseDetails.course ||
-        this.student.instituteDetails.rollNumber !== this.studentForm.value.courseDetails.rollNo
-      ) {
+      if (this.student.instituteDetails.courseId !== this.studentForm.value.courseDetails.course) {
         // If Course Changed add course to student course
         this.api
           .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)
@@ -648,7 +645,8 @@ export class AddStudentsComponent implements OnInit {
             (err) => this.showToaster('top-right', 'danger', err.error.message),
           );
       } else if (
-        this.student.instituteDetails.batchId !== this.studentForm.value.courseDetails.batch
+        this.student.instituteDetails.batchId !== this.studentForm.value.courseDetails.batch ||
+        this.student.instituteDetails.rollNumber !== this.studentForm.value.courseDetails.rollNo
       ) {
         // If Batch changed then update student batch in student Course
         this.api

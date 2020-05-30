@@ -71,7 +71,7 @@ export class ManageStudentsComponent implements OnInit {
   }
 
   delete(eduAtlId: string, courseObjId: string) {
-    const confirm = window.prompt('Are u sure, You want to delete this Student?');
+    const confirm = window.confirm('Are u sure, You want to delete this Student?');
     if (confirm) {
       this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
         const i = this.students.findIndex(
