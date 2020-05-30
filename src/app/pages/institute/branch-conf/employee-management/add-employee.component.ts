@@ -70,6 +70,7 @@ export class AddEmployee implements OnInit {
   }
 
   onEmployeeFormSearch() {
+    this.employeeForm.reset();
     if (this.eduAtlasEmployeeForm.valid) {
       const employeeEduId = `${this.eduAtlasEmployeeFormControl['idInput1'].value}-${this.eduAtlasEmployeeFormControl['idInput2'].value}-${this.eduAtlasEmployeeFormControl['idInput3'].value}-${this.eduAtlasEmployeeFormControl['idInput4'].value}`;
       this.api.getOneEmployee(employeeEduId).subscribe(
@@ -99,7 +100,6 @@ export class AddEmployee implements OnInit {
     this.alreadyRegistered = e;
     if (!e) {
       this.eduAtlasEmployeeForm.reset({ idInput1: 'EDU', idInput3: 'EMP' });
-      this.employeeForm.reset();
     }
   }
 

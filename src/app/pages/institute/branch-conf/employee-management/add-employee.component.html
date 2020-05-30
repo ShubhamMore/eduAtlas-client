@@ -87,7 +87,7 @@
           />
         </div>
         <div style="text-align: right;">
-          <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
+          <button type="submit" nbButton status="warning" [disabled]="!eduAtlasEmployeeForm.valid" style="color: black;" *ngIf="!edit">
             Fetch
           </button>
         </div>

@@ -63,4 +63,7 @@ export class ManageEmployee implements OnInit {
       });
     }
   }
+  onClick() {
+    this.router.navigate([`/pages/institute/branch-config/add-employee/${this.instituteId}`]);
+  }
 }
