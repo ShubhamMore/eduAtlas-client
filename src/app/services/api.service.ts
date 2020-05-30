@@ -192,6 +192,7 @@ export class ApiService {
         instituteId: instituteId,
         courseId: student.courseDetails.course,
         batchId: student.courseDetails.batch,
+        rollNumber: student.courseDetails.rollNo,
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
@@ -223,6 +224,8 @@ export class ApiService {
         instituteId: instituteId,
         courseId: student.courseDetails.course,
         batchId: student.courseDetails.batch,
+        rollNumber: student.courseDetails.rollNo,
+
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
@@ -251,7 +254,6 @@ export class ApiService {
       eduAtlasId: eduAtlasId,
       basicDetails: {
         name: student.name,
-        rollNumber: student.rollNo,
         studentEmail: studentEmail,
         studentContact: studentContact,
       },
@@ -709,5 +711,20 @@ export class ApiService {
 
   private handleError(error: any) {
     return throwError(error);
+  }
+
+   // =====================Attendance API===================
+
+  //  ADD NEW EMPLOYEE
+  getStudentsAttendance(attendanceRequest: any) {
+    const url = `${environment.server}/institute/attendance/getAttendanceByDate`
+    return this.http.post(url,attendanceRequest)
+    .pipe(tap((data)=>{}), catchError(this.handleError));
+  }
+
+  addAttendance(attendanceRequest:any){
+    const url = `${environment.server}/institute/attendance/addAttendance`
+    return this.http.post(url,attendanceRequest)
+    .pipe(tap((data)=>{}), catchError(this.handleError));
   }
 }

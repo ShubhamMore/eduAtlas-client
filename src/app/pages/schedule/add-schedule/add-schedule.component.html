@@ -101,7 +101,8 @@
                 <tr>
                   <th>Day</th>
                   <th>Date</th>
-                  <th>Time</th>
+                  <th>Start Time</th>
+                  <th>End Time</th>
                   <th>Topic</th>
                   <th>Teacher</th>
                 </tr>
@@ -141,9 +142,20 @@
                         type="time"
                         nbInput
                         status="basic"
-                        formControlName="time"
+                        formControlName="startTime"
                         fullWidth
-                        placeholder="Time"
+                        placeholder="Start Time"
+                      />
+                    </td>
+
+                    <td>
+                      <input
+                        type="time"
+                        nbInput
+                        status="basic"
+                        formControlName="endTime"
+                        fullWidth
+                        placeholder="End Time"
                       />
                     </td>
 
