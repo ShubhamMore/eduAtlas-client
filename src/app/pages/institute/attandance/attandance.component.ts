@@ -71,7 +71,7 @@ export class AttandanceComponent implements OnInit {
       this.api.getStudentsAttendance(studentsRequest).subscribe((data: any) => {
         this.students = data;
         this.students.sort((student1, student2) => {
-          if (student1.rollNumber <= student2.rollNumber) {
+          if (parseInt(student1.studentRollNo) >= parseInt(student2.studentRollNo)) {
             return 1;
           } else {
             return -1;
