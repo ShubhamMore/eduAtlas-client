@@ -114,7 +114,6 @@ export class AddStudentsComponent implements OnInit {
       this.studentForm = this.fb.group({
         // Student Basic Details
         name: ['', Validators.required],
-        rollNo: ['', Validators.required],
         studentEmail: ['', Validators.compose([Validators.required, Validators.email])],
         contact: ['', Validators.compose([Validators.required])],
 
@@ -128,6 +127,7 @@ export class AddStudentsComponent implements OnInit {
         courseDetails: this.fb.group({
           course: ['', Validators.required],
           batch: [''],
+          rollNo: ['', Validators.required],
           discount: [''],
           additionalDiscount: [''],
           netPayable: [''],
@@ -187,7 +187,6 @@ export class AddStudentsComponent implements OnInit {
           // Set Student Form Values
           this.studentForm.patchValue({
             name: data.basicDetails.name,
-            rollNo: data.basicDetails.rollNumber,
             studentEmail: data.basicDetails.studentEmail,
             contact: data.basicDetails.studentContact,
 
@@ -503,7 +502,6 @@ export class AddStudentsComponent implements OnInit {
         this.studentForm.patchValue({
           // Set Student Basic Details
           name: this.student.basicDetails.name,
-          rollNo: this.student.basicDetails.rollNumber,
           studentEmail: this.student.basicDetails.studentEmail,
           contact: this.student.basicDetails.studentContact,
 
@@ -519,6 +517,7 @@ export class AddStudentsComponent implements OnInit {
           courseDetails: {
             course: this.student.instituteDetails.courseId,
             discount: this.student.instituteDetails.discount,
+            rollNo: this.student.instituteDetails.rollNumber,
             additionalDiscount: this.student.instituteDetails.additionalDiscount,
             netPayable: this.student.instituteDetails.netPayble,
           },
@@ -634,7 +633,10 @@ export class AddStudentsComponent implements OnInit {
 
     // In editing Mode
     if (this.edit === 'true') {
-      if (this.student.instituteDetails.courseId !== this.studentForm.value.courseDetails.course) {
+      if (
+        this.student.instituteDetails.courseId !== this.studentForm.value.courseDetails.course ||
+        this.student.instituteDetails.rollNumber !== this.studentForm.value.courseDetails.rollNo
+      ) {
         // If Course Changed add course to student course
         this.api
           .addStudentCourse(this.studentForm.value, this.instituteId, this.studentEduId)

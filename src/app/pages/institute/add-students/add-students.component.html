@@ -94,7 +94,7 @@
     <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
       <p>Student Basic Details</p>
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label for="name">Name</label>
             <input
@@ -110,23 +110,7 @@
           </div>
         </div>
 
-        <div class="col-sm-3">
-          <div class="form-group">
-            <label for="roll">*Roll Number</label>
-            <input
-              type="text"
-              nbInput
-              [status]="f.rollNo.errors && f.rollNo.touched ? 'danger' : 'basic'"
-              id="roll"
-              formControlName="rollNo"
-              fullWidth
-              placeholder="Roll Number"
-            />
-            <small *ngIf="f.rollNo.errors && f.rollNo.touched">*Student Roll no. is required</small>
-          </div>
-        </div>
-
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label for="email">*Email</label>
             <input
@@ -144,7 +128,7 @@
           </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <div class="form-group">
             <label for="contact">*Student Contact Number</label>
             <input
@@ -262,7 +246,24 @@
           </nb-select>
         </div>
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="roll">*Roll Number</label>
+            <input
+              type="text"
+              pattern="\d*"
+              nbInput
+              [status]="'basic'"
+              id="roll"
+              formControlName="rollNo"
+              fullWidth
+              placeholder="Roll Number"
+            />
+            <!-- <small *ngIf="f.rollNo.errors && f.rollNo.touched">*Student Roll no. is required</small> -->
+          </div>
+        </div>
+
+        <div class="col-sm-3">
           <label for="dis">Discount</label>
           <nb-select
             placeholder="Discount"
@@ -277,7 +278,7 @@
           </nb-select>
         </div>
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <label for="additionalDiscount">Additional Discount</label>
           <input
             type="text"
@@ -290,7 +291,7 @@
           />
         </div>
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
           <label for="net">Net Payable</label>
           <input
             type="text"

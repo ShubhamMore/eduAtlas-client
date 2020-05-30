@@ -192,6 +192,7 @@ export class ApiService {
         instituteId: instituteId,
         courseId: student.courseDetails.course,
         batchId: student.courseDetails.batch,
+        rollNumber: student.courseDetails.rollNo,
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
@@ -223,6 +224,8 @@ export class ApiService {
         instituteId: instituteId,
         courseId: student.courseDetails.course,
         batchId: student.courseDetails.batch,
+        rollNumber: student.courseDetails.rollNo,
+
         discount: student.courseDetails.discount,
         additionalDiscount: student.courseDetails.additionalDiscount,
         nextPayble: student.courseDetails.netPayable,
@@ -251,7 +254,6 @@ export class ApiService {
       eduAtlasId: eduAtlasId,
       basicDetails: {
         name: student.name,
-        rollNumber: student.rollNo,
         studentEmail: studentEmail,
         studentContact: studentContact,
       },
