@@ -221,7 +221,7 @@ export class AddStudentsComponent implements OnInit {
       // reset eduatlas form
       this.eduAtlasStudentIdForm.reset({ idInput1: 'EDU', idInput3: 'ST' });
       // reset Student Form
-      this.studentForm.reset();
+      // this.studentForm.reset
       // set to null if previously set
       this.studentEduId = null;
     }
