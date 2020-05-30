@@ -710,4 +710,19 @@ export class ApiService {
   private handleError(error: any) {
     return throwError(error);
   }
+
+   // =====================Attendance API===================
+
+  //  ADD NEW EMPLOYEE
+  getStudentsAttendance(attendanceRequest: any) {
+    const url = `${environment.server}/institute/attendance/getAttendanceByDate`
+    return this.http.post(url,attendanceRequest)
+    .pipe(tap((data)=>{}), catchError(this.handleError));
+  }
+
+  addAttendance(attendanceRequest:any){
+    const url = `${environment.server}/institute/attendance/addAttendance`
+    return this.http.post(url,attendanceRequest)
+    .pipe(tap((data)=>{}), catchError(this.handleError));
+  }
 }

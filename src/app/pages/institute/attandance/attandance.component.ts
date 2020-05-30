@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-attandance',
@@ -9,54 +10,141 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./attandance.component.scss'],
 })
 export class AttandanceComponent implements OnInit {
-  attandance: FormGroup;
-  courses = { course: [{ discription: '', gst: '', _id: '', name: '', totalFee: '' }] };
-  batches = { batch: [{ batchCode: '', course: '', description: '', _id: '' }] };
-  students = [
-    {
-      active: false,
-      anouncement: '',
-      basicDetails: { name: '', rollNumber: '', studentContact: '', studentEmail: '' },
-      courseDetails: { course: '', batch: '' },
-    },
-  ];
-  constructor(private api: ApiService, private active: ActivatedRoute, private fb: FormBuilder) {}
+  attandanceform: FormGroup;
+  instituteId: string;
+  date: number;
+  courses: any[];
+  batches: any[];
+  availableBatches: any[];
+  students: any[];
+  attendance: any[];
+
+  constructor(
+    private api: ApiService,
+    private active: ActivatedRoute,
+    private fb: FormBuilder,
+    private toasterService: NbToastrService,
+  ) {}
 
   ngOnInit() {
-    this.getCourses(this.active.snapshot.paramMap.get('id'));
-    this.getBatches(this.active.snapshot.paramMap.get('id'));
-    this.getStudents(this.active.snapshot.paramMap.get('id'));
-    this.attandance = this.fb.group({
-      // course: ['', Validators.required],
+    this.date = Date.now();
+    this.courses = [];
+    this.batches = [];
+    this.students = [];
+    this.availableBatches = [];
+    this.attendance = [];
+    this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.getCourseTd(this.instituteId);
+    this.attandanceform = this.fb.group({
+      courseId: ['', Validators.required],
       batchId: ['', Validators.required],
       allStudentsPresent: [],
-      absentees: [['']],
+      date: [this.constructDate(this.date), Validators.required],
     });
   }
-  getCourses(id) {
-    this.api.getCourses(id).subscribe((data) => {
-      this.courses = JSON.parse(JSON.stringify(data));
-      // console.log('courses=> ', this.courses);
+
+  onSelectCourse(id: string) {
+    // Find Batches of Selected Course
+    this.students = [];
+    this.attandanceform.get('batchId').setValue(null);
+    this.availableBatches = this.batches.filter((b: any) => b.course === id);
+
+    this.getStudents();
+  }
+  onSelectBatch() {
+    this.getStudents();
+  }
+  getStudents() {
+    if (
+      this.attandanceform.get('batchId').value &&
+      this.attandanceform.get('courseId').value &&
+      this.attandanceform.get('date').value
+    ) {
+      var studentsRequest = {
+        date: this.attandanceform.get('date').value,
+        instituteId: this.instituteId,
+        courseId: this.attandanceform.get('courseId').value,
+        batchId: this.attandanceform.get('batchId').value,
+      };
+      this.api.getStudentsAttendance(studentsRequest).subscribe((data: any) => {
+        this.students = data.students;
+        this.students.sort((student1, student2) => {
+          if (student1.basicDetails.rollNumber <= student2.basicDetails.rollNumber) {
+            return 1;
+          } else {
+            return -1;
+          }
+        });
+
+        if(data.attendance){
+         
+        }else{
+          this.students.map(function(student) { 
+            student.attendance = true; 
+            return student;
+          });
+        }
+
+        this.students.forEach((student) => {
+          const attendance = {
+            studentId: student._id,
+            attendanceStatus: student.attendance?'1':'0',
+          };
+          this.attendance.push(attendance);
+        });
+      });
+    }
+  }
+  getCourseTd(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.batches = data.batch;
+      this.courses = data.course;
     });
   }
-  getBatches(id) {
-    this.api.getBatches(id).subscribe((data) => {
-      this.batches = JSON.parse(JSON.stringify(data));
-      // console.log('batches=> ', this.batches);
+  constructDate(dateInMillisecond: number) {
+    const date = new Date(dateInMillisecond);
+    return `${date.getFullYear()}-${this.appendZero(date.getMonth() + 1)}-${this.appendZero(
+      date.getDate(),
+    )}`;
+  }
+  appendZero(n: number): string {
+    if (n < 10) {
+      return '0' + n;
+    }
+    return '' + n;
+  }
+
+  markAttendance(event: any, studentId: string, index: number) {
+    if (event.target.checked) {
+      this.attendance[index].attendanceStatus = '1';
+    } else {
+      this.attendance[index].attendanceStatus = '0';
+    }
+  }
+  showToaster(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
     });
   }
-  getStudents(id) {
-    this.api.getStudents(id).subscribe((res: any) => {
-      this.students = res;
-      // console.log('students=> ', this.students);
-    });
-  }
-  present(check) {
-    this.attandance.patchValue({
-      allStudentsPresent: check,
-    });
-  }
-  clone(check) {
-    // console.log(check);
+
+  onSubmit() {
+    var attendanceRequest = {
+      date: this.attandanceform.get('date').value,
+      instituteId: this.instituteId,
+      courseId: this.attandanceform.get('courseId').value,
+      batchId: this.attandanceform.get('batchId').value,
+      attendance: this.attendance,
+    };
+    this.api.addAttendance(attendanceRequest).subscribe(
+      (res) =>{
+        this.attandanceform.reset();
+        this.attandanceform.get('date').setValue(this.constructDate(this.date));
+        this.students = [];
+        this.attendance = [];
+        this.showToaster('top-right', 'danger', 'Attendance Updated Succesfully');
+      },
+      (err) => this.showToaster('top-right', 'danger', err.error.message),
+    );
   }
 }
