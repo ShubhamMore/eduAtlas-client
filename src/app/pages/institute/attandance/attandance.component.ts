@@ -55,6 +55,8 @@ export class AttandanceComponent implements OnInit {
     this.getStudents();
   }
   getStudents() {
+    this.students = [];
+    this.attendance = [];
     if (
       this.attandanceform.get('batchId').value &&
       this.attandanceform.get('courseId').value &&
@@ -67,27 +69,22 @@ export class AttandanceComponent implements OnInit {
         batchId: this.attandanceform.get('batchId').value,
       };
       this.api.getStudentsAttendance(studentsRequest).subscribe((data: any) => {
-        this.students = data.students;
+        this.students = data;
         this.students.sort((student1, student2) => {
-          if (student1.basicDetails.rollNumber <= student2.basicDetails.rollNumber) {
+          if (parseInt(student1.studentRollNo) >= parseInt(student2.studentRollNo)) {
             return 1;
           } else {
             return -1;
           }
         });
-
-        if (data.attendance) {
-        } else {
-          this.students.map(function (student) {
-            student.attendance = true;
-            return student;
-          });
-        }
-
+        this.students.map(function (student) {
+          student.attendanceStatus = student.attendanceStatus ? true : false;
+          return student;
+        });
         this.students.forEach((student) => {
           const attendance = {
-            studentId: student._id,
-            attendanceStatus: student.attendance ? '1' : '0',
+            studentId: student.studentId,
+            attendanceStatus: student.attendanceStatus ? true : false,
           };
           this.attendance.push(attendance);
         });
@@ -115,9 +112,9 @@ export class AttandanceComponent implements OnInit {
 
   markAttendance(event: any, studentId: string, index: number) {
     if (event.target.checked) {
-      this.attendance[index].attendanceStatus = '1';
+      this.attendance[index].attendanceStatus = true;
     } else {
-      this.attendance[index].attendanceStatus = '0';
+      this.attendance[index].attendanceStatus = false;
     }
   }
   showToaster(position: any, status: any, message: any) {
@@ -141,7 +138,7 @@ export class AttandanceComponent implements OnInit {
         this.attandanceform.get('date').setValue(this.constructDate(this.date));
         this.students = [];
         this.attendance = [];
-        this.showToaster('top-right', 'danger', 'Attendance Updated Succesfully');
+        this.showToaster('top-right', 'success', 'Attendance Updated Succesfully');
       },
       (err) => this.showToaster('top-right', 'danger', err.error.message),
     );

@@ -68,19 +68,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let student of students; let i = index">
-              <td>{{ student.basicDetails.rollNumber }}</td>
+            <tr  *ngFor="let student of students; let i = index">
+              <td>{{student.studentRollNo}}</td>
               <td>
-                {{ student.basicDetails.name }}
+                {{student.studentName}}
               </td>
               <td>
                 <div class="attendance-selector text-center">
                   <input
                     type="checkbox"
-                    [id]="student._id"
+                    [id]="student.studentId"
                     class="attendance"
-                    [checked]="student.attendance"
-                    (change)="markAttendance($event, student._id, i)"
+                    [checked]="student.attendanceStatus"
+                    (change)="markAttendance($event, student.studentId, i)"
                   />
                 </div>
               </td>
@@ -90,7 +90,7 @@
       </div>
     </div>
     <ng-template #empty_students>
-      <h5 class="pl-3">{{ noStudent }}</h5>
+      <p class="pl-3 text-center">No Students Found</p>
     </ng-template>
   </nb-card-body>
 </nb-card>
