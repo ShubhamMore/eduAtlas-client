@@ -43,6 +43,14 @@ export class ScheduleService {
       .pipe(catchError(this.handleError));
   }
 
+  getScheduleDetails(scheduleId: string) {
+    return this.http
+      .post(`${environment.server}/institute/schedule/getScheduleDetails`, {
+        scheduleId,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
   deleteSchedule(scheduleId: string) {
     return this.http
       .post(`${environment.server}/institute/schedule/deleteSchedule`, {

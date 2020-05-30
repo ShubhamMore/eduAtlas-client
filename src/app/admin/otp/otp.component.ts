@@ -38,7 +38,7 @@ export class OtpComponent implements OnInit {
   getOtp() {
     this.otpService.getOtp(this.phone).subscribe(
       (res: any) => {
-        this.showToast('top-right', 'danger', 'OTP Sent to ' + this.phone);
+        this.showToast('top-right', 'success', 'OTP Sent to ' + this.phone);
       },
       (err: any) => {
         this.showToast('top-right', 'danger', err.error.message);

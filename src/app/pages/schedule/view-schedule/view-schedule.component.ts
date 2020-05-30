@@ -31,7 +31,7 @@ export class ViewScheduleComponent implements OnInit {
 
   getSchedule(id: string) {
     console.log(id);
-    this.scheduleService.getSchedule(id).subscribe(
+    this.scheduleService.getScheduleDetails(id).subscribe(
       (res: any) => {
         this.schedule = res;
         this.display = true;

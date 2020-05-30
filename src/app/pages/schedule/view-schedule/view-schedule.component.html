@@ -51,7 +51,8 @@
                 <th>#</th>
                 <th>Day</th>
                 <th>Date</th>
-                <th>Time</th>
+                <th>Start Time</th>
+                <th>End Time</th>
                 <th>Topic</th>
                 <th>Teacher</th>
               </tr>
@@ -68,7 +69,10 @@
                   {{ day.date }}
                 </td>
                 <td>
-                  {{ day.time ? day.time : '--' }}
+                  {{ day.startTime ? day.startTime : '--' }}
+                </td>
+                <td>
+                  {{ day.endTime ? day.endTime : '--' }}
                 </td>
                 <td>
                   {{ day.topic ? day.topic : '--' }}

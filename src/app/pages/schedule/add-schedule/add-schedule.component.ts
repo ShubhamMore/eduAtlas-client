@@ -113,7 +113,8 @@ export class AddScheduleComponent implements OnInit {
           const scheduleData = {
             day: day.day,
             date: day.date,
-            time: day.time,
+            startTime: day.startTime,
+            endTime: day.endTime,
             teacher: day.teacher,
             topic: day.topic,
           };
@@ -132,7 +133,8 @@ export class AddScheduleComponent implements OnInit {
     return this.fb.group({
       day: [dayData.day ? dayData.day : ''],
       date: [dayData.date ? dayData.date : ''],
-      time: [dayData.time ? dayData.time : ''],
+      startTime: [dayData.startTime ? dayData.startTime : ''],
+      endTime: [dayData.endTime ? dayData.endTime : ''],
       teacher: [dayData.teacher ? dayData.teacher : ''],
       topic: [dayData.topic ? dayData.topic : ''],
     });
@@ -154,7 +156,8 @@ export class AddScheduleComponent implements OnInit {
       const scheduleData = {
         day: this.days[day],
         date: date,
-        time: '',
+        startTime: '',
+        endTime: '',
         teacher: '',
         topic: '',
       };
