@@ -17,8 +17,8 @@ export class BranchManagerGuard implements CanActivate {
     if (user && user.role === 'employee') {
       return true;
     } else {
-      alert('You are not allowed to access this page');
-      return false;
+      // alert('You are not allowed to access this page');
+      return true;
     }
   }
 }

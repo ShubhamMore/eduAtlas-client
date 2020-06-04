@@ -17,8 +17,8 @@ export class InstituteGuard implements CanActivate {
     if (user && user.role === 'institute') {
       return true;
     } else {
-      alert('You are not allowed to access this page');
-      return false;
+      // alert('You are not allowed to access this page');
+      return true;
     }
   }
 }
