@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class BranchManagerGuard implements CanActivate {
+export class EmployeeGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(

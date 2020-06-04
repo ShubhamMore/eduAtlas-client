@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class BranchManagerGuard implements CanActivate {
+export class StudentGuard implements CanActivate {
+  // Inject Router so we can hand off the user to the Login Page
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
@@ -14,7 +15,7 @@ export class BranchManagerGuard implements CanActivate {
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
     const user = this.authService.getUser();
-    if (user && user.role === 'employee') {
+    if (user && user.role === 'student') {
       return true;
     } else {
       alert('You are not allowed to access this page');

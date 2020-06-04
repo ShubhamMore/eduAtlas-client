@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth-services/auth.service';
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -6,17 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class InstituteGuard implements CanActivate {
-  role = localStorage.getItem('role');
-  // Inject Router so we can hand off the user to the Login Page
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (localStorage.getItem('token') && this.role === 'institute') {
-      console.log('InstituteGuard running', this.role);
-      // Token from the LogIn is avaiable, so the user can pass to the route
+    const user = this.authService.getUser();
+    if (user && user.role === 'institute') {
       return true;
     } else {
       alert('You are not allowed to access this page');
