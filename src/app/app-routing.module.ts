@@ -19,7 +19,19 @@ import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password
 const routes: Routes = [
   {
     path: 'pages',
-    loadChildren: () => import('../app/pages/pages.module').then((m) => m.PagesModule),
+    loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'student',
+    loadChildren: () => import('./student/student.module').then((m) => m.StudentModule),
+    canActivate: [AuthGuard],
+  },
+
+  {
+    path: 'employee',
+    loadChildren: () => import('./employee/employee.module').then((m) => m.EmployeeModule),
     canActivate: [AuthGuard],
   },
 
@@ -73,6 +85,7 @@ const routes: Routes = [
       },
     ],
   },
+
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];

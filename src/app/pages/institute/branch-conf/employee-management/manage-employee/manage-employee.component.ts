@@ -35,7 +35,6 @@ export class ManageEmployee implements OnInit {
 
   getEmployees(instituteId: string) {
     this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
-      console.log(data);
       this.employees = data;
     });
   }

@@ -129,14 +129,14 @@ export class AuthService {
         new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
 
-      if (loadedUser.role === '4') {
+      if (loadedUser.role === 'institute') {
         this.router.navigate(['/pages/home'], { relativeTo: this.route });
       } else if (loadedUser.role === 'student') {
-        this.router.navigate(['/student', loadedUser._id], {
+        this.router.navigate(['/student/home'], {
           relativeTo: this.route,
         });
-      } else if (loadedUser.role === 'faculty') {
-        this.router.navigate(['/faculty', loadedUser._id], {
+      } else if (loadedUser.role === 'employee') {
+        this.router.navigate(['/employee/home'], {
           relativeTo: this.route,
         });
       } else {

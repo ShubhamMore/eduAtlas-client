@@ -6,10 +6,8 @@ import {
   NbSidebarService,
   NbThemeService,
 } from '@nebular/theme';
-
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
@@ -21,14 +19,13 @@ import { ApiService } from '../../../services/api.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
-  userPictureOnly: boolean = false;
-  institutes: any;
-  institute = [];
+  userPictureOnly: boolean;
+  institutes: any[];
   name: string;
-
   user: any;
 
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
+
   themes = [
     {
       value: 'default',
@@ -63,24 +60,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.userPictureOnly = false;
+    this.institutes = [];
     this.user = this.authService.getUser();
-
     this.name = `Welcome ${this.user.name}
       (${this.user.role})`;
     this.getInstitutes();
   }
-  getInstitutes() {
-    this.api.getInstitutes().subscribe((data) => {
-      this.institutes = data;
 
-      this.institute = JSON.parse(JSON.stringify(this.institutes));
+  getInstitutes() {
+    this.api.getInstitutes().subscribe((data: any[]) => {
+      this.institutes = data;
     });
   }
-  onSelect(event) {
+
+  setInstitutes(institutes: any[]) {
+    this.institutes = [];
+    this.institutes = institutes;
+  }
+
+  onSelect(event: any) {
     if (event !== 'undefined') {
       this.router.navigate(['/pages/dashboard/', event]);
     }
   }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

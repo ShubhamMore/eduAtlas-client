@@ -1,6 +1,14 @@
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbLayoutModule,NbCardModule,
-  NbIconModule,NbListModule,NbSelectModule,NbButtonModule, NbDatepickerModule } from '@nebular/theme';
+import {
+  NbMenuModule,
+  NbLayoutModule,
+  NbCardModule,
+  NbIconModule,
+  NbListModule,
+  NbSelectModule,
+  NbButtonModule,
+  NbDatepickerModule,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { ThemeModule } from '../@theme/theme.module';
@@ -8,22 +16,13 @@ import { PagesComponent } from './pages.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
-import {ButtonModule} from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 
 import { HomeComponent } from './home/home.component';
-import {ECommerceComponent} from './e-commerce/e-commerce.component';
-import {MembershipComponent} from './membership/membership.component';
+import { ECommerceComponent } from './e-commerce/e-commerce.component';
+import { MembershipComponent } from './membership/membership.component';
 
-
-
-
-
-
-
-
-//import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
-
-
+// import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
 
 @NgModule({
   imports: [
@@ -39,7 +38,7 @@ import {MembershipComponent} from './membership/membership.component';
     NbListModule,
     NbSelectModule,
     NbDatepickerModule,
- 
+
     NbButtonModule,
   ],
   declarations: [
@@ -47,8 +46,6 @@ import {MembershipComponent} from './membership/membership.component';
     HomeComponent,
     ECommerceComponent,
     MembershipComponent,
-  
-
 
     // ClassifiedComponent,
     // CreateClassifiedComponent,
@@ -56,10 +53,6 @@ import {MembershipComponent} from './membership/membership.component';
     // BusinessComponent,
     // CreateBusinessComponent,
     // ManageBusinessComponent,
-  
   ],
-
-
 })
-export class PagesModule {
-}
+export class PagesModule {}

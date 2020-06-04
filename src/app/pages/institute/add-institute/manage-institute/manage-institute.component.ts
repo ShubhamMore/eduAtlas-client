@@ -1,3 +1,4 @@
+import { HeaderComponent } from './../../../../@theme/components/header/header.component';
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { instituteData } from '../../../../../assets/dataTypes/dataType';

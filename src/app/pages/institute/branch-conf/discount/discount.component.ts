@@ -13,13 +13,13 @@ import { MENU_ITEMS } from '../../../pages-menu';
   styleUrls: ['./discount.component.scss'],
 })
 export class DiscountComponent implements OnInit {
-  discount: FormGroup;
+  discountForm: FormGroup;
   instituteId: string;
   edit: string;
   discountId: string;
-  discountUpdate = { discountCode: '', description: '', amount: '', _id: '' };
+  discountUpdate: any;
   submitted = false;
-  message: string;
+  display: boolean;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -30,51 +30,61 @@ export class DiscountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.display = false;
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
       this.edit = data.edit;
       this.discountId = data.discountId;
-      if (this.edit) {
-        this.getDiscount(this.discountId);
-      }
     });
 
-    this.discount = this.fb.group({
+    this.discountForm = this.fb.group({
       discountCode: ['', Validators.required],
       description: [''],
       amount: ['', Validators.required],
     });
+
+    if (this.edit) {
+      this.getDiscount(this.discountId);
+    } else {
+      this.display = true;
+    }
   }
 
-  getDiscount(id) {
+  getDiscount(id: any) {
     let param = new HttpParams();
     param = param.append('instituteId', this.instituteId);
     param = param.append('discountId', id);
-    this.api.getDiscount(param).subscribe((data: any) => {
-      this.discountUpdate = data[0];
+    this.api.getDiscount(param).subscribe(
+      (data: any) => {
+        this.discountUpdate = data[0];
 
-      this.discount.patchValue({
-        discountCode: this.discountUpdate.discountCode,
-        description: this.discountUpdate.description,
-        amount: this.discountUpdate.amount,
-      });
-    });
+        this.discountForm.patchValue({
+          discountCode: this.discountUpdate.discountCode,
+          description: this.discountUpdate.description,
+          amount: this.discountUpdate.amount,
+        });
+        this.display = true;
+      },
+      (err: any) => {
+        this.display = true;
+      },
+    );
   }
 
   get f() {
-    return this.discount.controls;
+    return this.discountForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.discount.invalid) {
+    if (this.discountForm.invalid) {
       return;
     }
     if (this.edit === 'true') {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('discountId', this.discountId);
-      this.api.updateDiscount(param, this.discount.value).subscribe(
+      this.api.updateDiscount(param, this.discountForm.value).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Discount Updated');
           setTimeout(() => {
@@ -89,7 +99,7 @@ export class DiscountComponent implements OnInit {
         },
       );
     } else {
-      this.api.addDiscount(this.instituteId, this.discount.value).subscribe(
+      this.api.addDiscount(this.instituteId, this.discountForm.value).subscribe(
         (data) => {
           this.showToast('top-right', 'success', 'Discount Added Successfully');
           setTimeout(() => {

@@ -11,15 +11,15 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./add-batches.component.scss'],
 })
 export class AddBatchesComponent implements OnInit {
-  courses = { course: [] };
-  batchUpdate = { batchCode: '', description: '', course: '' };
+  courses: any[];
+  batchUpdate: any;
   linearMode = true;
-  batch: FormGroup;
+  batchForm: FormGroup;
   submitted = false;
   instituteId: string;
   batchId: string;
   edit: string;
-
+  display: boolean;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -30,55 +30,63 @@ export class AddBatchesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.display = false;
+    this.courses = [];
     this.route.queryParams.subscribe((data) => {
       this.batchId = data.batchId;
       this.edit = data.edit;
     });
 
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    this.getBatch(this.batchId, this.instituteId);
     this.getCourses(this.instituteId);
-    this.batch = this.fb.group({
+    this.batchForm = this.fb.group({
       course: ['', Validators.required],
       batchCode: ['', Validators.required],
       description: [''],
     });
+    if (this.edit) {
+      this.getBatch(this.batchId, this.instituteId);
+    } else {
+      this.display = true;
+    }
   }
 
-  getBatch(id, instituteId) {
+  getBatch(id: any, instituteId: any) {
     let param = new HttpParams();
     param = param.append('instituteId', instituteId);
     param = param.append('batchId', id);
-    this.api.getBatch(param).subscribe((data) => {
-      this.batchUpdate = JSON.parse(JSON.stringify(data[0]));
-    });
-  }
-  getCourses(id) {
-    this.api.getCourses(id).subscribe((data) => {
-      this.courses = JSON.parse(JSON.stringify(data));
-      this.batch.patchValue({
+    this.api.getBatch(param).subscribe((res: any[]) => {
+      this.batchUpdate = res[0];
+      this.batchForm.patchValue({
         course: this.batchUpdate.course,
         batchCode: this.batchUpdate.batchCode,
         description: this.batchUpdate.description,
       });
+      this.display = true;
+    });
+  }
+
+  getCourses(id: any) {
+    this.api.getCourses(id).subscribe((res: any) => {
+      this.courses = res.course;
     });
   }
 
   get f() {
-    return this.batch.controls;
+    return this.batchForm.controls;
   }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.batch.invalid) {
+    if (this.batchForm.invalid) {
       return;
     }
     if (this.edit === 'true') {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('batchId', this.batchId);
-      const batch = this.batch.value;
+      const batch = this.batchForm.value;
       batch._id = this.batchId;
       this.api.updateBatch(param, batch).subscribe(
         (res) => {
@@ -92,7 +100,7 @@ export class AddBatchesComponent implements OnInit {
     }
 
     if (!this.edit) {
-      this.api.addBatch(this.instituteId, this.batch.value).subscribe(
+      this.api.addBatch(this.instituteId, this.batchForm.value).subscribe(
         () => {
           this.showToast('top-right', 'success', 'Successfully Added');
           setTimeout(() => {
@@ -103,7 +111,6 @@ export class AddBatchesComponent implements OnInit {
           }, 1000);
         },
         (err) => {
-          console.error(err);
           this.showToast('top-right', 'danger', err.error.message);
         },
       );

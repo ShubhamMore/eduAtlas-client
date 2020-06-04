@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./manage-batch.component.scss'],
 })
 export class ManageBatchComponent implements OnInit {
-  batches = { batch: [{ _id: '', course: '', batchCode: '', description: '' }] };
+  batches: any[];
   instituteId: string;
   params = new HttpParams();
   constructor(
@@ -21,14 +21,14 @@ export class ManageBatchComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.batches = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getBatches(this.instituteId);
   }
 
   getBatches(id: any) {
-    this.api.getBatches(id).subscribe((data) => {
-      this.batches = JSON.parse(JSON.stringify(data));
-      console.dir('my batch' + this.batches);
+    this.api.getBatches(id).subscribe((res: any) => {
+      this.batches = res.batch;
     });
   }
 
@@ -45,9 +45,9 @@ export class ManageBatchComponent implements OnInit {
       (res) => {},
       (err) => console.error(err),
     );
-    const i = this.batches.batch.findIndex((e) => e._id === id);
+    const i = this.batches.findIndex((e) => e._id === id);
     if (i !== -1) {
-      this.batches.batch.splice(i, 1);
+      this.batches.splice(i, 1);
     }
   }
 

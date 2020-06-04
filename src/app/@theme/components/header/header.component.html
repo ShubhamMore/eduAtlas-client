@@ -16,7 +16,7 @@
       (selectedChange)="onSelect($event)"
     >
       <nb-option value="undefined">Select Institute</nb-option>
-      <nb-option *ngFor="let item of institute" value="{{ item._id }}">{{
+      <nb-option *ngFor="let item of institutes" value="{{ item._id }}">{{
         item.basicInfo.name
       }}</nb-option>
     </nb-select>

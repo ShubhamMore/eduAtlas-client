@@ -2,9 +2,9 @@
   <button nbButton status="warning" (click)="back()" style="color: black;">Manage Discount</button>
 </div>
 <p style="color: black; font-weight: bold;">Define Discount</p>
-<nb-card>
+<nb-card *ngIf="display">
   <nb-card-body>
-    <form [formGroup]="discount" (ngSubmit)="onSubmit()">
+    <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-6">
           <label for="code">Code</label>

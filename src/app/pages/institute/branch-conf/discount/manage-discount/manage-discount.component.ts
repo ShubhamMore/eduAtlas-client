@@ -11,7 +11,7 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./manage-discount.component.scss'],
 })
 export class ManageDiscountComponent implements OnInit {
-  discounts = { discount: [{ discountCode: '', description: '', _id: '', amount: '' }] };
+  discounts: any[];
   instituteId: string;
   constructor(
     private api: ApiService,
@@ -21,6 +21,7 @@ export class ManageDiscountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.discounts = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getDiscounts(this.instituteId);
   }
@@ -28,7 +29,7 @@ export class ManageDiscountComponent implements OnInit {
   getDiscounts(id: string) {
     this.api.getDiscounts(id).subscribe(
       (data: any) => {
-        this.discounts = data;
+        this.discounts = data.discount;
       },
       (err) => console.error(err),
     );
@@ -47,9 +48,9 @@ export class ManageDiscountComponent implements OnInit {
       param = param.append('instituteId', this.instituteId);
       param = param.append('discountId', id);
       this.api.deleteDiscount(param).subscribe((err) => console.error(err));
-      const i = this.discounts.discount.findIndex((e) => e._id === id);
+      const i = this.discounts.findIndex((e) => e._id === id);
       if (i !== -1) {
-        this.discounts.discount.splice(i, 1);
+        this.discounts.splice(i, 1);
         this.showToast('top-right', 'success', 'Discount Deleted Successfully!');
       }
     }

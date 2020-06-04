@@ -4,7 +4,7 @@
 <p style="color: black; font-weight: bold;">Manage Discount Here</p>
 <nb-card>
   <nb-card-body>
-    <table>
+    <table *ngIf="discounts.length > 0; else noDiscounts">
       <thead>
         <tr>
           <th>Code</th>
@@ -13,7 +13,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of discounts.discount; let i = index">
+        <tr *ngFor="let item of discounts; let i = index">
           <td>{{ item.discountCode }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.description }}</td>
@@ -24,5 +24,8 @@
         </tr>
       </tbody>
     </table>
+    <ng-template #noDiscounts>
+      <p class="text-center mt-3">No Discounts Found</p>
+    </ng-template>
   </nb-card-body>
 </nb-card>
