@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { generate } from 'rxjs';
 
 @Component({
   selector: 'ngx-add-students',
@@ -17,7 +16,9 @@ export class AddStudentsComponent implements OnInit {
   feeDetailsForm: FormGroup;
   // Eduatlas Id Form
   eduAtlasStudentIdForm: FormGroup;
-
+  // OTP Form
+  otpForm: FormGroup;
+  phone: string;
   // Institute/Branch Id
   instituteId: string;
 
@@ -38,6 +39,10 @@ export class AddStudentsComponent implements OnInit {
   duration: number;
   // Check if Fees are updated or not only in editing mode
   feesUpdated: boolean;
+
+  // OTP Sent
+  otpSent: boolean;
+  dataFetched: boolean = false;
 
   // Course set in editing Mode
   selectedCourse: any;
@@ -82,6 +87,7 @@ export class AddStudentsComponent implements OnInit {
 
   ngOnInit() {
     this.alreadyRegistered = false;
+    this.otpSent = false;
     this.feesUpdated = false;
     this.installmentType = '0';
     this.netPayable = 0;
@@ -104,10 +110,12 @@ export class AddStudentsComponent implements OnInit {
 
       // Construct Eduatlas Id Form
       this.eduAtlasStudentIdForm = this.fb.group({
-        idInput1: ['EDU', Validators.required],
-        idInput2: ['', Validators.required],
-        idInput3: ['ST', Validators.required],
-        idInput4: ['', Validators.required],
+        eduAtlasId: ['', Validators.required],
+      });
+
+      // Construct OTP Form
+      this.otpForm = this.fb.group({
+        otp: ['', Validators.required],
       });
 
       // Construct Student Form
@@ -181,35 +189,75 @@ export class AddStudentsComponent implements OnInit {
   onStudentSearch() {
     if (this.eduAtlasStudentIdForm.valid) {
       // Construct Eduatlas Id to search student
-      const studentEduId = `${this.eduAtlasStudentIdControl['idInput1'].value}-${this.eduAtlasStudentIdControl['idInput2'].value}-${this.eduAtlasStudentIdControl['idInput3'].value}-${this.eduAtlasStudentIdControl['idInput4'].value}`;
-      this.api.getOneStudent(studentEduId).subscribe((data: any) => {
-        if (data) {
-          // Set Student Form Values
-          this.studentForm.patchValue({
-            name: data.basicDetails.name,
-            studentEmail: data.basicDetails.studentEmail,
-            contact: data.basicDetails.studentContact,
-
-            parentName: data.parentDetails.name,
-            parentContact: data.parentDetails.parentContact,
-            parentEmail: data.parentDetails.parentEmail,
-
-            address: data.parentDetails.address,
-          });
-
-          // IN editing Mode or Already Registered mode Student Email field is Disabled
-          // (Enable Only in Add New Student Mode)
-          this.studentForm.get('studentEmail').disable();
-          // IN editing Mode or Already Registered mode Student Contact field is Disabled
-          // (Enable Only in Add New Student Mode)
-          this.studentForm.get('contact').disable();
-          // Set Class Level Eduatlas Id
-          this.studentEduId = studentEduId;
-        } else {
+      const studentEduId = `${this.eduAtlasStudentIdControl['eduAtlasId'].value}`;
+      this.api.sendOtpForGetUserDetails(studentEduId).subscribe(
+        (res: any) => {
+          if (res) {
+            this.otpSent = true;
+            this.phone = res.phone;
+            this.showToaster('top-right', 'success', res.message);
+          } else {
+            this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+          }
+        },
+        (err: any) => {
           this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
-        }
-      });
+        },
+      );
     }
+  }
+
+  verifyOtp() {
+    if (this.otpSent && this.otpForm.valid) {
+      const otp = this.otpForm.value.otp;
+
+      const verificationData = {
+        verifyType: 'verifyUser',
+        otp: this.otpForm.value.otp,
+        phone: this.phone,
+      };
+      this.api.verifyUserOtp(verificationData).subscribe(
+        (data) => {
+          this.getOneStudent(this.eduAtlasStudentIdForm.value.eduAtlasId);
+        },
+        (error) => {
+          this.showToaster('top-right', 'danger', 'Invalid OTP');
+        },
+      );
+    }
+  }
+
+  getOneStudent(eduId: any) {
+    this.api.getOneStudent(eduId).subscribe((data: any) => {
+      if (data) {
+        this.studentForm.patchValue({
+          name: data.basicDetails.name,
+          studentEmail: data.basicDetails.studentEmail,
+          contact: data.basicDetails.studentContact,
+
+          parentName: data.parentDetails.name,
+          parentContact: data.parentDetails.parentContact,
+          parentEmail: data.parentDetails.parentEmail,
+
+          address: data.parentDetails.address,
+        });
+
+        // IN editing Mode or Already Registered mode Student Email field is Disabled
+        // (Enable Only in Add New Student Mode)
+        this.studentForm.get('studentEmail').disable();
+        // IN editing Mode or Already Registered mode Student Contact field is Disabled
+        // (Enable Only in Add New Student Mode)
+        this.studentForm.get('contact').disable();
+        // Set Class Level Eduatlas Id
+        this.studentEduId = data.eduAtlasId;
+        this.otpSent = false;
+        this.phone = null;
+        this.dataFetched = true;
+        this.eduAtlasStudentIdForm.get('eduAtlasId').disable();
+      } else {
+        this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+      }
+    });
   }
 
   // Change if Student is Already Registered
@@ -219,7 +267,7 @@ export class AddStudentsComponent implements OnInit {
     if (!e) {
       // if False i.e. Student is New to Eduatlas
       // reset eduatlas form
-      this.eduAtlasStudentIdForm.reset({ idInput1: 'EDU', idInput3: 'ST' });
+      this.eduAtlasStudentIdForm.reset();
       // reset Student Form
       // this.studentForm.reset
       // set to null if previously set
@@ -488,19 +536,12 @@ export class AddStudentsComponent implements OnInit {
         // Assign student fees (Later change)
         this.studentFees = this.student.fees;
 
-        const eduAtlId = this.studentEduId.split('-');
-
         // Set Student EduAtlas Id
         this.eduAtlasStudentIdForm.patchValue({
-          idInput1: eduAtlId[0],
-          idInput2: eduAtlId[1],
-          idInput3: eduAtlId[2],
-          idInput4: eduAtlId[3],
+          eduAtlasId: this.studentEduId,
         });
 
-        // Disable Eduatlas Id Input fields in editing Mode
-        this.eduAtlasStudentIdForm.get('idInput2').disable();
-        this.eduAtlasStudentIdForm.get('idInput4').disable();
+        this.eduAtlasStudentIdForm.get('eduAtlasId').disable();
 
         // Set Student Form Values
         this.studentForm.patchValue({
@@ -527,6 +568,8 @@ export class AddStudentsComponent implements OnInit {
           },
           materialRecord: this.student.instituteDetails.materialRecord,
         });
+
+        this.dataFetched = true;
 
         // Disable Student email in editing mode
         this.studentForm.get('studentEmail').disable();
@@ -625,14 +668,23 @@ export class AddStudentsComponent implements OnInit {
 
   // Submit form From DOM
   onSubmit() {
+    this.studentForm.markAllAsTouched();
     if (this.studentForm.invalid) {
       // If Form is invalid then return
+      this.showToaster('top-right', 'warning', 'Please Fill all Student Details Correctly');
       return;
     }
 
     // Check if batch is null then  set course Details batch to '' (to store in DB)
     if (this.studentForm.value.courseDetails.batch === null) {
       this.studentForm.value.courseDetails.batch = '';
+    }
+
+    this.feeDetailsForm.markAllAsTouched();
+    if (this.feeDetailsForm.invalid) {
+      // If Form is invalid then return
+      this.showToaster('top-right', 'warning', 'Please Fill all Fee Details Correctly');
+      return;
     }
 
     // In editing Mode

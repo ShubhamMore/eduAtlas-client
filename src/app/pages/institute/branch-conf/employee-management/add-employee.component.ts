@@ -15,6 +15,13 @@ export class AddEmployee implements OnInit {
   instituteId: string;
   institute: any;
   edit: string;
+  // OTP Form
+  otpForm: FormGroup;
+  phone: string;
+  // OTP Sent
+  otpSent: boolean;
+  dataFetched: boolean = false;
+
   employeeEduId: string;
   employee: any;
   alreadyRegistered: boolean;
@@ -47,11 +54,14 @@ export class AddEmployee implements OnInit {
         role: ['', Validators.required],
       });
 
+      // Construct Eduatlas Id Form
       this.eduAtlasEmployeeForm = this.fb.group({
-        idInput1: ['EDU', Validators.required],
-        idInput2: ['', Validators.required],
-        idInput3: ['EMP', Validators.required],
-        idInput4: ['', Validators.required],
+        eduAtlasId: ['', Validators.required],
+      });
+
+      // Construct OTP Form
+      this.otpForm = this.fb.group({
+        otp: ['', Validators.required],
       });
 
       if (this.edit === 'true') {
@@ -70,36 +80,89 @@ export class AddEmployee implements OnInit {
   }
 
   onEmployeeFormSearch() {
-    this.employeeForm.reset();
     if (this.eduAtlasEmployeeForm.valid) {
-      const employeeEduId = `${this.eduAtlasEmployeeFormControl['idInput1'].value}-${this.eduAtlasEmployeeFormControl['idInput2'].value}-${this.eduAtlasEmployeeFormControl['idInput3'].value}-${this.eduAtlasEmployeeFormControl['idInput4'].value}`;
-      this.api.getOneEmployee(employeeEduId).subscribe(
-        (data: any) => {
-          if (data) {
-            this.employeeEduId = employeeEduId;
-            this.employee = data[0];
-            console.log(this.employee);
-            this.employeeForm.patchValue({
-              name: this.employee.basicDetails.name,
-              employeeEmail: this.employee.basicDetails.employeeEmail,
-              contact: this.employee.basicDetails.employeeContact,
-              address: this.employee.basicDetails.employeeAddress,
-            });
+      const employeeEduId = `${this.eduAtlasEmployeeFormControl['eduAtlasId'].value}`;
+      this.api.sendOtpForGetUserDetails(employeeEduId).subscribe(
+        (res: any) => {
+          if (res) {
+            this.otpSent = true;
+            this.phone = res.phone;
+            this.showToaster('top-right', 'success', res.message);
           } else {
             this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
           }
         },
-        (error: any) => {
+        (err: any) => {
           this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
         },
       );
     }
   }
 
+  verifyOtp() {
+    if (this.otpSent && this.otpForm.valid) {
+      const otp = this.otpForm.value.otp;
+
+      const verificationData = {
+        verifyType: 'verifyUser',
+        otp: this.otpForm.value.otp,
+        phone: this.phone,
+      };
+      this.api.verifyUserOtp(verificationData).subscribe(
+        (data) => {
+          this.getOneEmployee(this.eduAtlasEmployeeForm.value.eduAtlasId);
+        },
+        (error) => {
+          this.showToaster('top-right', 'danger', 'Invalid OTP');
+        },
+      );
+    }
+  }
+
+  getOneEmployee(eduId: any) {
+    this.api.getOneEmployee(eduId).subscribe(
+      (data: any) => {
+        if (data) {
+          this.employee = data;
+          this.employeeForm.reset();
+
+          this.employeeForm.patchValue({
+            name: this.employee.basicDetails.name,
+            employeeEmail: this.employee.basicDetails.employeeEmail,
+            contact: this.employee.basicDetails.employeeContact,
+            address: this.employee.basicDetails.employeeAddress,
+          });
+          this.employeeEduId = this.employee.eduAtlasId;
+          this.eduAtlasEmployeeForm.get('eduAtlasId').disable();
+
+          this.employeeForm.patchValue({
+            name: this.employee.basicDetails.name,
+            employeeEmail: this.employee.basicDetails.employeeEmail,
+            contact: this.employee.basicDetails.employeeContact,
+            address: this.employee.basicDetails.employeeAddress,
+          });
+
+          this.employeeForm.get('name').disable();
+          this.employeeForm.get('employeeEmail').disable();
+          this.employeeForm.get('address').disable();
+          this.employeeForm.get('contact').disable();
+          this.otpSent = false;
+          this.phone = null;
+          this.dataFetched = true;
+        } else {
+          this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+        }
+      },
+      (error: any) => {
+        this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+      },
+    );
+  }
+
   changeAlreadyRegistered(e: any) {
     this.alreadyRegistered = e;
     if (!e) {
-      this.eduAtlasEmployeeForm.reset({ idInput1: 'EDU', idInput3: 'EMP' });
+      this.eduAtlasEmployeeForm.reset();
     }
   }
 
@@ -112,17 +175,13 @@ export class AddEmployee implements OnInit {
       .subscribe((data: any) => {
         this.employee = data[0];
         // console.log(this.employee);
-        const eduAtlId = this.employeeEduId.split('-');
+        const eduAtlId = this.employeeEduId;
 
         this.eduAtlasEmployeeForm.patchValue({
-          idInput1: eduAtlId[0],
-          idInput2: eduAtlId[1],
-          idInput3: eduAtlId[2],
-          idInput4: eduAtlId[3],
+          eduAtlasId: eduAtlId,
         });
 
-        this.eduAtlasEmployeeForm.get('idInput2').disable();
-        this.eduAtlasEmployeeForm.get('idInput4').disable();
+        this.eduAtlasEmployeeForm.get('eduAtlasId').disable();
 
         this.employeeForm.patchValue({
           name: this.employee.basicDetails.name,

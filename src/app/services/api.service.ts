@@ -156,6 +156,30 @@ export class ApiService {
       );
   }
 
+  //  SEND OTP FOR GET STUDENT DETAILS
+  sendOtpForGetUserDetails(eduId: any) {
+    return this.http
+      .post(environment.server + '/users/sendOtpForGetUserDetails', {
+        eduAtlasId: eduId,
+      })
+      .pipe(
+        tap((res) => {}),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
+  // VERIFY OTP FOR GET USER DETAILS
+  verifyUserOtp(data: any) {
+    return this.http.post<any>(environment.server + '/users/verifyOTP', data).pipe(
+      tap((res: any) => {
+        // console.log(res);
+        return res;
+      }),
+      catchError(this.handleError),
+    );
+  }
+
   //  GET ONE STUDENT FOR EDITING AND VIEWING
   getOneStudentByInstitute(data: any) {
     return this.http

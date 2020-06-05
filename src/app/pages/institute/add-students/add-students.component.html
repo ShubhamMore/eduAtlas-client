@@ -17,74 +17,51 @@
     >
       <p>Fetch student</p>
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-6">
           <input
             type="text"
             nbInput
-            maxlength="3"
             [status]="
-              eduAtlasStudentIdControl.idInput1.errors && eduAtlasStudentIdControl.idInput1.touched
+              eduAtlasStudentIdControl.eduAtlasId.errors &&
+              eduAtlasStudentIdControl.eduAtlasId.touched
                 ? 'danger'
                 : 'basic'
             "
-            id="idInput1"
-            disabled="true"
+            id="eduAtlasId"
             fullWidth
-            formControlName="idInput1"
+            formControlName="eduAtlasId"
           />
         </div>
-        <span>-</span>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            nbInput
-            maxlength="4"
-            [status]="
-              eduAtlasStudentIdControl.idInput2.errors && eduAtlasStudentIdControl.idInput2.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput2"
-            fullWidth
-            formControlName="idInput2"
-          />
+        <div style="text-align: right;">
+          <button
+            type="submit"
+            nbButton
+            status="warning"
+            style="color: black;"
+            *ngIf="!edit && !dataFetched"
+          >
+            Fetch
+          </button>
         </div>
-        <span>-</span>
-        <div class="col-sm-2">
+      </div>
+    </form>
+
+    <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" *ngIf="otpSent && alreadyRegistered">
+      <p>OTP</p>
+      <div class="row">
+        <div class="col-sm-6">
           <input
             type="text"
             nbInput
-            maxlength="3"
-            [status]="
-              eduAtlasStudentIdControl.idInput3.errors && eduAtlasStudentIdControl.idInput3.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput3"
-            disabled="true"
+            [status]="otpForm.get('otp').errors && otpForm.get('otp').touched ? 'danger' : 'basic'"
+            id="otp"
             fullWidth
-            formControlName="idInput3"
-          />
-        </div>
-        <span>-</span>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            nbInput
-            maxlength="6"
-            [status]="
-              eduAtlasStudentIdControl.idInput4.errors && eduAtlasStudentIdControl.idInput4.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput4"
-            fullWidth
-            formControlName="idInput4"
+            formControlName="otp"
           />
         </div>
         <div style="text-align: right;">
           <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
-            Fetch
+            Verify
           </button>
         </div>
       </div>

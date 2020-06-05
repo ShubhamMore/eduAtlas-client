@@ -15,80 +15,53 @@
       (ngSubmit)="onEmployeeFormSearch()"
       *ngIf="alreadyRegistered"
     >
-      <p>Fetch Employee</p>
+      <p>Fetch student</p>
       <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-6">
           <input
             type="text"
             nbInput
-            maxlength="3"
             [status]="
-              eduAtlasEmployeeFormControl.idInput1.errors &&
-              eduAtlasEmployeeFormControl.idInput1.touched
+              eduAtlasEmployeeFormControl.eduAtlasId.errors &&
+              eduAtlasEmployeeFormControl.eduAtlasId.touched
                 ? 'danger'
                 : 'basic'
             "
-            id="idInput1"
-            disabled="true"
+            id="eduAtlasId"
             fullWidth
-            formControlName="idInput1"
-          />
-        </div>
-        <span>-</span>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            nbInput
-            maxlength="4"
-            [status]="
-              eduAtlasEmployeeFormControl.idInput2.errors &&
-              eduAtlasEmployeeFormControl.idInput2.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput2"
-            fullWidth
-            formControlName="idInput2"
-          />
-        </div>
-        <span>-</span>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            nbInput
-            maxlength="3"
-            [status]="
-              eduAtlasEmployeeFormControl.idInput3.errors &&
-              eduAtlasEmployeeFormControl.idInput3.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput3"
-            disabled="true"
-            fullWidth
-            formControlName="idInput3"
-          />
-        </div>
-        <span>-</span>
-        <div class="col-sm-2">
-          <input
-            type="text"
-            nbInput
-            maxlength="6"
-            [status]="
-              eduAtlasEmployeeFormControl.idInput4.errors &&
-              eduAtlasEmployeeFormControl.idInput4.touched
-                ? 'danger'
-                : 'basic'
-            "
-            id="idInput4"
-            fullWidth
-            formControlName="idInput4"
+            formControlName="eduAtlasId"
           />
         </div>
         <div style="text-align: right;">
-          <button type="submit" nbButton status="warning" [disabled]="!eduAtlasEmployeeForm.valid" style="color: black;" *ngIf="!edit">
+          <button
+            type="submit"
+            nbButton
+            status="warning"
+            style="color: black;"
+            *ngIf="!edit && !dataFetched"
+          >
             Fetch
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" *ngIf="otpSent && alreadyRegistered">
+      <p>OTP</p>
+      <div class="row">
+        <div class="col-sm-6">
+          <input
+            type="text"
+            nbInput
+            [status]="otpForm.get('otp').errors && otpForm.get('otp').touched ? 'danger' : 'basic'"
+            id="otp"
+            fullWidth
+            formControlName="otp"
+          />
+        </div>
+        <div style="text-align: right;">
+          <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
+            Verify
           </button>
         </div>
       </div>
