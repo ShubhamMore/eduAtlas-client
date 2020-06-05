@@ -13,12 +13,21 @@ export class SignUpComponent implements OnInit {
   signUpForm: FormGroup;
 
   tnc: boolean = false;
+  tncDisplay: boolean = false;
 
   constructor(
     public authService: AuthService,
     public router: Router,
     private toasterService: NbToastrService,
   ) {}
+
+  openTnC() {
+    this.tncDisplay = true;
+  }
+
+  closeTnC() {
+    this.tncDisplay = false;
+  }
 
   ngOnInit() {
     this.signUpForm = new FormGroup(
@@ -30,7 +39,7 @@ export class SignUpComponent implements OnInit {
         }),
         password: new FormControl(null, { validators: [Validators.required] }),
         confirmPassword: new FormControl(null, { validators: [Validators.required] }),
-        role: new FormControl(null, { validators: [Validators.required] }),
+        role: new FormControl('institute', { validators: [Validators.required] }),
       },
       {
         validators: this.passwordValidator.bind(this),
@@ -50,7 +59,11 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp() {
-    if (this.signUpForm.invalid || !this.tnc) {
+    if (this.signUpForm.invalid) {
+      this.showToast('top-right', 'warning', 'Insufficient Data, Please fill all Fields Correctly');
+      return;
+    } else if (!this.tnc) {
+      this.showToast('top-right', 'warning', 'Accept Terms and Conditions');
       return;
     }
 

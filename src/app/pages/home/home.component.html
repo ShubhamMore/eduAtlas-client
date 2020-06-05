@@ -20,7 +20,7 @@
         MY INSTITUTES
       </nb-card-header>
       <nb-list>
-        <nb-list-item *ngFor="let item of institute; let i = index">
+        <nb-list-item *ngFor="let item of institutes; let i = index">
           <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
             <span
               ><img
@@ -77,7 +77,7 @@
         >UPCOMING CLASS
         <nb-select status="control" placeholder="institute" style="float: right;">
           <nb-option [value]="undefined">Select</nb-option>
-          <nb-option *ngFor="let item of institute" value="{{ item.basicInfo.name }}">{{
+          <nb-option *ngFor="let item of institutes" value="{{ item.basicInfo.name }}">{{
             item.basicInfo.name
           }}</nb-option>
         </nb-select>

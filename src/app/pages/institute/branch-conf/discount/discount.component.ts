@@ -18,7 +18,6 @@ export class DiscountComponent implements OnInit {
   edit: string;
   discountId: string;
   discountUpdate: any;
-  submitted = false;
   display: boolean;
   constructor(
     private fb: FormBuilder,
@@ -37,17 +36,34 @@ export class DiscountComponent implements OnInit {
       this.discountId = data.discountId;
     });
 
-    this.discountForm = this.fb.group({
-      discountCode: ['', Validators.required],
-      description: [''],
-      amount: ['', Validators.required],
-    });
+    this.discountForm = this.fb.group(
+      {
+        discountCode: ['', Validators.required],
+        discountType: ['percentage', Validators.required],
+        amount: ['', Validators.required],
+        description: [''],
+      },
+      {
+        validator: this.discountValidator.bind(this),
+      },
+    );
 
     if (this.edit) {
       this.getDiscount(this.discountId);
     } else {
       this.display = true;
     }
+  }
+
+  discountValidator(group: FormGroup): { [s: string]: boolean } {
+    const discountType = group.value.discountType;
+    const amount = group.value.amount;
+    if (discountType === 'percentage' && amount > 100) {
+      return { invalidDiscount: true };
+    } else if (amount < 0) {
+      return { invalidDiscount: true };
+    }
+    return null;
   }
 
   getDiscount(id: any) {
@@ -61,6 +77,7 @@ export class DiscountComponent implements OnInit {
         this.discountForm.patchValue({
           discountCode: this.discountUpdate.discountCode,
           description: this.discountUpdate.description,
+          discountType: this.discountUpdate.discountType,
           amount: this.discountUpdate.amount,
         });
         this.display = true;
@@ -71,12 +88,8 @@ export class DiscountComponent implements OnInit {
     );
   }
 
-  get f() {
-    return this.discountForm.controls;
-  }
-
   onSubmit() {
-    this.submitted = true;
+    this.discountForm.markAllAsTouched();
     if (this.discountForm.invalid) {
       return;
     }

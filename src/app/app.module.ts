@@ -37,6 +37,7 @@ import { SignUpComponent } from './admin/sign-up/sign-up.component';
 import { OtpComponent } from './admin/otp/otp.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 import { SafeHtmlPipe } from './pipe/safe-html.pipe';
+import { TermsAndConditionsComponent } from './admin/terms-and-conditions/terms-and-conditions.component';
 
 // import { HomeComponent } from './home/home.component';
 
@@ -47,6 +48,7 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
     SignUpComponent,
     OtpComponent,
     ForgotPasswordComponent,
+    TermsAndConditionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +81,7 @@ import { SafeHtmlPipe } from './pipe/safe-html.pipe';
     }),
     CoreModule.forRoot(),
   ],
+  entryComponents: [TermsAndConditionsComponent],
   bootstrap: [AppComponent],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })

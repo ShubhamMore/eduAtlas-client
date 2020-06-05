@@ -1,3 +1,4 @@
+<ngx-terms-and-conditions *ngIf="tncDisplay" (close)="closeTnC()"></ngx-terms-and-conditions>
 <div class="wrapper fadeInDown" style="background-color: #fce062;">
   <div id="formContent">
     <!-- Tabs Titles -->
@@ -127,7 +128,7 @@
                   (change)="acceptTermsAndConditions($event.target.checked)"
                 >
                   I agree with the
-                  <a href="http://eduatlas.in/index.php/terms-of-use/">TERMS AND CONDITIONS</a>
+                  <span class="btn btn-link pointer" (click)="openTnC()">TERMS AND CONDITIONS</span>
                 </nb-checkbox>
               </div>
 

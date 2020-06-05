@@ -6,7 +6,7 @@
 <p style="color: black; font-weight: bold;">Manage Course Here</p>
 <nb-card>
   <nb-card-body>
-    <table>
+    <table *ngIf="courses.length > 0; else no_courses">
       <thead>
         <tr>
           <th>Course Name</th>
@@ -32,5 +32,10 @@
         </tr>
       </tbody>
     </table>
+    <ng-template #no_courses>
+      <p class="mt-5 mb-5 text-center">
+        No Courses Found
+      </p>
+    </ng-template>
   </nb-card-body>
 </nb-card>

@@ -1,5 +1,6 @@
+import { InstituteService } from './../../../services/institute.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import {
   NbMediaBreakpointsService,
   NbMenuService,
@@ -57,6 +58,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private layoutService: LayoutService,
     private router: Router,
     private breakpointService: NbMediaBreakpointsService,
+    private instituteService: InstituteService,
   ) {}
 
   ngOnInit() {
@@ -74,9 +76,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  setInstitutes(institutes: any[]) {
+  setInstitutes() {
     this.institutes = [];
-    this.institutes = institutes;
+    this.institutes = this.instituteService.getInstitutes();
   }
 
   onSelect(event: any) {

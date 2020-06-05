@@ -273,7 +273,7 @@
           >
             <nb-option value="">Select Discount</nb-option>
             <nb-option *ngFor="let i of discounts" [value]="i._id">{{
-              i.discountCode + ' (' + i.amount + '%)'
+              i.discountCode + ' (' + i.amount + (i.discountType === 'percentage' ? '%' : '') + ')'
             }}</nb-option>
           </nb-select>
         </div>

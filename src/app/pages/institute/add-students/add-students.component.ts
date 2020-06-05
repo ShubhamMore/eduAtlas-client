@@ -304,9 +304,13 @@ export class AddStudentsComponent implements OnInit {
       calculatedAmount = this.selectedCourse.fees;
 
       if (this.selectedDiscount && this.selectedDiscount.amount) {
-        calculatedAmount =
-          this.selectedCourse.fees -
-          (this.selectedDiscount.amount / 100) * this.selectedCourse.fees;
+        if (this.selectedDiscount.discountType === 'percentage') {
+          calculatedAmount =
+            this.selectedCourse.fees -
+            (this.selectedDiscount.amount / 100) * this.selectedCourse.fees;
+        } else {
+          calculatedAmount = this.selectedCourse.fees - this.selectedDiscount.amount;
+        }
       }
       if (additionalDiscount) {
         calculatedAmount = calculatedAmount - (additionalDiscount / 100) * calculatedAmount;

@@ -79,6 +79,7 @@ export class AddBatchesComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
+    this.batchForm.markAllAsTouched();
     if (this.batchForm.invalid) {
       return;
     }

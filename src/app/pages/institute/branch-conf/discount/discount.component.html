@@ -6,7 +6,7 @@
   <nb-card-body>
     <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <label for="code">Code</label>
           <input
             type="text"
@@ -15,27 +15,82 @@
             id="code"
             status="basic"
             formControlName="discountCode"
-            [status]="f.discountCode.errors && submitted ? 'danger' : 'basic'"
+            [status]="
+              discountForm.get('discountCode').invalid && discountForm.get('discountCode').touched
+                ? 'danger'
+                : 'basic'
+            "
             placeholder="Code"
           />
-          <small *ngIf="f.discountCode.errors && submitted" style="display: block;"
-            >*This field req</small
+          <small
+            *ngIf="
+              discountForm.get('discountCode').invalid && discountForm.get('discountCode').touched
+            "
+            style="display: block;"
+            >*This field Required</small
           >
         </div>
-        <div class="col-sm-6">
-          <label for="amt">Amount in %</label>
+
+        <div class="col-sm-4">
+          <label for="discountType">Discount Type</label>
+          <nb-select
+            placeholder="Select Amount Type"
+            id="discountType"
+            fullWidth
+            [status]="
+              discountForm.get('discountType').invalid && discountForm.get('discountType').touched
+                ? 'danger'
+                : 'basic'
+            "
+            formControlName="discountType"
+          >
+            <!-- <nb-option value="">Select Parent Course</nb-option> -->
+            <nb-option value="percentage">
+              Discount in Percentage
+            </nb-option>
+            <nb-option value="amount">
+              Discount in Amount
+            </nb-option>
+          </nb-select>
+          <small
+            *ngIf="
+              discountForm.get('discountType').invalid && discountForm.get('discountType').touched
+            "
+            style="display: block;"
+            >*This field Required</small
+          >
+        </div>
+
+        <div class="col-sm-4">
+          <label for="amt"
+            >Amount
+            <span *ngIf="discountForm.get('discountType').value === 'percentage'"
+              >(in %)</span
+            ></label
+          >
           <input
             type="text"
+            pattern="\d*"
             nbInput
             fullWidth
             id="amt"
             status="basic"
             formControlName="amount"
-            [status]="f.amount.errors && submitted ? 'danger' : 'basic'"
-            placeholder="Amount in %"
+            [status]="
+              (discountForm.get('amount').invalid || discountForm.hasError('invalidDiscount')) &&
+              discountForm.get('amount').touched
+                ? 'danger'
+                : 'basic'
+            "
+            placeholder="Amount"
           />
-          <small *ngIf="f.amount.errors && submitted" style="display: block;"
-            >*This field req</small
+          <small
+            *ngIf="
+              (discountForm.get('amount').invalid || discountForm.hasError('invalidDiscount')) &&
+              discountForm.get('amount').touched
+            "
+            style="display: block;"
+            >*Enter Valid Amount</small
           >
         </div>
       </div>
@@ -43,9 +98,9 @@
       <div class="mt-3">
         <label for="des">Description</label>
         <textarea
-          name="discription"
+          name="description"
           nbInput
-          id="des"
+          id="description"
           fullWidth
           status="basic"
           cols="40"

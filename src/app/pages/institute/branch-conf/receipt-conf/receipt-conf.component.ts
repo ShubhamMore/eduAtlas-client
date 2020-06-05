@@ -41,9 +41,9 @@ export class ReceiptConfComponent implements OnInit {
     this.receipt = this.fb.group({
       businessName: ['', Validators.required],
       address: ['', Validators.required],
-      gstNumber: [''],
       termsAndCondition: ['', Validators.required],
       fee: ['', Validators.required],
+      gstNumber: [''],
     });
   }
 
@@ -69,6 +69,7 @@ export class ReceiptConfComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+    this.receipt.markAllAsTouched();
     if (this.receipt.invalid) {
       return;
     }

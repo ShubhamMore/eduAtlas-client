@@ -105,6 +105,7 @@ export class AddCourseComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
+    this.course.markAllAsTouched();
     if (this.course.invalid) {
       return;
     }

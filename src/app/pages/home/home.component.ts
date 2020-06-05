@@ -1,3 +1,5 @@
+import { InstituteService } from './../../services/institute.service';
+import { HeaderComponent } from './../../@theme/components/header/header.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,8 +15,7 @@ import { HostListener } from '@angular/core';
 export class HomeComponent implements OnInit, OnDestroy {
   display: boolean;
 
-  institutes: SafeUrl[];
-  institute: any[] = [];
+  institutes: any[] = [];
 
   students: any[] = [];
   studentReq: any[] = [];
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router,
     private active: ActivatedRoute,
     private domSanitizer: DomSanitizer,
+    private instituteService: InstituteService,
   ) {}
 
   ngOnInit() {
@@ -56,10 +58,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.api.getInstitutes().subscribe((data: any) => {
       this.institutes = data;
 
-      this.institute = JSON.parse(JSON.stringify(this.institutes));
-
-      if (this.institute.length) {
+      if (this.institutes.length) {
+        MENU_ITEMS[1].children[1].hidden = false;
+        this.instituteService.setInstitutes(this.institutes);
         this.display = true;
+      } else {
+        MENU_ITEMS[1].children[1].hidden = true;
       }
     });
   }

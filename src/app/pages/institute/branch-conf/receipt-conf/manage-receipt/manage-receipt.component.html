@@ -3,10 +3,10 @@
     Add Receipt
   </button>
 </div>
-<p style="color: black; font-weight: bold;">Manage Reciept</p>
+<p style="color: black; font-weight: bold;">Manage Receipt</p>
 <nb-card>
   <nb-card-body>
-    <table>
+    <table *ngIf="receipts; else noReceipt">
       <thead>
         <tr>
           <th>Business Name</th>
@@ -17,18 +17,19 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngIf="receipts">
+        <tr>
           <td>{{ receipts.businessName }}</td>
           <td>{{ receipts.address }}</td>
           <td>{{ receipts.gstNumber }}</td>
           <td>{{ receipts.termsAndCondition }}</td>
           <td>{{ receipts.fee }}</td>
           <td class="text-right">
-            <button class="mr-3" nbButton status="warning" (click)="edit(routerId)">Edit</button>
-            <button nbButton status="danger" (click)="delete(routerId)">Del</button>
+            <button class="mr-3" nbButton status="warning" (click)="edit(instituteId)">Edit</button>
+            <button nbButton status="danger" (click)="delete(instituteId)">Del</button>
           </td>
         </tr>
       </tbody>
     </table>
+    <ng-template #noReceipt><p class="mt-5 mb-5 text-center">No Record Found</p></ng-template>
   </nb-card-body>
 </nb-card>
