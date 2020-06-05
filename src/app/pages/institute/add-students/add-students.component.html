@@ -281,6 +281,20 @@
             disabled="true"
           />
         </div>
+
+        <div class="col-sm-3">
+          <label for="net">Course Duration</label>
+          <input
+            type="text"
+            nbInput
+            id="net"
+            status="basic"
+            value="{{ duration + ' Months' }}"
+            fullWidth
+            placeholder="Course Duration"
+            disabled="true"
+          />
+        </div>
       </div>
 
       <hr />
@@ -299,6 +313,9 @@
                 (selectedChange)="onSelectInstallmentType($event)"
               >
                 <nb-option value="0">Paid Once</nb-option>
+                <nb-option value="2">Half Yearly</nb-option>
+                <nb-option value="3">Quarterly</nb-option>
+                <nb-option value="4">Monthly</nb-option>
                 <nb-option value="1">Custom</nb-option>
               </nb-select>
             </div>
@@ -433,7 +450,6 @@
                             formControlName="paidOn"
                             fullWidth
                             placeholder="Installment Date"
-                            disabled="true"
                           />
                           <!-- [nbDatepicker]="datePicker"
                           <nb-datepicker #datePicker></nb-datepicker> -->
@@ -448,7 +464,6 @@
                             fullWidth
                             formControlName="amount"
                             placeholder="Amount"
-                            disabled="true"
                           />
                         </td>
 
@@ -458,7 +473,7 @@
                             status="basic"
                             formControlName="paymentMode"
                             placeholder="Payment Mode"
-                            (selectedChange)="onSelectPaymentMode()"
+                            (selectedChange)="onSelectPaymentMode($event, i)"
                           >
                             <nb-option *ngFor="let mode of modes" [value]="mode">{{
                               mode
@@ -475,7 +490,6 @@
                             formControlName="amountPending"
                             fullWidth
                             placeholder="Amount Pending"
-                            disabled="true"
                           />
                         </td>
                       </tr>

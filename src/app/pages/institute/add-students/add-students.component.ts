@@ -54,7 +54,6 @@ export class AddStudentsComponent implements OnInit {
   pendingAmount: number;
   // Total Amount Collected
   amountCollected: number;
-
   // Installment Type (0 => paid once and 1 => Custom)
   installmentType: string; //
   // No of INstallments
@@ -432,6 +431,21 @@ export class AddStudentsComponent implements OnInit {
       this.feeDetailsForm.get('noOfInstallments').disable();
       // call generateNoOfInstallments for only one installment
       this.generateNoOfInstallments('1');
+    } else if (installmentType === '2') {
+      // on payment Half Yearly installment Type noOfInstallments id disabled
+      this.feeDetailsForm.get('noOfInstallments').disable();
+      // call generateNoOfInstallments for only one installment
+      this.generateNoOfInstallments('2');
+    } else if (installmentType === '3') {
+      // on payment Quarterly installment Type noOfInstallments id disabled
+      this.feeDetailsForm.get('noOfInstallments').disable();
+      // call generateNoOfInstallments for only one installment
+      this.generateNoOfInstallments('3');
+    } else if (installmentType === '4') {
+      // on payment Monthly installment Type noOfInstallments id disabled
+      this.feeDetailsForm.get('noOfInstallments').disable();
+      // call generateNoOfInstallments for only one installment
+      this.generateNoOfInstallments(this.selectedCourse.duration);
     } else {
       // on custom installment Type noOfInstallments id enabled
       this.feeDetailsForm.get('noOfInstallments').enable();
@@ -462,10 +476,17 @@ export class AddStudentsComponent implements OnInit {
       };
       this.addInstallment(installmentData);
     }
+
     // Construct and Set Dates for Fee Details Instalment
     this.setDates();
     // Calculate and Set fees for Fee Details Instalment
     this.setFees();
+
+    if (this.installmentType === '1') {
+      this.enableFeeFormFields();
+    } else {
+      this.disableFeeFormFields();
+    }
   }
 
   // Calculate and Set fees for Fee Details Instalment
@@ -495,6 +516,26 @@ export class AddStudentsComponent implements OnInit {
       installment.patchValue({
         paidOn: date,
       });
+    });
+  }
+
+  // calculate and Set Dates for Fee Details Instalment
+  enableFeeFormFields() {
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls.forEach((installment) => {
+      installment.get('amountPending').enable();
+      installment.get('amount').enable();
+      installment.get('paidOn').enable();
+    });
+  }
+
+  // calculate and Set Dates for Fee Details Instalment
+  disableFeeFormFields() {
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls.forEach((installment) => {
+      installment.get('amountPending').disable();
+      installment.get('amount').disable();
+      installment.get('paidOn').disable();
     });
   }
 
@@ -623,18 +664,22 @@ export class AddStudentsComponent implements OnInit {
           //   installment.controls[i].get('paymentMode').disable();
           // }
         });
+        this.disableFeeFormFields();
       });
   }
 
   addFees(studentId: string, studentEduatlasId: string) {
+    this.enableFeeFormFields();
     this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
+    const feeFormValue = this.feeDetailsForm.value;
+    this.disableFeeFormFields();
     this.api
       .addStudentFees(
         studentId,
         this.instituteId,
         studentEduatlasId,
         this.studentForm.get('courseDetails').value.course,
-        this.feeDetailsForm.value,
+        feeFormValue,
       )
       .subscribe(
         (res: any) => {
@@ -647,15 +692,18 @@ export class AddStudentsComponent implements OnInit {
       );
   }
 
-  onSelectPaymentMode() {
+  onSelectPaymentMode(mode: any, i: number) {
     if (this.edit) {
       this.feesUpdated = true;
     }
   }
 
   updateFees(studentId: string, feeId: string) {
+    this.enableFeeFormFields();
     this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
-    this.api.updateStudentFees(this.studentFees._id, this.feeDetailsForm.value).subscribe(
+    const feeFormValue = this.feeDetailsForm.value;
+    this.disableFeeFormFields();
+    this.api.updateStudentFees(this.studentFees._id, feeFormValue).subscribe(
       (res: any) => {
         this.showToaster('top-right', 'success', 'Student Fees Successfully!');
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
