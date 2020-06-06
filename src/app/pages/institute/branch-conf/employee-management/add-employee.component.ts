@@ -26,7 +26,7 @@ export class AddEmployee implements OnInit {
   employee: any;
   alreadyRegistered: boolean;
 
-  roles = ['Teacher', 'Manager', 'Counselor '];
+  roles = ['Teacher', 'Manager', 'Counselor'];
 
   constructor(
     private fb: FormBuilder,

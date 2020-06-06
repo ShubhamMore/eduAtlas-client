@@ -5,6 +5,7 @@ import { instituteData } from '../../../../../assets/dataTypes/dataType';
 import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
+import { AuthService } from '../../../../services/auth-services/auth.service';
 
 @Component({
   selector: 'ngx-manage-institute',
@@ -13,7 +14,7 @@ import { MENU_ITEMS } from '../../../pages-menu';
 })
 export class ManageInstituteComponent implements OnInit {
   confirmDelete: boolean;
-
+  showAddInstituteBtn:boolean;
   institutes: any[];
 
   instituteUser: instituteData;
@@ -23,22 +24,29 @@ export class ManageInstituteComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private toastrService: NbToastrService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.institutes = [];
     this.getInstitutes();
+    if(this.authService.getUser() && this.authService.getUser()==='institute' ){
+      this.showAddInstituteBtn = true;
+    }
   }
 
   getInstitutes() {
-    this.api.getInstitutes().subscribe((institutes: any) => {
-      this.institutes = institutes;
-      if (institutes.length > 0) {
-        MENU_ITEMS[2].hidden = true;
-        MENU_ITEMS[3].hidden = true;
-        MENU_ITEMS[4].hidden = true;
-      }
-    });
+    const user = this.authService.getUser();
+    if(user && user.role === 'institute'){
+      this.api.getInstitutes().subscribe((institutes: any) => {
+        this.institutes = institutes;
+        if (institutes.length > 0) {
+          MENU_ITEMS[2].hidden = true;
+          MENU_ITEMS[3].hidden = true;
+          MENU_ITEMS[4].hidden = true;
+        }
+      });
+    }
   }
 
   getInstitute(id: string) {

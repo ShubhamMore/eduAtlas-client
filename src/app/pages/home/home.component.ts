@@ -6,6 +6,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HostListener } from '@angular/core';
+import { AuthService } from '../../services/auth-services/auth.service';
+import { RoleAssignService } from '../../services/role/role-assign.service';
 
 @Component({
   selector: 'ngx-home',
@@ -27,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   messages: any[] = [];
   newLeads: any[] = [];
+  showAddInstituteBtn:boolean;
 
   constructor(
     private api: ApiService,
@@ -34,13 +37,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     private active: ActivatedRoute,
     private domSanitizer: DomSanitizer,
     private instituteService: InstituteService,
+    private authService: AuthService,
+    private roleService: RoleAssignService,
   ) {}
 
   ngOnInit() {
     this.display = false;
     this.getInstitutes();
 
-    MENU_ITEMS[1].hidden = false;
     MENU_ITEMS[2].hidden = true;
     MENU_ITEMS[3].hidden = true;
     MENU_ITEMS[4].hidden = true;
@@ -55,17 +59,33 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getInstitutes() {
-    this.api.getInstitutes().subscribe((data: any) => {
-      this.institutes = data;
-
-      if (this.institutes.length) {
-        MENU_ITEMS[1].children[1].hidden = false;
-        this.instituteService.setInstitutes(this.institutes);
-        this.display = true;
-      } else {
-        MENU_ITEMS[1].children[1].hidden = true;
-      }
-    });
+    const user = this.authService.getUser();
+    if(user && user.role === 'institute'){
+      MENU_ITEMS[1].hidden = false;
+      this.showAddInstituteBtn = true;
+      this.api.getInstitutes().subscribe((data: any) => {
+        this.institutes = data;
+  
+        if (this.institutes.length) {
+          MENU_ITEMS[1].children[1].hidden = false;
+          this.instituteService.setInstitutes(this.institutes);
+          this.display = true;
+        } else {
+          MENU_ITEMS[1].children[1].hidden = true;
+        }
+      });
+    }
+    else  if(user && user.role === 'employee'){
+      this.api.getEmployeeInstitutes({email:user.email}).subscribe((data: any) => {
+        MENU_ITEMS[1].hidden = true;
+        this.institutes = data;
+        if (this.institutes.length) {
+          this.instituteService.setInstitutes(this.institutes);
+          this.display = true;
+        } 
+      });
+    }
+    
   }
 
   onClick() {
@@ -73,9 +93,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   viewInstitute(id: string, name: string) {
+    var role = this.getEmployeeRole(id);
+    this.roleService.assignRoles(role);
     this.router.navigate(['/pages/dashboard', id]);
   }
-
+  getEmployeeRole(instituteId: any) {
+    var institiute = this.institutes.find((institute=>{return instituteId===institute._id}))
+    if(institiute){
+      return institiute.role;
+    }
+    }
   @HostListener('unloaded')
   ngOnDestroy() {
     this.institutes = null;

@@ -12,6 +12,7 @@ import { LayoutService } from '../../../@core/utils';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
+import { RoleAssignService } from '../../../services/role/role-assign.service';
 
 @Component({
   selector: 'ngx-header',
@@ -59,6 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private breakpointService: NbMediaBreakpointsService,
     private instituteService: InstituteService,
+    private roleService: RoleAssignService,
   ) {}
 
   ngOnInit() {
@@ -93,10 +95,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (this.user.role === 'institute') {
         this.router.navigate(['/pages/dashboard/', event]);
       } else if (this.user.role === 'employee') {
-        this.router.navigate(['/employee/dashboard/', event]);
+        var role = this.getEmployeeRole(event);
+        this.roleService.assignRoles(role);
+        this.router.navigate(['/pages/dashboard/', event]);
       } else if (this.user.role === 'student') {
         this.router.navigate(['/student/dashboard/', event]);
       }
+    }
+  }
+  getEmployeeRole(instituteId: any) {
+    var institiute = this.institutes.find((institute=>{return instituteId===institute._id}))
+    if(institiute){
+      return institiute.role;
     }
   }
 

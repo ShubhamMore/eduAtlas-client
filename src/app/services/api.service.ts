@@ -488,8 +488,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getEmployeesByEmail', data)
       .pipe(
-        tap((res) => {
-          // console.log(dres);
+        tap((res:any) => {
         }),
         map((res) => res),
         catchError(this.handleError),

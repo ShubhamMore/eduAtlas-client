@@ -50,23 +50,14 @@ export class LoginComponent implements OnInit {
             queryParams: { phone: resData.phone, type: 'login' },
           });
         } else {
-          if (resData.role === 'institute') {
-            this.showToast('top-right', 'success', `Login Success`);
-            this.router.navigate(['/pages/home'], {
-              relativeTo: this.route,
-            });
-          } else if (resData.role === 'student') {
+          if (resData.role === 'student') {
             this.showToast('top-right', 'success', `Login Success`);
             this.router.navigate(['/student/home'], {
               relativeTo: this.route,
             });
-          } else if (resData.role === 'employee') {
+          }else{
             this.showToast('top-right', 'success', `Login Success`);
-            this.router.navigate(['/employee/home'], {
-              relativeTo: this.route,
-            });
-          } else {
-            this.router.navigate(['/login'], {
+            this.router.navigate(['/pages/home'], {
               relativeTo: this.route,
             });
           }

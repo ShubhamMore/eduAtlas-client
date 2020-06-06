@@ -3,8 +3,8 @@
     <div class="text-center">
       <img src="../../../assets/img/institute.png" width="100px" height="100px" />
       <h3 class="mt-4">NO INSTITUTE ADDED</h3>
-      <small>Click on add Institute Button to create other branches</small>
-      <div class="mt-4">
+      <small *ngIf="showAddInstituteBtn">Click on add Institute Button to create other branches</small>
+      <div class="mt-4" *ngIf="showAddInstituteBtn">
         <button nbButton status="warning" style="color: black;" (click)="onClick()">
           ADD INSTITUTE
         </button>
@@ -42,9 +42,9 @@
   </div>
 
   <div class="col-sm-6">
-    <nb-card>
+    <nb-card *ngIf="showAddInstituteBtn">
       <nb-card-body>
-        <div class="row">
+        <div class="row" >
           <div class="col-sm-2">
             <img src="../../../assets/img/home-yellow.png" alt="Add Institute" />
           </div>

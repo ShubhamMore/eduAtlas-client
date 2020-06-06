@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
+import { AuthService } from '../../services/auth-services/auth.service';
+import { RoleAssignService } from '../../services/role/role-assign.service';
 
 @Component({
   selector: 'ngx-ecommerce',
@@ -21,7 +23,7 @@ export class ECommerceComponent implements OnInit {
   studentPendingFee = [];
 
   study = [];
-  constructor(private api: ApiService, private router: Router, private active: ActivatedRoute) {}
+  constructor(private api: ApiService, private router: Router, private active: ActivatedRoute,private authService: AuthService,private roleService: RoleAssignService) {}
 
   ngOnInit() {
     this.display = false;
@@ -53,20 +55,7 @@ export class ECommerceComponent implements OnInit {
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
-
-      MENU_ITEMS[1].hidden = true;
-      MENU_ITEMS[2].hidden = false;
-      MENU_ITEMS[3].hidden = false;
-      MENU_ITEMS[4].hidden = false;
-      MENU_ITEMS[5].hidden = false;
-      MENU_ITEMS[6].hidden = false;
-      // MENU_ITEMS[7].hidden = false;
-      // MENU_ITEMS[8].hidden = false;
-      // MENU_ITEMS[9].hidden = false;
-      // MENU_ITEMS[10].hidden = false;
-      MENU_ITEMS[11].hidden = false;
-      MENU_ITEMS[12].hidden = false;
-
+      this.roleService.assignRoles(this.authService.getUser().role)
       this.display = true;
     });
   }
