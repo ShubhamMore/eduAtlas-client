@@ -470,6 +470,32 @@ export class ApiService {
       );
   }
 
+  //  GET EMPLOYEE INSTITUTES
+  getEmployeeInstitutes(data: any) {
+    return this.http
+      .post(environment.server + '/institute/employee/getEmployeeInstitutes', data)
+      .pipe(
+        tap((res) => {
+          // console.log(dres);
+        }),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
+  //  GET ONE EMPLOYEE BY EMAIL
+  getEmployeesByEmail(data: any) {
+    return this.http
+      .post(environment.server + '/institute/employee/getEmployeesByEmail', data)
+      .pipe(
+        tap((res) => {
+          // console.log(dres);
+        }),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
   //  GET INSTITUTE EMPLOYEES
   getEmployeesByInstituteId(id: string) {
     const data = { instituteId: id };

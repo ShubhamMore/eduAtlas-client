@@ -23,6 +23,9 @@ export class AddScheduleComponent implements OnInit {
   instituteId: string;
   institute: any;
 
+  scheduleStartTime: string;
+  scheduleEndTime: string;
+
   batches: any[] = [];
   teachers: any[] = [];
 
@@ -80,6 +83,22 @@ export class AddScheduleComponent implements OnInit {
     return null;
   }
 
+  startTimePicked(startTime: any) {
+    this.scheduleStartTime = startTime;
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls.forEach((day) => {
+      day.patchValue({ startTime });
+    });
+  }
+
+  endTimePicked(endTime: any) {
+    this.scheduleEndTime = endTime;
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls.forEach((day) => {
+      day.patchValue({ endTime });
+    });
+  }
+
   getEmployees(instituteId: string) {
     this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
       this.teachers = data;
@@ -106,7 +125,8 @@ export class AddScheduleComponent implements OnInit {
 
         this.scheduleForm.get('scheduleStart').disable();
         this.scheduleForm.get('scheduleEnd').disable();
-
+        this.scheduleStartTime = this.schedule.days[0].startTime;
+        this.scheduleEndTime = this.schedule.days[0].endTime;
         const scheduleDays = this.scheduleForm.get('days') as FormArray;
         scheduleDays.controls = [];
         this.schedule.days.forEach((day: any) => {
@@ -117,6 +137,7 @@ export class AddScheduleComponent implements OnInit {
             endTime: day.endTime,
             teacher: day.teacher,
             topic: day.topic,
+            select: true,
           };
           this.addScheduleDay(scheduleData);
         });
@@ -137,6 +158,7 @@ export class AddScheduleComponent implements OnInit {
       endTime: [dayData.endTime ? dayData.endTime : ''],
       teacher: [dayData.teacher ? dayData.teacher : ''],
       topic: [dayData.topic ? dayData.topic : ''],
+      select: [dayData.select ? true : false],
     });
   }
 
@@ -156,10 +178,11 @@ export class AddScheduleComponent implements OnInit {
       const scheduleData = {
         day: this.days[day],
         date: date,
-        startTime: '',
-        endTime: '',
+        startTime: this.scheduleStartTime,
+        endTime: this.scheduleEndTime,
         teacher: '',
         topic: '',
+        select: false,
       };
       this.addScheduleDay(scheduleData);
     }
@@ -222,7 +245,15 @@ export class AddScheduleComponent implements OnInit {
       return;
     }
     if (!this.edit) {
-      this.scheduleService.addSchedule(this.scheduleForm.value).subscribe(
+      const schedule = this.scheduleForm.value;
+      const days: any[] = [];
+      this.scheduleForm.value.days.forEach((day: any) => {
+        if (day.select) {
+          days.push(day);
+        }
+      });
+      schedule.days = days;
+      this.scheduleService.addSchedule(schedule).subscribe(
         (res: any) => {
           this.showToast('top-right', 'success', 'Schedule Added Successfully');
           setTimeout(() => {
@@ -238,7 +269,16 @@ export class AddScheduleComponent implements OnInit {
       this.scheduleForm.value.scheduleStart = this.schedule.scheduleStart;
       this.scheduleForm.value.scheduleEnd = this.schedule.scheduleEnd;
 
-      this.scheduleService.updateSchedule(this.scheduleForm.value, this.schedule._id).subscribe(
+      const schedule = this.scheduleForm.value;
+      const days: any[] = [];
+      this.scheduleForm.value.days.forEach((day: any) => {
+        if (day.select) {
+          days.push(day);
+        }
+      });
+      schedule.days = days;
+
+      this.scheduleService.updateSchedule(schedule, this.schedule._id).subscribe(
         (res: any) => {
           this.showToast('top-right', 'success', 'Schedule Updated Successfully');
           setTimeout(() => {

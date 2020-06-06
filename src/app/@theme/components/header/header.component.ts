@@ -67,13 +67,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.user = this.authService.getUser();
     this.name = `Welcome ${this.user.name}
       (${this.user.role})`;
+
     this.getInstitutes();
   }
 
   getInstitutes() {
-    this.api.getInstitutes().subscribe((data: any[]) => {
-      this.institutes = data;
-    });
+    if (this.user.role === 'institute') {
+      this.api.getInstitutes().subscribe((data: any[]) => {
+        this.institutes = data;
+      });
+    } else if (this.user.role === 'employee') {
+      this.api.getEmployeeInstitutes({ email: this.user.email }).subscribe((inst: any) => {
+        this.instituteService.setInstitutes(inst);
+      });
+    }
   }
 
   setInstitutes() {
@@ -83,7 +90,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSelect(event: any) {
     if (event !== 'undefined') {
-      this.router.navigate(['/pages/dashboard/', event]);
+      if (this.user.role === 'institute') {
+        this.router.navigate(['/pages/dashboard/', event]);
+      } else if (this.user.role === 'employee') {
+        this.router.navigate(['/employee/dashboard/', event]);
+      } else if (this.user.role === 'student') {
+        this.router.navigate(['/student/dashboard/', event]);
+      }
     }
   }
 

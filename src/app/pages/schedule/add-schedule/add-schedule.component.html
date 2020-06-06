@@ -7,58 +7,6 @@
     <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-3">
-          <label for="scheduleStart">From</label>
-          <input
-            type="date"
-            nbInput
-            id="scheduleStart"
-            status="basic"
-            formControlName="scheduleStart"
-            fullWidth
-            placeholder="Schedule From"
-            (input)="fromDatePicked($event.target.value)"
-          />
-          <!-- [nbDatepicker]="fromDatePicker"
-        <nb-datepicker #fromDatePicker></nb-datepicker> -->
-
-          <div
-            *ngIf="
-              scheduleForm.get('scheduleStart').invalid && scheduleForm.get('scheduleStart').touched
-            "
-          >
-            <small>*This field is required</small>
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <label for="scheduleEnd">To</label>
-          <input
-            type="date"
-            nbInput
-            id="scheduleEnd"
-            status="basic"
-            formControlName="scheduleEnd"
-            fullWidth
-            placeholder="Schedule To"
-            (input)="toDatePicked($event.target.value)"
-          />
-          <!-- [nbDatepicker]="toDatePicker"
-        <nb-datepicker #toDatePicker></nb-datepicker> -->
-          <div
-            *ngIf="
-              scheduleForm.get('scheduleEnd').invalid && scheduleForm.get('scheduleEnd').touched
-            "
-          >
-            <small>*This field is required</small>
-          </div>
-          <div
-            *ngIf="scheduleForm.hasError('invalidDate') && scheduleForm.get('scheduleEnd').touched"
-          >
-            <small>*Select Valid End Date</small>
-          </div>
-        </div>
-
-        <div class="col-sm-3">
           <label for="course">*Select Course</label>
           <nb-select
             placeholder="Select Course"
@@ -89,6 +37,89 @@
             <small>*This field is required</small>
           </div>
         </div>
+
+        <div class="col-sm-3">
+          <label for="scheduleStart">From</label>
+          <input
+            type="date"
+            nbInput
+            id="scheduleStart"
+            status="basic"
+            formControlName="scheduleStart"
+            fullWidth
+            placeholder="Schedule From"
+            (input)="fromDatePicked($event.target.value)"
+          />
+
+          <div
+            *ngIf="
+              scheduleForm.get('scheduleStart').invalid && scheduleForm.get('scheduleStart').touched
+            "
+          >
+            <small>*This field is required</small>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="scheduleEnd">To</label>
+          <input
+            type="date"
+            nbInput
+            id="scheduleEnd"
+            status="basic"
+            formControlName="scheduleEnd"
+            fullWidth
+            placeholder="Schedule To"
+            (input)="toDatePicked($event.target.value)"
+          />
+          <div
+            *ngIf="
+              scheduleForm.get('scheduleEnd').invalid && scheduleForm.get('scheduleEnd').touched
+            "
+          >
+            <small>*This field is required</small>
+          </div>
+          <div
+            *ngIf="scheduleForm.hasError('invalidDate') && scheduleForm.get('scheduleEnd').touched"
+          >
+            <small>*Select Valid End Date</small>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="scheduleStartTime">Schedule Start Time</label>
+          <input
+            type="time"
+            nbInput
+            id="scheduleStartTime"
+            status="basic"
+            [value]="scheduleStartTime"
+            fullWidth
+            placeholder="scheduleStartTime"
+            (input)="startTimePicked($event.target.value)"
+          />
+        </div>
+
+        <div class="col-sm-3">
+          <label for="scheduleEndTime">Schedule End Time</label>
+          <input
+            type="time"
+            nbInput
+            id="scheduleEndTime"
+            status="basic"
+            [value]="scheduleEndTime"
+            fullWidth
+            placeholder="End Time"
+            (input)="endTimePicked($event.target.value)"
+          />
+          <div
+            *ngIf="
+              scheduleForm.get('scheduleEnd').invalid && scheduleForm.get('scheduleEnd').touched
+            "
+          >
+            <small>*This field is required</small>
+          </div>
+        </div>
       </div>
 
       <hr />
@@ -99,6 +130,7 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
+                  <th>Select</th>
                   <th>Day</th>
                   <th>Date</th>
                   <th>Start Time</th>
@@ -112,6 +144,9 @@
                   *ngFor="let scheduleDay of scheduleForm.get('days')['controls']; let i = index"
                 >
                   <tr [formGroupName]="i">
+                    <td>
+                      <nb-checkbox formControlName="select"> </nb-checkbox>
+                    </td>
                     <td>
                       <input
                         type="text"
