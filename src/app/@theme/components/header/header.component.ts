@@ -95,7 +95,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       if (this.user.role === 'institute') {
         this.router.navigate(['/pages/dashboard/', event]);
       } else if (this.user.role === 'employee') {
-        var role = this.getEmployeeRole(event);
+        const role = this.getEmployeeRole(event);
         this.roleService.assignRoles(role);
         this.router.navigate(['/pages/dashboard/', event]);
       } else if (this.user.role === 'student') {
@@ -103,9 +103,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
+
   getEmployeeRole(instituteId: any) {
-    var institiute = this.institutes.find((institute=>{return instituteId===institute._id}))
-    if(institiute){
+    const institiute = this.institutes.find((institute) => {
+      return instituteId === institute._id;
+    });
+    if (institiute) {
       return institiute.role;
     }
   }

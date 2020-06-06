@@ -26,7 +26,7 @@
         <tr *ngFor="let employee of employees; let i = index">
           <td>{{ employee.basicDetails.name }}</td>
           <td>{{ employee.basicDetails.employeeContact }}</td>
-          <td>{{ employee.instituteDetails[0].role }}</td>
+          <td>{{ employee.instituteDetails.role }}</td>
           <!-- <td>{{ employee.courseDetails.course }}</td> -->
           <td>
             <button

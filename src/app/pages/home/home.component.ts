@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   messages: any[] = [];
   newLeads: any[] = [];
-  showAddInstituteBtn:boolean;
+  showAddInstituteBtn: boolean;
 
   constructor(
     private api: ApiService,
@@ -60,12 +60,12 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getInstitutes() {
     const user = this.authService.getUser();
-    if(user && user.role === 'institute'){
+    if (user && user.role === 'institute') {
       MENU_ITEMS[1].hidden = false;
       this.showAddInstituteBtn = true;
       this.api.getInstitutes().subscribe((data: any) => {
         this.institutes = data;
-  
+
         if (this.institutes.length) {
           MENU_ITEMS[1].children[1].hidden = false;
           this.instituteService.setInstitutes(this.institutes);
@@ -74,18 +74,16 @@ export class HomeComponent implements OnInit, OnDestroy {
           MENU_ITEMS[1].children[1].hidden = true;
         }
       });
-    }
-    else  if(user && user.role === 'employee'){
-      this.api.getEmployeeInstitutes({email:user.email}).subscribe((data: any) => {
+    } else if (user && user.role === 'employee') {
+      this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
         MENU_ITEMS[1].hidden = true;
         this.institutes = data;
         if (this.institutes.length) {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
-        } 
+        }
       });
     }
-    
   }
 
   onClick() {
@@ -98,11 +96,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/pages/dashboard', id]);
   }
   getEmployeeRole(instituteId: any) {
-    var institiute = this.institutes.find((institute=>{return instituteId===institute._id}))
-    if(institiute){
+    var institiute = this.institutes.find((institute) => {
+      return instituteId === institute._id;
+    });
+    if (institiute) {
       return institiute.role;
     }
-    }
+  }
   @HostListener('unloaded')
   ngOnDestroy() {
     this.institutes = null;

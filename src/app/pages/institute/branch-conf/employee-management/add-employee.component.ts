@@ -188,7 +188,7 @@ export class AddEmployee implements OnInit {
           employeeEmail: this.employee.basicDetails.employeeEmail,
           contact: this.employee.basicDetails.employeeContact,
           address: this.employee.basicDetails.employeeAddress,
-          role: this.employee.instituteDetails[0].role,
+          role: this.employee.instituteDetails.role,
         });
 
         this.employeeForm.get('name').disable();
