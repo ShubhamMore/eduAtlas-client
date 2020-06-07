@@ -167,12 +167,15 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Settings',
+        hidden: true,
       },
       {
         title: 'Create Class',
+        hidden: true,
       },
       {
         title: 'Manage Class',
+        hidden: true,
       },
     ],
   },

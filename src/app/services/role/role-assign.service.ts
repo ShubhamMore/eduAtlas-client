@@ -46,6 +46,9 @@ export class RoleAssignService {
       MENU_ITEMS[6].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
+      MENU_ITEMS[13].children[0].hidden = true;
+      MENU_ITEMS[13].children[1].hidden = false;
+      MENU_ITEMS[13].children[2].hidden = false;
     }
     if(role && role==='institute'){
       MENU_ITEMS[1].hidden = true;
@@ -60,6 +63,10 @@ export class RoleAssignService {
       // MENU_ITEMS[10].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
+      MENU_ITEMS[13].hidden = false;
+      MENU_ITEMS[13].children[0].hidden = false;
+      MENU_ITEMS[13].children[1].hidden = false;
+      MENU_ITEMS[13].children[2].hidden = false;
     }else  if(role && role==='Manager'){
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
@@ -69,6 +76,9 @@ export class RoleAssignService {
       MENU_ITEMS[6].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
+      MENU_ITEMS[13].children[0].hidden = true;
+      MENU_ITEMS[13].children[1].hidden = false;
+      MENU_ITEMS[13].children[2].hidden = false;
     }
 
   }

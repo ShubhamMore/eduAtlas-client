@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'ngx-online-classes-conf',
+  selector: 'ngx-branch-conf',
   templateUrl: './online-classes-conf.component.html',
   styleUrls: ['./online-classes-conf.component.scss'],
 })

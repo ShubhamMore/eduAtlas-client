@@ -16,6 +16,7 @@ import { ManageScheduleComponent } from '../../schedule/manage-schedule/manage-s
 import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedule.component';
 import { TeacherGuard } from '../../../teacher.guard';
 import { BranchManagerGuard } from '../../../bManager.guard';
+import { OnineClassesGuard } from '../../../onlineClasses.guard';
 
 const routes: Routes = [
   {
@@ -44,6 +45,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('../branch-conf/branch/branch.module').then((m) => m.BranchModule),
         canActivate: [BranchManagerGuard],
+      },
+      {
+        path: 'online-classes',
+        loadChildren: () =>
+          import('../online-classes/online-classes.module').then((m) => m.OnlineClassesModule),
+        canActivate: [OnineClassesGuard],
       },
     ],
   },

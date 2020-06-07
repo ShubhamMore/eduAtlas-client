@@ -1,0 +1,41 @@
+<p style="color: black; font-weight: bold;">Settings</p>
+
+<nb-card>
+    <nb-card-body>
+        <form [formGroup]="settingForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-sm-6">
+                  <label for="publicKey">Public Key</label>
+                  <input
+                    type="text"
+                    nbInput
+                    id="publicKey"
+                    fullWidth
+                    [status]="f.publicKey.errors && submitted ? 'danger' : 'basic'"
+                    formControlName="publicKey"
+                    placeholder="Public Key"
+                  />
+                  <small *ngIf="f.publicKey.errors && submitted">*Public Key is req.</small>
+                </div>
+                <div class="col-sm-6">
+                    <label for="secretKey">Secret Key</label>
+                    <input
+                      type="text"
+                      nbInput
+                      id="secretKey"
+                      fullWidth
+                      [status]="f.secretKey.errors && submitted ? 'danger' : 'basic'"
+                      formControlName="secretKey"
+                      placeholder="Secret Key"
+                    />
+                    <small *ngIf="f.secretKey.errors && submitted">*Secret Key is req.</small>
+                  </div>
+                </div>
+                <div style="display: block; margin-top: 1rem; text-align: right;">
+                  <button type="submit" nbButton status="warning" style="color: black;">
+                    {{ edit === 'true' ? 'Update Keys' : 'Add Keys' }}
+                  </button>
+                </div>
+        </form>
+    </nb-card-body>
+</nb-card>

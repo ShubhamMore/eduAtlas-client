@@ -784,4 +784,31 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  // =====================Online Classes API===================
+
+  addCredentials(data:any){
+    const url = `${environment.server}/institute/zoom/addCredentials`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getCredentials(){
+    const url = `${environment.server}/institute/zoom/getCredentials`;
+    return this.http.get(url).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getZoomAuth(data){
+    const url = `${environment.server}/institute/zoom/getZoomAuth`;
+    return this.http.post(url,data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
 }

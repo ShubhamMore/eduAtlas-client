@@ -47,6 +47,7 @@
     "@nebular/theme": "4.6.0",
     "@swimlane/ngx-charts": "^10.0.0",
     "@types/jquery": "^3.3.32",
+    "@zoomus/websdk": "^1.7.8",
     "angular-tree-component": "7.2.0",
     "angular2-chartjs": "0.4.1",
     "angular2-toaster": "^7.0.0",
