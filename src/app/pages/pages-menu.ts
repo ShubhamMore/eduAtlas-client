@@ -64,7 +64,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Manage Employee',
         link: '/pages/institute/branch-config/manage-employee',
-
       },
     ],
   },
@@ -160,5 +159,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Attendance',
     link: '',
     hidden: true, // 12
+  },
+  {
+    title: 'Online Classes',
+    link: '',
+    hidden: true, // 13
+    children: [
+      {
+        title: 'Settings',
+      },
+      {
+        title: 'Create Class',
+      },
+      {
+        title: 'Manage Class',
+      },
+    ],
   },
 ];

@@ -47,6 +47,9 @@ export class ECommerceComponent implements OnInit {
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-employee/' + this.instituteId;
     MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.instituteId;
+    MENU_ITEMS[12].children[0].link = '/pages/classes/settings/' + this.instituteId;
+    MENU_ITEMS[12].children[1].link = '/pages/classes/create/' + this.instituteId;
+    MENU_ITEMS[12].children[2].link = '/pages/classes/manage/' + this.instituteId;
 
     this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
