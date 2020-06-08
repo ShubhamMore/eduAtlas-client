@@ -488,8 +488,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getEmployeesByEmail', data)
       .pipe(
-        tap((res:any) => {
-        }),
+        tap((res: any) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -787,7 +786,7 @@ export class ApiService {
 
   // =====================Online Classes API===================
 
-  addCredentials(data:any){
+  addCredentials(data: any) {
     const url = `${environment.server}/institute/zoom/addCredentials`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
@@ -795,7 +794,7 @@ export class ApiService {
     );
   }
 
-  getCredentials(){
+  getCredentials() {
     const url = `${environment.server}/institute/zoom/getCredentials`;
     return this.http.get(url).pipe(
       tap((data) => {}),
@@ -803,12 +802,19 @@ export class ApiService {
     );
   }
 
-  getZoomAuth(data){
+  getZoomAuth(data) {
     const url = `${environment.server}/institute/zoom/getZoomAuth`;
-    return this.http.post(url,data).pipe(
+    return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
     );
   }
 
+  createMeeting(data) {
+    const url = `${environment.server}/institute/zoom/createMeeting`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
 }
