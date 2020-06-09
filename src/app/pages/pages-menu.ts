@@ -118,15 +118,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
     children: [
       {
         title: 'Attendance Summary',
+        hidden: true,
       }, // 8
       {
         title: 'Performance',
+        hidden: true,
       },
       {
         title: 'Remarks',
+        hidden: true,
       },
       {
         title: 'Mentoring',
+        hidden: true,
       },
       {
         title: 'Schedule PTMs',

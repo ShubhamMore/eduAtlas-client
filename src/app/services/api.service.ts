@@ -912,4 +912,44 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+   /****************   Schedule PTMs   ****************** */
+   addPtm(data: any) {
+    const url = `${environment.server}/institute/ptm/addPtm`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+   }
+
+   getPtmByInstitute(data: any) {
+    const url = `${environment.server}/institute/ptm/getPtmOfInstitutes`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+   }
+   getSinglePtm(data: any) {
+    const url = `${environment.server}/institute/ptm/getSinglePtm`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+   }
+   updatePtm(data: any) {
+    const url = `${environment.server}/institute/ptm/updatePtm`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+   }
+   deletePtm(data: any) {
+    const url = `${environment.server}/institute/ptm/deletePtm`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+   }
+
 }
+ 
