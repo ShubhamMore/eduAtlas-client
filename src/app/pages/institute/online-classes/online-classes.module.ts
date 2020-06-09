@@ -5,7 +5,18 @@ import { OnlineClassSettingsComponent } from './online-classes-conf/online-class
 import { ManageOnlineClassComponent } from './online-classes-conf/manage-online-class/manage-online-class.component';
 import { AddOnlineClassComponent } from './online-classes-conf/add-online-class/add-online-class.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NbCardModule, NbLayoutModule, NbInputModule, NbButtonModule, NbCheckboxModule, NbDatepickerModule, NbSelectModule, NbMenuModule, NbAccordionModule, NbListModule } from '@nebular/theme';
+import {
+  NbCardModule,
+  NbLayoutModule,
+  NbInputModule,
+  NbButtonModule,
+  NbCheckboxModule,
+  NbDatepickerModule,
+  NbSelectModule,
+  NbMenuModule,
+  NbAccordionModule,
+  NbListModule,
+} from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OnlineClassesConfComponent } from './online-classes-conf/online-classes-conf.component';
 
@@ -14,7 +25,7 @@ import { OnlineClassesConfComponent } from './online-classes-conf/online-classes
     OnlineClassesConfComponent,
     OnlineClassSettingsComponent,
     ManageOnlineClassComponent,
-    AddOnlineClassComponent
+    AddOnlineClassComponent,
   ],
   imports: [
     CommonModule,
@@ -31,8 +42,7 @@ import { OnlineClassesConfComponent } from './online-classes-conf/online-classes
     NbMenuModule,
     NbAccordionModule,
     NbEvaIconsModule,
-    NbListModule
+    NbListModule,
   ],
 })
-
-export class OnlineClassesModule { }
+export class OnlineClassesModule {}

@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'ngx-tests',
   templateUrl: './tests.component.html',
-  styleUrls: ['./tests.component.scss']
+  styleUrls: [],
 })
 export class TestsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

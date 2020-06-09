@@ -855,4 +855,61 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  /****************   TESTS   ****************** */
+  getTestByBatch(data: any) {
+    const url = `${environment.server}/institute/tests/getTestByBatch`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  addTest(data: any) {
+    const url = `${environment.server}/institute/tests/addTest`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getSingleTest(data: any) {
+    const url = `${environment.server}/institute/tests/getSingleTest`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateTest(data: any) {
+    const url = `${environment.server}/institute/tests/updateTest`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  addTestScore(data: any) {
+    const url = `${environment.server}/institute/tests/addTestScore`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getTestByStudent(data: any) {
+    const url = `${environment.server}/institute/tests/getTestByStudent`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteTest(data: any) {
+    const url = `${environment.server}/institute/tests/deleteTest`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
 }

@@ -52,6 +52,11 @@ const routes: Routes = [
           import('../online-classes/online-classes.module').then((m) => m.OnlineClassesModule),
         canActivate: [OnineClassesGuard],
       },
+      {
+        path: 'test',
+        loadChildren: () => import('../tests/tests.module').then((m) => m.TestsModule),
+        canActivate: [],
+      },
     ],
   },
 ];
