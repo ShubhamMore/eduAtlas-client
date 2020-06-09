@@ -12,6 +12,7 @@ const routes = [
     children: [
       { path: 'settings/:id', component: OnlineClassSettingsComponent },
       { path: 'create-class/:id', component: AddOnlineClassComponent },
+      { path: 'create-class/:id/edit', component: AddOnlineClassComponent },
       { path: 'manage-class/:id', component: ManageOnlineClassComponent },
     ],
   },

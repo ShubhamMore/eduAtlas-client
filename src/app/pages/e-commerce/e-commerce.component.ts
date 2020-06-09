@@ -23,7 +23,13 @@ export class ECommerceComponent implements OnInit {
   studentPendingFee = [];
 
   study = [];
-  constructor(private api: ApiService, private router: Router, private active: ActivatedRoute,private authService: AuthService,private roleService: RoleAssignService) {}
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private active: ActivatedRoute,
+    private authService: AuthService,
+    private roleService: RoleAssignService,
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -47,9 +53,12 @@ export class ECommerceComponent implements OnInit {
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-employee/' + this.instituteId;
     MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.instituteId;
-    MENU_ITEMS[13].children[0].link = '/pages/institute/online-classes/settings/' + this.instituteId;
-    MENU_ITEMS[13].children[1].link = '/pages/institute/online-classes/create-class/' + this.instituteId;
-    MENU_ITEMS[13].children[2].link = '/pages/institute/online-classes/manage-class/' + this.instituteId;
+    MENU_ITEMS[13].children[0].link =
+      '/pages/institute/online-classes/settings/' + this.instituteId;
+    MENU_ITEMS[13].children[1].link =
+      '/pages/institute/online-classes/create-class/' + this.instituteId;
+    MENU_ITEMS[13].children[2].link =
+      '/pages/institute/online-classes/manage-class/' + this.instituteId;
 
     this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
@@ -58,7 +67,7 @@ export class ECommerceComponent implements OnInit {
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
-      this.roleService.assignRoles(this.authService.getUser().role)
+      this.roleService.assignRoles(this.authService.getUser().role);
       this.display = true;
     });
   }

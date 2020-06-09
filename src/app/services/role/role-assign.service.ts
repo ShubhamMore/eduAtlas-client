@@ -36,8 +36,8 @@ export class RoleAssignService {
     return throwError(error);
   }
 
-  assignRoles(role:string){
-    if(role && role==='Teacher' ||  role==='Counselor'){
+  assignRoles(role: string) {
+    if ((role && role === 'Teacher') || role === 'Counselor') {
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -51,7 +51,7 @@ export class RoleAssignService {
       MENU_ITEMS[13].children[1].hidden = false;
       MENU_ITEMS[13].children[2].hidden = false;
     }
-    if(role && role==='institute'){
+    if (role && role === 'institute') {
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -68,7 +68,7 @@ export class RoleAssignService {
       MENU_ITEMS[13].children[0].hidden = false;
       MENU_ITEMS[13].children[1].hidden = false;
       MENU_ITEMS[13].children[2].hidden = false;
-    }else  if(role && role==='Manager'){
+    } else if (role && role === 'Manager') {
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -82,6 +82,5 @@ export class RoleAssignService {
       MENU_ITEMS[13].children[1].hidden = false;
       MENU_ITEMS[13].children[2].hidden = false;
     }
-
   }
 }
