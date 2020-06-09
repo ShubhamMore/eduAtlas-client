@@ -1,9 +1,6 @@
 <div class="row mb-2">
   <div class="col-12">
-    <button class="btn btn-warning text-white float-right" (click)="createTest()">
-      Create Test
-    </button>
-    <p style="color: black; font-weight: bold;">Define Tests</p>
+    <p style="color: black; font-weight: bold;">Test Score</p>
   </div>
 </div>
 
@@ -62,13 +59,15 @@
                   <button class="mr-3 mb-1" nbButton status="warning" (click)="edit(test._id)">
                     Edit
                   </button>
+                </td>
+                <td>
                   <button
                     class="mr-3 mb-1"
                     nbButton
-                    status="danger"
-                    (click)="deleteTest(test._id, i)"
+                    status="warning"
+                    (click)="createTestScore(test._id)"
                   >
-                    Delete
+                    Upload Score
                   </button>
                 </td>
               </tr>

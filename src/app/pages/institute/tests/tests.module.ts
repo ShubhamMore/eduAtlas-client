@@ -19,9 +19,17 @@ import {
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ManageTestsScoreComponent } from './manage-tests-score/manage-tests-score.component';
+import { CreateTestsScoreComponent } from './create-tests-score/create-tests-score.component';
 
 @NgModule({
-  declarations: [TestsComponent, CreateTestComponent, ManageTestsComponent],
+  declarations: [
+    TestsComponent,
+    CreateTestComponent,
+    CreateTestsScoreComponent,
+    ManageTestsComponent,
+    ManageTestsScoreComponent,
+  ],
   imports: [
     CommonModule,
     TestsRoutingModule,
