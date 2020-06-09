@@ -810,6 +810,22 @@ export class ApiService {
     );
   }
 
+  deleteMeeting(data) {
+    const url = `${environment.server}/institute/zoom/deleteMeeting`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateMeeting(data) {
+    const url = `${environment.server}/institute/zoom/updateMeeting`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   createMeeting(data) {
     const url = `${environment.server}/institute/zoom/createMeeting`;
     return this.http.post(url, data).pipe(
@@ -817,7 +833,14 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
-  getMeetingByBatch(data){
+  getOneMeeting(data) {
+    const url = `${environment.server}/institute/zoom/getOneMeeting`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getMeetingByBatch(data) {
     const url = `${environment.server}/institute/zoom/getMeetingByBatch`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),

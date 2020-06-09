@@ -1,3 +1,4 @@
+import { NbToastrService } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,6 +15,10 @@ export class AddOnlineClassComponent implements OnInit {
 
   institute: any;
 
+  meetingId: any;
+  meeting: any;
+  edit: any;
+
   batches: any[] = [];
   teachers: any[] = [];
 
@@ -24,11 +29,17 @@ export class AddOnlineClassComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
+    private toasterService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
     this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.route.queryParams.subscribe((param) => {
+      this.meetingId = param.meeting;
+      this.edit = param.edit;
+    });
+    this.getCourses(this.instituteId);
 
     this.onlineClassForm = this.fb.group({
       teacherId: ['', Validators.required],
@@ -42,8 +53,33 @@ export class AddOnlineClassComponent implements OnInit {
       agenda: [''],
       password: ['', Validators.required],
     });
-    console.log(this.instituteId);
-    this.getCourses(this.instituteId);
+  }
+
+  getMeeting(id: string) {
+    this.api.getOneMeeting({ id }).subscribe(
+      (data: any) => {
+        this.meeting = data;
+        this.onlineClassForm.patchValue({
+          teacherId: this.meeting.hostId,
+          instituteId: this.meeting.instituteId,
+          courseId: this.meeting.courseId,
+          startDate: this.meeting.startTime.split('T')[0],
+          startTime: this.meeting.startTime.split('T')[1].substring(0, 5),
+          duration: this.meeting.duration,
+          topic: this.meeting.topic,
+          agenda: this.meeting.agenda,
+          password: this.meeting.password,
+        });
+
+        this.onSelectCourse(this.meeting.courseId);
+
+        this.onlineClassForm.patchValue({
+          batchId: this.meeting.batchId,
+        });
+        this.display = true;
+      },
+      (err: any) => {},
+    );
   }
 
   getCourses(id: string) {
@@ -62,7 +98,11 @@ export class AddOnlineClassComponent implements OnInit {
     this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
       this.teachers = data;
       console.log(data);
-      this.display = true;
+      if (this.edit) {
+        this.getMeeting(this.meetingId);
+      } else {
+        this.display = true;
+      }
     });
   }
 
@@ -70,22 +110,57 @@ export class AddOnlineClassComponent implements OnInit {
     if (this.onlineClassForm.valid) {
       const date =
         this.onlineClassForm.value.startDate + 'T' + this.onlineClassForm.value.startTime + ':00Z';
-      const onlineClass = {
-        teacherId: this.onlineClassForm.value.teacherId,
-        instituteId: this.instituteId,
-        batchId: this.onlineClassForm.value.batchId,
-        courseId: this.onlineClassForm.value.courseId,
-        startTime: date,
-        duration: this.onlineClassForm.value.duration,
-        topic: this.onlineClassForm.value.topic,
-        agenda: this.onlineClassForm.value.agenda,
-        password: this.onlineClassForm.value.password,
-      };
 
-      // console.log(onlineClass);
-      this.api.createMeeting(onlineClass).subscribe((res) => {
-        console.log(res);
-      });
+      if (!this.edit) {
+        const onlineClass = {
+          teacherId: this.onlineClassForm.value.teacherId,
+          instituteId: this.instituteId,
+          batchId: this.onlineClassForm.value.batchId,
+          courseId: this.onlineClassForm.value.courseId,
+          startTime: date,
+          duration: this.onlineClassForm.value.duration,
+          topic: this.onlineClassForm.value.topic,
+          agenda: this.onlineClassForm.value.agenda,
+          password: this.onlineClassForm.value.password,
+        };
+        this.api.createMeeting(onlineClass).subscribe(
+          (res) => {
+            console.log(res);
+            this.showToast('top right', 'success', 'Meeting Added Successfully');
+          },
+          (err: any) => {
+            this.showToast('top right', 'danger', '');
+          },
+        );
+      } else {
+        const onlineClass = {
+          _id: this.meetingId,
+          meetingId: this.meeting.meetingId,
+          teacherId: this.onlineClassForm.value.teacherId,
+          instituteId: this.instituteId,
+          batchId: this.onlineClassForm.value.batchId,
+          courseId: this.onlineClassForm.value.courseId,
+          startTime: date,
+          duration: this.onlineClassForm.value.duration,
+          topic: this.onlineClassForm.value.topic,
+          agenda: this.onlineClassForm.value.agenda,
+          password: this.onlineClassForm.value.password,
+        };
+
+        this.api.updateMeeting(onlineClass).subscribe(
+          (res) => {
+            console.log(res);
+            this.showToast('top right', 'success', 'Meeting Updated Successfully');
+          },
+          (err: any) => {
+            this.showToast('top right', 'danger', '');
+          },
+        );
+      }
     }
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
 }

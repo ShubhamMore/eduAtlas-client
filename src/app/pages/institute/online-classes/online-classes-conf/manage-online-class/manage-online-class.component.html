@@ -1,5 +1,4 @@
-
-<div class="row" *ngIf="display">
+<div class="row mb-2" *ngIf="display">
   <div class="col-sm-6">
     <p style="color: black; font-weight: bold;">Schedule A Live Class</p>
   </div>
@@ -25,47 +24,45 @@
       (selectedChange)="onSelectBatch($event)"
     >
       <nb-option value="">Select Batch</nb-option>
-      <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
-        batch.batchCode
-      }}</nb-option>
+      <nb-option *ngFor="let batch of batches" [value]="batch._id">{{ batch.batchCode }}</nb-option>
     </nb-select>
   </div>
 </div>
 
-<nb-card status="info" >
+<nb-card status="info">
   <nb-card-header>UPCOMING CLASSES</nb-card-header>
   <nb-card-body>
     <nb-list>
-      <nb-list-item>
+      <nb-list-item *ngFor="let meeting of meetings; let i = index">
         <div class="row" style="width: 100%;">
           <div class="col-md-6">
             <div class="date-block">
-              Date
+              <span class="month">{{ month(meeting.startTime) }}</span>
+              <span class="day">{{ day(meeting.startTime) }}</span>
             </div>
             <div class="meeting-details">
-              <div class="detail1">
-                Topic :
-              </div>
-              <div class="detail1">
-                Time :
-              </div>
-              <div class="detail2">
-                Host :
-              </div>
+              <div class="detail1">Topic: {{ meeting.topic }}</div>
+              <div class="detail1">Start Time: {{ createTime(meeting.startTime) }}</div>
+              <div class="detail2">Host: {{ meeting.hostName }}</div>
             </div>
           </div>
           <div class="col-md-6">
             <div class="text-right">
-              <button class="mr-3" nbButton status="info" (click)="edit(batch._id)">
+              <button class="mr-3 mb-1" nbButton status="info" (click)="goLive(i)">
                 Go Live
               </button>
-              <button class="mr-3" nbButton status="warning" (click)="edit(batch._id)">
+              <button class="mr-3 mb-1" nbButton status="warning" (click)="notify(i)">
                 Notify
               </button>
-              <button class="mr-3" nbButton status="warning" (click)="edit(batch._id)">
+              <button class="mr-3 mb-1" nbButton status="warning" (click)="edit(meeting._id)">
                 Edit
               </button>
-              <button class="mr-3" nbButton status="warning" (click)="edit(batch._id)">
+              <button
+                class="mr-3 mb-1"
+                nbButton
+                status="danger"
+                (click)="deleteMeeting(meeting._id, meeting.meetingId)"
+              >
                 Delete
               </button>
             </div>
@@ -78,7 +75,5 @@
 
 <nb-card status="warning">
   <nb-card-header>RECORDED CLASSES</nb-card-header>
-  <nb-card-body>
-
-  </nb-card-body>
+  <nb-card-body> </nb-card-body>
 </nb-card>
