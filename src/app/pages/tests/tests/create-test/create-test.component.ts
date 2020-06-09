@@ -1,3 +1,5 @@
+import { NbToastrService } from '@nebular/theme';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
@@ -15,14 +17,19 @@ export class CreateTestComponent implements OnInit {
   institute: any;
 
   batches: any[] = [];
+  display: boolean;
 
 
   constructor(private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+    ) { }
 
   ngOnInit() {
+    this.display = false;
+
     this.instituteId = this.route.snapshot.paramMap.get('id')
 
     this.createTestForm = this.fb.group({
@@ -30,8 +37,11 @@ export class CreateTestComponent implements OnInit {
       courseId:['',Validators.required],
       instituteId:[this.instituteId],
       date:['',Validators.required],
-      
+      testName:['',Validators.required],
+
     })
+
+    this.getCourses(this.instituteId)
   }
 
   getCourses(id: string) {
@@ -44,4 +54,6 @@ export class CreateTestComponent implements OnInit {
   onSelectCourse(id: string) {
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
   }
+
+  createTest(){}
 }
