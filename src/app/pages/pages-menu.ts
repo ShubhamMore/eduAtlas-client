@@ -89,7 +89,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Communications',
+    title: 'Communications',//6
     hidden: true,
     children: [
       {

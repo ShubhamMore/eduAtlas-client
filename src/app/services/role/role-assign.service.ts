@@ -44,6 +44,7 @@ export class RoleAssignService {
       MENU_ITEMS[4].hidden = true;
       MENU_ITEMS[5].hidden = false;
       MENU_ITEMS[6].hidden = false;
+      MENU_ITEMS[7].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
       MENU_ITEMS[13].children[0].hidden = true;
@@ -57,7 +58,7 @@ export class RoleAssignService {
       MENU_ITEMS[4].hidden = false;
       MENU_ITEMS[5].hidden = false;
       MENU_ITEMS[6].hidden = false;
-      // MENU_ITEMS[7].hidden = false;
+      MENU_ITEMS[7].hidden = false;
       // MENU_ITEMS[8].hidden = false;
       // MENU_ITEMS[9].hidden = false;
       // MENU_ITEMS[10].hidden = false;
@@ -74,6 +75,7 @@ export class RoleAssignService {
       MENU_ITEMS[4].hidden = false;
       MENU_ITEMS[5].hidden = false;
       MENU_ITEMS[6].hidden = false;
+      MENU_ITEMS[7].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
       MENU_ITEMS[13].children[0].hidden = true;
