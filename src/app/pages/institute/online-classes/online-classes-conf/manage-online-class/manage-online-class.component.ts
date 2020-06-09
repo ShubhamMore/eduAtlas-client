@@ -73,7 +73,11 @@ export class ManageOnlineClassComponent implements OnInit {
   }
 
   goLive(startUrl: string) {
-    window.open(startUrl);
+    window.open(
+      startUrl,
+      'Zoom',
+      'scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no',
+    );
   }
 
   notify(i: number) {}

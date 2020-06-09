@@ -22,7 +22,6 @@ export class StudentHomeComponent implements OnInit {
   userName = 'Angular';
   userEmail = 'angular@gmail.com';
   passWord = '';
-  // meeting = false;
 
   meetings: any[] = [];
 
@@ -43,7 +42,11 @@ export class StudentHomeComponent implements OnInit {
     // this.meetingNumber = meetingNumber;
     // this.passWord = passWord;
     // this.meeting = true;
-    window.open(url);
+    window.open(
+      url,
+      'Zoom',
+      'scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no',
+    );
   }
 
   // getSignature(meetingNumber: any, passWord: any) {
