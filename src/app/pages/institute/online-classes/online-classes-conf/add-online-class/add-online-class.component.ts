@@ -84,7 +84,6 @@ export class AddOnlineClassComponent implements OnInit {
 
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
-      console.log(data);
       this.institute = data;
       this.getEmployees(this.instituteId);
     });
@@ -97,7 +96,6 @@ export class AddOnlineClassComponent implements OnInit {
   getEmployees(instituteId: string) {
     this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
       this.teachers = data;
-      console.log(data);
       if (this.edit) {
         this.getMeeting(this.meetingId);
       } else {
@@ -125,11 +123,10 @@ export class AddOnlineClassComponent implements OnInit {
         };
         this.api.createMeeting(onlineClass).subscribe(
           (res) => {
-            console.log(res);
             this.showToast('top right', 'success', 'Meeting Added Successfully');
           },
           (err: any) => {
-            this.showToast('top right', 'danger', '');
+            this.showToast('top right', 'danger', err.err.message);
           },
         );
       } else {
@@ -149,11 +146,10 @@ export class AddOnlineClassComponent implements OnInit {
 
         this.api.updateMeeting(onlineClass).subscribe(
           (res) => {
-            console.log(res);
             this.showToast('top right', 'success', 'Meeting Updated Successfully');
           },
           (err: any) => {
-            this.showToast('top right', 'danger', '');
+            this.showToast('top right', 'danger', err.err.message);
           },
         );
       }

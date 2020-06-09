@@ -72,7 +72,9 @@ export class ManageOnlineClassComponent implements OnInit {
     this.getUpcomingClasses(this.instituteId, batchId);
   }
 
-  goLive(i: number) {}
+  goLive(startUrl: string) {
+    window.open(startUrl);
+  }
 
   notify(i: number) {}
 
@@ -101,7 +103,6 @@ export class ManageOnlineClassComponent implements OnInit {
     this.api.getMeetingByBatch({ instituteId: instituteId, batchId: batchId }).subscribe(
       (res: any) => {
         this.meetings = res;
-        console.log(res);
       },
       (err) => {},
     );

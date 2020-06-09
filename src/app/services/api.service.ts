@@ -810,6 +810,14 @@ export class ApiService {
     );
   }
 
+  getAllMeetings() {
+    const url = `${environment.server}/institute/zoom/getAllMeetings`;
+    return this.http.post(url, {}).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   deleteMeeting(data) {
     const url = `${environment.server}/institute/zoom/deleteMeeting`;
     return this.http.post(url, data).pipe(

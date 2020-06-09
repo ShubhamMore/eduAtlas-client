@@ -1,1 +1,33 @@
-<p>student-home works!</p>
+<div class="row">
+  <div class="col-12">
+    <table class="table table-borderless">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Topic</th>
+          <th>Join</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let meeting of meetings; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ meeting.topic }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="joinMeeting(meeting.joinUrl, meeting.meetingId, meeting.password)"
+            >
+              Join
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- <div class="zoom-box">
+  <div id="zmmtg-root"></div>
+</div> -->
