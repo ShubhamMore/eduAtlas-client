@@ -19,8 +19,10 @@ import {
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ManageTestsScoreComponent } from './manage-tests-score/manage-tests-score.component';
 import { CreateTestsScoreComponent } from './create-tests-score/create-tests-score.component';
+import { TestReportComponent } from './test-report/test-report.component';
+import { ViewReportComponent } from './test-report/view-report/view-report.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { CreateTestsScoreComponent } from './create-tests-score/create-tests-sco
     CreateTestComponent,
     CreateTestsScoreComponent,
     ManageTestsComponent,
-    ManageTestsScoreComponent,
+    TestReportComponent,
+    ViewReportComponent
   ],
   imports: [
     CommonModule,
@@ -46,6 +49,7 @@ import { CreateTestsScoreComponent } from './create-tests-score/create-tests-sco
     NbAccordionModule,
     NbEvaIconsModule,
     NbListModule,
+    ChartsModule
   ],
 })
 export class TestsModule {}

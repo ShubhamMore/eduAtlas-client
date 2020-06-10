@@ -1,0 +1,89 @@
+<p style="color: black; font-weight: bold;"></p>
+
+<nb-card *ngIf="display">
+    <nb-card-body>
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="courseId"><strong>Course: </strong>{{ course }}</label>
+            </div>
+
+            <div class="col-sm-4">
+                <label for="batchId"><strong>Batch: </strong>{{ batch }}</label>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="date"><strong>Date: </strong>{{ test.date }}</label>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="testName"><strong>Test Name: </strong>{{ test.testName }}</label>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="totalMarks"><strong>Total Marks: </strong>{{ test.totalMarks }}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="!fileUpload">
+            <div *ngIf="studentScore.length > 0; else noStudents">
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-borderless text-center">
+                            <thead>
+                                <tr>
+                                    <th class="">Roll No</th>
+                                    <th class="">Score</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let student of studentScore; let i = index">
+                                    <tr>
+                                        <td>{{ student.rollNo }}</td>
+                                        <td>{{ student.marks }}</td>
+                                        <td>
+                                            <button class="mr-3 mb-1" nbButton status="warning"
+                                                (click)="getStudentTestReport(student.studentId,dialog)">
+                                                Student Graph
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <ng-template #noStudents>
+                <p class="pt-5 text-center">No Students Found</p>
+            </ng-template>
+        </div>
+
+
+
+
+    </nb-card-body>
+</nb-card>
+
+<ng-template #dialog let-data let-ref="dialogRef">
+    <nb-card>
+        <nb-card-header>Student Progress</nb-card-header>
+        <nb-card-body>
+            <div style="display: block;width:1000px">
+                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                    [legend]="barChartLegend" [chartType]="barChartType">
+                </canvas>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button class="float-right" nbButton (click)="ref.close()">Close Dialog</button>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>
