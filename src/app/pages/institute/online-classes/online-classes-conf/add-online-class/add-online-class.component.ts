@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { NbToastrService } from '@nebular/theme';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../../services/api.service';
@@ -28,6 +29,7 @@ export class AddOnlineClassComponent implements OnInit {
     private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
+    private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
   ) {}
@@ -107,7 +109,7 @@ export class AddOnlineClassComponent implements OnInit {
   saveOnlineClass() {
     if (this.onlineClassForm.valid) {
       const date =
-        this.onlineClassForm.value.startDate + 'T' + this.onlineClassForm.value.startTime + ':00Z';
+        this.onlineClassForm.value.startDate + 'T' + this.onlineClassForm.value.startTime + ':00';
 
       if (!this.edit) {
         const onlineClass = {
@@ -124,6 +126,7 @@ export class AddOnlineClassComponent implements OnInit {
         this.api.createMeeting(onlineClass).subscribe(
           (res) => {
             this.showToast('top right', 'success', 'Meeting Added Successfully');
+            this.location.back();
           },
           (err: any) => {
             this.showToast('top right', 'danger', err.err.message);
@@ -147,6 +150,7 @@ export class AddOnlineClassComponent implements OnInit {
         this.api.updateMeeting(onlineClass).subscribe(
           (res) => {
             this.showToast('top right', 'success', 'Meeting Updated Successfully');
+            this.location.back();
           },
           (err: any) => {
             this.showToast('top right', 'danger', err.err.message);

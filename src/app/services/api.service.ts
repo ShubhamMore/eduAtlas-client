@@ -873,7 +873,7 @@ export class ApiService {
     );
   }
   getMeetingByBatch(data) {
-    const url = `${environment.server}/institute/zoom/getMeetingByBatch`;
+    const url = `${environment.server}/institute/zoom/getMeetingsFromZoom`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
@@ -1000,8 +1000,11 @@ export class ApiService {
     );
   }
 
+  /**************** MENTORING **************** */
+
   addMentoring(data: any) {
-    const url = `${environment.server}/institute/ptm/addMentoring`;
+    console.log('sda');
+    const url = `${environment.server}/institute/mentoring/addMentoring`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
@@ -1009,7 +1012,7 @@ export class ApiService {
   }
 
   updateMentoring(data: any) {
-    const url = `${environment.server}/institute/ptm/updateMentoring`;
+    const url = `${environment.server}/institute/mentoring/updateMentoring`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
@@ -1017,7 +1020,7 @@ export class ApiService {
   }
 
   deleteMentoring(data: any) {
-    const url = `${environment.server}/institute/ptm/deleteMentoring`;
+    const url = `${environment.server}/institute/mentoring/deleteMentoring`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
@@ -1025,7 +1028,7 @@ export class ApiService {
   }
 
   getMentorings(data: any) {
-    const url = `${environment.server}/institute/ptm/getMentoringsByStudents`;
+    const url = `${environment.server}/institute/mentoring/getMentoringOfStudentByInstitute`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),

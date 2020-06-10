@@ -26,6 +26,7 @@ export class MentoringComponent implements OnInit {
     this.api.getStudentsByInstitute({ instituteId: this.instituteId }).subscribe(
       (res: any) => {
         this.students = res;
+        console.log(res);
         this.display = true;
       },
       (err) => {},

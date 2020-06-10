@@ -32,7 +32,7 @@
 <nb-card status="info">
   <nb-card-header>UPCOMING CLASSES</nb-card-header>
   <nb-card-body>
-    <nb-list>
+    <nb-list *ngIf="meetings.length > 0; else noMeetings">
       <nb-list-item *ngFor="let meeting of meetings; let i = index">
         <div class="row" style="width: 100%;">
           <div class="col-md-6">
@@ -70,10 +70,15 @@
         </div>
       </nb-list-item>
     </nb-list>
+    <ng-template #noMeetings>
+      <p class="mt-5 text-center">No Meetings Available</p>
+    </ng-template>
   </nb-card-body>
 </nb-card>
 
-<nb-card status="warning">
+<!-- <nb-card status="warning">
   <nb-card-header>RECORDED CLASSES</nb-card-header>
-  <nb-card-body> </nb-card-body>
-</nb-card>
+  <nb-card-body>
+    <p class="mt-5 text-center">No Recorded Classes</p>
+  </nb-card-body>
+</nb-card> -->

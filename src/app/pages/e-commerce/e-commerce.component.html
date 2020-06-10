@@ -10,53 +10,18 @@
         <input id="date" placeholder="Date" [nbDatepicker]="formPicker" />
         <nb-datepicker #formPicker></nb-datepicker>
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div
-            class="mb-3"
-            style="display: grid; grid-template-columns: 50px auto auto; width: 100%;"
-          >
-            <div
-              class="text-center mr-2"
-              style="border-radius: 5px; background-color: skyblue;"
-            ></div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Upcoming Classes Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;">
       <nb-card-header>STUDENT REQUESTS </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div
-            class="mb-3"
-            style="display: grid; grid-template-columns: auto auto auto; width: 100%;"
-          >
-            <div>
-              <span
-                ><img
-                  src="assets/images/nick.png"
-                  width="30px"
-                  height="30px"
-                  style="border-radius: 100%;"
-              /></span>
-            </div>
-            <div class="pr-3 pl-3"></div>
-
-            <div style="text-align: right;">
-              <a href="#" class="mr-2">
-                <img src="../../../assets/img/check.png" width="30px" height="30px" />
-              </a>
-              <a href="#">
-                <img src="../../../assets/img/cross.png" width="30px" height="30px" />
-              </a>
-            </div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Student Request Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>
@@ -67,35 +32,18 @@
       <nb-card-header style="background-color: skyblue; color: black;">
         STUDY MATERIALS
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div style="display: grid; grid-template-columns: 50px auto; width: 100%;">
-            <img
-              src="../../../assets/images/nick.png"
-              width="30px"
-              height="30px"
-              style="border-radius: 100%;"
-            />
-
-            <div></div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Study Material Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;">
       <nb-card-header>LEADS</nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: auto; width: 100%;">
-            <div class="pr-3 pl-3" *ngFor="let i of students" [hidden]="!i.active">
-              {{ i.basicDetails.name }} {{ i.basicDetails.studentEmail }}
-            </div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Leads Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>

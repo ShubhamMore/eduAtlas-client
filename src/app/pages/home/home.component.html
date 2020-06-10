@@ -3,7 +3,9 @@
     <div class="text-center">
       <img src="../../../assets/img/institute.png" width="100px" height="100px" />
       <h3 class="mt-4">NO INSTITUTE ADDED</h3>
-      <small *ngIf="showAddInstituteBtn">Click on add Institute Button to create other branches</small>
+      <small *ngIf="showAddInstituteBtn"
+        >Click on add Institute Button to create other branches</small
+      >
       <div class="mt-4" *ngIf="showAddInstituteBtn">
         <button nbButton status="warning" style="color: black;" (click)="onClick()">
           ADD INSTITUTE
@@ -44,7 +46,7 @@
   <div class="col-sm-6">
     <nb-card *ngIf="showAddInstituteBtn">
       <nb-card-body>
-        <div class="row" >
+        <div class="row">
           <div class="col-sm-2">
             <img src="../../../assets/img/home-yellow.png" alt="Add Institute" />
           </div>
@@ -66,6 +68,7 @@
         <p class="font-weight-bold">
           SMS BALANCE
         </p>
+        <h2>0 SMS Pending</h2>
       </nb-card-body>
     </nb-card>
   </div>
@@ -75,35 +78,26 @@
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
       <nb-card-header
         >UPCOMING CLASS
-        <nb-select status="control" placeholder="institute" style="float: right;">
+        <nb-select elect status="control" placeholder="institute" style="float: right;">
           <nb-option [value]="undefined">Select</nb-option>
           <nb-option *ngFor="let item of institutes" value="{{ item.basicInfo.name }}">{{
             item.basicInfo.name
           }}</nb-option>
         </nb-select>
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;">
-            <div
-              class="text-center mr-2"
-              style="border-radius: 5px; background-color: skyblue;"
-            ></div>
-            <div></div>
-
-            <div class="text-right"></div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Upcoming Class Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header>STUDENT REQUETS </nb-card-header>
+      <nb-card-header>STUDENT REQUESTS </nb-card-header>
       <nb-list>
         <nb-list-item>
-          <div
+          <p class="text-center">No Requests Available</p>
+          <!-- <div
             class="mb-3"
             style="display: grid; grid-template-columns: auto auto auto; width: 100%;"
           >
@@ -126,12 +120,13 @@
                 <img src="assets/img/cross.png" width="30px" height="30px" />
               </a>
             </div>
-          </div>
+          </div> -->
         </nb-list-item>
       </nb-list>
     </nb-card>
   </div>
 </div>
+
 <div class="row" [hidden]="!display">
   <div class="col-sm-6">
     <nb-card style="max-height: 35vh;" [hidden]="false">
@@ -140,70 +135,18 @@
         <input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker" />
         <nb-datepicker #formpicker></nb-datepicker>
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div
-            class="mb-3"
-            *ngFor="let item of studentPendingFee"
-            style="display: grid; grid-template-columns: 50px auto auto;"
-          >
-            <div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue;">
-              <small>
-                <b>{{ item.date }}</b>
-              </small>
-              <small style="display: block;">{{ item.month }}</small>
-            </div>
-            <div>
-              <small
-                ><b>{{ item.name }}</b></small
-              >
-              <small style="display: block;">{{ item.institute }}</small>
-              <small style="display: block;">{{ item.batch }}</small>
-              <small style="display: block;">{{ item.roll }}</small>
-            </div>
-            <div style="text-align: right;">
-              <small>INR</small>
-              <small style="display: block;">{{ item.fee }}</small>
-            </div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Pending Fees Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
       <nb-card-header>LEADS </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div
-            class="mb-3"
-            style="display: grid; grid-template-columns: auto auto auto; width: 100%;"
-            *ngFor="let item of studentReq"
-          >
-            <div>
-              <span
-                ><img
-                  src="assets/images/nick.png"
-                  width="30px"
-                  height="30px"
-                  style="border-radius: 100%;"
-              /></span>
-            </div>
-            <div class="pr-3 pl-3">
-              <small
-                ><b>{{ item.name }}</b> {{ item.msg }} <b>{{ item.institute }}</b></small
-              >
-              <small style="display: block;">email: {{ item.email }}</small>
-              <small style="display: block;">contact: {{ item.contact }}</small>
-            </div>
-
-            <div style="text-align: right;">
-              <button nbButton status="success">RESPOND</button>
-            </div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="test-center">No Leads</p>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>
@@ -211,19 +154,18 @@
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
       <nb-card-header>Messages</nb-card-header>
-      <nb-list></nb-list>
+      <nb-card-body>
+        <p class="test-center">No Messages</p>
+      </nb-card-body>
     </nb-card>
   </div>
+
   <div class="col-sm-6">
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header> New Leads</nb-card-header>
-      <nb-list>
-        <div
-          class="mb-3"
-          style="display: grid; grid-template-columns: auto auto auto; width: 100%;"
-          *ngFor="let msg of messages"
-        ></div>
-      </nb-list>
+      <nb-card-header>New Leads</nb-card-header>
+      <nb-card-body>
+        <p class="test-center">No New Leads</p>
+      </nb-card-body>
     </nb-card>
   </div>
 </div>
