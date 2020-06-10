@@ -39,6 +39,10 @@ const routes: Routes = [
             (m) => m.CommunicationModule,
           ),
       },
+      {
+        path: 'student-reports',
+        loadChildren: () => import('./student-reports/student-report.module').then((m) => m.StudentReportModule),
+      },
 
       {
         path: '',
