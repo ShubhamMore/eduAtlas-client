@@ -15,6 +15,9 @@ export class CreateTestsScoreComponent implements OnInit {
   instituteId: string;
   institute: any;
   students: any[];
+  file: File;
+  fileUpload: boolean;
+  invalidFile: boolean;
   test: any;
   course: string;
   batch: string;
@@ -30,6 +33,8 @@ export class CreateTestsScoreComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
+    this.invalidFile = false;
+    this.fileUpload = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.route.queryParams.subscribe((param) => {
       this.testId = param.test;
@@ -37,6 +42,23 @@ export class CreateTestsScoreComponent implements OnInit {
     this.getCourses(this.instituteId);
     this.students = [];
     this.studentScore = [];
+  }
+
+  changeFieUpload(event: any) {
+    this.fileUpload = event;
+  }
+
+  onFilePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+
+    const imgExt: string[] = ['xsl', 'xlsx', 'csv'];
+    const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+    if (!(imgExt.indexOf(ext) !== -1)) {
+      this.invalidFile = true;
+      return;
+    }
+    this.invalidFile = false;
+    this.file = file;
   }
 
   getCourses(id: string) {
@@ -98,15 +120,35 @@ export class CreateTestsScoreComponent implements OnInit {
   }
 
   addScore() {
-    this.api.addTestScore({ _id: this.test._id, scores: this.studentScore }).subscribe(
-      (res) => {
-        this.showToast('top right', 'success', 'Score Updated Successfully');
-        this.location.back();
-      },
-      (err) => {
-        this.showToast('top right', 'danger', err.err.message);
-      },
-    );
+    if (!this.fileUpload) {
+      this.api.addTestScore({ _id: this.test._id, scores: this.studentScore }).subscribe(
+        (res) => {
+          this.showToast('top right', 'success', 'Score Updated Successfully');
+          this.location.back();
+        },
+        (err) => {
+          this.showToast('top right', 'danger', err.err.message);
+        },
+      );
+    } else {
+      if (this.file) {
+        const scoreFile = new FormData();
+        scoreFile.append('_id', this.test._id);
+        scoreFile.append('uploadfile', this.file, this.test.testName);
+
+        this.api.addScoreUsingExcel(scoreFile).subscribe(
+          (res) => {
+            this.showToast('top right', 'success', 'Score File Updated Successfully');
+            this.location.back();
+          },
+          (err) => {
+            this.showToast('top right', 'danger', err.err.message);
+          },
+        );
+      } else {
+        this.invalidFile = true;
+      }
+    }
   }
 
   showToast(position: any, status: any, message: any) {

@@ -30,40 +30,75 @@
       </div>
     </div>
 
-    <div *ngIf="studentScore.length > 0">
-      <div class="row">
-        <div class="col-12">
-          <table class="table table-borderless text-center">
-            <thead>
-              <tr>
-                <th class="">Roll No</th>
-                <th class="">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let student of studentScore; let i = index">
-                <tr>
-                  <td>{{ student.rollNo }}</td>
+    <div class="row">
+      <div class="col-12">
+        <nb-checkbox
+          (checkedChange)="changeFieUpload($event)"
+          [(ngModel)]="fileUpload"
+          fullWidth
+          status="basic"
+          >Upload Test File</nb-checkbox
+        >
+      </div>
+    </div>
 
-                  <td>
-                    <input
-                      type="number"
-                      nbInput
-                      pattern="\d*"
-                      maxlength="3"
-                      [id]="student.studentId"
-                      [value]="student.marks"
-                      (input)="addMarks($event, i)"
-                    />
-                  </td>
+    <div *ngIf="!fileUpload">
+      <div *ngIf="studentScore.length > 0; else noStudents">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-borderless text-center">
+              <thead>
+                <tr>
+                  <th class="">Roll No</th>
+                  <th class="">Score</th>
                 </tr>
-              </ng-container>
-            </tbody>
-          </table>
-          <button type="submit" class="btn btn-primary float-right" (click)="addScore()">
-            Save
-          </button>
+              </thead>
+              <tbody>
+                <ng-container *ngFor="let student of studentScore; let i = index">
+                  <tr>
+                    <td>{{ student.rollNo }}</td>
+
+                    <td>
+                      <input
+                        type="number"
+                        nbInput
+                        pattern="\d*"
+                        maxlength="3"
+                        [id]="student.studentId"
+                        [value]="student.marks"
+                        (input)="addMarks($event, i)"
+                      />
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+      <ng-template #noStudents>
+        <p class="pt-5 text-center">No Students Found</p>
+      </ng-template>
+    </div>
+    <div *ngIf="fileUpload">
+      <input
+        type="file"
+        nbInput
+        status="basic"
+        fullWidth
+        id="score"
+        (change)="onFilePicked($event)"
+      />
+      <span style="color: #f00;" *ngIf="invalidFile"
+        >*File format must be *.xsl, *.xlsx, *.csv</span
+      >
+      <p *ngIf="file && !invalidFile">{{ file.name }}</p>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary float-right" (click)="addScore()">
+          Save
+        </button>
       </div>
     </div>
   </nb-card-body>
