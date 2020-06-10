@@ -17,6 +17,7 @@ export class SheduleMentoringComponent implements OnInit {
   editMentoringId: string;
   display: boolean;
   mentorings: any[];
+  teachers: any[];
 
   mentoringForm: FormGroup;
 
@@ -31,21 +32,45 @@ export class SheduleMentoringComponent implements OnInit {
   ngOnInit() {
     this.display = false;
     this.mentorings = [];
+    this.teachers = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.route.queryParams.subscribe((data) => {
       this.studentId = data.student;
+    });
+    this.mentoringForm = this.fb.group({
+      instituteId: [this.instituteId, Validators.required],
+      studentId: [this.studentId, Validators.required],
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      note: ['', Validators.required],
+      teacherId: ['', Validators.required],
     });
 
     if (!this.studentId) {
       this.showToast('top right', 'danger', 'No Student Found');
       this.location.back();
     } else {
+      this.getEmployees(this.instituteId);
+      this.getMentoring();
     }
+  }
 
-    this.mentoringForm = this.fb.group({
-      date: ['', Validators.required],
-      time: ['', Validators.required],
-      note: ['', Validators.required],
+  getMentoring() {
+    this.api.getMentorings({ instituteId: this.instituteId, studentId: this.studentId }).subscribe(
+      (res: any) => {
+        this.mentorings = res;
+        console.log(res);
+      },
+      (err: any) => {
+        this.showToast('top right', 'danger', err.err.message);
+      },
+    );
+  }
+
+  getEmployees(instituteId: string) {
+    this.api.getEmployeesByInstituteId(instituteId).subscribe((data: any) => {
+      this.teachers = data;
+      this.display = true;
     });
   }
 
@@ -62,6 +87,7 @@ export class SheduleMentoringComponent implements OnInit {
       date: this.mentorings[i].date,
       time: this.mentorings[i].time,
       note: this.mentorings[i].note,
+      teacherId: this.mentorings[i].teacherId,
     });
   }
 
@@ -78,28 +104,33 @@ export class SheduleMentoringComponent implements OnInit {
   }
 
   save() {
+    this.mentoringForm.markAllAsTouched();
     if (this.mentoringForm.valid) {
       if (!this.editMentoringId) {
+        console.log('new');
         this.api.addMentoring(this.mentoringForm.value).subscribe(
           (res) => {
-            this.showToast('top-right', 'success', 'Mentoring Session Added Successfully');
+            console.log(res);
+            this.getMentoring();
+            this.showToast('top right', 'success', 'Mentoring Session Added Successfully');
             this.mentoringForm.reset();
           },
           (err) => {
-            this.showToast('top-right', 'danger', err.error.message);
+            this.showToast('top right', 'danger', err.error.message);
           },
         );
       } else {
         const mentoring = this.mentoringForm.value;
         mentoring._id = this.editMentoringId;
-        this.api.updateMeeting(mentoring).subscribe(
+        this.api.updateMentoring(mentoring).subscribe(
           (res) => {
-            this.showToast('top-right', 'success', 'Mentoring Session Updated Successfully');
+            this.showToast('top right', 'success', 'Mentoring Session Updated Successfully');
+            this.getMentoring();
             this.mentoringForm.reset();
             this.editMentoringId = null;
           },
           (err) => {
-            this.showToast('top-right', 'danger', err.error.message);
+            this.showToast('top right', 'danger', err.error.message);
           },
         );
       }

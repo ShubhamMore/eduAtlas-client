@@ -12,9 +12,9 @@
       <tbody>
         <tr *ngFor="let student of students; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ student.basicDetails.studentName }}</td>
+          <td>{{ student.basicDetails.name }}</td>
           <td>
-            <button nbButton status="warning" (click)="schedule(student._id)" s>Schedule</button>
+            <button nbButton status="warning" (click)="schedule(student._id)">Schedule</button>
           </td>
         </tr>
       </tbody>

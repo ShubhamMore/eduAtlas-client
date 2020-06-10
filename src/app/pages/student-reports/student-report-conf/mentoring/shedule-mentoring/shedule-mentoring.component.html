@@ -41,6 +41,32 @@
             >*Time is Required</span
           >
         </div>
+
+        <div class="col-sm-4">
+          <label for="teacher">*Teacher</label>
+          <nb-select
+            placeholder="Select Teacher"
+            [status]="
+              mentoringForm.get('teacherId').invalid && mentoringForm.get('teacherId').touched
+                ? 'warning'
+                : 'basic'
+            "
+            formControlName="teacherId"
+            fullWidth
+            id="teacher"
+          >
+            <nb-option value="">Select Teacher</nb-option>
+            <nb-option *ngFor="let teacher of teachers" [value]="teacher._id">{{
+              teacher.basicDetails.name
+            }}</nb-option>
+          </nb-select>
+          <span
+            style="color: #f00;"
+            *ngIf="mentoringForm.get('teacherId').invalid && mentoringForm.get('teacherId').touched"
+            >*Teacher is Required</span
+          >
+        </div>
+
         <div class="col-sm-12">
           <label for="time">*Note</label>
           <textarea
@@ -64,7 +90,9 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-warning float-right" type="submit">Save</button>
+          <button class="btn btn-warning float-right mt-3" type="submit">
+            {{ editMentoringId ? 'Update' : 'Submit' }}
+          </button>
         </div>
       </div>
     </form>
@@ -75,21 +103,28 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Date</th>
+          <th>Date/Time</th>
           <th>Note</th>
+          <th>Teacher</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let mentoring of mentorings; let i = index">
           <td>{{ i + 1 }}</td>
-          <td>{{ mentoring.date }}</td>
-          <td>{{ mentoring.time }}</td>
+          <td>{{ mentoring.date }} - {{ mentoring.time }}</td>
+          <td>{{ mentoring.note }}</td>
+          <td>{{ mentoring.teacherName }}</td>
           <td>
             <button class="mr-3 mb-2" nbButton status="warning" (click)="editMentoring(i)">
               Edit
             </button>
-            <button nbButton status="danger" (click)="deleteMentoring(mentoring._id, i)">
+            <button
+              class="mr-3 mb-2"
+              nbButton
+              status="danger"
+              (click)="deleteMentoring(mentoring._id, i)"
+            >
               Delete
             </button>
           </td>
