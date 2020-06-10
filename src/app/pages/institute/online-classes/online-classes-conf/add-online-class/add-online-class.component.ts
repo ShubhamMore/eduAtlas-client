@@ -109,7 +109,7 @@ export class AddOnlineClassComponent implements OnInit {
   saveOnlineClass() {
     if (this.onlineClassForm.valid) {
       const date =
-        this.onlineClassForm.value.startDate + 'T' + this.onlineClassForm.value.startTime + ':00Z';
+        this.onlineClassForm.value.startDate + 'T' + this.onlineClassForm.value.startTime + ':00';
 
       if (!this.edit) {
         const onlineClass = {
