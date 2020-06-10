@@ -89,7 +89,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Communications',//6
+    title: 'Communications', //6
     hidden: true,
     children: [
       {
@@ -130,7 +130,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Mentoring',
-        hidden: true,
       },
       {
         title: 'Schedule PTMs',

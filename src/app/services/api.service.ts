@@ -301,7 +301,7 @@ export class ApiService {
       );
   }
 
-  //  DELETE STUDENT COURSE
+  // STUDENT COURSE
   getStudentsByBatch(instituteId: string, courseId: string, batchId: string) {
     return this.http
       .post(environment.server + '/institute/student/getStudentsByBatch', {
@@ -309,6 +309,16 @@ export class ApiService {
         courseId: courseId,
         batchId: batchId,
       })
+      .pipe(
+        tap((res) => {}),
+        catchError(this.handleError),
+      );
+  }
+
+  // STUDENT COURSE
+  getStudentsByInstitute(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentsByInstitute', data)
       .pipe(
         tap((res) => {}),
         catchError(this.handleError),
@@ -968,6 +978,38 @@ export class ApiService {
   }
   deletePtm(data: any) {
     const url = `${environment.server}/institute/ptm/deletePtm`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  addMentoring(data: any) {
+    const url = `${environment.server}/institute/ptm/addMentoring`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateMentoring(data: any) {
+    const url = `${environment.server}/institute/ptm/updateMentoring`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteMentoring(data: any) {
+    const url = `${environment.server}/institute/ptm/deleteMentoring`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getMentorings(data: any) {
+    const url = `${environment.server}/institute/ptm/getMentoringsByStudents`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),

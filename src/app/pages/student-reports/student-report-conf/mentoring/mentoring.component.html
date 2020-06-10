@@ -1,0 +1,26 @@
+<p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
+<nb-card *ngIf="display">
+  <nb-card-body>
+    <table class="table table-borderless" *ngIf="students.length > 0; else noStudents">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student</th>
+          <th>Schedule</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ student.basicDetails.studentName }}</td>
+          <td>
+            <button nbButton status="warning" (click)="schedule(student._id)" s>Schedule</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noStudents>
+      <p class="text-center mt-3">No Students Found</p>
+    </ng-template>
+  </nb-card-body>
+</nb-card>

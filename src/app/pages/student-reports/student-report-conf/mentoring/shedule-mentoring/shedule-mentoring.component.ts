@@ -1,0 +1,108 @@
+import { NbToastrService } from '@nebular/theme';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from './../../../../../services/api.service';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+
+@Component({
+  selector: 'ngx-shedule-mentoring',
+  templateUrl: './shedule-mentoring.component.html',
+  styleUrls: ['./shedule-mentoring.component.scss'],
+})
+export class SheduleMentoringComponent implements OnInit {
+  student: any;
+  studentId: string;
+  instituteId: any;
+  editMentoringId: string;
+  display: boolean;
+  mentorings: any[];
+
+  mentoringForm: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+    private location: Location,
+  ) {}
+
+  ngOnInit() {
+    this.display = false;
+    this.mentorings = [];
+    this.instituteId = this.route.snapshot.paramMap.get('id');
+    this.route.queryParams.subscribe((data) => {
+      this.studentId = data.student;
+    });
+
+    if (!this.studentId) {
+      this.showToast('top right', 'danger', 'No Student Found');
+      this.location.back();
+    } else {
+    }
+
+    this.mentoringForm = this.fb.group({
+      date: ['', Validators.required],
+      time: ['', Validators.required],
+      note: ['', Validators.required],
+    });
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
+  }
+
+  editMentoring(i: number) {
+    this.editMentoringId = this.mentorings[i]._id;
+    this.mentoringForm.patchValue({
+      date: this.mentorings[i].date,
+      time: this.mentorings[i].time,
+      note: this.mentorings[i].note,
+    });
+  }
+
+  deleteMentoring(id: string, i: number) {
+    this.api.deleteMentoring({ _id: id }).subscribe(
+      (res) => {
+        this.mentorings.splice(i, 1);
+        this.showToast('top-right', 'success', 'Mentoring Session Deleted Successfully');
+      },
+      (err) => {
+        this.showToast('top-right', 'danger', err.error.message);
+      },
+    );
+  }
+
+  save() {
+    if (this.mentoringForm.valid) {
+      if (!this.editMentoringId) {
+        this.api.addMentoring(this.mentoringForm.value).subscribe(
+          (res) => {
+            this.showToast('top-right', 'success', 'Mentoring Session Added Successfully');
+            this.mentoringForm.reset();
+          },
+          (err) => {
+            this.showToast('top-right', 'danger', err.error.message);
+          },
+        );
+      } else {
+        const mentoring = this.mentoringForm.value;
+        mentoring._id = this.editMentoringId;
+        this.api.updateMeeting(mentoring).subscribe(
+          (res) => {
+            this.showToast('top-right', 'success', 'Mentoring Session Updated Successfully');
+            this.mentoringForm.reset();
+            this.editMentoringId = null;
+          },
+          (err) => {
+            this.showToast('top-right', 'danger', err.error.message);
+          },
+        );
+      }
+    }
+  }
+}
