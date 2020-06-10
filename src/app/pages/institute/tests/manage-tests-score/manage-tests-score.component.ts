@@ -29,6 +29,7 @@ export class ManageTestsScoreComponent implements OnInit {
     this.display = false;
     this.tests = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
+
     this.getCourses(this.instituteId);
   }
 

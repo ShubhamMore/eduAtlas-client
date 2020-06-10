@@ -117,6 +117,7 @@ export class AttandanceComponent implements OnInit {
       this.attendance[index].attendanceStatus = false;
     }
   }
+
   showToaster(position: any, status: any, message: any) {
     this.toasterService.show(status, message, {
       position,

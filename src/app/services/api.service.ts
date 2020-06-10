@@ -302,6 +302,20 @@ export class ApiService {
   }
 
   //  DELETE STUDENT COURSE
+  getStudentsByBatch(instituteId: string, courseId: string, batchId: string) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentsByBatch', {
+        instituteId: instituteId,
+        courseId: courseId,
+        batchId: batchId,
+      })
+      .pipe(
+        tap((res) => {}),
+        catchError(this.handleError),
+      );
+  }
+
+  //  DELETE STUDENT COURSE
   deleteStudentCourse(instituteId: string, eduAtlasId: string) {
     return this.http
       .post(environment.server + '/institute/student/deleteStudentCourse', {

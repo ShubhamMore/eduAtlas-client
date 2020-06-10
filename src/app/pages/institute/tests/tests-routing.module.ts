@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CreateTestComponent } from './create-test/create-test.component';
 import { ManageTestsScoreComponent } from './manage-tests-score/manage-tests-score.component';
+import { CreateTestsScoreComponent } from './create-tests-score/create-tests-score.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,8 @@ const routes: Routes = [
       { path: 'create-test/:id/edit', component: CreateTestComponent },
       { path: 'manage-test/:id', component: ManageTestsComponent },
 
-      { path: 'add-test-score/:id', component: ManageTestsScoreComponent },
-      { path: 'add-test-score/:id/edit', component: ManageTestsScoreComponent },
+      { path: 'add-test-score/:id', component: CreateTestsScoreComponent },
+      { path: 'add-test-score/:id/edit', component: CreateTestsScoreComponent },
       { path: 'manage-test-score/:id', component: ManageTestsScoreComponent },
     ],
   },

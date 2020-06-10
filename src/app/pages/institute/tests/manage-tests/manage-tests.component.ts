@@ -63,6 +63,12 @@ export class ManageTestsComponent implements OnInit {
     });
   }
 
+  score(id: string, batchId: string) {
+    this.router.navigate([`/pages/institute/test/add-test-score/${this.instituteId}`], {
+      queryParams: { test: id, batch: batchId },
+    });
+  }
+
   deleteTest(id: string, i: number) {
     this.api.deleteTest({ _id: id }).subscribe(
       (res: any) => {

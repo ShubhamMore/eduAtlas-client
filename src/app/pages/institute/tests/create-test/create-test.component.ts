@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-create-test',
@@ -26,6 +27,7 @@ export class CreateTestComponent implements OnInit {
     private fb: FormBuilder,
     private api: ApiService,
     private router: Router,
+    private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
   ) {}
@@ -96,6 +98,7 @@ export class CreateTestComponent implements OnInit {
         this.api.addTest(this.createTestForm.value).subscribe(
           (res) => {
             this.showToast('top right', 'success', 'Test Added Successfully');
+            this.location.back();
           },
           (err: any) => {
             this.showToast('top right', 'danger', err.err.message);
@@ -107,6 +110,7 @@ export class CreateTestComponent implements OnInit {
         this.api.updateTest(test).subscribe(
           (res) => {
             this.showToast('top right', 'success', 'Test Updated Successfully');
+            this.location.back();
           },
           (err: any) => {
             this.showToast('top right', 'danger', err.err.message);

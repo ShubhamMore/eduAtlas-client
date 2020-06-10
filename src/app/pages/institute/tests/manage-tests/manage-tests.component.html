@@ -65,6 +65,14 @@
                   <button
                     class="mr-3 mb-1"
                     nbButton
+                    status="warning"
+                    (click)="score(test._id, test.batchId)"
+                  >
+                    Score
+                  </button>
+                  <button
+                    class="mr-3 mb-1"
+                    nbButton
                     status="danger"
                     (click)="deleteTest(test._id, i)"
                   >

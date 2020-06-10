@@ -1,3 +1,70 @@
-<p>
-  create-tests-score works!
-</p>
+<p style="color: black; font-weight: bold;"></p>
+
+<nb-card *ngIf="display">
+  <nb-card-body>
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="courseId"><strong>Course: </strong>{{ course }}</label>
+      </div>
+
+      <div class="col-sm-4">
+        <label for="batchId"><strong>Batch: </strong>{{ batch }}</label>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="date"><strong>Date: </strong>{{ test.date }}</label>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="testName"><strong>Test Name: </strong>{{ test.testName }}</label>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="totalMarks"><strong>Total Marks: </strong>{{ test.totalMarks }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="studentScore.length > 0">
+      <div class="row">
+        <div class="col-12">
+          <table class="table table-borderless text-center">
+            <thead>
+              <tr>
+                <th class="">Roll No</th>
+                <th class="">Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let student of studentScore; let i = index">
+                <tr>
+                  <td>{{ student.rollNo }}</td>
+
+                  <td>
+                    <input
+                      type="number"
+                      nbInput
+                      pattern="\d*"
+                      maxlength="3"
+                      [id]="student.studentId"
+                      [value]="student.marks"
+                      (input)="addMarks($event, i)"
+                    />
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-primary float-right" (click)="addScore()">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
