@@ -95,16 +95,22 @@ export class SheduleMentoringComponent implements OnInit {
     this.api.deleteMentoring({ _id: id }).subscribe(
       (res) => {
         this.mentorings.splice(i, 1);
-        this.showToast('top-right', 'success', 'Mentoring Session Deleted Successfully');
+        this.showToast('top right', 'success', 'Mentoring Session Deleted Successfully');
       },
       (err) => {
-        this.showToast('top-right', 'danger', err.error.message);
+        this.showToast('top right', 'danger', err.error.message);
       },
     );
   }
 
+  cancelEdit() {
+    this.mentoringForm.reset();
+    this.editMentoringId = null;
+  }
+
   save() {
     this.mentoringForm.markAllAsTouched();
+    console.log(this.mentoringForm.valid, !this.editMentoringId);
     if (this.mentoringForm.valid) {
       if (!this.editMentoringId) {
         console.log('new');
@@ -126,8 +132,7 @@ export class SheduleMentoringComponent implements OnInit {
           (res) => {
             this.showToast('top right', 'success', 'Mentoring Session Updated Successfully');
             this.getMentoring();
-            this.mentoringForm.reset();
-            this.editMentoringId = null;
+            this.cancelEdit();
           },
           (err) => {
             this.showToast('top right', 'danger', err.error.message);
