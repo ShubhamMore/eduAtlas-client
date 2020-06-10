@@ -68,6 +68,7 @@
         <p class="font-weight-bold">
           SMS BALANCE
         </p>
+        <h2>0 SMS Pending</h2>
       </nb-card-body>
     </nb-card>
   </div>
@@ -77,26 +78,16 @@
     <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
       <nb-card-header
         >UPCOMING CLASS
-        <nb-select status="control" placeholder="institute" style="float: right;">
+        <nb-select elect status="control" placeholder="institute" style="float: right;">
           <nb-option [value]="undefined">Select</nb-option>
           <nb-option *ngFor="let item of institutes" value="{{ item.basicInfo.name }}">{{
             item.basicInfo.name
           }}</nb-option>
         </nb-select>
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div class="mb-3" style="display: grid; grid-template-columns: 50px auto auto;">
-            <div
-              class="text-center mr-2"
-              style="border-radius: 5px; background-color: skyblue;"
-            ></div>
-            <div></div>
-
-            <div class="text-right"></div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Upcoming Class Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 
@@ -144,34 +135,9 @@
         <input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker" />
         <nb-datepicker #formpicker></nb-datepicker>
       </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <div
-            class="mb-3"
-            *ngFor="let item of studentPendingFee"
-            style="display: grid; grid-template-columns: 50px auto auto;"
-          >
-            <div class="text-center mr-2" style="border-radius: 5px; background-color: skyblue;">
-              <small>
-                <b>{{ item.date }}</b>
-              </small>
-              <small style="display: block;">{{ item.month }}</small>
-            </div>
-            <div>
-              <small
-                ><b>{{ item.name }}</b></small
-              >
-              <small style="display: block;">{{ item.institute }}</small>
-              <small style="display: block;">{{ item.batch }}</small>
-              <small style="display: block;">{{ item.roll }}</small>
-            </div>
-            <div style="text-align: right;">
-              <small>INR</small>
-              <small style="display: block;">{{ item.fee }}</small>
-            </div>
-          </div>
-        </nb-list-item>
-      </nb-list>
+      <nb-card-body>
+        <p class="text-center">No Pending Fees Available</p>
+      </nb-card-body>
     </nb-card>
   </div>
 

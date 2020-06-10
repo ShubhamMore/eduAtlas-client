@@ -873,7 +873,7 @@ export class ApiService {
     );
   }
   getMeetingByBatch(data) {
-    const url = `${environment.server}/institute/zoom/getMeetingByBatch`;
+    const url = `${environment.server}/institute/zoom/getMeetingsFromZoom`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
