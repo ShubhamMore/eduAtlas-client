@@ -141,11 +141,15 @@ export class CreateTestsScoreComponent implements OnInit {
 
         this.api.addScoreUsingExcel(scoreFile).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Score File Updated Successfully');
+            this.showToast('top-right', 'success', 'Score File Updated Successfully');
             this.location.back();
           },
           (err) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast(
+              'top-right',
+              'danger',
+              'Invalid Data in File, Please Enter Valid Roll Numbers',
+            );
           },
         );
       } else {

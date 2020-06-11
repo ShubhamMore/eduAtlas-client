@@ -59,7 +59,6 @@ export class SheduleMentoringComponent implements OnInit {
     this.api.getMentorings({ instituteId: this.instituteId, studentId: this.studentId }).subscribe(
       (res: any) => {
         this.mentorings = res;
-        console.log(res);
       },
       (err: any) => {
         this.showToast('top right', 'danger', err.err.message);
@@ -110,18 +109,15 @@ export class SheduleMentoringComponent implements OnInit {
 
   save() {
     this.mentoringForm.markAllAsTouched();
-    console.log(this.mentoringForm.valid, !this.editMentoringId);
     if (this.mentoringForm.valid) {
       if (!this.editMentoringId) {
-        console.log('new');
         this.api.addMentoring(this.mentoringForm.value).subscribe(
-          (res) => {
-            console.log(res);
+          (res: any) => {
             this.getMentoring();
             this.showToast('top right', 'success', 'Mentoring Session Added Successfully');
             this.mentoringForm.reset();
           },
-          (err) => {
+          (err: any) => {
             this.showToast('top right', 'danger', err.error.message);
           },
         );

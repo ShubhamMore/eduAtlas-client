@@ -1,6 +1,8 @@
+import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'ngx-view-student',
   templateUrl: './view-student.component.html',
@@ -12,7 +14,13 @@ export class ViewStudentComponent implements OnInit {
   studentEduId: string;
   courseId: string;
 
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(
+    private api: ApiService,
+    private toasterService: NbToastrService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private location: Location,
+  ) {}
 
   ngOnInit() {
     this.instituteId = this.route.snapshot.paramMap.get('id');
@@ -30,5 +38,28 @@ export class ViewStudentComponent implements OnInit {
       .subscribe((data) => {
         this.student = data[0];
       });
+  }
+
+  edit() {
+    this.router.navigate([`/pages/institute/add-students/${this.instituteId}/edit`], {
+      queryParams: { student: this.studentEduId, course: this.courseId, edit: 'true' },
+    });
+  }
+
+  deleteStudent() {
+    const confirm = window.confirm('Are u sure, You want to delete this Student?');
+    if (confirm) {
+      this.api.deleteStudentCourse(this.courseId, this.studentEduId).subscribe(() => {
+        this.location.back();
+        this.showToaster('top-right', 'success', 'New Student Deleted Successfully!');
+      });
+    }
+  }
+  // Show Toaster
+  showToaster(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
   }
 }

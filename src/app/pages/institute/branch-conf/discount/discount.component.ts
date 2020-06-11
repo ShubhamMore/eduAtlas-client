@@ -99,7 +99,7 @@ export class DiscountComponent implements OnInit {
       param = param.append('discountId', this.discountId);
       this.api.updateDiscount(param, this.discountForm.value).subscribe(
         (res) => {
-          this.showToast('top-right', 'success', 'Discount Updated');
+          this.showToast('top right', 'success', 'Discount Updated');
           setTimeout(() => {
             this.router.navigate([
               '/pages/institute/branch-config/manage-discount/',
@@ -108,13 +108,13 @@ export class DiscountComponent implements OnInit {
           }, 1000);
         },
         (error) => {
-          this.showToast('top-right', 'danger', 'Discount Updation Failed');
+          this.showToast('top right', 'danger', 'Discount Updation Failed');
         },
       );
     } else {
       this.api.addDiscount(this.instituteId, this.discountForm.value).subscribe(
         (data) => {
-          this.showToast('top-right', 'success', 'Discount Added Successfully');
+          this.showToast('top right', 'success', 'Discount Added Successfully');
           setTimeout(() => {
             this.router.navigate([
               '/pages/institute/branch-config/manage-discount/',
@@ -124,7 +124,7 @@ export class DiscountComponent implements OnInit {
         },
         (err) => {
           console.error(err);
-          this.showToast('top-right', 'danger', 'This Discount already added');
+          this.showToast('top right', 'danger', 'This Discount already added');
         },
       );
     }

@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ManageStudentsComponent implements OnInit {
   institute: any;
   form: FormGroup;
-
+  noStudents: string;
   courses: any[];
   course: string;
 
@@ -36,11 +36,15 @@ export class ManageStudentsComponent implements OnInit {
     });
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourseTd(this.instituteId);
+    this.noStudents = 'Select Course';
   }
 
   getStudents(id: string, courseId: string, batchId: string) {
     this.api.getActiveStudents(id, courseId, batchId).subscribe((data: any) => {
       this.students = data;
+      if (data.length === 0) {
+        this.noStudents = 'No Record';
+      }
     });
   }
 

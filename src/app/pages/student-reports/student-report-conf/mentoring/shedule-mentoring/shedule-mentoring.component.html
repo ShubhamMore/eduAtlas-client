@@ -43,7 +43,7 @@
         </div>
 
         <div class="col-sm-4">
-          <label for="teacher">*Teacher</label>
+          <label for="teacherId">*Teacher</label>
           <nb-select
             placeholder="Select Teacher"
             [status]="
@@ -53,7 +53,7 @@
             "
             formControlName="teacherId"
             fullWidth
-            id="teacher"
+            id="teacherId"
           >
             <nb-option value="">Select Teacher</nb-option>
             <nb-option *ngFor="let teacher of teachers" [value]="teacher._id">{{

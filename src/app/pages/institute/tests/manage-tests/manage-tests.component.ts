@@ -31,13 +31,13 @@ export class ManageTestsComponent implements OnInit {
     this.instituteId = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getCourses(this.instituteId);
+    this.getTests({ instituteId: this.instituteId });
   }
 
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
       console.log(data);
-      this.display = true;
     });
   }
 
@@ -48,7 +48,7 @@ export class ManageTestsComponent implements OnInit {
 
   onSelectBatch(batchId: string) {
     this.batch = batchId;
-    this.getTests(this.instituteId, batchId);
+    this.getTests({ instituteId: this.instituteId, batchId: batchId });
   }
 
   createTest() {
@@ -81,10 +81,11 @@ export class ManageTestsComponent implements OnInit {
     );
   }
 
-  getTests(instituteId: any, batchId: any) {
-    this.api.getTestByBatch({ instituteId: instituteId, batchId: batchId }).subscribe(
+  getTests(data: any) {
+    this.api.getTestByInstitute(data).subscribe(
       (res: any) => {
         this.tests = res;
+        this.display = true;
         console.log(res);
       },
       (err) => {

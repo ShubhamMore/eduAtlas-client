@@ -131,8 +131,9 @@ export class ApiService {
         batchId: student.courseDetails.batch,
         rollNumber: student.courseDetails.rollNo,
         discount: student.courseDetails.discount,
+        additionalDiscountType: student.courseDetails.additionalDiscountType,
         additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
+        netPayable: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
       },
@@ -221,8 +222,9 @@ export class ApiService {
         batchId: student.courseDetails.batch,
         rollNumber: student.courseDetails.rollNo,
         discount: student.courseDetails.discount,
+        additionalDiscountType: student.courseDetails.additionalDiscountType,
         additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
+        netPayable: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
       },
@@ -255,8 +257,9 @@ export class ApiService {
         rollNumber: student.courseDetails.rollNo,
 
         discount: student.courseDetails.discount,
+        additionalDiscountType: student.courseDetails.additionalDiscountType,
         additionalDiscount: student.courseDetails.additionalDiscount,
-        nextPayble: student.courseDetails.netPayable,
+        netPayable: student.courseDetails.netPayable,
         active: student.courseDetails.batch === '' ? false : true,
         materialRecord: student.materialRecord,
       },
@@ -881,8 +884,8 @@ export class ApiService {
   }
 
   /****************   TESTS   ****************** */
-  getTestByBatch(data: any) {
-    const url = `${environment.server}/institute/tests/getTestByBatch`;
+  getTestByInstitute(data: any) {
+    const url = `${environment.server}/institute/tests/getTestByInstitute`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
@@ -961,7 +964,7 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
-  
+
   /****************   Schedule PTMs   ****************** */
   addPtm(data: any) {
     const url = `${environment.server}/institute/ptm/addPtm`;

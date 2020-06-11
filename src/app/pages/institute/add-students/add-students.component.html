@@ -7,7 +7,7 @@
       [checked]="alreadyRegistered"
       fullWidth
       status="warning"
-      *ngIf="!edit"
+      *ngIf="!edit && !dataFetched"
       >Already Registered Student</nb-checkbox
     >
     <form
@@ -30,16 +30,11 @@
             id="eduAtlasId"
             fullWidth
             formControlName="eduAtlasId"
+            placeholder="Enter EduId or Email"
           />
         </div>
         <div style="text-align: right;">
-          <button
-            type="submit"
-            nbButton
-            status="warning"
-            style="color: black;"
-            *ngIf="!edit && !dataFetched"
-          >
+          <button type="submit" class="btn btn-yellow-black" *ngIf="!edit && !dataFetched">
             Fetch
           </button>
         </div>
@@ -60,7 +55,7 @@
           />
         </div>
         <div style="text-align: right;">
-          <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
+          <button type="submit" class="btn btn-yellow-black" *ngIf="!edit">
             Verify
           </button>
         </div>
@@ -71,7 +66,7 @@
     <form
       [formGroup]="studentForm"
       (ngSubmit)="onSubmit()"
-      *ngIf="!alreadyRegistered || (alreadyRegistered && student) || (student && edit)"
+      *ngIf="!alreadyRegistered || (alreadyRegistered && dataFetched) || (student && edit)"
     >
       <p>Student Basic Details</p>
       <div class="row">
@@ -208,7 +203,12 @@
           <nb-select
             placeholder="Select Course"
             id="course"
-            status="basic"
+            [status]="
+              studentForm.get('courseDetails').get('course').invalid &&
+              studentForm.get('courseDetails').get('course').touched
+                ? 'danger'
+                : 'basic'
+            "
             formControlName="course"
             (selectedChange)="onSelectCourse($event)"
           >
@@ -234,7 +234,12 @@
               type="text"
               pattern="\d*"
               nbInput
-              [status]="'basic'"
+              [status]="
+                studentForm.get('courseDetails').get('rollNo').invalid &&
+                studentForm.get('courseDetails').get('rollNo').touched
+                  ? 'danger'
+                  : 'basic'
+              "
               id="roll"
               formControlName="rollNo"
               fullWidth
@@ -260,11 +265,37 @@
         </div>
 
         <div class="col-sm-3">
+          <label for="additionalDiscountType">Additional Discount Type</label>
+          <nb-select
+            placeholder="Select Discount Type"
+            id="additionalDiscountType"
+            fullWidth
+            formControlName="additionalDiscountType"
+            (selectedChange)="calculateNetPayableAmount()"
+          >
+            <!-- <nb-option value="">Select Parent Course</nb-option> -->
+            <nb-option value="percentage">
+              Discount in Percentage
+            </nb-option>
+            <nb-option value="amount">
+              Discount in Amount
+            </nb-option>
+          </nb-select>
+        </div>
+
+        <div class="col-sm-3">
           <label for="additionalDiscount">Additional Discount</label>
           <input
             type="text"
+            pattern="\d*"
             nbInput
-            status="basic"
+            [status]="
+              (studentForm.get('courseDetails').get('additionalDiscount').invalid ||
+                studentForm.get('courseDetails').hasError('invalidDiscount')) &&
+              studentForm.get('courseDetails').get('additionalDiscount').touched
+                ? 'danger'
+                : 'basic'
+            "
             formControlName="additionalDiscount"
             fullWidth
             placeholder="Additional Discount"
@@ -404,8 +435,117 @@
           <hr />
 
           <div class="row">
-            <div class="col-12">
-              <div class="table-responsive">
+            <div class="col-12" formArrayName="installments">
+              <ng-container
+                *ngFor="
+                  let installment of feeDetailsForm.get('installments')['controls'];
+                  let i = index
+                "
+              >
+                <nb-card [formGroupName]="i">
+                  <nb-card-header class="bg-light text-dark">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <nb-checkbox
+                          formControlName="paidStatus"
+                          status="basic"
+                          (checkedChange)="onPaidAmount($event, i)"
+                        ></nb-checkbox>
+                        &nbsp;&nbsp;
+                        <span>Installment {{ i + 1 }}</span>
+                      </div>
+                      <div class="col-md-4">
+                        <input
+                          class="form-control"
+                          nbInput
+                          type="date"
+                          status="basic"
+                          formControlName="paidOn"
+                          fullWidth
+                          placeholder="Installment Date"
+                        />
+                      </div>
+                    </div>
+                  </nb-card-header>
+                  <nb-card-body>
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <label>Amount</label>
+                        <input
+                          type="text"
+                          pattern="\d*"
+                          nbInput
+                          status="basic"
+                          fullWidth
+                          formControlName="amount"
+                          placeholder="Amount"
+                        />
+                      </div>
+                      <div class="col-sm-4">
+                        <label>Pending Amount</label>
+                        <input
+                          type="text"
+                          pattern="\d*"
+                          nbInput
+                          status="basic"
+                          formControlName="amountPending"
+                          fullWidth
+                          placeholder="Amount Pending"
+                        />
+                      </div>
+                      <div class="col-sm-4">
+                        <label>payment Mode</label>
+                        <nb-select
+                          placeholder="Select Mode"
+                          status="basic"
+                          formControlName="paymentMode"
+                          placeholder="Payment Mode"
+                          (selectedChange)="onSelectPaymentMode($event, i)"
+                        >
+                          <nb-option *ngFor="let mode of modes" [value]="mode">{{
+                            mode
+                          }}</nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="col-sm-4">
+                        <label>Bank/Mode</label>
+                        <input
+                          type="text"
+                          nbInput
+                          status="basic"
+                          formControlName="bankDetails"
+                          fullWidth
+                          placeholder="Bank/Mode"
+                        />
+                      </div>
+                      <div class="col-sm-4">
+                        <label>Transaction Id / Instrument No.</label>
+                        <input
+                          type="text"
+                          nbInput
+                          status="basic"
+                          formControlName="transDetails"
+                          fullWidth
+                          placeholder="Transaction/Instrument No"
+                        />
+                      </div>
+                      <div class="col-sm-4">
+                        <label>Payment Date</label>
+                        <input
+                          type="date"
+                          nbInput
+                          status="basic"
+                          formControlName="paymentDate"
+                          fullWidth
+                          placeholder="Date"
+                        />
+                      </div>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
+              </ng-container>
+
+              <!-- <div class="table-responsive">
                 <table class="table table-borderless">
                   <thead>
                     <tr>
@@ -414,6 +554,9 @@
                       <th>Installment Date</th>
                       <th>Amount</th>
                       <th>payment Mode</th>
+                      <th>payment Date</th>
+                      <th>Bank/Mode</th>
+                      <th>Transaction Id / Instrument No.</th>
                       <th>Amount Pending</th>
                     </tr>
                   </thead>
@@ -455,8 +598,6 @@
                             fullWidth
                             placeholder="Installment Date"
                           />
-                          <!-- [nbDatepicker]="datePicker"
-                          <nb-datepicker #datePicker></nb-datepicker> -->
                         </td>
 
                         <td>
@@ -488,6 +629,39 @@
                         <td>
                           <input
                             type="text"
+                            nbInput
+                            status="basic"
+                            formControlName="bankDetails"
+                            fullWidth
+                            placeholder="Bank/Mode"
+                          />
+                        </td>
+
+                        <td>
+                          <input
+                            type="text"
+                            nbInput
+                            status="basic"
+                            formControlName="transDetails"
+                            fullWidth
+                            placeholder="Transaction/Instrument No"
+                          />
+                        </td>
+
+                        <td>
+                          <input
+                            type="date"
+                            nbInput
+                            status="basic"
+                            formControlName="PaymentDate"
+                            fullWidth
+                            placeholder="Date"
+                          />
+                        </td>
+
+                        <td>
+                          <input
+                            type="text"
                             pattern="\d*"
                             nbInput
                             status="basic"
@@ -500,7 +674,7 @@
                     </ng-container>
                   </tbody>
                 </table>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -528,7 +702,7 @@
       </div>
 
       <div style="text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">
+        <button type="submit" class="btn btn-yellow-black">
           {{ studentEduId ? 'Update Student' : 'Add Student' }}
         </button>
       </div>
