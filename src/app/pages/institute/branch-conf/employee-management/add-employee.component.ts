@@ -163,6 +163,8 @@ export class AddEmployee implements OnInit {
     this.alreadyRegistered = e;
     if (!e) {
       this.eduAtlasEmployeeForm.reset();
+      this.employeeEduId = null;
+      this.employee = null;
     }
   }
 

@@ -21,7 +21,7 @@ export class AddStudentsComponent implements OnInit {
   phone: string;
   // Institute/Branch Id
   instituteId: string;
-
+  fetchedStudent: any;
   // Institute/Branch set when getCourseTD() called
   institute: any;
 
@@ -34,7 +34,6 @@ export class AddStudentsComponent implements OnInit {
   courses: any[];
   // Course Batch Array
   batches: any[];
-
   // Course Duration in months (default 12)
   duration: number;
   // Check if Fees are updated or not only in editing mode
@@ -131,14 +130,20 @@ export class AddStudentsComponent implements OnInit {
         address: [''],
 
         // Student Course Details
-        courseDetails: this.fb.group({
-          course: ['', Validators.required],
-          batch: [''],
-          rollNo: ['', Validators.required],
-          discount: [''],
-          additionalDiscount: [''],
-          netPayable: [''],
-        }),
+        courseDetails: this.fb.group(
+          {
+            course: ['', Validators.required],
+            batch: [''],
+            rollNo: ['', Validators.required],
+            discount: [''],
+            additionalDiscountType: ['percentage'],
+            additionalDiscount: [''],
+            netPayable: [''],
+          },
+          {
+            validator: this.discountValidator.bind(this),
+          },
+        ),
 
         // Course Material Records
         materialRecord: [''],
@@ -172,6 +177,15 @@ export class AddStudentsComponent implements OnInit {
         this.getStudent(this.studentEduId, this.instituteId, this.courseId);
       }
     });
+  }
+
+  discountValidator(group: FormGroup): { [s: string]: boolean } {
+    const discountType = group.value.additionalDiscountType;
+    const amount = group.value.additionalDiscount;
+    if (discountType === 'percentage' && amount > 100) {
+      return { invalidDiscount: true };
+    }
+    return null;
   }
 
   // get Student Form
@@ -229,6 +243,7 @@ export class AddStudentsComponent implements OnInit {
   getOneStudent(eduId: any) {
     this.api.getOneStudent(eduId).subscribe((data: any) => {
       if (data) {
+        this.fetchedStudent = data;
         this.studentForm.patchValue({
           name: data.basicDetails.name,
           studentEmail: data.basicDetails.studentEmail,
@@ -271,6 +286,7 @@ export class AddStudentsComponent implements OnInit {
       // this.studentForm.reset
       // set to null if previously set
       this.studentEduId = null;
+      this.fetchedStudent = null;
     }
   }
 
@@ -344,24 +360,41 @@ export class AddStudentsComponent implements OnInit {
   calculateNetPayableAmount() {
     // Set Class Level netPayable to 0
     this.netPayable = 0;
+    let totalDiscountPercentage = 0;
+    let totalDiscountAmount = 0;
     let calculatedAmount = 0;
+    // Get Total Fees of Course
+    const totalFee = this.selectedCourse ? +this.selectedCourse.totalFee : 0;
     // Get Additional Discount
-    const additionalDiscount = this.studentForm.get(['courseDetails', 'additionalDiscount']).value;
-    if (this.selectedCourse && this.selectedCourse.fees) {
-      calculatedAmount = this.selectedCourse.fees;
+    const discountType = this.selectedDiscount ? this.selectedDiscount.discountType : '';
+    // Get Additional Discount Type
+    const additionalDiscountType = this.studentForm.get(['courseDetails', 'additionalDiscountType'])
+      .value;
+    // Get Discount
+    const discount = this.selectedDiscount ? +this.selectedDiscount.amount : 0;
+    // Get Discount Type
+    const additionalDiscount = +this.studentForm.get(['courseDetails', 'additionalDiscount']).value;
 
-      if (this.selectedDiscount && this.selectedDiscount.amount) {
-        if (this.selectedDiscount.discountType === 'percentage') {
-          calculatedAmount =
-            this.selectedCourse.fees -
-            (this.selectedDiscount.amount / 100) * this.selectedCourse.fees;
+    if (this.selectedCourse && totalFee) {
+      calculatedAmount = totalFee;
+
+      if (this.selectedDiscount && discountType) {
+        if (discountType === 'percentage') {
+          totalDiscountPercentage += discount;
         } else {
-          calculatedAmount = this.selectedCourse.fees - this.selectedDiscount.amount;
+          totalDiscountAmount += discount;
         }
       }
+
       if (additionalDiscount) {
-        calculatedAmount = calculatedAmount - (additionalDiscount / 100) * calculatedAmount;
+        if (additionalDiscountType === 'percentage') {
+          totalDiscountPercentage += additionalDiscount;
+        } else {
+          totalDiscountAmount += additionalDiscount;
+        }
       }
+      const percentageAmount = (totalDiscountPercentage / 100) * totalFee;
+      calculatedAmount = totalFee - totalDiscountAmount - percentageAmount;
     }
 
     // Set Class Level netPayable to Calculated Net PAyable
@@ -440,7 +473,7 @@ export class AddStudentsComponent implements OnInit {
       // on payment Quarterly installment Type noOfInstallments id disabled
       this.feeDetailsForm.get('noOfInstallments').disable();
       // call generateNoOfInstallments for only one installment
-      this.generateNoOfInstallments('3');
+      this.generateNoOfInstallments('4');
     } else if (installmentType === '4') {
       // on payment Monthly installment Type noOfInstallments id disabled
       this.feeDetailsForm.get('noOfInstallments').disable();
@@ -472,6 +505,9 @@ export class AddStudentsComponent implements OnInit {
         paidOn: '',
         amount: '',
         paymentMode: '',
+        bankDetails: '',
+        transDetails: '',
+        paymentDate: '',
         amountPending: '',
       };
       this.addInstallment(installmentData);
@@ -548,6 +584,9 @@ export class AddStudentsComponent implements OnInit {
       paidOn: [installmentData.paidOn ? installmentData.paidOn : ''],
       amount: [installmentData.amount ? installmentData.amount : ''],
       paymentMode: [installmentData.paymentMode ? installmentData.paymentMode : ''],
+      bankDetails: [installmentData.bankDetails ? installmentData.bankDetails : ''],
+      transDetails: [installmentData.transDetails ? installmentData.transDetails : ''],
+      paymentDate: [installmentData.paymentDate ? installmentData.paymentDate : ''],
       amountPending: [installmentData.amountPending ? installmentData.amountPending : ''],
     });
   }
@@ -605,7 +644,7 @@ export class AddStudentsComponent implements OnInit {
             discount: this.student.instituteDetails.discount,
             rollNo: this.student.instituteDetails.rollNumber,
             additionalDiscount: this.student.instituteDetails.additionalDiscount,
-            netPayable: this.student.instituteDetails.netPayble,
+            netPayable: this.student.instituteDetails.netPayable,
           },
           materialRecord: this.student.instituteDetails.materialRecord,
         });
@@ -655,6 +694,9 @@ export class AddStudentsComponent implements OnInit {
             paidOn: curInstallment.paidOn,
             amount: curInstallment.amount,
             paymentMode: curInstallment.paymentMode,
+            paymentDate: curInstallment.paymentDate,
+            bankDetails: curInstallment.bankDetails,
+            transDetails: curInstallment.transDetails,
             amountPending: curInstallment.amountPending,
           };
           this.addInstallment(installmentData);

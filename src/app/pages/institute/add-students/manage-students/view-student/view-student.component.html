@@ -1,4 +1,10 @@
 <nb-card *ngIf="student">
+  <nb-card-header>
+    <button nbButton status="danger" class="btn float-right mr-3" (click)="deleteStudent()">
+      Delete
+    </button>
+    <button class="btn float-right mr-3 btn btn-yellow" (click)="edit()">Edit</button>
+  </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-sm-1"></div>

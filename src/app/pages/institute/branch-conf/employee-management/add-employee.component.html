@@ -7,7 +7,7 @@
       [checked]="alreadyRegistered"
       fullWidth
       status="warning"
-      *ngIf="!edit"
+      *ngIf="!edit && !dataFetched"
       >Already Registered Employee</nb-checkbox
     >
     <form
@@ -15,7 +15,7 @@
       (ngSubmit)="onEmployeeFormSearch()"
       *ngIf="alreadyRegistered"
     >
-      <p>Fetch student</p>
+      <p>Fetch Employee</p>
       <div class="row">
         <div class="col-sm-6">
           <input
