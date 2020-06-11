@@ -68,7 +68,11 @@
       <hr />
     </form>
 
-    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="studentForm"
+      (ngSubmit)="onSubmit()"
+      *ngIf="!alreadyRegistered || (alreadyRegistered && student) || (student && edit)"
+    >
       <p>Student Basic Details</p>
       <div class="row">
         <div class="col-sm-4">

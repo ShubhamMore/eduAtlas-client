@@ -63,7 +63,11 @@
       <hr />
     </form>
 
-    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <form
+      [formGroup]="employeeForm"
+      (ngSubmit)="onSubmit()"
+      *ngIf="!alreadyRegistered || (alreadyRegistered && employee) || (employee && edit)"
+    >
       <p>Employee Basic Details</p>
       <div class="row">
         <div class="col-sm-3">
@@ -133,8 +137,6 @@
         </div>
       </div>
 
-      <hr />
-
       <div class="row">
         <div class="col-sm-12">
           <label for="address">Address</label>
@@ -151,6 +153,7 @@
           </textarea>
         </div>
       </div>
+      <hr />
       <div style="text-align: right;">
         <button type="submit" class="btn btn-yellow-black">
           {{ employeeEduId ? 'Update Employee' : 'Add Employee' }}
