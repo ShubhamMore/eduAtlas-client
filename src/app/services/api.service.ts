@@ -946,6 +946,22 @@ export class ApiService {
     );
   }
 
+  /****************   Test Reports   ****************** */
+  getTestsForReports(data: any) {
+    const url = `${environment.server}/institute/tests/getTestsForReports`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getScoresOfStutdentByInstitute(data: any) {
+    const url = `${environment.server}/institute/tests/getScoresOfStutdentByInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  
   /****************   Schedule PTMs   ****************** */
   addPtm(data: any) {
     const url = `${environment.server}/institute/ptm/addPtm`;

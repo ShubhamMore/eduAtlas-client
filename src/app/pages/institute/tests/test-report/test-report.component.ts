@@ -1,14 +1,15 @@
-import { NbToastrService } from '@nebular/theme';
-import { ApiService } from './../../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../../../../services/api.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-manage-tests-score',
-  templateUrl: './manage-tests-score.component.html',
-  styleUrls: ['./manage-tests-score.component.scss'],
+  selector: 'ngx-test-report',
+  templateUrl: './test-report.component.html',
+  styleUrls: ['./test-report.component.scss'],
 })
-export class ManageTestsScoreComponent implements OnInit {
+export class TestReportComponent implements OnInit {
+  
   institute: any;
   instituteId: string;
   batches: any[] = [];
@@ -29,13 +30,14 @@ export class ManageTestsScoreComponent implements OnInit {
     this.display = false;
     this.tests = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
-
+    console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getCourses(this.instituteId);
   }
 
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
+      console.log(data);
       this.display = true;
     });
   }
@@ -47,27 +49,23 @@ export class ManageTestsScoreComponent implements OnInit {
 
   onSelectBatch(batchId: string) {
     this.batch = batchId;
-    this.getTests(this.instituteId, batchId);
+    this.getTestsForReports(this.instituteId, batchId);
   }
 
-  createTestScore(id: any) {
-    this.router.navigate([`/pages/institute/test/add-test-score/${this.instituteId}`], {
-      queryParams: { test: id },
+  viewScore(testId,batchId) {
+    this.router.navigate([`/pages/institute/test/view-report/${this.instituteId}`], {
+      queryParams: {testId},
     });
   }
 
-  edit(id: string) {
-    this.router.navigate([`/pages/institute/test/add-test-score/${this.instituteId}/edit`], {
-      queryParams: { test: id, edit: 'true' },
-    });
-  }
-  getTests(instituteId: any, batchId: any) {
-    this.api.getTestByBatch({ instituteId: instituteId, batchId: batchId }).subscribe(
+  getTestsForReports(instituteId: any, batchId: any) {
+    this.api.getTestsForReports({ instituteId: instituteId, batchId: batchId }).subscribe(
       (res: any) => {
         this.tests = res;
+        console.log(res);
       },
       (err) => {
-        this.showToast('top right', 'danger', err.err.message);
+        console.log(err);
       },
     );
   }
@@ -75,4 +73,5 @@ export class ManageTestsScoreComponent implements OnInit {
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }
+
 }

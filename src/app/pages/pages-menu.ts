@@ -107,7 +107,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Define Test',
       }, // 7
       {
-        title: 'Upload Scores',
+        title: 'Test Reports',
       },
     ],
   },
