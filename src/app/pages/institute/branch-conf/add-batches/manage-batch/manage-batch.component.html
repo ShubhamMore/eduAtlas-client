@@ -1,7 +1,10 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="onClick()" style="color: black;">Add Batch</button>
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="onClick()" style="color: black;">
+    Add Batch
+  </button>
+  <p style="color: black; font-weight: bold;">Manage Batch Here</p>
 </div>
-<p style="color: black; font-weight: bold;">Manage Batch Here</p>
+<br /><br />
 <nb-card>
   <nb-card-body>
     <table *ngIf="batches.length > 0; else noBatches">
@@ -18,11 +21,11 @@
           <td>{{ batch.batchCode }}</td>
           <td>{{ batch.description }}</td>
           <td class="text-right">
-            <button class="mr-3" nbButton status="warning" (click)="edit(batch._id)">
+            <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(batch._id)">
               Edit
             </button>
-            <button nbButton status="danger" (click)="delete(batch._id)">
-              Del
+            <button class="mr-3 mb-2" nbButton status="danger" (click)="delete(batch._id)">
+              Delete
             </button>
           </td>
         </tr>

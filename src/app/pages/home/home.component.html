@@ -18,7 +18,7 @@
 <div class="row" [hidden]="!display">
   <div class="col-sm-6">
     <nb-card status="basic" style="max-height: 35vh;">
-      <nb-card-header>
+      <nb-card-header style="background-color: #ffd500;">
         MY INSTITUTES
       </nb-card-header>
       <nb-list>
@@ -56,7 +56,7 @@
             </p>
           </div>
           <div class="col-sm-2">
-            <a routerLink="/pages/membership">
+            <a routerLink="/pages/membership" class="mt-3">
               <img src="assets/img/rarrow.png" width="30px" height="30px" />
             </a>
           </div>
@@ -69,102 +69,6 @@
           SMS BALANCE
         </p>
         <h2>0 SMS Pending</h2>
-      </nb-card-body>
-    </nb-card>
-  </div>
-</div>
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header
-        >UPCOMING CLASS
-        <nb-select elect status="control" placeholder="institute" style="float: right;">
-          <nb-option [value]="undefined">Select</nb-option>
-          <nb-option *ngFor="let item of institutes" value="{{ item.basicInfo.name }}">{{
-            item.basicInfo.name
-          }}</nb-option>
-        </nb-select>
-      </nb-card-header>
-      <nb-card-body>
-        <p class="text-center">No Upcoming Class Available</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-sm-6">
-    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header>STUDENT REQUESTS </nb-card-header>
-      <nb-list>
-        <nb-list-item>
-          <p class="text-center">No Requests Available</p>
-          <!-- <div
-            class="mb-3"
-            style="display: grid; grid-template-columns: auto auto auto; width: 100%;"
-          >
-            <div>
-              <span
-                ><img
-                  src="assets/images/nick.png"
-                  width="30px"
-                  height="30px"
-                  style="border-radius: 100%;"
-              /></span>
-            </div>
-            <div class="pr-3 pl-3"></div>
-
-            <div style="text-align: right;">
-              <a href="#" class="mr-2">
-                <img src="assets/img/check.png" width="30px" height="30px" />
-              </a>
-              <a href="#">
-                <img src="assets/img/cross.png" width="30px" height="30px" />
-              </a>
-            </div>
-          </div> -->
-        </nb-list-item>
-      </nb-list>
-    </nb-card>
-  </div>
-</div>
-
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header style="background-color: skyblue; color: black;">
-        PENDING FEES
-        <input id="date" placeholder="Pick Date" [nbDatepicker]="formpicker" />
-        <nb-datepicker #formpicker></nb-datepicker>
-      </nb-card-header>
-      <nb-card-body>
-        <p class="text-center">No Pending Fees Available</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-sm-6">
-    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header>LEADS </nb-card-header>
-      <nb-card-body>
-        <p class="test-center">No Leads</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-</div>
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header>Messages</nb-card-header>
-      <nb-card-body>
-        <p class="test-center">No Messages</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-sm-6">
-    <nb-card status="warning" style="max-height: 35vh;" [hidden]="false">
-      <nb-card-header>New Leads</nb-card-header>
-      <nb-card-body>
-        <p class="test-center">No New Leads</p>
       </nb-card-body>
     </nb-card>
   </div>

@@ -1,9 +1,10 @@
-<div class="text-right">
-  <button nbButton class="pull right" status="warning" style="color: black;" (click)="back()">
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="back()">
     MANAGE COURSES
   </button>
+  <p style="color: black; font-weight: bold;">Add Course Here</p>
 </div>
-<p style="color: black; font-weight: bold;">Add Course Here</p>
+<br /><br />
 <nb-card>
   <nb-card-body>
     <form [formGroup]="course" (ngSubmit)="onSubmit()">
@@ -123,7 +124,7 @@
       </div>
 
       <div style="display: block; margin-top: 1rem; text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">
+        <button type="submit" class="btn btn-yellow-black">
           {{ edit === 'true' ? 'Update Course' : 'Add Course' }}
         </button>
       </div>

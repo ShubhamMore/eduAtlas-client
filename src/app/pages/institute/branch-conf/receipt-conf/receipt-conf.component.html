@@ -1,7 +1,8 @@
-<div class="text-right">
-  <button (click)="back()" nbButton status="warning" style="color: black;">Manage Receipt</button>
+<div>
+  <button (click)="back()" class="btn btn-yellow-black float-right">Manage Receipt</button>
+  <p style="font-weight: bold;">Receipt Configuration</p>
 </div>
-<p style="font-weight: bold;">Receipt Configuration</p>
+<br /><br />
 <nb-card>
   <nb-card-body>
     <form [formGroup]="receipt" (ngSubmit)="onSubmit()">
@@ -92,7 +93,7 @@
       </div>
 
       <div style="text-align: right; margin: 1rem;">
-        <button type="submit" nbButton status="warning" style="color: black;">
+        <button type="submit" class="btn btn-yellow-black">
           {{ edit ? 'Update' : 'Add' }}
         </button>
       </div>

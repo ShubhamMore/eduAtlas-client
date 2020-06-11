@@ -33,3 +33,29 @@
 .pointer {
   cursor: pointer;
 }
+
+.btn-yellow {
+  background-color: #ffd500;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-yellow:hover {
+  background-color: #ffd50099;
+  color: #ffffff99;
+}
+
+.btn-yellow-black {
+  background-color: #ffd500;
+  text-transform: uppercase;
+  color: #000;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-yellow-black:hover {
+  background-color: #ffd50099;
+  color: #00000099;
+}

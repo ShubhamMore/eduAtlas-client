@@ -1,9 +1,10 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="goManage()" style="color: black;">
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="goManage()">
     Manage Batches
   </button>
+  <p style="color: black; font-weight: bold;">Add Batches</p>
 </div>
-<p style="color: black; font-weight: bold;">Add Batches</p>
+<br /><br />
 <nb-card *ngIf="display">
   <nb-card-body>
     <form [formGroup]="batchForm" (ngSubmit)="onSubmit()">
@@ -59,8 +60,8 @@
         </div>
       </div>
 
-      <div style="text-align: left; margin: 1rem; text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
+      <div>
+        <button type="submit" class="btn btn-yellow-black float-right m-1">Submit</button>
       </div>
     </form>
   </nb-card-body>

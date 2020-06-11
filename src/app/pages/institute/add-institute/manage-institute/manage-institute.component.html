@@ -20,11 +20,11 @@
 
       <div class="col-sm-1"></div>
       <div class="col-sm-4">
-        <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">View</button>
-        <button class="mr-3" nbButton status="warning" (click)="updateInstitute(i._id)">
+        <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">Manage</button>
+        <button class="mr-3 btn btn-yellow" (click)="updateInstitute(i._id)">
           Edit
         </button>
-        <!-- <button class="mr-3" nbButton status="danger" (click)="delete(i._id)">Del</button> -->
+        <button class="mr-3" nbButton status="danger" (click)="delete(i._id)">Delete</button>
       </div>
     </div>
   </nb-card-body>
@@ -35,9 +35,11 @@
       <div class="text-center">
         <img src="../../../assets/img/institute.png" width="100px" height="100px" />
         <h3 class="mt-4">NO INSTITUTE ADDED</h3>
-        <small *ngIf="showAddInstituteBtn">Click on add Institute Button to create other branches</small>
+        <small *ngIf="showAddInstituteBtn"
+          >Click on add Institute Button to create other branches</small
+        >
         <div class="mt-4" *ngIf="showAddInstituteBtn">
-          <button nbButton status="warning" style="color: black;" (click)="onClick()">
+          <button nbButton status="warning" (click)="onClick()">
             ADD INSTITUTE
           </button>
         </div>

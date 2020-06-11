@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../services/api.service';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ngx-create-tests-score',
@@ -23,6 +24,7 @@ export class CreateTestsScoreComponent implements OnInit {
   batch: string;
   display: boolean;
   studentScore: any[];
+  sampleExcel: any;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -33,6 +35,7 @@ export class CreateTestsScoreComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
+    this.sampleExcel = environment.server + '/sample/scores.xlsx';
     this.invalidFile = false;
     this.fileUpload = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../services/role/role-assign.service';
+import { InstituteService } from '../../services/institute.service';
 
 @Component({
   selector: 'ngx-ecommerce',
@@ -17,10 +18,17 @@ export class ECommerceComponent implements OnInit {
   display: boolean;
   instituteId: string;
 
+  institutes: any[] = [];
+
   studentReq: any[] = [];
 
-  classes = [];
-  studentPendingFee = [];
+  classes: any[] = [];
+  fee = ['week', 'month'];
+
+  studentPendingFee: any[] = [];
+
+  messages: any[] = [];
+  newLeads: any[] = [];
 
   study = [];
   constructor(
@@ -28,6 +36,7 @@ export class ECommerceComponent implements OnInit {
     private router: Router,
     private active: ActivatedRoute,
     private authService: AuthService,
+    private instituteService: InstituteService,
     private roleService: RoleAssignService,
   ) {}
 
@@ -84,5 +93,32 @@ export class ECommerceComponent implements OnInit {
       },
       (err) => console.error(err),
     );
+  }
+
+  getInstitutes() {
+    const user = this.authService.getUser();
+    if (user && user.role === 'institute') {
+      MENU_ITEMS[1].hidden = false;
+      this.api.getInstitutes().subscribe((data: any) => {
+        this.institutes = data;
+
+        if (this.institutes.length) {
+          MENU_ITEMS[1].children[1].hidden = false;
+          this.instituteService.setInstitutes(this.institutes);
+          this.display = true;
+        } else {
+          MENU_ITEMS[1].children[1].hidden = true;
+        }
+      });
+    } else if (user && user.role === 'employee') {
+      this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
+        MENU_ITEMS[1].hidden = true;
+        this.institutes = data;
+        if (this.institutes.length) {
+          this.instituteService.setInstitutes(this.institutes);
+          this.display = true;
+        }
+      });
+    }
   }
 }

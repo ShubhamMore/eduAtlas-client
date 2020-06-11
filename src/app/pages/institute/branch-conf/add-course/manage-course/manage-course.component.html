@@ -1,41 +1,50 @@
-<div class="text-right">
-  <button nbButton class="pull right" status="warning" style="color: black;" (click)="onClick()">
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="onClick()">
     ADD COURSES
   </button>
+  <p style="color: black; font-weight: bold;">Manage Course Here</p>
 </div>
-<p style="color: black; font-weight: bold;">Manage Course Here</p>
-<nb-card>
-  <nb-card-body>
-    <table *ngIf="courses.length > 0; else no_courses">
-      <thead>
-        <tr>
-          <th>Course Name</th>
-          <th>Code</th>
-          <th>Duration</th>
-          <th>Fees</th>
-          <th>GST</th>
-          <th>Total Fees (Rs.)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of courses; let i = index">
-          <td>{{ item.name }}</td>
-          <td>{{ item.courseCode }}</td>
-          <td>{{ item.duration }}</td>
-          <td>{{ item.fees }}</td>
-          <td>{{ item.gst }}</td>
-          <td>&#x20B9; {{ item.totalFee }}</td>
-          <td style="text-align: right;">
-            <button class="mr-3" nbButton status="warning" (click)="edit(item._id)">Edit</button>
-            <button nbButton status="danger" (click)="delete(item._id)">Del</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <ng-template #no_courses>
-      <p class="mt-5 mb-5 text-center">
-        No Courses Found
-      </p>
-    </ng-template>
-  </nb-card-body>
-</nb-card>
+
+<br /><br />
+
+<div>
+  <nb-card>
+    <nb-card-body>
+      <table *ngIf="courses.length > 0; else no_courses">
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>Code</th>
+            <th>Duration</th>
+            <th>Fees</th>
+            <th>GST</th>
+            <th>Total Fees (Rs.)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of courses; let i = index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.courseCode }}</td>
+            <td>{{ item.duration }}</td>
+            <td>{{ item.fees }}</td>
+            <td>{{ item.gst }}</td>
+            <td>&#x20B9; {{ item.totalFee }}</td>
+            <td style="text-align: right;">
+              <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">
+                Edit
+              </button>
+              <button class="mr-3 mb-2" nbButton status="danger" (click)="delete(item._id)">
+                Del
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #no_courses>
+        <p class="mt-5 mb-5 text-center">
+          No Courses Found
+        </p>
+      </ng-template>
+    </nb-card-body>
+  </nb-card>
+</div>

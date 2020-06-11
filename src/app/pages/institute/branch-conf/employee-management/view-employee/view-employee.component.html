@@ -1,4 +1,10 @@
 <nb-card *ngIf="employee">
+  <nb-card-header>
+    <button nbButton status="danger" class="btn float-right mr-3" (click)="deleteEmployee()">
+      Delete
+    </button>
+    <button class="btn float-right mr-3 btn btn-yellow" (click)="edit()">Edit</button>
+  </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-sm-1"></div>
@@ -17,7 +23,7 @@
         <p class="font-weight-bold">Role</p>
       </div>
       <div class="col-sm-5">
-        <p>{{ employee.instituteDetails[0].role }}</p>
+        <p>{{ employee.instituteDetails.role }}</p>
       </div>
       <div class="col-sm-1"></div>
     </div>

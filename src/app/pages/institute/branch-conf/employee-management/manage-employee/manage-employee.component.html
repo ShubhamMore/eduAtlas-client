@@ -1,5 +1,5 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="onClick()" style="color: black;">
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="onClick()">
     Add Employee
   </button>
 </div>
@@ -30,22 +30,20 @@
           <!-- <td>{{ employee.courseDetails.course }}</td> -->
           <td>
             <button
-              class="mr-2"
+              class="mr-2 mb-2"
               nbButton
               status="primary"
               (click)="view(employee.eduAtlasId, employee._id)"
             >
-              View
+              MANAGE
             </button>
             <button
-              class="mr-2"
-              nbButton
-              status="warning`"
+              class="mr-2 mb-2 btn btn-yellow"
               (click)="edit(employee.eduAtlasId, employee._id)"
             >
               Edit
             </button>
-            <button class="mr-2" nbButton status="danger" (click)="delete(employee._id)">
+            <button class="mr-2 mb-2" nbButton status="danger" (click)="delete(employee._id)">
               Delete
             </button>
           </td>

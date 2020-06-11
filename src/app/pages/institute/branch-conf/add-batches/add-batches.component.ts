@@ -123,6 +123,12 @@ export class AddBatchesComponent implements OnInit {
   }
 
   goManage() {
-    this.location.back();
+    let confirm = true;
+    if (this.batchForm.touched) {
+      confirm = window.confirm('If you go back the data will be lost.');
+    }
+    if (confirm) {
+      this.location.back();
+    }
   }
 }

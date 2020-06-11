@@ -1,9 +1,10 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="onClick()" style="color: black;" [hidden]="receipts">
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="onClick()" [hidden]="receipts">
     Add Receipt
   </button>
+  <p style="color: black; font-weight: bold;">Manage Receipt</p>
 </div>
-<p style="color: black; font-weight: bold;">Manage Receipt</p>
+<br /><br />
 <nb-card>
   <nb-card-body>
     <table *ngIf="receipts; else noReceipt">
@@ -24,8 +25,10 @@
           <td>{{ receipts.termsAndCondition }}</td>
           <td>{{ receipts.fee }}</td>
           <td class="text-right">
-            <button class="mr-3" nbButton status="warning" (click)="edit(instituteId)">Edit</button>
-            <button nbButton status="danger" (click)="delete(instituteId)">Del</button>
+            <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(instituteId)">Edit</button>
+            <button class="mb-2" nbButton status="danger" (click)="delete(instituteId)">
+              Delete
+            </button>
           </td>
         </tr>
       </tbody>

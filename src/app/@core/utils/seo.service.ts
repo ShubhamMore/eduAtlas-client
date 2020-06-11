@@ -15,7 +15,7 @@ export class SeoService implements OnDestroy {
   constructor(
     private router: Router,
     @Inject(NB_DOCUMENT) document,
-    @Inject(PLATFORM_ID) platformId
+    @Inject(PLATFORM_ID) platformId,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.dom = document;
@@ -45,7 +45,7 @@ export class SeoService implements OnDestroy {
     this.router.events
       .pipe(
         filter((event) => event instanceof NavigationEnd),
-        takeUntil(this.destroy$)
+        takeUntil(this.destroy$),
       )
       .subscribe(() => {
         this.linkCanonical.setAttribute('href', this.getCanonicalUrl());

@@ -1,4 +1,4 @@
-<p style="color: black; font-weight: bold;">Add employeeForm Here</p>
+<p style="color: black; font-weight: bold;">Add Role Form Here</p>
 
 <nb-card status="warning">
   <nb-card-body>
@@ -30,16 +30,11 @@
             id="eduAtlasId"
             fullWidth
             formControlName="eduAtlasId"
+            placeholder="Enter EduId or Email"
           />
         </div>
         <div style="text-align: right;">
-          <button
-            type="submit"
-            nbButton
-            status="warning"
-            style="color: black;"
-            *ngIf="!edit && !dataFetched"
-          >
+          <button class="btn btn-yellow-black" type="submit" *ngIf="!edit && !dataFetched">
             Fetch
           </button>
         </div>
@@ -60,7 +55,7 @@
           />
         </div>
         <div style="text-align: right;">
-          <button type="submit" nbButton status="warning" style="color: black;" *ngIf="!edit">
+          <button type="submit" class="btn btn-yellow-black" *ngIf="!edit">
             Verify
           </button>
         </div>
@@ -157,7 +152,7 @@
         </div>
       </div>
       <div style="text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">
+        <button type="submit" class="btn btn-yellow-black">
           {{ employeeEduId ? 'Update Employee' : 'Add Employee' }}
         </button>
       </div>

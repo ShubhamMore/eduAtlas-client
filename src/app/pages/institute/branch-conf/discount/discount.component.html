@@ -1,7 +1,9 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="back()" style="color: black;">Manage Discount</button>
+<div>
+  <button class="btn btn-yellow-black float-right" (click)="back()">Manage Discount</button>
+  <p style="color: black; font-weight: bold;">Define Discount</p>
 </div>
-<p style="color: black; font-weight: bold;">Define Discount</p>
+<br /><br />
+
 <nb-card *ngIf="display">
   <nb-card-body>
     <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
@@ -110,7 +112,7 @@
         ></textarea>
       </div>
       <div class="mt-4" style="text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">Submit</button>
+        <button type="submit" class="btn btn-yellow-black">Submit</button>
       </div>
     </form>
   </nb-card-body>

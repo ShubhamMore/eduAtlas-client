@@ -62,7 +62,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/institute/branch-config/manage-receipt',
       },
       {
-        title: 'Manage Employee',
+        title: 'Role Management',
         link: '/pages/institute/branch-config/manage-employee',
       },
     ],

@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-2">
       <div class="col-12">
         <nb-checkbox
           (checkedChange)="changeFieUpload($event)"
@@ -39,6 +39,7 @@
           status="basic"
           >Upload Test File</nb-checkbox
         >
+        <a class="ml-3" [href]="sampleExcel" *ngIf="fileUpload">Sample File</a>
       </div>
     </div>
 

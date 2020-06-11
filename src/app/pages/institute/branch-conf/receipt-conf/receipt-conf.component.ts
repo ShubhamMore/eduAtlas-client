@@ -105,7 +105,13 @@ export class ReceiptConfComponent implements OnInit {
   }
 
   back() {
-    this.location.back();
+    let confirm = true;
+    if (this.receipt.touched) {
+      confirm = window.confirm('If you go back the data will be lost.');
+    }
+    if (confirm) {
+      this.location.back();
+    }
   }
 
   showToast(position: any, status: any, message: any) {

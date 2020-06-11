@@ -101,8 +101,15 @@ export class AddCourseComponent implements OnInit {
   }
 
   back() {
-    this.location.back();
+    let confirm = true;
+    if (this.course.touched) {
+      confirm = window.confirm('If you go back the data will be lost.');
+    }
+    if (confirm) {
+      this.location.back();
+    }
   }
+
   onSubmit() {
     this.submitted = true;
     this.course.markAllAsTouched();
