@@ -1,0 +1,36 @@
+<div>
+    <button class="btn btn-yellow-black float-right" (click)="addLead()" >
+      Add Lead
+    </button>
+    <p style="color: black; font-weight: bold;">Manage Leads</p>
+  </div>
+  <br /><br />
+  <nb-card>
+    <nb-card-body>
+      <table class="table table-borderless text-center" *ngIf="leads; else noLeads">
+        <thead>
+          <tr>
+            <th>Lead Name</th>
+            <th>Lead Email</th>
+            <th>Lead Contact</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let lead of leads;let i = index">
+            <td>{{ lead.leadName }}</td>
+            <td>{{ lead.leadEmail }}</td>
+            <td>{{ lead.leadContact }}</td>
+            <td>{{ lead.status }}</td>
+            <td class="text-right">
+              <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(lead._id)">Edit</button>
+              <button class="mb-2" nbButton status="danger" (click)="delete(lead._id,i)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noLeads><p class="mt-5 mb-5 text-center">No Record Found</p></ng-template>
+    </nb-card-body>
+  </nb-card>

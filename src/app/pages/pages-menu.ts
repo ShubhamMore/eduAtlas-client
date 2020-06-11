@@ -181,5 +181,9 @@ export const MENU_ITEMS: NbMenuItem[] = [
         hidden: true,
       },
     ],
+  },{
+    title: 'Leads',
+    link: '',
+    hidden: true, // 14
   },
 ];

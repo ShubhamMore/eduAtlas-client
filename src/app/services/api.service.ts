@@ -1034,4 +1034,45 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  // =====================Leads API==============================
+  addLead(data: any) {
+    console.log('sda');
+    const url = `${environment.server}/institute/leads/addLead`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateLead(data: any) {
+    const url = `${environment.server}/institute/leads/updateLead`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteLead(data: any) {
+    const url = `${environment.server}/institute/leads/deleteLead`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getSingleLead(data: any) {
+    const url = `${environment.server}/institute/leads/getSingleLead`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getLeadsByOfInstitute(data: any) {
+    const url = `${environment.server}/institute/leads/getLeadsByOfInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  
 }
