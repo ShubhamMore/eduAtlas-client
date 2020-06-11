@@ -37,10 +37,14 @@ export class StudentHomeComponent implements OnInit {
     });
   }
 
+  close() {
+    this.meetingNumber = null;
+  }
+
   joinMeeting(url: any, meetingNumber: any, passWord: any) {
     console.log(url);
-    // this.meetingNumber = meetingNumber;
-    // this.passWord = passWord;
+    this.meetingNumber = meetingNumber;
+    this.passWord = passWord;
     // this.meeting = true;
     window.open(
       url,

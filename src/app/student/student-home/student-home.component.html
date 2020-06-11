@@ -1,31 +1,49 @@
 <div class="row">
-  <div class="col-12">
-    <table class="table table-borderless">
-      <thead>
-        <tr>
-          <th>Id</th>
-          <th>Topic</th>
-          <th>Join</th>
-        </tr>
-      </thead>
+  <div class="col-sm-6">
+    <nb-card>
+      <nb-card-header>
+        <h5>Meetings</h5>
+      </nb-card-header>
+      <nb-card-body>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Topic</th>
+              <th>Join</th>
+            </tr>
+          </thead>
 
-      <tbody>
-        <tr *ngFor="let meeting of meetings; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ meeting.topic }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-warning"
-              (click)="joinMeeting(meeting.joinUrl, meeting.meetingId, meeting.password)"
-            >
-              Join
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          <tbody>
+            <tr *ngFor="let meeting of meetings; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ meeting.topic }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-warning"
+                  (click)="joinMeeting(meeting.joinUrl, meeting.meetingId, meeting.password)"
+                >
+                  Join
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
   </div>
+  <!-- <div class="col-sm-6" *ngIf="meetingNumber">
+    {{ meetingNumber }}
+    <button class="btn btn-sm btn-danger float-right" (click)="close()">X</button>
+    <iframe
+      class="zoom"
+      src="https://zoom.us/wc/{{ meetingNumber }}/join?prefer=1&un=dG9tbXk="
+      sandbox="allow-same-origin allow-forms allow-scripts"
+      allow="microphone; camera"
+      *ngIf="meetingNumber"
+    ></iframe>
+  </div> -->
 </div>
 
 <!-- <div class="zoom-box">
