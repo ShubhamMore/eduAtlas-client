@@ -1,6 +1,7 @@
-<p style="color: black; font-weight: bold;">Schedule A Live Class</p>
-
 <nb-card *ngIf="display">
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">Schedule A Live Class</p>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="onlineClassForm" (submit)="saveOnlineClass()">
       <div class="row">

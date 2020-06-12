@@ -1,5 +1,7 @@
-<p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
 <nb-card *ngIf="display">
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
+  </nb-card-header>
   <nb-card-body>
     <table class="table table-borderless" *ngIf="students.length > 0; else noStudents">
       <thead>
@@ -14,7 +16,7 @@
           <td>{{ i + 1 }}</td>
           <td>{{ student.basicDetails.name }}</td>
           <td>
-            <button nbButton status="warning" (click)="schedule(student._id)">Schedule</button>
+            <button class="btn btn-yellow" (click)="schedule(student._id)">Schedule</button>
           </td>
         </tr>
       </tbody>

@@ -1,9 +1,10 @@
-<div>
-  <button (click)="back()" class="btn btn-yellow-black float-right">Manage Receipt</button>
-  <p style="font-weight: bold;">Receipt Configuration</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <div>
+      <button (click)="back()" class="btn btn-yellow-black float-right">Manage Receipt</button>
+      <p style="font-weight: bold;">Receipt Configuration</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="receipt" (ngSubmit)="onSubmit()">
       <div class="row">

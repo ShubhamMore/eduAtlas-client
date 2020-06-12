@@ -45,16 +45,102 @@
         <nb-card-body>
           <nb-tabset fullWidth>
             <nb-tab tabTitle="UPCOMING CLASSES">
-              Tab content 1
+              <div class="table-responsive" *ngIf="classes.length > 0; else noClasses">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Topic</th>
+                      <th>startTime</th>
+                      <th>Host</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let course of classes; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ course.topic }}</td>
+                      <td>{{ course.startTime }}</td>
+                      <td>{{ course.hostName }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noClasses>
+                <p class="text-center pt-5">No Classes</p>
+              </ng-template>
             </nb-tab>
             <nb-tab tabTitle="PENDING FEES">
-              Tab content 2
+              <div class="table-responsive" *ngIf="pendingFees.length > 0; else noFees">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Student</th>
+                      <th>Course</th>
+                      <th>Fees</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let fees of pendingFees; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ fees.studentName }}</td>
+                      <td>{{ fees.courseName }}</td>
+                      <td>{{ fees.pendingAmount }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noFees>
+                <p class="text-center pt-5">No Fees</p>
+              </ng-template>
             </nb-tab>
             <nb-tab tabTitle="STUDENT REQUESTS">
-              Tab content 3
+              <div class="table-responsive" *ngIf="studentRequest.length > 0; else noStudents">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let req of studentRequest; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ req.studentName }}</td>
+                      <td>{{ req.contact }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noStudents>
+                <p class="text-center pt-5">No Student Requests</p>
+              </ng-template>
             </nb-tab>
             <nb-tab tabTitle="FOLLOW UPS">
-              Tab content 4
+              <div class="table-responsive" *ngIf="newLeads.length > 0; else noLeads">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Name</th>
+                      <th>Contact</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let lead of newLeads; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ lead.leadName }}</td>
+                      <td>{{ lead.leadContact }}</td>
+                      <td>{{ lead.status }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noLeads>
+                <p class="text-center pt-5">No New Leads</p>
+              </ng-template>
             </nb-tab>
           </nb-tabset>
         </nb-card-body>
@@ -70,7 +156,12 @@
                 <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
               </div>
               <br />
-              <button class="btn btn-yellow">ADD STUDENT</button>
+              <button
+                class="btn btn-yellow"
+                [routerLink]="'/pages/institute/add-students/' + this.instituteId"
+              >
+                ADD STUDENT
+              </button>
             </nb-card-body>
           </nb-card>
         </div>
@@ -94,7 +185,12 @@
                 <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
               </div>
               <br />
-              <button class="btn btn-yellow">ADD CLASS</button>
+              <button
+                class="btn btn-yellow"
+                [routerLink]="'/pages/institute/add-schedule/' + this.instituteId"
+              >
+                ADD CLASS
+              </button>
             </nb-card-body>
           </nb-card>
         </div>
@@ -106,7 +202,12 @@
                 <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
               </div>
               <br />
-              <button class="btn btn-yellow">ADD ATTENDANCE</button>
+              <button
+                class="btn btn-yellow"
+                [routerLink]="'/pages/institute/attandance/' + this.instituteId"
+              >
+                ADD ATTENDANCE
+              </button>
             </nb-card-body>
           </nb-card>
         </div>

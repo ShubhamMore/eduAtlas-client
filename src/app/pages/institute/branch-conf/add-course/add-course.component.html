@@ -1,11 +1,12 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="back()">
-    MANAGE COURSES
-  </button>
-  <p style="color: black; font-weight: bold;">Add Course Here</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <div>
+      <button class="btn btn-yellow-black float-right" (click)="back()">
+        MANAGE COURSES
+      </button>
+      <p style="color: black; font-weight: bold;">Add Course Here</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="course" (ngSubmit)="onSubmit()">
       <div class="row">

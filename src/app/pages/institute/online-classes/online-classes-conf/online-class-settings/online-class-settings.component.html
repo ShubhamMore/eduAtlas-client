@@ -1,6 +1,7 @@
-<p style="color: black; font-weight: bold;">Settings</p>
-
 <nb-card>
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">Settings</p>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="settingForm" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -32,7 +33,7 @@
         </div>
       </div>
       <div style="display: block; margin-top: 1rem; text-align: right;">
-        <button type="submit" nbButton status="warning" style="color: black;">
+        <button class="btn btn-yellow-black" type="submit">
           {{ edit === 'true' ? 'Update Keys' : 'Add Keys' }}
         </button>
       </div>

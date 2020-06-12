@@ -10,24 +10,30 @@ import { throwError, Observable } from 'rxjs';
 export class AnnouncementService {
   constructor(private http: HttpClient) {}
   postAnnouncement(announcement: any) {
-    return this.http.post(`${environment.server}/institute/announcement`, announcement).pipe(
-      tap((response) => {}),
-      catchError((err) => this.handleError(err)),
-    );
+    return this.http
+      .post(`${environment.server}/institute/announcement/makeAnnouncement`, announcement)
+      .pipe(
+        tap((response) => {}),
+        catchError((err) => this.handleError(err)),
+      );
   }
 
-  getAnnouncement(id: any): Observable<any> {
-    return this.http.get(`${environment.server}/users/announcement/${id}`).pipe(
-      tap((res) => {}),
-      catchError((err) => this.handleError(err)),
-    );
+  getAnnouncements(id: any): Observable<any> {
+    return this.http
+      .post(`${environment.server}/institute/announcement/getAnnouncement`, { instituteId: id })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
   }
 
   deleteAnnouncement(id: any): Observable<any> {
-    return this.http.delete<any>(`${environment.server}/users/announcement/${id}`).pipe(
-      tap((res) => {}),
-      catchError((err) => this.handleError(err)),
-    );
+    return this.http
+      .post<any>(`${environment.server}/institute/announcement/deleteAnnouncement`, { _id: id })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
   }
 
   handleError(error: any) {

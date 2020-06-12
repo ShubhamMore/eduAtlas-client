@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PendingStudentComponent implements OnInit {
   institute: any;
   form: FormGroup;
-  noStudents: string;
+  noStudent: string;
   courses: any[];
   course: string;
 
@@ -37,14 +37,14 @@ export class PendingStudentComponent implements OnInit {
     });
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourseTd(this.instituteId);
-    this.noStudents = 'Select Course';
+    this.noStudent = 'Select Course';
   }
 
   getStudents(id: string, courseId: string, batchId: string) {
     this.api.getPendingStudents(id, courseId).subscribe((data: any) => {
       this.students = data;
       if (data.length === 0) {
-        this.noStudents = 'No Record';
+        this.noStudent = 'No Record';
       }
     });
   }

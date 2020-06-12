@@ -1,5 +1,9 @@
-<button nbButton (click)="back()" status="warning" style="color: black;">Manage Schedule</button>
 <nb-card *ngIf="display">
+  <nb-card-header>
+    <button class="btn btn-yellow-black float-right" (click)="back()">
+      Manage Schedule
+    </button>
+  </nb-card-header>
   <nb-card-body>
     <div class="row">
       <div class="col-sm-6">

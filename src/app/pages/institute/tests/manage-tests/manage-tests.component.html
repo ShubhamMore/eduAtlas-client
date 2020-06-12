@@ -1,6 +1,6 @@
 <div class="row mb-2">
   <div class="col-12">
-    <button class="btn btn-warning text-white float-right" (click)="createTest()">
+    <button class="btn btn-yellow float-right" (click)="createTest()">
       Create Test
     </button>
     <p style="color: black; font-weight: bold;">Define Tests</p>
@@ -59,15 +59,10 @@
                 <td>{{ test.testName }}</td>
                 <td>{{ test.date }}</td>
                 <td>
-                  <button class="mr-3 mb-1" nbButton status="warning" (click)="edit(test._id)">
+                  <button class="mr-3 mb-1 btn btn-yellow" (click)="edit(test._id)">
                     Edit
                   </button>
-                  <button
-                    class="mr-3 mb-1"
-                    nbButton
-                    status="warning"
-                    (click)="score(test._id, test.batchId)"
-                  >
+                  <button class="mr-3 mb-1" nbButton (click)="score(test._id, test.batchId)">
                     Score
                   </button>
                   <button

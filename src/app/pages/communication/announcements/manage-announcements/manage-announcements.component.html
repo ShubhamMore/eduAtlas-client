@@ -1,0 +1,56 @@
+<nb-card *ngIf="display">
+  <nb-card-header>
+    Announcements
+    <button
+      class="btn btn-yellow-black float-right"
+      [routerLink]="'/pages/communication/add-announcements/' + this.instituteId"
+    >
+      ADD ANNOUNCEMENT
+    </button>
+  </nb-card-header>
+  <nb-card-body>
+    <ng-container *ngIf="announcements.length > 0; else noAnnouncements">
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Text</th>
+                  <th>Attachment</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of announcements; let i = index">
+                  <td>
+                    <span> {{ i + 1 }}</span>
+                  </td>
+                  <td>
+                    <span> {{ item.title }}</span>
+                  </td>
+                  <td>
+                    <div [innerHTML]="item.text | safeHtml"></div>
+                  </td>
+                  <td>
+                    <a [href]="item.attachment.secure_url" *ngIf="item.attachment">{{
+                      item.attachment.file_name
+                    }}</a>
+                  </td>
+                  <div>
+                    <button nbButton status="danger" (click)="onDelete(item._id)">Delete</button>
+                  </div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noAnnouncements>
+      <p class="text-center pt-5">No Announcements</p>
+    </ng-template>
+  </nb-card-body>
+</nb-card>

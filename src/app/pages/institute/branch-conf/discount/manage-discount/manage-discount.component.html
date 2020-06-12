@@ -1,9 +1,10 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="onClick()">Add Discount</button>
-  <p style="color: black; font-weight: bold;">Manage Discount Here</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <div>
+      <button class="btn btn-yellow-black float-right" (click)="onClick()">Add Discount</button>
+      <p style="color: black; font-weight: bold;">Manage Discount Here</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <table *ngIf="discounts.length > 0; else noDiscounts">
       <thead>

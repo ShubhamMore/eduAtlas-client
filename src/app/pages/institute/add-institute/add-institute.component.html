@@ -1,5 +1,9 @@
-<p style="color: black; font-weight: bold;">{{ !edit ? 'Create New Branch' : 'Edit Branch' }}</p>
 <nb-card>
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">
+      {{ !edit ? 'Create New Branch' : 'Edit Branch' }}
+    </p>
+  </nb-card-header>
   <nb-card-body>
     <nb-stepper #stepper [linear]="true">
       <nb-step [stepControl]="firstForm" label="Basic Details">

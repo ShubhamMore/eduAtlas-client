@@ -21,6 +21,14 @@ export class ApiService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  getDashboardInfo(id: string) {
+    const url = `${environment.server}/institute/getDashboardInfo`;
+    return this.http.post(url, { instituteId: id }).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   getInstitute(id: string) {
     const url = `${environment.server}/institute/oneInstitute/${id}`;
     return this.http.get<instituteData>(url).pipe(
@@ -684,7 +692,7 @@ export class ApiService {
     );
   }
 
-  getBatch(params) {
+  getBatch(params: any) {
     return this.http
       .get(environment.server + '/institute/course/batch/', {
         params: params,
@@ -1085,5 +1093,4 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
-  
 }

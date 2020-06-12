@@ -1,10 +1,10 @@
-<div class="text-right">
-  <button nbButton status="warning" (click)="addSchedule()" style="color: black;">
-    Add Schedule
-  </button>
-</div>
-<p style="font-weight: bold;">Manage Schedule</p>
 <nb-card>
+  <nb-card-header>
+    <button class="btn btn-yellow-black float-right" (click)="addSchedule()">
+      Add Schedule
+    </button>
+    <p style="font-weight: bold;">Manage Schedule</p>
+  </nb-card-header>
   <nb-card-body *ngIf="display">
     <div class="row">
       <div class="col-sm-6"></div>

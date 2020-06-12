@@ -6,12 +6,21 @@ import { BranchConfComponent } from '../branch-conf.component';
 import { AddCourseComponent } from '../add-course/add-course.component';
 import { AddBatchesComponent } from '../add-batches/add-batches.component';
 import { BranchRoutingModule } from './branch-routing.module';
-import { RoleManagementComponent } from '../role-management/role-management.component';
-import {ManageEmployee} from '../employee-management/manage-employee/manage-employee.component';
-import {AddEmployee} from '../employee-management/add-employee.component';
+import { ManageEmployee } from '../employee-management/manage-employee/manage-employee.component';
+import { AddEmployee } from '../employee-management/add-employee.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { NbCardModule, NbLayoutModule, NbInputModule, NbButtonModule, NbSelectModule,
-   NbMenuModule, NbStepperModule, NbAccordionModule,NbCheckboxModule ,NbDatepickerModule} from '@nebular/theme';
+import {
+  NbCardModule,
+  NbLayoutModule,
+  NbInputModule,
+  NbButtonModule,
+  NbSelectModule,
+  NbMenuModule,
+  NbStepperModule,
+  NbAccordionModule,
+  NbCheckboxModule,
+  NbDatepickerModule,
+} from '@nebular/theme';
 import { DiscountComponent } from '../discount/discount.component';
 import { ReceiptConfComponent } from '../receipt-conf/receipt-conf.component';
 import { ManageCourseComponent } from '../../branch-conf/add-course/manage-course/manage-course.component';
@@ -26,20 +35,19 @@ import { ViewEmployee } from '../employee-management/view-employee/view-employee
 
 @NgModule({
   declarations: [
-  BranchConfComponent,
-  AddCourseComponent,
-  AddBatchesComponent,
-  RoleManagementComponent,
-  ManageEmployee,
-  AddEmployee,
-  ViewEmployee,
-  DiscountComponent,
-  ReceiptConfComponent,
-  ManageCourseComponent,
-  ViewCourseComponent,
-  ManageBatchComponent,
-  ManageDiscountComponent,
-  ManageReceiptComponent
+    BranchConfComponent,
+    AddCourseComponent,
+    AddBatchesComponent,
+    ManageEmployee,
+    AddEmployee,
+    ViewEmployee,
+    DiscountComponent,
+    ReceiptConfComponent,
+    ManageCourseComponent,
+    ViewCourseComponent,
+    ManageBatchComponent,
+    ManageDiscountComponent,
+    ManageReceiptComponent,
   ],
   imports: [
     CommonModule,

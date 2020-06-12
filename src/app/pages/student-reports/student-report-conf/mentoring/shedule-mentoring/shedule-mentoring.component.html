@@ -1,5 +1,7 @@
-<p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
 <nb-card *ngIf="display">
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="mentoringForm" (submit)="save()">
       <div class="row">
@@ -101,7 +103,7 @@
           >
             Cancel
           </button>
-          <button class="btn btn-warning float-right mt-3 mr-3" type="submit">
+          <button class="btn btn-yellow float-right mt-3 mr-3" type="submit">
             {{ editMentoringId ? 'Update' : 'Submit' }}
           </button>
         </div>
@@ -127,7 +129,7 @@
           <td>{{ mentoring.note }}</td>
           <td>{{ mentoring.teacherName }}</td>
           <td>
-            <button class="mr-3 mb-2" nbButton status="warning" (click)="editMentoring(i)">
+            <button class="mr-3 mb-2 btn btn-yellow" (click)="editMentoring(i)">
               Edit
             </button>
             <button

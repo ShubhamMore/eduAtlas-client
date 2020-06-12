@@ -1,5 +1,7 @@
-<p style="font-weight: bold;">Add Attandance</p>
 <nb-card>
+  <nb-card-header>
+    <p style="font-weight: bold;">Add Attendance</p>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="attandanceform" (ngSubmit)="onSubmit()">
       <div class="row">
@@ -45,9 +47,8 @@
 
         <div class="col-sm-6 text-right" *ngIf="students.length > 0">
           <button
-            nbButton
+            class="btn btn-yellow"
             type="submit"
-            status="warning"
             [disabled]="!attandanceform.valid"
             style="color: black;"
           >
@@ -68,10 +69,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr  *ngFor="let student of students; let i = index">
-              <td>{{student.studentRollNo}}</td>
+            <tr *ngFor="let student of students; let i = index">
+              <td>{{ student.studentRollNo }}</td>
               <td>
-                {{student.studentName}}
+                {{ student.studentName }}
               </td>
               <td>
                 <div class="attendance-selector text-center">

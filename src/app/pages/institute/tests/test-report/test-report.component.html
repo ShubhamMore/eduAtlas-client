@@ -1,73 +1,70 @@
-  <nb-card status="info" *ngIf="display">
-    <nb-card-header>
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h3 class="text-white">Test Reports</h3>
-        </div>
-        <div class="col-sm-3">
-          <nb-select
-            placeholder="Select Course"
-            status="basic"
-            fullWidth
-            (selectedChange)="onSelectCourse($event)"
-          >
-            <nb-option value="">Select Course</nb-option>
-            <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
-              course.name
-            }}</nb-option>
-          </nb-select>
-        </div>
-  
-        <div class="col-sm-3">
-          <nb-select
-            placeholder="Select Batch"
-            fullWidth
-            status="basic"
-            (selectedChange)="onSelectBatch($event)"
-          >
-            <nb-option value="">Select Batch</nb-option>
-            <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
-              batch.batchCode
-            }}</nb-option>
-          </nb-select>
-        </div>
+<nb-card status="info" *ngIf="display">
+  <nb-card-header>
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h3 class="text-white">Test Reports</h3>
       </div>
-    </nb-card-header>
-    <nb-card-body>
-      <div class="row" style="width: 100%;">
-        <div class="col-md-12">
-          <div class="table-responsive" *ngIf="tests.length > 0; else noTests">
-            <table class="table table-borderless text-center">
-              <thead>
-                <tr>
-                  <th>Test Title</th>
-                  <th>Test Date</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let test of tests; let i = index">
-                  <td>{{ test.testName }}</td>
-                  <td>{{ test.date }}</td>
-                  <td>
-                    <button
-                      class="mr-3 mb-1"
-                      nbButton
-                      status="warning"
-                      (click)="viewScore(test._id, test.batchId)"
-                    >
-                     View Score
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ng-template #noTests>
-            <p class="text-center pt-5">No Tests Available</p>
-          </ng-template>
-        </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
+          <nb-option value="">Select Course</nb-option>
+          <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
+            course.name
+          }}</nb-option>
+        </nb-select>
       </div>
-    </nb-card-body>
-  </nb-card>
-  
+
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Batch"
+          fullWidth
+          status="basic"
+          (selectedChange)="onSelectBatch($event)"
+        >
+          <nb-option value="">Select Batch</nb-option>
+          <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
+            batch.batchCode
+          }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="row" style="width: 100%;">
+      <div class="col-md-12">
+        <div class="table-responsive" *ngIf="tests.length > 0; else noTests">
+          <table class="table table-borderless text-center">
+            <thead>
+              <tr>
+                <th>Test Title</th>
+                <th>Test Date</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let test of tests; let i = index">
+                <td>{{ test.testName }}</td>
+                <td>{{ test.date }}</td>
+                <td>
+                  <button
+                    class="mr-3 mb-1 btn btn-yellow-white"
+                    (click)="viewScore(test._id, test.batchId)"
+                  >
+                    View Score
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noTests>
+          <p class="text-center pt-5">No Tests Available</p>
+        </ng-template>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

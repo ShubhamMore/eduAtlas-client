@@ -1,16 +1,10 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="onClick()">
-    Add Employee
-  </button>
-</div>
-
-<div class="row mb-4">
-  <div class="col-sm-6">
-    <p class="font-weight-bolder">Employees</p>
-  </div>
-</div>
-
 <nb-card *ngIf="employees.length > 0">
+  <nb-card-header>
+    <button class="btn btn-yellow-black float-right" (click)="onClick()">
+      Add Employee
+    </button>
+    <p class="font-weight-bolder">Employees</p>
+  </nb-card-header>
   <nb-card-body>
     <table>
       <thead>

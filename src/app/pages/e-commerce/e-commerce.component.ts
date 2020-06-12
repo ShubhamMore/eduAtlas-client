@@ -21,7 +21,6 @@ import { InstituteService } from '../../services/institute.service';
 export class ECommerceComponent implements OnInit {
   myInstitute: any;
 
-  students: any[] = [];
   display: boolean;
   instituteId: string;
 
@@ -29,13 +28,13 @@ export class ECommerceComponent implements OnInit {
 
   studentReq: any[] = [];
 
-  classes: any[] = [];
-  fee = ['week', 'month'];
+  feeOption = ['week', 'month'];
 
-  studentPendingFee: any[] = [];
-
+  studentRequest: any[] = [];
   messages: any[] = [];
   newLeads: any[] = [];
+  classes: any[] = [];
+  pendingFees: any[] = [];
 
   study = [];
   constructor(
@@ -68,7 +67,8 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/branch-config/manage-receipt/' + this.instituteId;
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-employee/' + this.instituteId;
-    MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.instituteId;
+    MENU_ITEMS[6].children[0].link =
+      '/pages/communication/manage-announcements/' + this.instituteId;
     MENU_ITEMS[7].children[0].link = '/pages/institute/test/manage-test/' + this.instituteId;
     MENU_ITEMS[7].children[1].link = '/pages/institute/test/test-report/' + this.instituteId;
     MENU_ITEMS[8].children[3].link = '/pages/student-reports/mentoring/' + this.instituteId;
@@ -80,11 +80,20 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/online-classes/create-class/' + this.instituteId;
     MENU_ITEMS[13].children[2].link =
       '/pages/institute/online-classes/manage-class/' + this.instituteId;
-    MENU_ITEMS[14].link =
-      '/pages/institute/manage-leads/' + this.instituteId;
+    MENU_ITEMS[14].link = '/pages/institute/manage-leads/' + this.instituteId;
 
-    this.getStudents(this.instituteId);
+    // this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
+    this.getDashboardInfo(this.instituteId);
+  }
+
+  getDashboardInfo(id: string) {
+    this.api.getDashboardInfo(id).subscribe((res: any) => {
+      this.classes = res.upcomingClass;
+      console.log(this.classes);
+      this.pendingFees = res.pendingFees;
+      this.newLeads = res.leads;
+    });
   }
 
   getInstitute(id: string) {
@@ -98,7 +107,7 @@ export class ECommerceComponent implements OnInit {
   getStudents(id: string) {
     this.api.getStudents(id).subscribe(
       (res: any) => {
-        this.students = res;
+        this.studentRequest = res;
       },
       (err) => console.error(err),
     );

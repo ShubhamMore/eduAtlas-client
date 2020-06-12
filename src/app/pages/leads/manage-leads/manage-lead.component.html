@@ -1,31 +1,39 @@
 <div>
-  <button class="btn btn-yellow-black float-right" (click)="addLead()">
+  <button class="btn btn-yellow float-right" (click)="addLead()">
     Add Lead
   </button>
-  <p style="color: black; font-weight: bold;">Manage Leads</p>
+  <p style="font-weight: bold;">Manage Leads</p>
 </div>
-<br /><br />
+<br />
 <nb-card status="info">
   <nb-card-header>
-    <div class="row mb-2" *ngIf = "courses">
+    <div class="row mb-2" *ngIf="courses">
       <div class="col-sm-6">
         <h3 class="text-white">Leads</h3>
       </div>
       <div class="col-sm-3">
-        <nb-select placeholder="Select Course" status="basic" fullWidth (selectedChange)="onSelectCourse($event)">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
           <nb-option value="">Select Course</nb-option>
           <nb-option *ngFor="let course of courses" [value]="course._id">{{
-              course.name
-            }}</nb-option>
+            course.name
+          }}</nb-option>
         </nb-select>
       </div>
 
       <div class="col-sm-3">
-        <nb-select placeholder="Select Status" fullWidth status="basic" (selectedChange)="onSelectStatus($event)">
+        <nb-select
+          placeholder="Select Status"
+          fullWidth
+          status="basic"
+          (selectedChange)="onSelectStatus($event)"
+        >
           <nb-option value="">Select Status</nb-option>
-          <nb-option *ngFor="let item of status" [value]="item">{{
-              item
-            }}</nb-option>
+          <nb-option *ngFor="let item of status" [value]="item">{{ item }}</nb-option>
         </nb-select>
       </div>
     </div>
@@ -41,14 +49,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let lead of leads;let i = index">
+        <tr *ngFor="let lead of leads; let i = index">
           <td>{{ lead.leadName }}</td>
           <td>{{ lead.leadEmail }}</td>
           <td>{{ lead.leadContact }}</td>
           <td>{{ lead.status }}</td>
           <td class="text-right">
             <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(lead._id)">Edit</button>
-            <button class="mb-2" nbButton status="danger" (click)="delete(lead._id,i)">
+            <button class="mb-2" nbButton status="danger" (click)="delete(lead._id, i)">
               Delete
             </button>
           </td>

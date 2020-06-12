@@ -1,11 +1,11 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="onClick()" [hidden]="receipts">
-    Add Receipt
-  </button>
-  <p style="color: black; font-weight: bold;">Manage Receipt</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <button class="btn btn-yellow-black float-right" (click)="onClick()" [hidden]="receipts">
+      Add Receipt
+    </button>
+
+    <p style="color: black; font-weight: bold;">Manage Receipt</p>
+  </nb-card-header>
   <nb-card-body>
     <table *ngIf="receipts; else noReceipt">
       <thead>

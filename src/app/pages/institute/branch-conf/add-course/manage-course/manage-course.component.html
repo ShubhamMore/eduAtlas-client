@@ -1,14 +1,13 @@
 <div>
-  <button class="btn btn-yellow-black float-right" (click)="onClick()">
-    ADD COURSES
-  </button>
-  <p style="color: black; font-weight: bold;">Manage Course Here</p>
-</div>
-
-<br /><br />
-
-<div>
   <nb-card>
+    <nb-card-header>
+      <div>
+        <button class="btn btn-yellow-black float-right" (click)="onClick()">
+          ADD COURSES
+        </button>
+        <p style="color: black; font-weight: bold;">Manage Course Here</p>
+      </div>
+    </nb-card-header>
     <nb-card-body>
       <table *ngIf="courses.length > 0; else no_courses">
         <thead>

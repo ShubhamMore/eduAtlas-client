@@ -3,7 +3,6 @@ import { RouterModule } from '@angular/router';
 import { BranchConfComponent } from '../branch-conf.component';
 import { AddCourseComponent } from '../add-course/add-course.component';
 import { AddBatchesComponent } from '../add-batches/add-batches.component';
-import { RoleManagementComponent } from '../role-management/role-management.component';
 import { DiscountComponent } from '../discount/discount.component';
 import { ReceiptConfComponent } from '../receipt-conf/receipt-conf.component';
 import { ManageCourseComponent } from '../../branch-conf/add-course/manage-course/manage-course.component';
@@ -32,7 +31,6 @@ const routes = [
       { path: 'manage-discount/:id', component: ManageDiscountComponent },
       { path: 'manage-receipt/:id', component: ManageReceiptComponent },
       { path: 'add-receipt/:id', component: ReceiptConfComponent },
-      { path: 'manage-role-management/:id', component: RoleManagementComponent },
       { path: 'add-employee/:id', component: AddEmployee },
       { path: 'add-employee/:id/edit', component: AddEmployee },
       { path: 'manage-employee/:id', component: ManageEmployee },

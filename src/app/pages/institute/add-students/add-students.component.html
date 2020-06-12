@@ -1,6 +1,7 @@
-<p style="color: black; font-weight: bold;">Add Students Here</p>
-
-<nb-card status="warning">
+<nb-card>
+  <nb-card-header>
+    <p style="color: black; font-weight: bold;">Add Student Here</p>
+  </nb-card-header>
   <nb-card-body>
     <nb-checkbox
       (checkedChange)="changeAlreadyRegistered($event)"
@@ -494,7 +495,7 @@
                         />
                       </div>
                       <div class="col-sm-4">
-                        <label>payment Mode</label>
+                        <label>Payment Mode</label>
                         <nb-select
                           placeholder="Select Mode"
                           status="basic"

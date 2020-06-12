@@ -1,10 +1,10 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="back()">Manage Discount</button>
-  <p style="color: black; font-weight: bold;">Define Discount</p>
-</div>
-<br /><br />
-
 <nb-card *ngIf="display">
+  <nb-card-header>
+    <div>
+      <button class="btn btn-yellow-black float-right" (click)="back()">Manage Discount</button>
+      <p style="color: black; font-weight: bold;">Define Discount</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="discountForm" (ngSubmit)="onSubmit()">
       <div class="row">

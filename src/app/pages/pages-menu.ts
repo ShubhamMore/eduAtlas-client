@@ -164,7 +164,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden: true, // 12
   },
   {
-    title: 'Online Classes',
+    title: 'EA Live',
     link: '',
     hidden: true, // 13
     children: [
@@ -181,7 +181,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
         hidden: true,
       },
     ],
-  },{
+  },
+  {
     title: 'Leads',
     link: '',
     hidden: true, // 14

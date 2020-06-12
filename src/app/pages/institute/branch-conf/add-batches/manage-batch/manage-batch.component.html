@@ -1,11 +1,12 @@
-<div>
-  <button class="btn btn-yellow-black float-right" (click)="onClick()" style="color: black;">
-    Add Batch
-  </button>
-  <p style="color: black; font-weight: bold;">Manage Batch Here</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <div>
+      <button class="btn btn-yellow-black float-right" (click)="onClick()" style="color: black;">
+        Add Batch
+      </button>
+      <p style="color: black; font-weight: bold;">Manage Batch Here</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <table *ngIf="batches.length > 0; else noBatches">
       <thead>
