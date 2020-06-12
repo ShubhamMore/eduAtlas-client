@@ -42,7 +42,7 @@ export class AddLeadComponent implements OnInit{
       this.leadForm = this.fb.group({
         leadName: [''],
         leadContact: [''],
-        leadEmail: [''],
+        leadEmail: ['',Validators.email],
         date: [''],
         course: [''],
         status :[''],

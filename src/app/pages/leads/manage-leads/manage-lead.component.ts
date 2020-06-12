@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { courseData } from '../../../../assets/dataTypes/dataType';
 
 
 @Component({
@@ -13,8 +14,10 @@ import { NbToastrService } from '@nebular/theme';
 export class ManageLeadComponent implements OnInit {
   leads: any;
   instituteId: string;
-  status : string;
-  batchId:string;
+  courses: courseData;
+  selectedCourseId : string;
+  selectedStatus : string;
+  status = ['Pending', 'Contacted','Lead Won','Lead Lost'];
   constructor(
     private api: ApiService,
     private router: Router,
@@ -23,11 +26,28 @@ export class ManageLeadComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    this.getLeads(this.instituteId);
+    this.getLeads();
+    this.getCourses();
   }
 
-  getLeads(id: string) {
-    this.api.getLeadsByOfInstitute({ 'instituteId': this.instituteId, 'status':this.status,'batchId':this.batchId}).subscribe((data) => {
+  getCourses(){
+    this.api.getCourseTD(this.instituteId).subscribe(
+      (data: any) => {
+        this.courses = data.course;
+      },
+      (err) => console.error(err),
+    );
+  }
+  onSelectCourse(courseId){
+    this.selectedCourseId = courseId;
+    this.getLeads();
+  }
+  onSelectStatus(status){
+    this.selectedStatus = status;
+    this.getLeads();
+  }
+  getLeads() {
+    this.api.getLeadsByOfInstitute({ 'instituteId': this.instituteId, 'status':this.selectedStatus,'courseId':this.selectedCourseId}).subscribe((data) => {
       this.leads = JSON.parse(JSON.stringify(data));
     });
   }
