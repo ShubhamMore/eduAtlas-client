@@ -1040,7 +1040,6 @@ export class ApiService {
 
   // =====================Leads API==============================
   addLead(data: any) {
-    console.log('sda');
     const url = `${environment.server}/institute/leads/addLead`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
@@ -1072,6 +1071,58 @@ export class ApiService {
   }
   getLeadsByOfInstitute(data: any) {
     const url = `${environment.server}/institute/leads/getLeadsByOfInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  // =====================Forum API==============================
+  addForum (data: any) {
+    const url = `${environment.server}/institute/forum/addForum `;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  updateForum(data: any) {
+    const url = `${environment.server}/institute/forum/updateForum`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteForum(data: any) {
+    const url = `${environment.server}/institute/forum/deleteForum`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getSingleForum(data: any) {
+    const url = `${environment.server}/institute/forum/getSingleForum`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getForumsByInstitute(data: any) {
+    const url = `${environment.server}/institute/forum/getForumsByInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getMyForum(data: any) {
+    const url = `${environment.server}/institute/forum/getMyForum`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  addComment(data: any) {
+    const url = `${environment.server}/institute/forum/addComment`;
     return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),

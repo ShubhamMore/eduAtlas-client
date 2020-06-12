@@ -9,13 +9,18 @@ import {
   NbSelectModule,
   NbCheckboxModule,
   NbLayoutModule,
+  NbButtonModule,
 } from '@nebular/theme';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
+import { ForumComponent } from '../forum/forum.component';
+import { AddForumComponent } from '../forum/add-forum/add-forum.component';
+import { MyForumComponent } from '../forum/my-forum/my-forum.component';
+import { ForumDetailsComponent } from '../forum/forum-details/forum-details.component';
 
 @NgModule({
-  declarations: [CommunicationComponent, AnnouncementsComponent, SafeHtmlPipe],
+  declarations: [CommunicationComponent, AnnouncementsComponent, SafeHtmlPipe,ForumComponent,AddForumComponent,MyForumComponent,ForumDetailsComponent],
   imports: [
     CommonModule,
     CommRoutingModule,
@@ -26,6 +31,9 @@ import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
     NbCheckboxModule,
     AngularEditorModule,
     NbLayoutModule,
+    ReactiveFormsModule,
+    NbButtonModule,
+    NbCardModule,
   ],
 })
 export class CommunicationModule {}

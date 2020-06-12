@@ -48,7 +48,7 @@ export class ManageLeadComponent implements OnInit {
   }
   getLeads() {
     this.api.getLeadsByOfInstitute({ 'instituteId': this.instituteId, 'status':this.selectedStatus,'courseId':this.selectedCourseId}).subscribe((data) => {
-      this.leads = JSON.parse(JSON.stringify(data));
+      this.leads = data;
     });
   }
   edit(id: string) {
