@@ -1,68 +1,199 @@
-<h4 class="font-weight-bolder text-center mb-5" style="text-transform: uppercase;" *ngIf="display">
-  {{ myInstitute.institute.basicInfo.name }}
-</h4>
+<ng-container *ngIf="display">
+  <div class="row">
+    <div class="col-12">
+      <nb-card>
+        <nb-card-header>
+          <span
+            ><img
+              class="my-auto float-left"
+              [src]="myInstitute.institute.basicInfo.logo.secure_url"
+              width="40px"
+              height="40px"
+              style="border-radius: 100%; border: 1px solid #000;"
+          /></span>
+          <span
+            class="ml-3 my-auto"
+            style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;"
+          >
+            {{ myInstitute.institute.basicInfo.name | uppercase }}
+          </span>
+          <span
+            style="
+              font-size: 10px;
+              font-weight: normal;
+              background-color: #009acd;
+              color: #fff;
+              padding: 2px 8px;
+              border-radius: 10px;
+            "
+            >{{ myInstitute.institute.currentPlan | uppercase }}</span
+          >
 
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card [hidden]="false">
-      <nb-card-header style="background-color: #ffd500;">
-        <span>UPCOMING CLASS</span>
-        <input type="date" id="date" placeholder="Pick Date" />
-      </nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="text-center">No Upcoming Class Available</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-sm-6">
-    <nb-card>
-      <nb-card-header style="background-color: #ffd500;">STUDENT REQUESTS </nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="text-center">No Requests Available</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-</div>
-
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card [hidden]="false">
-      <nb-card-header style="background-color: #ffd500;">
-        PENDING FEES
-        <input type="date" id="date" placeholder="Pick Date" />
-      </nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="text-center">No Pending Fees Available</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-sm-6">
-    <nb-card [hidden]="false">
-      <nb-card-header style="background-color: #ffd500;">LEADS </nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="test-center">No Leads</p>
-      </nb-card-body>
-    </nb-card>
-  </div>
-</div>
-<div class="row" [hidden]="!display">
-  <div class="col-sm-6">
-    <nb-card [hidden]="false">
-      <nb-card-header style="background-color: #ffd500;">Messages</nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="test-center">No Messages</p>
-      </nb-card-body>
-    </nb-card>
+          <span class="float-right mr-3">
+            <span>Total Students: {{ '0' }}</span
+            ><br />
+            <span>Total Batches: {{ '0' }}</span>
+          </span>
+        </nb-card-header>
+      </nb-card>
+    </div>
   </div>
 
-  <div class="col-sm-6">
-    <nb-card [hidden]="false">
-      <nb-card-header style="background-color: #ffd500;">New Leads</nb-card-header>
-      <nb-card-body style="max-height: 35vh;">
-        <p class="test-center">No New Leads</p>
-      </nb-card-body>
-    </nb-card>
+  <div class="row">
+    <div class="col-sm-6">
+      <nb-card class="card-height-1">
+        <nb-card-body>
+          <nb-tabset fullWidth>
+            <nb-tab tabTitle="UPCOMING CLASSES">
+              Tab content 1
+            </nb-tab>
+            <nb-tab tabTitle="PENDING FEES">
+              Tab content 2
+            </nb-tab>
+            <nb-tab tabTitle="STUDENT REQUESTS">
+              Tab content 3
+            </nb-tab>
+            <nb-tab tabTitle="FOLLOW UPS">
+              Tab content 4
+            </nb-tab>
+          </nb-tabset>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <nb-card class="card-height-2">
+            <nb-card-body>
+              <div class="image-container">
+                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+              </div>
+              <br />
+              <button class="btn btn-yellow">ADD STUDENT</button>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
+        <div class="col-md-6">
+          <nb-card class="card-height-2">
+            <nb-card-body>
+              <div class="image-container">
+                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+              </div>
+              <br />
+              <button class="btn btn-yellow">COLLECT INSTALLMENT</button>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
+        <div class="col-md-6">
+          <nb-card class="card-height-2">
+            <nb-card-body>
+              <div class="image-container">
+                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+              </div>
+              <br />
+              <button class="btn btn-yellow">ADD CLASS</button>
+            </nb-card-body>
+          </nb-card>
+        </div>
+
+        <div class="col-md-6">
+          <nb-card class="card-height-2">
+            <nb-card-body>
+              <div class="image-container">
+                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+              </div>
+              <br />
+              <button class="btn btn-yellow">ADD ATTENDANCE</button>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header style="background-color: #31bc9b;">
+          <span style="font-size: 16px; color: #fff;">MESSAGE BOARD</span>
+        </nb-card-header>
+        <nb-card-body class="body-height-1"></nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-md-6">
+      <nb-card>
+        <nb-card-header>
+          REVENUE AND STUDENT GRAPH
+        </nb-card-header>
+        <nb-card-body class="body-height-1"></nb-card-body>
+      </nb-card>
+    </div>
   </div>
-</div>
+  <!-- 
+  <div class="row" [hidden]="!display">
+    <div class="col-sm-6">
+      <nb-card [hidden]="false">
+        <nb-card-header style="background-color: #ffd500;">
+          <span>UPCOMING CLASS</span>
+          <input type="date" id="date" placeholder="Pick Date" />
+        </nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="text-center">No Upcoming Class Available</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-sm-6">
+      <nb-card>
+        <nb-card-header style="background-color: #ffd500;">STUDENT REQUESTS </nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="text-center">No Requests Available</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+
+  <div class="row" [hidden]="!display">
+    <div class="col-sm-6">
+      <nb-card [hidden]="false">
+        <nb-card-header style="background-color: #ffd500;">
+          PENDING FEES
+          <input type="date" id="date" placeholder="Pick Date" />
+        </nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="text-center">No Pending Fees Available</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-sm-6">
+      <nb-card [hidden]="false">
+        <nb-card-header style="background-color: #ffd500;">LEADS </nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="test-center">No Leads</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+  <div class="row" [hidden]="!display">
+    <div class="col-sm-6">
+      <nb-card [hidden]="false">
+        <nb-card-header style="background-color: #ffd500;">Messages</nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="test-center">No Messages</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+
+    <div class="col-sm-6">
+      <nb-card [hidden]="false">
+        <nb-card-header style="background-color: #ffd500;">New Leads</nb-card-header>
+        <nb-card-body style="max-height: 35vh;">
+          <p class="test-center">No New Leads</p>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div> -->
+</ng-container>

@@ -7,3 +7,27 @@
   font-size: 11px;
   text-align: center;
 }
+
+.image-container,
+.btn-container {
+  width: 100%;
+  text-align: center;
+}
+
+.inst-logo {
+  width: auto;
+  margin-bottom: 25px;
+}
+
+.card-height-1,
+.body-height-1 {
+  height: 50vh;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.card-height-2 {
+  height: 25vh;
+  max-height: 50vh;
+  text-align: center;
+}

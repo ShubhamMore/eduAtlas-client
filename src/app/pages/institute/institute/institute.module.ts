@@ -17,6 +17,7 @@ import {
   NbToastrModule,
   NbCheckboxModule,
   NbStepperModule,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { AddInstituteComponent } from '../add-institute/add-institute.component';
 import { InstituteComponent } from '../institute.component';
@@ -60,6 +61,7 @@ import { BranchManagerGuard } from '../../../bManager.guard';
     ReactiveFormsModule,
     NbCardModule,
     NbListModule,
+    NbTabsetModule,
     NbLayoutModule,
     NbCheckboxModule,
     NbInputModule,

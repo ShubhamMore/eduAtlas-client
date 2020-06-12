@@ -625,6 +625,14 @@ export class ApiService {
     );
   }
 
+  getPendingFeeByInstitute(instituteId: any) {
+    const url = `${environment.server}/institute/fee/getPendingFeeByInstitute`;
+    return this.http.post(url, { instituteId }).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   // ========================COURSE API=====================
 
   getCourses(id: any) {

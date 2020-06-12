@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
@@ -10,6 +10,13 @@ import { InstituteService } from '../../services/institute.service';
   selector: 'ngx-ecommerce',
   templateUrl: './e-commerce.component.html',
   styleUrls: ['./e-commerce.component.scss'],
+  styles: [
+    `
+      :host nb-tab {
+        padding: 0.5rem;
+      }
+    `,
+  ],
 })
 export class ECommerceComponent implements OnInit {
   myInstitute: any;
