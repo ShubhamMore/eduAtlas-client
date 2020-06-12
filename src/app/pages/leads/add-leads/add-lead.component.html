@@ -1,0 +1,72 @@
+<div>
+  <button (click)="back()" class="btn btn-yellow-black float-right">Manage Leads</button>
+  <p style="font-weight: bold;">Add Lead</p>
+</div>
+<br /><br />
+<nb-card>
+  <nb-card-body>
+    <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="name">Lead Name</label>
+          <input type="text" nbInput id="name" fullWidth status="basic" formControlName="leadName"
+            [status]="f.leadName.errors && submitted ? 'danger' : 'basic'" placeholder="Lead Name" />
+          <small *ngIf="f.leadName.errors && submitted">*Lead Name is Required</small>
+        </div>
+        <div class="col-sm-4">
+          <label for="leadContact">Lead Contact</label>
+          <input type="text" nbInput id="leadContact" maxlength="10" fullWidth status="basic"
+            formControlName="leadContact" placeholder="Lead Contact" />
+        </div>
+
+        <div class="col-sm-4">
+          <label for="leadEmail">Lead Email</label>
+          <input type="email" nbInput fullWidth id="leadEmail" status="basic" formControlName="leadEmail"
+            [status]="f.leadEmail.errors && submitted ? 'danger' : 'basic'" placeholder="Lead Email" />
+          <small *ngIf="f.leadEmail.errors && submitted">*Lead Email is Invalid</small>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-3">
+          <label for="date">Date</label>
+          <input type="date" nbInput status="basic" formControlName="date" fullWidth placeholder="Pick Date" />
+        </div>
+        <div class="col-sm-3">
+          <label for="course">Course</label>
+          <nb-select placeholder="Course" id="course" status="basic" formControlName="course">
+            <nb-option *ngFor="let course of courses" [value]="course._id">{{ course.name }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-sm-3">
+          <label for="source">Lead Source</label>
+          <input type="text" nbInput fullWidth id="source" status="basic" formControlName="source"
+            placeholder="Lead Source" />
+        </div>
+        <div class="col-sm-3">
+          <label for="status">Status</label>
+          <nb-select placeholder="Status" id="status" status="basic"
+            [status]="f.status.errors && submitted ? 'danger' : 'basic'" formControlName="status">
+            <nb-option *ngFor="let item of status" [value]="item">{{ item }}</nb-option>
+          </nb-select>
+          <small *ngIf="f.status.errors && submitted">*Status is Required</small>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-12">
+          <label for="comment">Comment</label>
+          <textarea type="text" nbInput id="comment" status="basic" fullWidth formControlName="comment"
+            placeholder="Comment" cols="15" rows="7">
+            </textarea>
+        </div>
+      </div>
+
+      <div style="text-align: right; margin: 1rem;">
+        <button type="submit" class="btn btn-yellow-black">
+          {{ edit ? 'Update' : 'Add' }}
+        </button>
+      </div>
+    </form>
+  </nb-card-body>
+</nb-card>

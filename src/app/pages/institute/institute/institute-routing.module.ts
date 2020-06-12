@@ -17,6 +17,8 @@ import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedul
 import { TeacherGuard } from '../../../teacher.guard';
 import { BranchManagerGuard } from '../../../bManager.guard';
 import { OnineClassesGuard } from '../../../onlineClasses.guard';
+import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.component';
+import { AddLeadComponent } from '../../leads/add-leads/add-lead.component';
 
 const routes: Routes = [
   {
@@ -39,6 +41,8 @@ const routes: Routes = [
       { path: 'manage-schedule/:id', component: ManageScheduleComponent },
       { path: 'view-schedule/:id', component: ViewScheduleComponent },
       { path: 'edit-schedule/:id', component: AddScheduleComponent },
+      { path: 'manage-leads/:id', component: ManageLeadComponent },
+      { path: 'add-leads/:id', component: AddLeadComponent },
 
       {
         path: 'branch-config',

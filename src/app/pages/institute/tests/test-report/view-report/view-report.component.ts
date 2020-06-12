@@ -39,7 +39,15 @@ export class ViewReportComponent implements OnInit {
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+          ticks: {
+              beginAtZero: true,
+              max:100
+          }
+      }]
+  }
   };
   public barChartLabels = [];
   public barChartType = 'line';
@@ -118,6 +126,16 @@ export class ViewReportComponent implements OnInit {
 
     
     this.api.getScoresOfStutdentByInstitute({ 'studentId': studentId, 'instituteId': this.instituteId }).subscribe((res: any) => {
+
+      res.sort((test1,test2)=>{
+        const test1Date = new Date(test1.date);
+        const test2Date = new Date(test2.date);
+        if(test1Date>test2Date){
+          return 1;
+        }else{
+          return -1;
+        }
+      })
 
       var marksArray = res.map((test)=>{
         return test.students.marks;

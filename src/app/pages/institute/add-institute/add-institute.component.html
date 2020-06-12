@@ -11,6 +11,7 @@
                 <input
                   type="text"
                   nbInput
+                  fieldSize="large"
                   fullWidth
                   formControlName="name"
                   id="name"
@@ -91,6 +92,7 @@
                     <nb-select
                       formControlName="state"
                       status="basic"
+                      fullWidth="true"
                       (selectedChange)="onChangeState($event)"
                       [selected]="1"
                       placeholder="State"

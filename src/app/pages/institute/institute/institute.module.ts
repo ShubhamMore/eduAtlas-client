@@ -37,6 +37,8 @@ import { ManageScheduleComponent } from '../../schedule/manage-schedule/manage-s
 import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedule.component';
 import { TeacherGuard } from '../../../teacher.guard';
 import { BranchManagerGuard } from '../../../bManager.guard';
+import { AddLeadComponent } from '../../leads/add-leads/add-lead.component';
+import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { BranchManagerGuard } from '../../../bManager.guard';
     AttandanceComponent,
     ManageScheduleComponent,
     ViewScheduleComponent,
+    AddLeadComponent,
+    ManageLeadComponent
   ],
   imports: [
     CommonModule,
