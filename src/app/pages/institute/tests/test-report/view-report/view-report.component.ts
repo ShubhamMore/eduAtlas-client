@@ -137,8 +137,8 @@ export class ViewReportComponent implements OnInit {
         }
       })
 
-      var marksArray = res.map((test)=>{
-        return test.students.marks;
+      var percentageArray = res.map((test)=>{
+        return test.students.percentage;
       })
       var labelsArray = res.map((test)=>{
         return test.testName+"("+test.date+")";
@@ -148,7 +148,7 @@ export class ViewReportComponent implements OnInit {
       this.barChartType = 'line';
       this.barChartLegend = true;
       this.barChartData = [
-        { data: marksArray, label: 'Batch A' },
+        { data: percentageArray, label: res[0].students.studentName },
       ];
       this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
     }, (err) => {

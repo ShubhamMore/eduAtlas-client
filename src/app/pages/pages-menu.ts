@@ -96,6 +96,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Announcements',
         link: '',
       },
+      {
+        title: 'Forum',
+        link: '',
+      },
     ],
   },
 

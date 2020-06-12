@@ -39,7 +39,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table class="table table-borderless text-center" *ngIf="leads; else noLeads">
+    <table class="table table-borderless text-center" *ngIf="leads && leads.length>0; else noLeads">
       <thead>
         <tr>
           <th>Lead Name</th>

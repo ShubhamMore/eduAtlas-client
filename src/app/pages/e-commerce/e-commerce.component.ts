@@ -67,8 +67,8 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/branch-config/manage-receipt/' + this.instituteId;
     MENU_ITEMS[4].children[4].link =
       '/pages/institute/branch-config/manage-employee/' + this.instituteId;
-    MENU_ITEMS[6].children[0].link =
-      '/pages/communication/manage-announcements/' + this.instituteId;
+    MENU_ITEMS[6].children[0].link = '/pages/communication/announcements/' + this.instituteId;
+    MENU_ITEMS[6].children[1].link = '/pages/communication/forum/' + this.instituteId;
     MENU_ITEMS[7].children[0].link = '/pages/institute/test/manage-test/' + this.instituteId;
     MENU_ITEMS[7].children[1].link = '/pages/institute/test/test-report/' + this.instituteId;
     MENU_ITEMS[8].children[3].link = '/pages/student-reports/mentoring/' + this.instituteId;
@@ -90,7 +90,6 @@ export class ECommerceComponent implements OnInit {
   getDashboardInfo(id: string) {
     this.api.getDashboardInfo(id).subscribe((res: any) => {
       this.classes = res.upcomingClass;
-      console.log(this.classes);
       this.pendingFees = res.pendingFees;
       this.newLeads = res.leads;
     });
