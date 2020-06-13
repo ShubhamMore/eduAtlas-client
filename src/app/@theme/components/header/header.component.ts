@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean;
   institutes: any[];
+  institute: any;
   name: string;
   user: any;
 
@@ -66,6 +67,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userPictureOnly = false;
     this.institutes = [];
+    this.institute = '';
     this.user = this.authService.getUser();
     this.name = `Welcome ${this.user.name}
       (${this.user.role})`;
@@ -92,6 +94,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSelect(event: any) {
     if (event !== 'undefined') {
+      this.institute = event;
       if (this.user.role === 'institute') {
         this.router.navigate(['/pages/dashboard/', event]);
       } else if (this.user.role === 'employee') {
