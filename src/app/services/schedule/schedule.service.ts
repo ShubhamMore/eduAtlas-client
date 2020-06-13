@@ -25,6 +25,12 @@ export class ScheduleService {
     );
   }
 
+  getScheduleByInstitute(data: any) {
+    return this.http
+      .post(`${environment.server}/institute/schedule/getScheduleByInstitute`, data)
+      .pipe(catchError(this.handleError));
+  }
+
   getScheduleByBatch(instituteId: string, courseId: string, batchId: any) {
     return this.http
       .post(`${environment.server}/institute/schedule/getScheduleByBatch`, {

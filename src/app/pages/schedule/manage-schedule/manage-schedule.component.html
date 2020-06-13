@@ -15,7 +15,7 @@
           fullWidth
           (selectedChange)="onSelectCourse($event)"
         >
-          <nb-option value="">Select Course</nb-option>
+          <nb-option value="all">All</nb-option>
           <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
             course.name
           }}</nb-option>
@@ -29,7 +29,7 @@
           status="basic"
           (selectedChange)="onSelectBatch($event)"
         >
-          <nb-option value="">Select Batch</nb-option>
+          <nb-option value="all">All</nb-option>
           <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
             batch.batchCode
           }}</nb-option>
@@ -39,43 +39,39 @@
 
     <br />
 
-    <div *ngIf="schedules.length > 0; else no_schedule">
-      <div class="row">
-        <div class="col-sm-2">
-          <h6>#</h6>
-        </div>
-        <div class="col-sm-2">
-          <h6>Start</h6>
-        </div>
-        <div class="col-sm-2">
-          <h6>End</h6>
-        </div>
-      </div>
-
-      <br />
-
-      <div>
-        <div class="row" *ngFor="let schedule of schedules; let i = index">
-          <div class="col-sm-2">
-            <p>{{ i + 1 }}</p>
-          </div>
-          <div class="col-sm-2">
-            <p>{{ schedule.scheduleStart }}</p>
-          </div>
-          <div class="col-sm-2">
-            <p>{{ schedule.scheduleEnd }}</p>
-          </div>
-          <div class="col-sm-4 text-right">
-            <button class="mr-3" nbButton status="primary" (click)="viewSchedule(schedule._id)">
-              View
-            </button>
-            <button class="mr-3" nbButton status="" (click)="editSchedule(schedule._id)">
-              Edit
-            </button>
-            <button nbButton status="danger" (click)="deleteSchedule(schedule._id)">Del</button>
-          </div>
-        </div>
-      </div>
+    <div class="table-responsive" *ngIf="schedules.length > 0; else no_schedule">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Course</th>
+            <th>Batch</th>
+            <th>Start</th>
+            <th>End</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of schedules; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ schedule.courseId }}</td>
+            <td>{{ schedule.batchId }}</td>
+            <td>{{ schedule.scheduleStart }}</td>
+            <td>{{ schedule.scheduleEnd }}</td>
+            <td>
+              <button class="mr-3" nbButton status="primary" (click)="viewSchedule(schedule._id)">
+                View
+              </button>
+              <button class="mr-3" nbButton status="" (click)="editSchedule(schedule._id)">
+                Edit
+              </button>
+              <button nbButton status="danger" (click)="deleteSchedule(schedule._id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <ng-template #no_schedule>
       <h6 class="text-center mt-5">No Schedule</h6>
