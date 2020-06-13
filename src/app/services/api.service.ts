@@ -1144,4 +1144,11 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  deleteComment(data: any) {
+    const url = `${environment.server}/institute/forum/deleteComment`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
 }
