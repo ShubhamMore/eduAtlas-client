@@ -22,6 +22,10 @@ export class AddScheduleComponent implements OnInit {
 
   instituteId: string;
   institute: any;
+  courseId: string;
+  batchId: string;
+
+  schedules: any[];
 
   scheduleStartTime: string;
   scheduleEndTime: string;
@@ -46,6 +50,7 @@ export class AddScheduleComponent implements OnInit {
   ngOnInit() {
     this.display = false;
     this.date = Date.now();
+    this.schedules = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
 
     this.route.queryParams.subscribe((param: Params) => {
@@ -194,16 +199,40 @@ export class AddScheduleComponent implements OnInit {
 
   fromDatePicked(date: any) {
     this.date = new Date(date).getTime();
-    const noOfDays = 7 - this.getDate(this.date).getDay();
-    const nextSunday = this.constructDate(this.date + noOfDays * (24 * 60 * 60 * 1000));
-    this.scheduleForm.patchValue({ scheduleEnd: nextSunday });
-    this.noOfDays = noOfDays + 1;
-    this.generateSchedule();
+    if (!this.schedule) {
+      const noOfDays = 7 - this.getDate(this.date).getDay();
+      const nextSunday = this.constructDate(this.date + noOfDays * (24 * 60 * 60 * 1000));
+      this.scheduleForm.patchValue({ scheduleEnd: nextSunday });
+      this.noOfDays = noOfDays + 1;
+      this.generateSchedule();
+    } else {
+      const scheduleStart = this.schedule.scheduleStart;
+      const scheduleEnd = this.schedule.scheduleEnd;
+      const endDate = new Date(scheduleEnd).getTime() - new Date(scheduleStart).getTime();
+      const noOfDays = endDate / (24 * 60 * 60 * 1000);
+      const nextSunday = this.constructDate(this.date + noOfDays * (24 * 60 * 60 * 1000));
+      this.scheduleForm.patchValue({ scheduleEnd: nextSunday });
+      this.noOfDays = noOfDays + 1;
+      this.setRecurrenceDates(scheduleStart);
+    }
+  }
+
+  setRecurrenceDates(scheduleStart: any) {
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+
+    this.schedule.days.forEach((day: any, i: number) => {
+      const nextDate = new Date(day.date).getTime() - new Date(scheduleStart).getTime();
+      const noOfDays = nextDate / (24 * 60 * 60 * 1000);
+      const date = this.constructDate(this.date + noOfDays * (24 * 60 * 60 * 1000));
+      const weekDay = new Date(date).getDay();
+      scheduleDays.controls[i].patchValue({ day: this.days[weekDay], date });
+    });
   }
 
   toDatePicked(date: any) {
     date = new Date(date).getTime();
     this.noOfDays = (date - this.date) / (24 * 60 * 60 * 1000) + 1;
+    this.schedule = null;
     this.generateSchedule();
   }
 
@@ -231,12 +260,57 @@ export class AddScheduleComponent implements OnInit {
   }
 
   onSelectCourse(id: string) {
+    this.courseId = id;
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
+  }
+
+  onSelectBatch(id: string) {
+    this.batchId = id;
+    if (!this.edit) {
+      this.searchRecurrenceSchedules();
+    }
+  }
+
+  searchRecurrenceSchedules() {
+    this.scheduleService
+      .getScheduleByBatch(this.instituteId, this.courseId, this.batchId)
+      .subscribe((res: any[]) => {
+        this.schedules = res;
+      });
   }
 
   recurrence(check: boolean) {
     this.scheduleForm.patchValue({
       recurrence: check,
+    });
+  }
+
+  useRecurrenceSchedule(index: number) {
+    this.schedule = this.schedules[index];
+    this.scheduleForm.patchValue({
+      courseId: this.schedule.courseId,
+      scheduleStart: this.schedule.scheduleStart,
+      scheduleEnd: this.schedule.scheduleEnd,
+      recurrence: this.schedule.recurrence === 'true' ? true : false,
+    });
+    this.onSelectCourse(this.schedule.courseId);
+    this.scheduleForm.patchValue({ batchId: this.schedule.batchId });
+
+    this.scheduleStartTime = this.schedule.days[0].startTime;
+    this.scheduleEndTime = this.schedule.days[0].endTime;
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls = [];
+    this.schedule.days.forEach((day: any) => {
+      const scheduleData = {
+        day: day.day,
+        date: day.date,
+        startTime: day.startTime,
+        endTime: day.endTime,
+        teacher: day.teacher,
+        topic: day.topic,
+        select: true,
+      };
+      this.addScheduleDay(scheduleData);
     });
   }
 

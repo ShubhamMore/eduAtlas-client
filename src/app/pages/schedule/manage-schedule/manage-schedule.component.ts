@@ -14,7 +14,7 @@ import { runInThisContext } from 'vm';
 export class ManageScheduleComponent implements OnInit {
   instituteId: string;
   institute: any;
-
+  batchId: string;
   courseId: string;
   batches: any[] = [];
   schedules: any = [];
@@ -30,9 +30,10 @@ export class ManageScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-
+    this.courseId = 'all';
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
+    this.onSelectCourse('all');
   }
 
   getCourses(id: string) {
@@ -44,23 +45,30 @@ export class ManageScheduleComponent implements OnInit {
 
   onSelectCourse(id: string) {
     this.courseId = id;
-    this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    if (id === 'all') {
+      this.getSchedules({ instituteId: this.instituteId });
+    } else {
+      this.batchId = 'all';
+      this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    }
   }
 
   onSelectBatch(id: string) {
-    this.getSchedules(this.instituteId, this.courseId, id);
+    if (id === 'all') {
+      this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId });
+    } else {
+      this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
+    }
   }
 
   addSchedule() {
     this.router.navigate(['/pages/institute/add-schedule', this.instituteId]);
   }
 
-  getSchedules(instituteId: string, courseId: string, batchId: string) {
-    this.scheduleService
-      .getScheduleByBatch(instituteId, courseId, batchId)
-      .subscribe((res: any) => {
-        this.schedules = res;
-      });
+  getSchedules(data: any) {
+    this.scheduleService.getScheduleByInstitute(data).subscribe((res: any) => {
+      this.schedules = res;
+    });
   }
 
   viewSchedule(code: any) {

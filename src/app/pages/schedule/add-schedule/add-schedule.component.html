@@ -4,13 +4,43 @@
     <p style="font-weight: bold;">Add Schedule</p>
   </nb-card-header>
   <nb-card-body>
+    <div class="table-responsive" *ngIf="schedules.length > 0">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of schedules; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ schedule.scheduleStart }}</td>
+            <td>{{ schedule.scheduleEnd }}</td>
+            <td>
+              <button class="btn btn-sm btn-yellow-black" (click)="useRecurrenceSchedule(i)">
+                Use
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+    </div>
+
     <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-3">
           <label for="course">*Select Course</label>
           <nb-select
             placeholder="Select Course"
-            status="basic"
+            [status]="
+              scheduleForm.get('courseId').invalid && scheduleForm.get('courseId').touched
+                ? 'danger'
+                : 'basic'
+            "
             fullWidth
             formControlName="courseId"
             (selectedChange)="onSelectCourse($event)"
@@ -27,7 +57,17 @@
 
         <div class="col-sm-3">
           <label for="batch">Batch</label>
-          <nb-select placeholder="Select Batch" formControlName="batchId" fullWidth status="basic">
+          <nb-select
+            placeholder="Select Batch"
+            formControlName="batchId"
+            fullWidth
+            [status]="
+              scheduleForm.get('batchId').invalid && scheduleForm.get('batchId').touched
+                ? 'danger'
+                : 'basic'
+            "
+            (selectedChange)="onSelectBatch($event)"
+          >
             <nb-option value="">Select Batch</nb-option>
             <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
               batch.batchCode
@@ -168,8 +208,6 @@
                         placeholder="Date"
                         disabled="true"
                       />
-                      <!-- [nbDatepicker]="datePicker"
-                      <nb-datepicker #datePicker></nb-datepicker> -->
                     </td>
 
                     <td>
