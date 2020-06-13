@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.api.getInstitutes().subscribe((data: any) => {
         this.institutes = data;
 
-        if (this.institutes.length) {
+        if (this.institutes.length > 0) {
           MENU_ITEMS[1].children[1].hidden = false;
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
         MENU_ITEMS[1].hidden = true;
         this.institutes = data;
-        if (this.institutes.length) {
+        if (this.institutes.length > 0) {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
         }
@@ -93,16 +93,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   viewInstitute(id: string, name: string) {
-    var role = this.getEmployeeRole(id);
+    const role = this.getEmployeeRole(id);
     this.roleService.assignRoles(role);
     this.router.navigate(['/pages/dashboard', id]);
   }
   getEmployeeRole(instituteId: any) {
-    var institiute = this.institutes.find((institute) => {
-      return instituteId === institute._id;
+    const institute = this.institutes.find((inst) => {
+      return instituteId === inst._id;
     });
-    if (institiute) {
-      return institiute.role;
+    if (institute) {
+      return institute.role;
     }
   }
   @HostListener('unloaded')

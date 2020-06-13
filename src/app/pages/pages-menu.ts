@@ -88,7 +88,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Communications', // 6
-    icon: 'fa fa-comments-o',
+    // icon: 'fa fa-comments-o',
     hidden: true,
     children: [
       {
@@ -104,7 +104,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Tests',
-    icon: 'fa fa-pencil-square-o',
+    // icon: 'fa fa-pencil-square-o',
     hidden: true,
     children: [
       {
@@ -118,7 +118,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Student Reports',
-    icon: 'fa fa-bar-chart',
+    // icon: 'fa fa-bar-chart',
     hidden: true,
     children: [
       {
@@ -144,7 +144,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Reports',
-    icon: 'fa fa-bar-chart',
+    // icon: 'fa fa-bar-chart',
     hidden: true,
     children: [
       {
@@ -164,7 +164,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Schedule', // 11
-    icon: 'fa fa-calendar',
+    // icon: 'fa fa-calendar',
     link: '/pages/institute/add-schedule/1',
     hidden: true,
   },
@@ -178,7 +178,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'EA Live',
-    icon: 'fa fa-globe',
+    // icon: 'fa fa-globe',
     link: '',
     hidden: true, // 13
     children: [
@@ -199,7 +199,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Leads',
-    icon: 'fa fa-bullhorn',
+    // icon: 'fa fa-bullhorn',
     link: '',
     hidden: true, // 14
   },

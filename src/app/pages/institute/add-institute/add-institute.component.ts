@@ -200,7 +200,8 @@ export class AddInstituteComponent implements OnInit {
         // console.log(res);
         this.showToast('top-right', 'success', 'Payment Verified Successfully');
         setTimeout(() => {
-          this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
+          // this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
+          this.activateInstitute(this.instituteId, res.orderId, res.receiptId);
         }, 1000);
       },
       (err: any) => {
@@ -210,20 +211,49 @@ export class AddInstituteComponent implements OnInit {
     );
   }
 
-  addInstituteAfterPayment(institute: any, orderId: string, ReceiptId: string) {
+  activateInstitute(id: string, orderId: string, ReceiptId: string) {
     const paymentDetails = {
       amount: this.paymentDetails.amount,
       planType: this.paymentDetails.planType,
       orderId: orderId,
       receiptId: ReceiptId,
     };
-    this.api.addInstitute(institute, paymentDetails).subscribe(
+    this.api.activateInstitute(id, paymentDetails).subscribe(
       (data) => {
-        this.user = data;
-        this.showToast('top-right', 'success', 'Institute Added Successfully');
+        // this.user = data;
+        this.showToast('top-right', 'success', 'Institute Activated Successfully');
         setTimeout(() => {
           this.router.navigate(['/pages/home']);
         }, 1000);
+      },
+      (error) => {
+        this.showToast('top-right', 'danger', error.message || 'Something bad happened');
+      },
+    );
+  }
+
+  addInstitute(institute: any) {
+    this.api.addInstitute(institute).subscribe(
+      (data) => {
+        if (data.instituteId) {
+          this.instituteId = data.instituteId;
+          this.showToast('top-right', 'success', 'Institute Added Successfully, Make Your Payment');
+          this.paymentDetails = this.paymentService.getPaymentDetails();
+          const orderDetails = {
+            userId: this.user._id,
+            userPhone: this.user.phone,
+            userName: this.user.name,
+            userEmail: this.user.email,
+            amount: this.paymentDetails.amount,
+            planType: this.paymentDetails.planType,
+          };
+          this.generateOrder(orderDetails);
+          // setTimeout(() => {
+          //   this.router.navigate(['/pages/home']);
+          // }, 1000);
+        } else {
+          this.showToast('top-right', 'danger', 'Something bad happened');
+        }
       },
       (error) => {
         this.showToast('top-right', 'danger', error.message || 'Something bad happened');
@@ -386,16 +416,7 @@ export class AddInstituteComponent implements OnInit {
 
     if (!this.edit) {
       // this.addInstituteAfterPayment(this.institute, '1233', '1234');
-      this.paymentDetails = this.paymentService.getPaymentDetails();
-      const orderDetails = {
-        userId: this.user._id,
-        userPhone: this.user._phone,
-        userName: this.user.name,
-        userEmail: this.user.email,
-        amount: this.paymentDetails.amount,
-        planType: this.paymentDetails.planType,
-      };
-      this.generateOrder(orderDetails);
+      this.addInstitute(this.institute);
     }
   }
 

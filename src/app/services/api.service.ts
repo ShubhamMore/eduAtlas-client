@@ -37,7 +37,7 @@ export class ApiService {
     );
   }
 
-  addInstitute(institute: any, paymentDetails: any) {
+  addInstitute(institute: any) {
     const postData = new FormData();
     const data = {
       basicInfo: {
@@ -59,7 +59,6 @@ export class ApiService {
     postData.append('address', JSON.stringify(data.address));
     postData.append('metaTag', JSON.stringify(institute.instituteMetaTag));
     postData.append('category', JSON.stringify(institute.category));
-    postData.append('paymentDetails', JSON.stringify(paymentDetails));
     postData.append('logo', institute.logo, institute.name);
     return this.http.post(environment.server + '/institute/addInstitute', postData).pipe(
       // tslint:disable-next-line: no-shadowed-variable
@@ -101,6 +100,11 @@ export class ApiService {
       map(() => institute),
       catchError(this.handleError),
     );
+  }
+
+  activateInstitute(id: string, paymentDetails: any) {
+    const url = environment.server + '/institute/activateInstitute';
+    return this.http.post(url, { _id: id, paymentDetails }).pipe(catchError(this.handleError));
   }
 
   deleteInstitute(id: string) {

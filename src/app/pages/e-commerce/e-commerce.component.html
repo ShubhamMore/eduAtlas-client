@@ -51,7 +51,7 @@
                     <tr>
                       <th>#</th>
                       <th>Topic</th>
-                      <th>startTime</th>
+                      <th>Start Time</th>
                       <th>Host</th>
                     </tr>
                   </thead>
@@ -59,7 +59,7 @@
                     <tr *ngFor="let course of classes; let i = index">
                       <td>{{ i + 1 }}</td>
                       <td>{{ course.topic }}</td>
-                      <td>{{ course.startTime }}</td>
+                      <td>{{ createTime(course.startTime) }}</td>
                       <td>{{ course.hostName }}</td>
                     </tr>
                   </tbody>

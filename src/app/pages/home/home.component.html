@@ -1,4 +1,4 @@
-<nb-card [hidden]="display">
+<nb-card *ngIf="!display">
   <nb-card-body>
     <div class="text-center">
       <img src="../../../assets/img/institute.png" width="100px" height="100px" />
@@ -15,7 +15,7 @@
   </nb-card-body>
 </nb-card>
 
-<div class="row" [hidden]="!display">
+<div class="row" *ngIf="display">
   <div class="col-sm-6">
     <nb-card status="basic" style="max-height: 35vh;">
       <nb-card-header style="background-color: #ffd500;">

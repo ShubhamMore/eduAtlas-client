@@ -10,7 +10,7 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class MentoringComponent implements OnInit {
   instituteId: string;
-  students: [];
+  students: any[];
   display: boolean;
 
   constructor(
@@ -22,6 +22,7 @@ export class MentoringComponent implements OnInit {
 
   ngOnInit(): void {
     this.display = false;
+    this.students = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.api.getStudentsByInstitute({ instituteId: this.instituteId }).subscribe(
       (res: any) => {
