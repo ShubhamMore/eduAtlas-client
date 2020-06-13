@@ -57,6 +57,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     MENU_ITEMS[11].hidden = true;
     MENU_ITEMS[12].hidden = true;
     MENU_ITEMS[13].hidden = true;
+    MENU_ITEMS[14].hidden = true;
   }
 
   getInstitutes() {

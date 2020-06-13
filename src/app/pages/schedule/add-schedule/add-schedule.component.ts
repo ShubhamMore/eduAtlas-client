@@ -123,7 +123,7 @@ export class AddScheduleComponent implements OnInit {
           courseId: this.schedule.courseId,
           scheduleStart: this.schedule.scheduleStart,
           scheduleEnd: this.schedule.scheduleEnd,
-          recurrence: this.schedule.recurrence === 'true' ? true : false,
+          recurrence: this.schedule.recurrence,
         });
         this.onSelectCourse(this.schedule.courseId);
         this.scheduleForm.patchValue({ batchId: this.schedule.batchId });
@@ -291,7 +291,7 @@ export class AddScheduleComponent implements OnInit {
       courseId: this.schedule.courseId,
       scheduleStart: this.schedule.scheduleStart,
       scheduleEnd: this.schedule.scheduleEnd,
-      recurrence: this.schedule.recurrence === 'true' ? true : false,
+      recurrence: this.schedule.recurrence,
     });
     this.onSelectCourse(this.schedule.courseId);
     this.scheduleForm.patchValue({ batchId: this.schedule.batchId });

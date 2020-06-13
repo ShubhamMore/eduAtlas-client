@@ -36,9 +36,13 @@ export class ECommerceComponent implements OnInit {
   classes: any[] = [];
   pendingFees: any[] = [];
 
+  totalStudents: any = 0;
+  totalBatches: any = 0;
+
   study = [];
   constructor(
     private api: ApiService,
+
     private router: Router,
     private active: ActivatedRoute,
     private authService: AuthService,
@@ -92,6 +96,9 @@ export class ECommerceComponent implements OnInit {
       this.classes = res.upcomingClass;
       this.pendingFees = res.pendingFees;
       this.newLeads = res.leads;
+      // this.studentReq = res.studentRequests;
+      this.totalStudents = res.studentCount;
+      this.totalBatches = res.batchCount;
     });
   }
 
