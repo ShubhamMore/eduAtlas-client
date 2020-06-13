@@ -27,6 +27,7 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
   declarations: [
     CommunicationComponent,
     AnnouncementsComponent,
+    ManageAnnouncementsComponent,
     SafeHtmlPipe,
     ForumComponent,
     AddForumComponent,
