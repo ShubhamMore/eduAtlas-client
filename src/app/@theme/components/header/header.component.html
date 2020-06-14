@@ -37,16 +37,16 @@
     <nb-tabset fullWidth>
       <nb-tab tabTitle="Teachers">
         <nb-list>
-          <nb-list-item *ngFor="let user of users">
-            <nb-user [name]="user.name" [title]="user.title" style="cursor:pointer" (click)="openChatBox(user)">
+          <nb-list-item *ngFor="let user of chatMembers.employeeDetails">
+            <nb-user [name]="user.basicDetails.name" style="cursor:pointer" (click)="openChatBox(user)">
             </nb-user>
           </nb-list-item>
         </nb-list>
       </nb-tab>
       <nb-tab tabTitle="Students">
         <nb-list>
-          <nb-list-item *ngFor="let user of users">
-            <nb-user [name]="user.name" [title]="user.title" style="cursor:pointer" (click)="openChatBox(user)">
+          <nb-list-item *ngFor="let user of chatMembers.studentsDetails">
+            <nb-user [name]="user.basicDetails.name" style="cursor:pointer" (click)="openChatBox(user)">
             </nb-user>
           </nb-list-item>
         </nb-list>
@@ -59,21 +59,21 @@
 <ng-template #notificationPopup>
   <div class="chatPopup">
     <nb-list>
-      <nb-list-item *ngFor="let user of users">
-        <nb-user [name]="user.name" [title]="user.title" style="cursor:pointer" (click)="openChatBox(user)">
+      <nb-list-item *ngFor="let notification of notifications">
+        <nb-user [name]="notification.name" [title]="notification.title" style="cursor:pointer" (click)="openNotificationBox(notification)">
         </nb-user>
       </nb-list-item>
     </nb-list>
   </div>
 </ng-template>
 
-<ng-template #chatWindow let-data>
+<ng-template #chatWindow let-receiverData>
   <div>
-    <nb-chat *ngFor="let chat of chats" [status]="chat.status" size="small">
-      <nb-chat-message *ngFor="let msg of chat.messages" [type]="msg.type" [message]="msg.text" [reply]="msg.reply"
+    <nb-chat  [status]="chatmessage[receiverData.userId].status" size="small">
+      <nb-chat-message *ngFor="let msg of chatmessage[receiverData.userId].messages" [type]="msg.type" [message]="msg.text" [reply]="msg.reply"
         [sender]="msg.user.name" [date]="msg.date" [files]="msg.files" [avatar]="msg.user.avatar">
       </nb-chat-message>
-      <nb-chat-form (send)="sendMessage(chat.messages, $event)"></nb-chat-form>
+      <nb-chat-form (send)="sendMessage(chatmessage[receiverData.userId].messages, $event,receiverData)"></nb-chat-form>
     </nb-chat>
   </div>
 </ng-template>

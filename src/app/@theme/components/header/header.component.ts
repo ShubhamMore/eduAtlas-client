@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
 import { NbWindowService } from '@nebular/theme';
+import { SocketioService } from '../../../services/chat.service';
 
 @Component({
   selector: 'ngx-header',
@@ -22,36 +23,20 @@ import { NbWindowService } from '@nebular/theme';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
+  chatMembers: any;
   messages: any[];
-  
-  @ViewChild('chatWindow',{static: false}) chatWindow: TemplateRef<any>;
+
+  @ViewChild('chatWindow', { static: false }) chatWindow: TemplateRef<any>;
   @ViewChild(NbPopoverDirective, { static: false }) chatPopup: NbPopoverDirective;
 
-  users: { name: string, title: string }[] = [
+  notifications: { name: string; title: string }[] = [
     { name: 'Carla Espinosa', title: 'Nurse' },
     { name: 'Bob Kelso', title: 'Doctor of Medicine' },
     { name: 'Janitor', title: 'Janitor' },
     { name: 'Perry Cox', title: 'Doctor of Medicine' },
     { name: 'Ben Sullivan', title: 'Carpenter and photographer' },
-  ];  
-  chats: any[] = [
-    {
-      title: 'Nebular Conversational UI Medium',
-      messages: [
-        {
-          text: 'Medium!',
-          date: new Date(),
-          reply: true,
-          user: {
-            name: 'Bot',
-            avatar: 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png',
-          },
-        },
-      ],
-      size: 'large',
-    },
   ];
+  chatmessage = {};
 
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean;
@@ -59,6 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   institute: any;
   name: string;
   user: any;
+  socket: any;
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
 
   themes = [
@@ -94,7 +80,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
-    private windowService: NbWindowService
+    private windowService: NbWindowService,
+    private socketService: SocketioService,
   ) {}
 
   ngOnInit() {
@@ -106,6 +93,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (${this.user.role})`;
 
     this.getInstitutes();
+    this.getChatMembers();
+    this.socketService.setupSocketConnection();
+    this.socket = this.socketService.getSocket();
+    this.socket.on('message', (message) => {
+      this.chatmessage[message.receiverId].messages.push(message.msg);
+    });
+  }
+  send(message: any) {
+    this.socket.emit('message', message);
+  }
+  getChatMembers() {
+    this.api.getChatMembers().subscribe((data: any[]) => {
+      if (data) {
+        this.chatMembers = data[0];
+      }
+    });
   }
 
   getInstitutes() {
@@ -154,27 +157,36 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  openChatBox(user:any){
+  openChatBox(user: any) {
     this.chatPopup.hide();
-    const windowRef = this.windowService.open( this.chatWindow,
-      { 
-        title: user.name,
-        context: { text: 'some text to pass into template' }
+    if (!this.chatmessage[user.eduAtlasId]) {
+      this.chatmessage[user.eduAtlasId] = {
+        messages: [],
+        size: 'large',
+      };
+      this.api.getChats({ receiverId: user.eduAtlasId }).subscribe((data: any) => {
+        if (data) {
+          this.chatmessage[user.eduAtlasId].messages = data;
+        }
+      });
+      const windowRef = this.windowService.open(this.chatWindow, {
+        title: user.basicDetails.name,
+        context: { userId: user.eduAtlasId, userName: user.basicDetails.name },
       });
       windowRef.maximize();
+      windowRef.onClose.subscribe((data: any) => {
+        delete this.chatmessage[user.eduAtlasId];
+      });
+    }
   }
-  sendMessage(messages, event) {
-    messages.push({
-      text: event.message,
-      date: new Date(),
-      reply: true,
-      user: {
-        name: 'Jonh Doe',
-        avatar: 'https://techcrunch.com/wp-content/uploads/2015/08/safe_image.gif',
-      },
+  sendMessage(messages, event, receiverData) {
+    this.send({
+      receiverId: receiverData.userId,
+      message: event.message,
+      receiverName: receiverData.userName,
     });
   }
-  
+
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
   }

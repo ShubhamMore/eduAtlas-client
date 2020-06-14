@@ -1155,4 +1155,20 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  // =====================Chat Apis==============================
+  getChatMembers() {
+    const url = `${environment.server}/institute/chats/getMembers`;
+    return this.http.post(url,{}).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+  getChats(data:any) {
+    const url = `${environment.server}/institute/chat/getChats`;
+    return this.http.post(url,data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
 }
