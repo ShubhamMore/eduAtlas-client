@@ -40,7 +40,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Branch Configuration',
-
     icon: 'share-outline', // 4
     link: '/pages/institute/branch-config',
     hidden: true,
@@ -70,7 +69,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Students',
-
     icon: 'person-outline',
     hidden: true, // 5
     children: [
@@ -89,7 +87,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
   {
-    title: 'Communications', //6
+    title: 'Communications', // 6
+    // icon: 'fa fa-comments-o',
     hidden: true,
     children: [
       {
@@ -105,6 +104,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Tests',
+    // icon: 'fa fa-pencil-square-o',
     hidden: true,
     children: [
       {
@@ -118,6 +118,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Student Reports',
+    // icon: 'fa fa-bar-chart',
     hidden: true,
     children: [
       {
@@ -143,6 +144,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Reports',
+    // icon: 'fa fa-bar-chart',
     hidden: true,
     children: [
       {
@@ -153,22 +155,30 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+
   {
     title: 'LEAD MANAGER', // 10
+    icon: '',
     hidden: true,
   },
+
   {
     title: 'Schedule', // 11
+    // icon: 'fa fa-calendar',
     link: '/pages/institute/add-schedule/1',
     hidden: true,
   },
+
   {
     title: 'Attendance',
+    icon: '',
     link: '',
     hidden: true, // 12
   },
+
   {
     title: 'EA Live',
+    // icon: 'fa fa-globe',
     link: '',
     hidden: true, // 13
     children: [
@@ -186,8 +196,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
     ],
   },
+
   {
     title: 'Leads',
+    // icon: 'fa fa-bullhorn',
     link: '',
     hidden: true, // 14
   },

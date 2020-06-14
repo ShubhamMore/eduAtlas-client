@@ -1,4 +1,4 @@
-<nb-card *ngIf="employees.length > 0">
+<nb-card>
   <nb-card-header>
     <button class="btn btn-yellow-black float-right" (click)="onClick()">
       Add Employee
@@ -6,7 +6,7 @@
     <p class="font-weight-bolder">Employees</p>
   </nb-card-header>
   <nb-card-body>
-    <table>
+    <table *ngIf="employees.length > 0">
       <thead>
         <tr>
           <th>Name</th>
@@ -44,8 +44,8 @@
         </tr>
       </tbody>
     </table>
+    <div *ngIf="employees.length == 0">
+      <p class="pt-5 text-center">No Records Found</p>
+    </div>
   </nb-card-body>
 </nb-card>
-<div *ngIf="employees.length == 0" class="noRecFound">
-  No Records Found
-</div>

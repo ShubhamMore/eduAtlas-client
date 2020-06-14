@@ -1,4 +1,4 @@
-<nb-card *ngIf="display">
+<nb-card>
   <nb-card-header>
     <p style="color: black; font-weight: bold;">Schedule A Live Class</p>
   </nb-card-header>
@@ -46,7 +46,7 @@
             (selectedChange)="onSelectCourse($event)"
           >
             <nb-option value="">Select Course</nb-option>
-            <nb-option *ngFor="let i of institute.course" [value]="i._id">{{ i.name }}</nb-option>
+            <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
           </nb-select>
           <small
             *ngIf="

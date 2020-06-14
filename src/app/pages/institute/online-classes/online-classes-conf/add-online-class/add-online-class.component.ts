@@ -20,6 +20,7 @@ export class AddOnlineClassComponent implements OnInit {
   meeting: any;
   edit: any;
 
+  courses: any[] = [];
   batches: any[] = [];
   teachers: any[] = [];
 
@@ -87,6 +88,7 @@ export class AddOnlineClassComponent implements OnInit {
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
+      this.courses = this.institute.course;
       this.getEmployees(this.instituteId);
     });
   }
