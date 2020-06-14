@@ -81,7 +81,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
     private windowService: NbWindowService,
-    private socketService: SocketioService,
+    private chatService: SocketioService,
   ) {}
 
   ngOnInit() {
@@ -93,22 +93,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
       (${this.user.role})`;
 
     this.getInstitutes();
-    this.getChatMembers();
-    this.socketService.setupSocketConnection();
-    this.socket = this.socketService.getSocket();
+    this.chatService.getChatMembers();
+    this.getMembers();
+    this.chatService.setupSocketConnection();
+    this.socket = this.chatService.getSocket();
     this.socket.on('message', (message) => {
+      if(!this.chatmessage[message.receiverId]){
+        this.openChatBoxForNewIncomingMessage(message);
+      }
       this.chatmessage[message.receiverId].messages.push(message.msg);
     });
   }
   send(message: any) {
     this.socket.emit('message', message);
   }
-  getChatMembers() {
-    this.api.getChatMembers().subscribe((data: any[]) => {
-      if (data) {
-        this.chatMembers = data[0];
+  openChatBoxForNewIncomingMessage(message){
+    var user = {
+      'eduAtlasId':message.eduAtlasId,
+      'basicDetails':{
+        'name': message.msg.user.name
       }
-    });
+    }
+    this.openChatBox(user)
   }
 
   getInstitutes() {
@@ -126,6 +132,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   setInstitutes() {
     this.institutes = [];
     this.institutes = this.instituteService.getInstitutes();
+  }
+  getMembers(){
+    this.chatMembers = this.chatService.getMembers();
   }
 
   onSelect(event: any) {
@@ -155,6 +164,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.chatService.clearChatMembers();
   }
 
   openChatBox(user: any) {
@@ -186,7 +196,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       receiverName: receiverData.userName,
     });
   }
-
+  openNotificationBox (){
+    
+  }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
   }

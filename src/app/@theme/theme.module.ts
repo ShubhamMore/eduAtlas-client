@@ -18,7 +18,8 @@ import {
   NbListModule,
   NbWindowModule,
   NbChatModule,
-  NbTabsetModule
+  NbTabsetModule,
+  NbBadgeModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -59,7 +60,7 @@ const NB_MODULES = [
   NbListModule,
   NbWindowModule.forRoot({windowClass:'chatWindow'}),
   NbChatModule,
-  NbTabsetModule
+  NbTabsetModule,
 ];
 const COMPONENTS = [
   HeaderComponent,

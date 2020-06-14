@@ -3,6 +3,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { SocketioService } from '../../../../services/chat.service';
 
 @Component({
   selector: 'ngx-add-employee',
@@ -34,6 +35,7 @@ export class AddEmployee implements OnInit {
     private router: Router,
     private active: ActivatedRoute,
     private toasterService: NbToastrService,
+    private chatService: SocketioService,
   ) {}
 
   ngOnInit() {
@@ -223,6 +225,7 @@ export class AddEmployee implements OnInit {
       if (!this.alreadyRegistered) {
         this.api.addEmployee(this.employeeForm.value, this.instituteId).subscribe(
           (data) => {
+            this.chatService.getChatMembers();
             this.showToaster('top-right', 'success', 'New Employee Added Successfully!');
             setTimeout(() => {
               this.router.navigate([

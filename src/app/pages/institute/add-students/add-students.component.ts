@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { SocketioService } from '../../../services/chat.service';
 
 @Component({
   selector: 'ngx-add-students',
@@ -81,6 +82,7 @@ export class AddStudentsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
+    private chatService: SocketioService,
   ) {}
 
   ngOnInit() {
@@ -725,6 +727,7 @@ export class AddStudentsComponent implements OnInit {
       )
       .subscribe(
         (res: any) => {
+          this.chatService.getChatMembers();
           this.showToaster('top-right', 'success', 'New Student Course Added Successfully!');
           this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
         },
