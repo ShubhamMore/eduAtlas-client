@@ -61,11 +61,13 @@
             type="text"
             pattern="\d*"
             fullWidth
+            [status]="f.duration.errors && submitted ? 'danger' : 'basic'"
             formControlName="duration"
             maxlength="2"
             minlength="1"
             placeholder="Duration in Months"
           />
+          <small *ngIf="f.duration.errors && submitted">*Course Duration is required</small>
         </div>
         <div class="col-sm-3">
           <label for="gst">GST</label>

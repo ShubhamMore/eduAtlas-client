@@ -1159,14 +1159,14 @@ export class ApiService {
   // =====================Chat Apis==============================
   getChatMembers() {
     const url = `${environment.server}/institute/chats/getMembers`;
-    return this.http.post(url,{}).pipe(
+    return this.http.post(url, {}).pipe(
       tap((data) => {}),
       catchError(this.handleError),
     );
   }
-  getChats(data:any) {
-    const url = `${environment.server}/institute/chat/getChats`;
-    return this.http.post(url,data).pipe(
+  getChats(data: any) {
+    const url = `${environment.server}/institute/chats/getChats`;
+    return this.http.post(url, data).pipe(
       tap((data) => {}),
       catchError(this.handleError),
     );

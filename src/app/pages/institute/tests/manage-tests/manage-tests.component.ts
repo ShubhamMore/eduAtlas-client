@@ -12,6 +12,7 @@ export class ManageTestsComponent implements OnInit {
   institute: any;
   instituteId: string;
   batches: any[] = [];
+  courses: any[] = [];
   display: boolean;
   courseId: string;
   batch: string;
@@ -36,8 +37,11 @@ export class ManageTestsComponent implements OnInit {
 
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
+      // console.log(data);
       this.institute = data;
-      console.log(data);
+      if (data) {
+        this.courses = this.institute.course;
+      }
     });
   }
 
