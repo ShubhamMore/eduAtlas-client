@@ -7,6 +7,7 @@ import {
   NbSidebarService,
   NbThemeService,
   NbPopoverDirective,
+  NbWindowRef,
 } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -45,6 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
   user: any;
   socket: any;
+  openedChatWindows :NbWindowRef[]= [];
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
 
   themes = [
@@ -109,7 +111,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   openChatBoxForNewIncomingMessage(message){
     var user = {
-      'eduAtlasId':message.eduAtlasId,
+      'eduAtlasId':message.receiverId,
       'basicDetails':{
         'name': message.msg.user.name
       }
@@ -164,6 +166,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    this.openedChatWindows.forEach((openedWindow:NbWindowRef)=>{
+      openedWindow.close();
+    });
+
     this.chatService.clearChatMembers();
   }
 
@@ -184,6 +190,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         context: { userId: user.eduAtlasId, userName: user.basicDetails.name },
       });
       windowRef.maximize();
+      this.openedChatWindows.push(windowRef);
       windowRef.onClose.subscribe((data: any) => {
         delete this.chatmessage[user.eduAtlasId];
       });
