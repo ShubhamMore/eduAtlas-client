@@ -1,11 +1,12 @@
 import { InstituteService } from './../../../services/institute.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import {
   NbMediaBreakpointsService,
   NbMenuService,
   NbSidebarService,
   NbThemeService,
+  NbPopoverDirective,
 } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -13,6 +14,7 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
+import { NbWindowService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-header',
@@ -20,13 +22,43 @@ import { RoleAssignService } from '../../../services/role/role-assign.service';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+
+  messages: any[];
+  
+  @ViewChild('chatWindow',{static: false}) chatWindow: TemplateRef<any>;
+  @ViewChild(NbPopoverDirective, { static: false }) chatPopup: NbPopoverDirective;
+
+  users: { name: string, title: string }[] = [
+    { name: 'Carla Espinosa', title: 'Nurse' },
+    { name: 'Bob Kelso', title: 'Doctor of Medicine' },
+    { name: 'Janitor', title: 'Janitor' },
+    { name: 'Perry Cox', title: 'Doctor of Medicine' },
+    { name: 'Ben Sullivan', title: 'Carpenter and photographer' },
+  ];  
+  chats: any[] = [
+    {
+      title: 'Nebular Conversational UI Medium',
+      messages: [
+        {
+          text: 'Medium!',
+          date: new Date(),
+          reply: true,
+          user: {
+            name: 'Bot',
+            avatar: 'https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/robot-face.png',
+          },
+        },
+      ],
+      size: 'large',
+    },
+  ];
+
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean;
   institutes: any[];
   institute: any;
   name: string;
   user: any;
-
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
 
   themes = [
@@ -62,6 +94,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private breakpointService: NbMediaBreakpointsService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
+    private windowService: NbWindowService
   ) {}
 
   ngOnInit() {
@@ -121,6 +154,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
+  openChatBox(user:any){
+    this.chatPopup.hide();
+    const windowRef = this.windowService.open( this.chatWindow,
+      { 
+        title: user.name,
+        context: { text: 'some text to pass into template' }
+      });
+      windowRef.maximize();
+  }
+  sendMessage(messages, event) {
+    messages.push({
+      text: event.message,
+      date: new Date(),
+      reply: true,
+      user: {
+        name: 'Jonh Doe',
+        avatar: 'https://techcrunch.com/wp-content/uploads/2015/08/safe_image.gif',
+      },
+    });
+  }
+  
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
   }

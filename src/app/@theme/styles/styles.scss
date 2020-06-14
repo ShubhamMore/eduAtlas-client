@@ -61,4 +61,13 @@
 }
 .nb-theme-default nb-layout .layout {
   min-height: 0vh;
+
+}
+.chatWindow nb-card nb-card-body{
+  padding: 0;
+}
+.chatWindow nb-card-body nb-chat .header{
+  padding: 0;
+  border-top: 0;
+  border-bottom: 0;
 }
