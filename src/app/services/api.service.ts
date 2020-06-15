@@ -13,6 +13,16 @@ import { environment } from '../../environments/environment';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  // ======================= FIND USER ==============================
+  //
+  findEduatlasUser(id: string) {
+    const url = `${environment.server}/institute/findEduatlasUser`;
+    return this.http.post(url, { id }).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   // =====================INSTITUTE API==============================
 
   getInstitutes() {
@@ -170,10 +180,11 @@ export class ApiService {
   }
 
   //  SEND OTP FOR GET STUDENT DETAILS
-  sendOtpForGetUserDetails(eduId: any) {
+  sendOtpForGetUserDetails(eduId: any, role: any) {
     return this.http
       .post(environment.server + '/users/sendOtpForGetUserDetails', {
         eduAtlasId: eduId,
+        role,
       })
       .pipe(
         tap((res) => {}),

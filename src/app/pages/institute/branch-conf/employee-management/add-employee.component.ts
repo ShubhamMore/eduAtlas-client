@@ -84,7 +84,7 @@ export class AddEmployee implements OnInit {
   onEmployeeFormSearch() {
     if (this.eduAtlasEmployeeForm.valid) {
       const employeeEduId = `${this.eduAtlasEmployeeFormControl['eduAtlasId'].value}`;
-      this.api.sendOtpForGetUserDetails(employeeEduId).subscribe(
+      this.api.sendOtpForGetUserDetails(employeeEduId, 'employee').subscribe(
         (res: any) => {
           if (res) {
             this.otpSent = true;
@@ -112,6 +112,7 @@ export class AddEmployee implements OnInit {
       };
       this.api.verifyUserOtp(verificationData).subscribe(
         (data) => {
+          this.showToaster('top-right', 'success', 'OTP Verified');
           this.getOneEmployee(this.eduAtlasEmployeeForm.value.eduAtlasId);
         },
         (error) => {
@@ -156,7 +157,7 @@ export class AddEmployee implements OnInit {
         }
       },
       (error: any) => {
-        this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+        this.showToaster('top-right', 'danger', 'Invalid Employee EduAtlas ID');
       },
     );
   }

@@ -205,7 +205,7 @@ export class AddStudentsComponent implements OnInit {
     if (this.eduAtlasStudentIdForm.valid) {
       // Construct Eduatlas Id to search student
       const studentEduId = `${this.eduAtlasStudentIdControl['eduAtlasId'].value}`;
-      this.api.sendOtpForGetUserDetails(studentEduId).subscribe(
+      this.api.sendOtpForGetUserDetails(studentEduId, 'student').subscribe(
         (res: any) => {
           if (res) {
             this.otpSent = true;
@@ -233,6 +233,7 @@ export class AddStudentsComponent implements OnInit {
       };
       this.api.verifyUserOtp(verificationData).subscribe(
         (data) => {
+          this.showToaster('top-right', 'success', 'OTP Verified');
           this.getOneStudent(this.eduAtlasStudentIdForm.value.eduAtlasId);
         },
         (error) => {
@@ -243,37 +244,42 @@ export class AddStudentsComponent implements OnInit {
   }
 
   getOneStudent(eduId: any) {
-    this.api.getOneStudent(eduId).subscribe((data: any) => {
-      if (data) {
-        this.fetchedStudent = data;
-        this.studentForm.patchValue({
-          name: data.basicDetails.name,
-          studentEmail: data.basicDetails.studentEmail,
-          contact: data.basicDetails.studentContact,
+    this.api.getOneStudent(eduId).subscribe(
+      (data: any) => {
+        if (data) {
+          this.fetchedStudent = data;
+          this.studentForm.patchValue({
+            name: data.basicDetails.name,
+            studentEmail: data.basicDetails.studentEmail,
+            contact: data.basicDetails.studentContact,
 
-          parentName: data.parentDetails.name,
-          parentContact: data.parentDetails.parentContact,
-          parentEmail: data.parentDetails.parentEmail,
+            parentName: data.parentDetails.name,
+            parentContact: data.parentDetails.parentContact,
+            parentEmail: data.parentDetails.parentEmail,
 
-          address: data.parentDetails.address,
-        });
+            address: data.parentDetails.address,
+          });
 
-        // IN editing Mode or Already Registered mode Student Email field is Disabled
-        // (Enable Only in Add New Student Mode)
-        this.studentForm.get('studentEmail').disable();
-        // IN editing Mode or Already Registered mode Student Contact field is Disabled
-        // (Enable Only in Add New Student Mode)
-        this.studentForm.get('contact').disable();
-        // Set Class Level Eduatlas Id
-        this.studentEduId = data.eduAtlasId;
-        this.otpSent = false;
-        this.phone = null;
-        this.dataFetched = true;
-        this.eduAtlasStudentIdForm.get('eduAtlasId').disable();
-      } else {
-        this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
-      }
-    });
+          // IN editing Mode or Already Registered mode Student Email field is Disabled
+          // (Enable Only in Add New Student Mode)
+          this.studentForm.get('studentEmail').disable();
+          // IN editing Mode or Already Registered mode Student Contact field is Disabled
+          // (Enable Only in Add New Student Mode)
+          this.studentForm.get('contact').disable();
+          // Set Class Level Eduatlas Id
+          this.studentEduId = data.eduAtlasId;
+          this.otpSent = false;
+          this.phone = null;
+          this.dataFetched = true;
+          this.eduAtlasStudentIdForm.get('eduAtlasId').disable();
+        } else {
+          this.showToaster('top-right', 'danger', 'Invalid Eduatlas ID');
+        }
+      },
+      (error: any) => {
+        this.showToaster('top-right', 'danger', 'Invalid Student EduAtlas ID');
+      },
+    );
   }
 
   // Change if Student is Already Registered
