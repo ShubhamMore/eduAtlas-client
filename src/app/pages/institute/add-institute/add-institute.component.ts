@@ -110,6 +110,7 @@ export class AddInstituteComponent implements OnInit {
         modal: {
           ondismiss: () => {
             this.deleteOrder();
+            this.deleteInstitute();
           },
         },
         prefill: {
@@ -169,6 +170,15 @@ export class AddInstituteComponent implements OnInit {
       (err) => {
         // console.log(err);
       },
+    );
+  }
+
+  deleteInstitute() {
+    this.api.deleteInstitute(this.instituteId).subscribe(
+      (res: any) => {
+        this.instituteId = null;
+      },
+      (err: any) => {},
     );
   }
 
