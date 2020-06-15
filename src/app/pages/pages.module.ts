@@ -9,6 +9,7 @@ import {
   NbButtonModule,
   NbDatepickerModule,
   NbTabsetModule,
+  NbUserModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -35,6 +36,7 @@ import { MembershipComponent } from './membership/membership.component';
     NbLayoutModule,
     NbTabsetModule,
     NbCardModule,
+    NbUserModule,
     NbEvaIconsModule,
     NbIconModule,
     NbListModule,

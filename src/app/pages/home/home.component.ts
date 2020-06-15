@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showAddInstituteBtn = true;
       this.api.getInstitutes().subscribe((data: any) => {
         this.institutes = data;
+        console.log(this.institutes);
 
         if (this.institutes.length > 0) {
           MENU_ITEMS[1].children[1].hidden = false;
@@ -97,6 +98,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.roleService.assignRoles(role);
     this.router.navigate(['/pages/dashboard', id]);
   }
+
   getEmployeeRole(instituteId: any) {
     const institute = this.institutes.find((inst) => {
       return instituteId === inst._id;
@@ -105,6 +107,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       return institute.role;
     }
   }
+
   @HostListener('unloaded')
   ngOnDestroy() {
     this.institutes = null;

@@ -1,3 +1,4 @@
+import { ViewAnnouncementsComponent } from './../announcements/view-announcements/view-announcements.component';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ButtonModule } from 'primeng/button';
 import { ThemeModule } from './../../../@theme/theme.module';
@@ -28,6 +29,7 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
     CommunicationComponent,
     AnnouncementsComponent,
     ManageAnnouncementsComponent,
+    ViewAnnouncementsComponent,
     SafeHtmlPipe,
     ForumComponent,
     AddForumComponent,

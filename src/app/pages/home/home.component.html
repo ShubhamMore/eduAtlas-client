@@ -21,9 +21,43 @@
       <nb-card-header style="background-color: #ffd500;">
         MY INSTITUTES
       </nb-card-header>
-      <nb-list>
-        <nb-list-item *ngFor="let item of institutes; let i = index">
-          <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
+      <nb-card-body>
+        <!-- <nb-list>
+          <nb-list-item> -->
+        <ng-container>
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <ng-container *ngFor="let item of institutes; let i = index">
+                  <tr class="border-bottom" *ngIf="item.active">
+                    <td class="td-img">
+                      <span
+                        ><img
+                          [src]="item.basicInfo.logo.secure_url"
+                          width="35px"
+                          height="35px"
+                          style="border: 1px solid #ffd500; border-radius: 100%;"
+                      /></span>
+                    </td>
+                    <td>
+                      <span class=""
+                        ><strong>{{ item.basicInfo.name }}</strong></span
+                      >
+                    </td>
+                    <td>
+                      <span class="">{{ item.address.city }}</span>
+                    </td>
+                    <td class="td-img">
+                      <span class="pointer float-right" (click)="viewInstitute(item._id)">
+                        <img src="../../../assets/img/rarrow.png" width="30px" height="30px" />
+                      </span>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+          <!-- <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
             <span
               ><img
                 [src]="item.basicInfo.logo.secure_url"
@@ -37,9 +71,11 @@
             <span style="float: right;">
               <img src="../../../assets/img/rarrow.png" width="30px" height="30px" />
             </span>
-          </a>
-        </nb-list-item>
-      </nb-list>
+          </a> -->
+        </ng-container>
+        <!-- </nb-list-item>
+        </nb-list> -->
+      </nb-card-body>
     </nb-card>
   </div>
 

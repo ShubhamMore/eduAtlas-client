@@ -1,6 +1,6 @@
 import { NbToastrService } from '@nebular/theme';
 import { AnnouncementService } from './../../../../services/communication/announcement.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,13 +16,20 @@ export class ManageAnnouncementsComponent implements OnInit {
   constructor(
     private api: ApiService,
     private toastrService: NbToastrService,
-    private active: ActivatedRoute,
+    private router: Router,
+    private route: ActivatedRoute,
     private announceService: AnnouncementService,
   ) {}
 
   ngOnInit() {
-    this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getAnnouncement(this.instituteId);
+  }
+
+  onView(id: string) {
+    this.router.navigate(['/pages/communication/view-announcements/', this.instituteId], {
+      queryParams: { announcement: id },
+    });
   }
 
   getAnnouncement(id: any) {

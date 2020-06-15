@@ -1,3 +1,4 @@
+import { ViewAnnouncementsComponent } from './../announcements/view-announcements/view-announcements.component';
 import { ManageAnnouncementsComponent } from './../announcements/manage-announcements/manage-announcements.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,7 @@ const routes: Routes = [
     component: CommunicationComponent,
     children: [
       { path: 'announcements/:id', component: ManageAnnouncementsComponent },
+      { path: 'view-announcements/:id', component: ViewAnnouncementsComponent },
       { path: 'add-announcements/:id', component: AnnouncementsComponent },
       { path: 'forum/:id', component: ForumComponent },
       { path: 'add-forum/:id', component: AddForumComponent },

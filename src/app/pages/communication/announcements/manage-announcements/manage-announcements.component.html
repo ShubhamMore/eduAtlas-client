@@ -18,9 +18,8 @@
                 <tr>
                   <th>ID</th>
                   <th>Title</th>
-                  <th>Text</th>
                   <th>Attachment</th>
-                  <th>Delete</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -32,15 +31,16 @@
                     <span> {{ item.title }}</span>
                   </td>
                   <td>
-                    <div [innerHTML]="item.text | safeHtml"></div>
-                  </td>
-                  <td>
                     <a [href]="item.attachment.secure_url" *ngIf="item.attachment">{{
                       item.attachment.file_name
-                    }}</a>
+                    }}</a
+                    ><span *ngIf="!item.attachment">--</span>
                   </td>
                   <div>
-                    <button nbButton status="danger" (click)="onDelete(item._id)">Delete</button>
+                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">View</button>
+                    <button class="mb-2" nbButton status="danger" (click)="onDelete(item._id)">
+                      Delete
+                    </button>
                   </div>
                 </tr>
               </tbody>

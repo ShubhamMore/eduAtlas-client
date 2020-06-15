@@ -27,6 +27,17 @@ export class AnnouncementService {
       );
   }
 
+  getSingleAnnouncement(id: any): Observable<any> {
+    return this.http
+      .post(`${environment.server}/institute/announcement/getSingleAnnouncement`, {
+        id,
+      })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
   deleteAnnouncement(id: any): Observable<any> {
     return this.http
       .post<any>(`${environment.server}/institute/announcement/deleteAnnouncement`, { _id: id })
