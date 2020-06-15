@@ -1,3 +1,4 @@
+import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { InstituteComponent } from '../institute.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
       { path: 'view-schedule/:id', component: ViewScheduleComponent },
       { path: 'edit-schedule/:id', component: AddScheduleComponent },
       { path: 'manage-leads/:id', component: ManageLeadComponent },
+      { path: 'view-lead/:id', component: ViewLeadComponent },
       { path: 'add-leads/:id', component: AddLeadComponent },
 
       {

@@ -23,7 +23,6 @@ import { ButtonModule } from 'primeng/button';
 import { HomeComponent } from './home/home.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { MembershipComponent } from './membership/membership.component';
-import { ViewLeadComponent } from './leads/view-lead/view-lead.component';
 
 // import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
 
@@ -51,8 +50,6 @@ import { ViewLeadComponent } from './leads/view-lead/view-lead.component';
     HomeComponent,
     ECommerceComponent,
     MembershipComponent,
-
-    ViewLeadComponent,
 
     // ClassifiedComponent,
     // CreateClassifiedComponent,

@@ -1,3 +1,4 @@
+import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
 import { AddAttendanceComponent } from './../attandance/add-attendance/add-attendance.component';
 import { ViewAttendanceComponent } from './../attandance/view-attendance/view-attendance.component';
 import { NgModule } from '@angular/core';
@@ -62,6 +63,7 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     ViewScheduleComponent,
     AddLeadComponent,
     ManageLeadComponent,
+    ViewLeadComponent,
   ],
   imports: [
     CommonModule,
