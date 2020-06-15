@@ -13,6 +13,8 @@ import { SocketioService } from '../../../services/chat.service';
 export class AddStudentsComponent implements OnInit {
   // Student Form
   studentForm: FormGroup;
+  // Already paid Amount Array
+  alreadyPaid: any[] = [];
   // Fee Details Form
   feeDetailsForm: FormGroup;
   // Eduatlas Id Form
@@ -436,30 +438,40 @@ export class AddStudentsComponent implements OnInit {
       confirm = null;
       // Confirm if User really wants to make this installment as paid ot not
       confirm = window.confirm('Do you want to make this installment as Paid?');
+    } else {
+      confirm = false;
     }
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    // get selected installment amount
+    const amount = +installments.controls[i].get('amount').value;
     // id confirm is true
     if (confirm) {
-      // Get installment array from FeeDetails form
-      const installment = this.feeDetailsForm.get('installments') as FormArray;
-      // get selected installment amount
-      const amount = +installment.controls[i].get('amount').value;
       // if paid = true i.e Checked in dom
       if (paid) {
         // Set paid Status to true
-        installment.controls[i].patchValue({ paidStatus: true });
+        installments.controls[i].patchValue({ paidStatus: true });
         // Calculate and set Amount collected
         this.amountCollected = +this.amountCollected + amount;
-      } else {
-        // Set paid Status to false i.e. Unchecked
-        installment.controls[i].patchValue({ paidStatus: false });
-        // Calculate and set Amount collected
-        this.amountCollected = +this.amountCollected - amount;
+        this.alreadyPaid.push(i);
       }
-      // Set amount collected in DOM
-      this.feeDetailsForm.patchValue({ amountCollected: this.amountCollected });
-      // Calculate Pending Amount
-      this.calculatePendingAmount();
+    } else {
+      if (this.alreadyPaid.includes(i)) {
+        if (!paid) {
+          // Set paid Status to false i.e. Unchecked
+          installments.controls[i].patchValue({ paidStatus: false });
+          // Calculate and set Amount collected
+          this.amountCollected = +this.amountCollected - amount;
+          const index = this.alreadyPaid.findIndex((ind: any) => ind === i);
+          this.alreadyPaid.splice(index, 1);
+        }
+      } else {
+        installments.controls[i].patchValue({ paidStatus: false });
+      }
     }
+    // Set amount collected in DOM
+    this.feeDetailsForm.patchValue({ amountCollected: this.amountCollected });
+    // Calculate Pending Amount
+    this.calculatePendingAmount();
   }
 
   // Change Installment Type from DOM
