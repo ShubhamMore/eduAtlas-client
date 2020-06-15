@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 
@@ -10,112 +10,71 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./attandance.component.scss'],
 })
 export class AttandanceComponent implements OnInit {
-  attandanceform: FormGroup;
   instituteId: string;
-  date: number;
-  courses: any[];
+  institute: any;
+  batchId: string;
+  courseId: string;
   batches: any[];
-  availableBatches: any[];
   students: any[];
-  attendance: any[];
+  display: boolean;
 
   constructor(
     private api: ApiService,
+    private router: Router,
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
   ) {}
 
   ngOnInit() {
-    this.date = Date.now();
-    this.courses = [];
+    this.display = false;
+    this.courseId = 'all';
     this.batches = [];
     this.students = [];
-    this.availableBatches = [];
-    this.attendance = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
-    this.getCourseTd(this.instituteId);
-    this.attandanceform = this.fb.group({
-      courseId: ['', Validators.required],
-      batchId: ['', Validators.required],
-      allStudentsPresent: [],
-      date: [this.constructDate(this.date), Validators.required],
+    this.getCourses(this.instituteId);
+    this.onSelectCourse('all');
+  }
+
+  viewStudentAttendance(id: any) {
+    this.router.navigate(['/pages/institute/view-attandance/' + this.instituteId], {
+      queryParams: { student: id },
+    });
+  }
+
+  addAttendance() {
+    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId]);
+  }
+
+  getCourses(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.institute = data;
+      this.display = true;
     });
   }
 
   onSelectCourse(id: string) {
-    // Find Batches of Selected Course
-    this.students = [];
-    this.attandanceform.get('batchId').setValue(null);
-    this.availableBatches = this.batches.filter((b: any) => b.course === id);
-
-    this.getStudents();
-  }
-  onSelectBatch() {
-    this.getStudents();
-  }
-  getStudents() {
-    this.students = [];
-    this.attendance = [];
-    if (
-      this.attandanceform.get('batchId').value &&
-      this.attandanceform.get('courseId').value &&
-      this.attandanceform.get('date').value
-    ) {
-      var studentsRequest = {
-        date: this.attandanceform.get('date').value,
-        instituteId: this.instituteId,
-        courseId: this.attandanceform.get('courseId').value,
-        batchId: this.attandanceform.get('batchId').value,
-      };
-      this.api.getStudentsAttendance(studentsRequest).subscribe((data: any) => {
-        this.students = data;
-        this.students.sort((student1, student2) => {
-          if (parseInt(student1.studentRollNo) >= parseInt(student2.studentRollNo)) {
-            return 1;
-          } else {
-            return -1;
-          }
-        });
-        this.students.map(function (student) {
-          student.attendanceStatus = student.attendanceStatus ? true : false;
-          return student;
-        });
-        this.students.forEach((student) => {
-          const attendance = {
-            studentId: student.studentId,
-            attendanceStatus: student.attendanceStatus ? true : false,
-          };
-          this.attendance.push(attendance);
-        });
-      });
-    }
-  }
-  getCourseTd(id: string) {
-    this.api.getCourseTD(id).subscribe((data: any) => {
-      this.batches = data.batch;
-      this.courses = data.course;
-    });
-  }
-  constructDate(dateInMillisecond: number) {
-    const date = new Date(dateInMillisecond);
-    return `${date.getFullYear()}-${this.appendZero(date.getMonth() + 1)}-${this.appendZero(
-      date.getDate(),
-    )}`;
-  }
-  appendZero(n: number): string {
-    if (n < 10) {
-      return '0' + n;
-    }
-    return '' + n;
-  }
-
-  markAttendance(event: any, studentId: string, index: number) {
-    if (event.target.checked) {
-      this.attendance[index].attendanceStatus = true;
+    this.courseId = id;
+    if (id === 'all') {
+      this.getStudents({ instituteId: this.instituteId });
     } else {
-      this.attendance[index].attendanceStatus = false;
+      this.batchId = 'all';
+      this.batches = this.institute.batch.filter((b: any) => b.course === id);
     }
+  }
+
+  onSelectBatch(id: string) {
+    if (id === 'all') {
+      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId });
+    } else {
+      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
+    }
+  }
+
+  getStudents(data: any) {
+    this.api.getStudentByInstitute(data).subscribe((res: any) => {
+      this.students = res;
+    });
   }
 
   showToaster(position: any, status: any, message: any) {
@@ -123,25 +82,5 @@ export class AttandanceComponent implements OnInit {
       position,
       status,
     });
-  }
-
-  onSubmit() {
-    var attendanceRequest = {
-      date: this.attandanceform.get('date').value,
-      instituteId: this.instituteId,
-      courseId: this.attandanceform.get('courseId').value,
-      batchId: this.attandanceform.get('batchId').value,
-      attendance: this.attendance,
-    };
-    this.api.addAttendance(attendanceRequest).subscribe(
-      (res) => {
-        this.attandanceform.reset();
-        this.attandanceform.get('date').setValue(this.constructDate(this.date));
-        this.students = [];
-        this.attendance = [];
-        this.showToaster('top-right', 'success', 'Attendance Updated Succesfully');
-      },
-      (err) => this.showToaster('top-right', 'danger', err.error.message),
-    );
   }
 }

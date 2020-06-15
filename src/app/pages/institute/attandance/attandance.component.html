@@ -1,97 +1,73 @@
 <nb-card>
   <nb-card-header>
-    <p style="font-weight: bold;">Add Attendance</p>
+    <button class="btn btn-yellow-black float-right" (click)="addAttendance()">
+      Add Attendance
+    </button>
+    <h4>Attendance</h4>
   </nb-card-header>
-  <nb-card-body>
-    <form [formGroup]="attandanceform" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-sm-6">
-          <nb-select
-            placeholder="Select Course"
-            formControlName="courseId"
-            (selectedChange)="onSelectCourse($event)"
-            state="basic"
-            fullWidth
-          >
-            <nb-option *ngFor="let course of courses" value="{{ course.id }}">{{
-              course.name
-            }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-sm-6">
-          <nb-select
-            formControlName="batchId"
-            placeholder="Select Batch"
-            (selectedChange)="onSelectBatch()"
-            state="basic"
-            fullWidth
-          >
-            <nb-option *ngFor="let batch of availableBatches" value="{{ batch._id }}">{{
-              batch.batchCode
-            }}</nb-option>
-          </nb-select>
-        </div>
+  <nb-card-body *ngIf="display">
+    <div class="row">
+      <div class="col-sm-6"></div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
+          <nb-option value="all">All</nb-option>
+          <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
+            course.name
+          }}</nb-option>
+        </nb-select>
       </div>
-      <div class="row mt-3">
-        <div class="col-sm-6">
-          <input
-            type="date"
-            nbInput
-            status="basic"
-            formControlName="date"
-            fullWidth
-            placeholder="Pick Date"
-            (input)="getStudents()"
-          />
-        </div>
 
-        <div class="col-sm-6 text-right" *ngIf="students.length > 0">
-          <button
-            class="btn btn-yellow"
-            type="submit"
-            [disabled]="!attandanceform.valid"
-            style="color: black;"
-          >
-            Submit
-          </button>
-        </div>
-      </div>
-    </form>
-    <hr />
-    <div class="row attendanceList" *ngIf="students.length > 0; else empty_students">
-      <div class="table-responsive">
-        <table>
-          <thead>
-            <tr>
-              <th class="text-center">Roll No</th>
-              <th class="text-center">Student</th>
-              <th class="text-center">Mark Attendance</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of students; let i = index">
-              <td>{{ student.studentRollNo }}</td>
-              <td>
-                {{ student.studentName }}
-              </td>
-              <td>
-                <div class="attendance-selector text-center">
-                  <input
-                    type="checkbox"
-                    [id]="student.studentId"
-                    class="attendance"
-                    [checked]="student.attendanceStatus"
-                    (change)="markAttendance($event, student.studentId, i)"
-                  />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Batch"
+          fullWidth
+          status="basic"
+          (selectedChange)="onSelectBatch($event)"
+        >
+          <nb-option value="all">All</nb-option>
+          <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
+            batch.batchCode
+          }}</nb-option>
+        </nb-select>
       </div>
     </div>
-    <ng-template #empty_students>
-      <p class="pl-3 text-center">No Students Found</p>
+
+    <br />
+
+    <div class="table-responsive" *ngIf="students.length > 0; else no_student">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Student</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ student.basicDetails.name }}</td>
+            <td>
+              <button
+                class="mr-3"
+                nbButton
+                status="primary"
+                (click)="viewStudentAttendance(student._id)"
+              >
+                View Attendance
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #no_student>
+      <h6 class="text-center mt-5">No student</h6>
     </ng-template>
   </nb-card-body>
 </nb-card>

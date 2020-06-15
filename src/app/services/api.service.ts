@@ -214,6 +214,17 @@ export class ApiService {
       );
   }
 
+  //  GET STUDENT BY INSTITUTE
+  getStudentByInstitute(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentByInstitute', data)
+      .pipe(
+        tap((res) => {}),
+        map((res) => res),
+        catchError(this.handleError),
+      );
+  }
+
   //  GET ACTIVE STUDENTs
   getActiveStudents(id: string, courseId: string, batchId: string) {
     const data = { instituteId: id, courseId };
@@ -825,11 +836,19 @@ export class ApiService {
 
   // =====================Attendance API===================
 
-  //  ADD NEW EMPLOYEE
+  // GET STUDENTS FOR ATTENDANCE
   getStudentsAttendance(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceByDate`;
     return this.http.post(url, attendanceRequest).pipe(
       tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getAttendanceForStudent(data: any) {
+    const url = `${environment.server}/institute/attendance/getAttendanceForStudent`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -1100,6 +1119,15 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  getSingleLeadToView(data: any) {
+    const url = `${environment.server}/institute/leads/getSingleLeadToView`;
+    return this.http.post(url, data).pipe(
+      tap((data) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   getLeadsByOfInstitute(data: any) {
     const url = `${environment.server}/institute/leads/getLeadsByOfInstitute`;
     return this.http.post(url, data).pipe(

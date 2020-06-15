@@ -59,6 +59,7 @@
           <td>{{ lead.leadContact }}</td>
           <td>{{ lead.status }}</td>
           <td class="text-right">
+            <button class="mr-3 mb-2" nbButton (click)="view(lead._id)">View</button>
             <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(lead._id)">Edit</button>
             <button class="mb-2" nbButton status="danger" (click)="delete(lead._id, i)">
               Delete

@@ -1,3 +1,5 @@
+import { ViewAttendanceComponent } from './../attandance/view-attendance/view-attendance.component';
+import { AddAttendanceComponent } from './../attandance/add-attendance/add-attendance.component';
 import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -35,8 +37,8 @@ const routes: Routes = [
       { path: 'view-institute/:id', component: ViewInstituteComponent },
 
       { path: 'attandance/:id', component: AttandanceComponent, canActivate: [] },
-      { path: 'add-attandance/:id', component: AttandanceComponent, canActivate: [] },
-      { path: 'view-attandance/:id', component: AttandanceComponent, canActivate: [] },
+      { path: 'add-attandance/:id', component: AddAttendanceComponent, canActivate: [] },
+      { path: 'view-attandance/:id', component: ViewAttendanceComponent, canActivate: [] },
 
       { path: 'view-student/:id', component: ViewStudentComponent },
       { path: 'pending-students/:id', component: PendingStudentComponent },

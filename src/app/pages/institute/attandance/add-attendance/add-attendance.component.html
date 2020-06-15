@@ -1,3 +1,97 @@
-<p>
-  add-attendance works!
-</p>
+<nb-card>
+  <nb-card-header>
+    <p style="font-weight: bold;">Add Attendance</p>
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="attandanceform" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-6">
+          <nb-select
+            placeholder="Select Course"
+            formControlName="courseId"
+            (selectedChange)="onSelectCourse($event)"
+            state="basic"
+            fullWidth
+          >
+            <nb-option *ngFor="let course of courses" value="{{ course.id }}">{{
+              course.name
+            }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-sm-6">
+          <nb-select
+            formControlName="batchId"
+            placeholder="Select Batch"
+            (selectedChange)="onSelectBatch()"
+            state="basic"
+            fullWidth
+          >
+            <nb-option *ngFor="let batch of availableBatches" value="{{ batch._id }}">{{
+              batch.batchCode
+            }}</nb-option>
+          </nb-select>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-sm-6">
+          <input
+            type="date"
+            nbInput
+            status="basic"
+            formControlName="date"
+            fullWidth
+            placeholder="Pick Date"
+            (input)="getStudents()"
+          />
+        </div>
+
+        <div class="col-sm-6 text-right" *ngIf="students.length > 0">
+          <button
+            class="btn btn-yellow"
+            type="submit"
+            [disabled]="!attandanceform.valid"
+            style="color: black;"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+    <hr />
+    <div class="row attendanceList" *ngIf="students.length > 0; else empty_students">
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th class="text-center">Roll No</th>
+              <th class="text-center">Student</th>
+              <th class="text-center">Mark Attendance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let student of students; let i = index">
+              <td>{{ student.studentRollNo }}</td>
+              <td>
+                {{ student.studentName }}
+              </td>
+              <td>
+                <div class="attendance-selector text-center">
+                  <input
+                    type="checkbox"
+                    [id]="student.studentId"
+                    class="attendance"
+                    [checked]="student.attendanceStatus"
+                    (change)="markAttendance($event, student.studentId, i)"
+                  />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <ng-template #empty_students>
+      <p class="pl-3 text-center">No Students Found</p>
+    </ng-template>
+  </nb-card-body>
+</nb-card>
