@@ -721,6 +721,10 @@ export class AddStudentsComponent implements OnInit {
           };
           this.addInstallment(installmentData);
 
+          if (curInstallment.paidStatus) {
+            this.alreadyPaid.push(i);
+          }
+
           // if (curInstallment.paidStatus === 'true') {
           //   installment.controls[i].get('paidStatus').disable();
           //   installment.controls[i].get('paymentMode').disable();

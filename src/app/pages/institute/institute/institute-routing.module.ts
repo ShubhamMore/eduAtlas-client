@@ -31,8 +31,11 @@ const routes: Routes = [
       { path: 'manage-institute', component: ManageInstituteComponent },
       { path: 'manage-students/:id', component: ManageStudentsComponent },
       { path: 'manage-institute', component: ManageInstituteComponent },
-      { path: 'attandance/:id', component: AttandanceComponent, canActivate: [] },
       { path: 'view-institute/:id', component: ViewInstituteComponent },
+
+      { path: 'attandance/:id', component: AttandanceComponent, canActivate: [] },
+      { path: 'add-attandance/:id', component: AttandanceComponent, canActivate: [] },
+      { path: 'view-attandance/:id', component: AttandanceComponent, canActivate: [] },
 
       { path: 'view-student/:id', component: ViewStudentComponent },
       { path: 'pending-students/:id', component: PendingStudentComponent },

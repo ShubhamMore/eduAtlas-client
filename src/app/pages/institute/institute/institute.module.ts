@@ -1,3 +1,5 @@
+import { AddAttendanceComponent } from './../attandance/add-attendance/add-attendance.component';
+import { ViewAttendanceComponent } from './../attandance/view-attendance/view-attendance.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InstRoutingModule } from './institute-routing.module';
@@ -54,10 +56,12 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     PendingStudentComponent,
     AddScheduleComponent,
     AttandanceComponent,
+    AddAttendanceComponent,
+    ViewAttendanceComponent,
     ManageScheduleComponent,
     ViewScheduleComponent,
     AddLeadComponent,
-    ManageLeadComponent
+    ManageLeadComponent,
   ],
   imports: [
     CommonModule,
