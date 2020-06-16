@@ -425,8 +425,8 @@ export class ApiService {
       date: studentFees.date,
       noOfInstallments: studentFees.noOfInstallments,
       amountCollected: studentFees.amountCollected,
-      totalAmount: studentFees.totalFees,
-      pendingAmount: studentFees.pendingFees,
+      totalAmount: studentFees.totalAmount,
+      pendingAmount: studentFees.pendingAmount,
       installments: [],
     };
 
