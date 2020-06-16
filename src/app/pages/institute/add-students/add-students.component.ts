@@ -78,6 +78,7 @@ export class AddStudentsComponent implements OnInit {
 
   // Date in milliseconds from 1 Jan, 1970
   date: number;
+
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -164,22 +165,12 @@ export class AddStudentsComponent implements OnInit {
         // Installments Form Array
         installments: this.fb.array([]),
       });
-
       // Initially Installment Type is Disabled
       this.feeDetailsForm.get('installmentType').disable();
-
       // Call onSelectInstallmentType() with initial Value i.e. 0
       this.onSelectInstallmentType(this.installmentType);
       // Call GetCourseTd() to get all courses related to Institute
       this.getCourseTd(this.instituteId);
-
-      // Check Editing Mode
-      if (this.edit === 'true') {
-        // Already Registered is set to true
-        this.alreadyRegistered = true;
-        // get Student for Editing using studentEduId, instituteId and CourseId
-        this.getStudent(this.studentEduId, this.instituteId, this.courseId);
-      }
     });
   }
 
@@ -306,6 +297,13 @@ export class AddStudentsComponent implements OnInit {
       this.institute = data;
       this.courses = data.course;
       this.discounts = data.discount;
+      // Check Editing Mode
+      if (this.edit === 'true') {
+        // Already Registered is set to true
+        this.alreadyRegistered = true;
+        // get Student for Editing using studentEduId, instituteId and CourseId
+        this.getStudent(this.studentEduId, this.instituteId, this.courseId);
+      }
     });
   }
 
@@ -842,6 +840,7 @@ export class AddStudentsComponent implements OnInit {
       } else if (this.feesUpdated) {
         this.updateFees(this.student._id, this.studentFees._id);
       } else {
+        this.showToaster('top-right', 'success', 'No Update');
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       }
     }
@@ -876,7 +875,7 @@ export class AddStudentsComponent implements OnInit {
             .subscribe(
               (res: any) => {
                 // Call Student Add Fees Api
-                this.addFees(this.student._id, this.studentEduId);
+                this.addFees(res._id, this.studentEduId);
               },
               (err) => this.showToaster('top-right', 'danger', err.error.message),
             );

@@ -38,9 +38,11 @@ export class ViewAttendanceComponent implements OnInit {
   }
 
   getCourses(instituteId: any, studentId: any) {
+    console.log({ _id: studentId, instituteId });
     this.api.getCoursesOfStudentByInstitute({ _id: studentId, instituteId }).subscribe(
       (res: any) => {
         this.courses = res._id;
+        console.log(res);
         this.display = true;
       },
       (err: any) => {

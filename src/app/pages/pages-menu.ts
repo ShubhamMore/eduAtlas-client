@@ -33,6 +33,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     pathMatch: 'full',
     hidden: true,
   },
+
   {
     title: 'Daily Links',
     hidden: true, // 3
