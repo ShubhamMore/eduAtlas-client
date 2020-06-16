@@ -74,6 +74,14 @@ export class AuthService {
     );
   }
 
+  changePassword(data: any) {
+    return this.http.post(environment.server + '/users/changePassword', data).pipe(
+      tap((res) => {}),
+      map((res) => res),
+      catchError(this.handleError),
+    );
+  }
+
   login(userId: string, password: string) {
     const data = {
       userId,
@@ -130,7 +138,7 @@ export class AuthService {
       this.autoLogout(expirationDuration);
 
       if (loadedUser.role === 'institute' || loadedUser.role === 'employee') {
-        this.router.navigate(['/pages/home'], { relativeTo: this.route});
+        this.router.navigate(['/pages/home'], { relativeTo: this.route });
       } else if (loadedUser.role === 'student') {
         this.router.navigate(['/student/home'], {
           relativeTo: this.route,

@@ -842,22 +842,6 @@ export class AddStudentsComponent implements OnInit {
       } else if (this.feesUpdated) {
         this.updateFees(this.student._id, this.studentFees._id);
       } else {
-        // Student Personal Details Changed
-        //   this.api
-        //     .updateStudentPersonalDetails(
-        //       this.student._id,
-        //       this.studentForm.value,
-        //       this.studentEduId,
-        //       this.student.basicDetails.studentContact,
-        //       this.student.basicDetails.studentEmail,
-        //     )
-        //     .subscribe(
-        //       (res: any) => {
-        //         this.showToaster('top-right', 'success', 'Student Personal details Updated!');
-        //         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
-        //       },
-        //       (err) => this.showToaster('top-right', 'danger', err.error.message),
-        //     );
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       }
     }

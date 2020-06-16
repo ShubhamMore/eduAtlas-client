@@ -1,3 +1,4 @@
+import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
         path: 'dashboard/:id',
         component: ECommerceComponent,
       },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+      },
 
       {
         path: 'institute',
@@ -41,7 +46,8 @@ const routes: Routes = [
       },
       {
         path: 'student-reports',
-        loadChildren: () => import('./student-reports/student-report.module').then((m) => m.StudentReportModule),
+        loadChildren: () =>
+          import('./student-reports/student-report.module').then((m) => m.StudentReportModule),
       },
 
       {

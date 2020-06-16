@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {
   NbMenuModule,
@@ -23,12 +24,14 @@ import { ButtonModule } from 'primeng/button';
 import { HomeComponent } from './home/home.component';
 import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { MembershipComponent } from './membership/membership.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 // import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
 
 @NgModule({
   imports: [
     PagesRoutingModule,
+    ReactiveFormsModule,
     ThemeModule,
     NbMenuModule,
     MiscellaneousModule,
@@ -50,6 +53,7 @@ import { MembershipComponent } from './membership/membership.component';
     HomeComponent,
     ECommerceComponent,
     MembershipComponent,
+    ChangePasswordComponent,
 
     // ClassifiedComponent,
     // CreateClassifiedComponent,
