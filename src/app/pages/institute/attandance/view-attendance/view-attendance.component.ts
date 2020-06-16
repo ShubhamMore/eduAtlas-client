@@ -66,6 +66,9 @@ export class ViewAttendanceComponent implements OnInit {
       .subscribe(
         (res: any[]) => {
           this.total = res.length;
+          this.present = 0;
+          this.absent = 0;
+          this.attendance = [];
           if (this.total === 0) {
             this.noAttendanceData = 'No Attendance Found';
           } else {

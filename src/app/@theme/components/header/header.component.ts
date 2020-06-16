@@ -12,7 +12,7 @@ import {
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { Subject } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
 import { NbWindowService } from '@nebular/theme';
@@ -46,7 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
   user: any;
   socket: any;
-  openedChatWindows :NbWindowRef[]= [];
+  openedChatWindows: NbWindowRef[] = [];
   userMenu = [{ title: 'Edit Profile' }, { title: 'Change Password' }];
 
   themes = [
@@ -79,6 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private api: ApiService,
     private layoutService: LayoutService,
     private router: Router,
+    private route: ActivatedRoute,
     private breakpointService: NbMediaBreakpointsService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
@@ -100,7 +101,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.chatService.setupSocketConnection();
     this.socket = this.chatService.getSocket();
     this.socket.on('message', (message) => {
-      if(!this.chatmessage[message.receiverId]){
+      if (!this.chatmessage[message.receiverId]) {
         this.openChatBoxForNewIncomingMessage(message);
       }
       this.chatmessage[message.receiverId].messages.push(message.msg);
@@ -109,14 +110,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   send(message: any) {
     this.socket.emit('message', message);
   }
-  openChatBoxForNewIncomingMessage(message){
+  openChatBoxForNewIncomingMessage(message) {
     var user = {
-      'eduAtlasId':message.receiverId,
-      'basicDetails':{
-        'name': message.msg.user.name
-      }
-    }
-    this.openChatBox(user)
+      eduAtlasId: message.receiverId,
+      basicDetails: {
+        name: message.msg.user.name,
+      },
+    };
+    this.openChatBox(user);
   }
 
   getInstitutes() {
@@ -135,21 +136,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.institutes = [];
     this.institutes = this.instituteService.getInstitutes();
   }
-  getMembers(){
+  getMembers() {
     this.chatMembers = this.chatService.getMembers();
   }
 
   onSelect(event: any) {
-    if (event !== 'undefined') {
+    if (event !== '') {
       this.institute = event;
       if (this.user.role === 'institute') {
-        this.router.navigate(['/pages/dashboard/', event]);
+        this.router.navigate(['/pages/dashboard/', event], { relativeTo: this.route.parent });
       } else if (this.user.role === 'employee') {
         const role = this.getEmployeeRole(event);
         this.roleService.assignRoles(role);
-        this.router.navigate(['/pages/dashboard/', event]);
+        this.router.navigate(['/pages/dashboard/', event], { relativeTo: this.route.parent });
       } else if (this.user.role === 'student') {
-        this.router.navigate(['/student/dashboard/', event]);
+        this.router.navigate(['/student/dashboard/', event], { relativeTo: this.route.parent });
       }
     }
   }
@@ -166,7 +167,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
-    this.openedChatWindows.forEach((openedWindow:NbWindowRef)=>{
+    this.openedChatWindows.forEach((openedWindow: NbWindowRef) => {
       openedWindow.close();
     });
 
@@ -203,9 +204,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       receiverName: receiverData.userName,
     });
   }
-  openNotificationBox (){
-    
-  }
+  openNotificationBox() {}
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
   }

@@ -48,7 +48,12 @@ export class ECommerceComponent implements OnInit {
     private authService: AuthService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
-  ) {}
+  ) {
+    active.params.subscribe((val) => {
+      // put the code from `ngOnInit` here
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.display = false;
