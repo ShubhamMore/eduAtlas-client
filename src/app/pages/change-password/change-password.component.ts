@@ -25,13 +25,13 @@ export class ChangePasswordComponent implements OnInit {
     this.form = new FormGroup(
       {
         oldPassword: new FormControl(null, {
-          validators: [Validators.required, Validators.minLength(6)],
+          validators: [Validators.required, Validators.minLength(7)],
         }),
         password: new FormControl(null, {
-          validators: [Validators.required, Validators.minLength(6)],
+          validators: [Validators.required, Validators.minLength(7)],
         }),
         confirm_password: new FormControl(null, {
-          validators: [Validators.required, Validators.minLength(6)],
+          validators: [Validators.required, Validators.minLength(7)],
         }),
       },
       {
@@ -48,23 +48,20 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changePassword() {
+    this.form.markAllAsTouched();
     if (this.form.valid && !this.form.hasError('invalidPassword')) {
       const data = {
-        api: 'changePassword',
-        data: {
-          email: JSON.parse(localStorage.getItem('userData')).email,
-          oldPassword: this.form.value.oldPassword,
-          newPassword: this.form.value.password,
-        },
+        email: JSON.parse(localStorage.getItem('userData')).email,
+        password: this.form.value.oldPassword,
+        newPassword: this.form.value.password,
       };
       this.authService.changePassword(data).subscribe(
-        (resData: any) => {
+        (res: any) => {
           this.showToast('top-right', 'success', 'Password Changed Successfully!');
           this.router.navigate(['/pages/home'], { relativeTo: this.route });
         },
-        (errorMessage: any) => {
-          console.log(errorMessage);
-          this.showToast('top-right', 'danger', 'Password Changed Failed!');
+        (err: any) => {
+          this.showToast('top-right', 'danger', 'Invalid Old Password!');
         },
       );
     } else {

@@ -11,6 +11,7 @@ import {
   NbDatepickerModule,
   NbTabsetModule,
   NbUserModule,
+  NbInputModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -45,7 +46,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     NbListModule,
     NbSelectModule,
     NbDatepickerModule,
-
+    NbInputModule,
     NbButtonModule,
   ],
   declarations: [

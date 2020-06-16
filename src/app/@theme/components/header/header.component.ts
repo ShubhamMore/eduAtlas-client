@@ -49,8 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openedChatWindows: NbWindowRef[] = [];
   userMenu = [
     { title: 'Edit Profile' },
-    { title: 'Change Password' },
-    // { title: 'Change Password', link: 'pages/change-password' },
+    { title: 'Change Password', link: 'pages/change-password' },
   ];
 
   themes = [

@@ -38,11 +38,12 @@ export class ViewAttendanceComponent implements OnInit {
   }
 
   getCourses(instituteId: any, studentId: any) {
-    console.log({ _id: studentId, instituteId });
     this.api.getCoursesOfStudentByInstitute({ _id: studentId, instituteId }).subscribe(
-      (res: any) => {
-        this.courses = res._id;
-        console.log(res);
+      (res: any[]) => {
+        this.courses = [];
+        res.forEach((course: any) => {
+          this.courses.push(course.courses.course);
+        });
         this.display = true;
       },
       (err: any) => {
@@ -53,7 +54,6 @@ export class ViewAttendanceComponent implements OnInit {
 
   onSelectCourse(id: any) {
     if (id !== '') {
-      console.log(id);
       this.getAttendance(id);
     }
   }

@@ -30,23 +30,27 @@
         <p><strong>Total Absent: </strong> {{ absent }}</p>
         <p><strong>Attendance Percentage: </strong> {{ ((present * 100) / total).toFixed(2) }}%</p>
 
-        <div class="table-responsive">
-          <table class="table table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Date</th>
-                <th>Attendance Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let atten of attendance; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ atten.date }}</td>
-                <td>{{ atten.status ? 'Present' : 'Absent' }}</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row">
+          <div class="col-md-8 col-12 mx-auto">
+            <div class="table-responsive">
+              <table class="table table-sm text-center">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Date</th>
+                    <th>Attendance Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let atten of attendance; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ atten.date }}</td>
+                    <td>{{ atten.status ? 'Present' : 'Absent' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
