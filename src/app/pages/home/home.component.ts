@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
         MENU_ITEMS[1].hidden = true;
         this.institutes = data;
+        console.log(data);
         if (this.institutes.length > 0) {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;

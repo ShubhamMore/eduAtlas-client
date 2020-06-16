@@ -132,6 +132,14 @@ export class ApiService {
     );
   }
 
+  getCoursesOfStudentByInstitute(data: any) {
+    const url = `${environment.server}/institute/student/getCoursesOfStudentByInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   //  ADD NEW STUDENT
   addStudent(student: any, instituteId: string) {
     const data = {
@@ -847,6 +855,14 @@ export class ApiService {
 
   getAttendanceForStudent(data: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceForStudent`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getStudentAttendanceByCourse(data: any) {
+    const url = `${environment.server}/institute/attendance/getAttendanceForStudentByCourse`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),

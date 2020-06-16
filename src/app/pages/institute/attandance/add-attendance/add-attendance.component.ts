@@ -77,7 +77,7 @@ export class AddAttendanceComponent implements OnInit {
             return -1;
           }
         });
-        this.students.map(function (student) {
+        this.students.map((student) => {
           student.attendanceStatus = student.attendanceStatus ? true : false;
           return student;
         });

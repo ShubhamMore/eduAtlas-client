@@ -17,8 +17,8 @@
         <tbody>
           <tr *ngFor="let schedule of schedules; let i = index">
             <td>{{ i + 1 }}</td>
-            <td>{{ schedule.scheduleStart }}</td>
-            <td>{{ schedule.scheduleEnd }}</td>
+            <td>{{ getScheduleDate(schedule.scheduleStart) }}</td>
+            <td>{{ getScheduleDate(schedule.scheduleEnd) }}</td>
             <td>
               <button class="btn btn-sm btn-yellow-black" (click)="useRecurrenceSchedule(i)">
                 Use

@@ -40,6 +40,11 @@ export class ViewScheduleComponent implements OnInit {
     );
   }
 
+  getScheduleDate(date: any) {
+    const d = date.split('-');
+    return `${d[2]}-${d[1]}-${d[0]}`;
+  }
+
   back() {
     this.location.back();
   }

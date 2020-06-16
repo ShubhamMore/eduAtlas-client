@@ -252,6 +252,11 @@ export class AddScheduleComponent implements OnInit {
     return '' + n;
   }
 
+  getScheduleDate(date: any) {
+    const d = date.split('-');
+    return `${d[2]}-${d[1]}-${d[0]}`;
+  }
+
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;

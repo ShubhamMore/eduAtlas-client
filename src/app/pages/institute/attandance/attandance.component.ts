@@ -72,7 +72,7 @@ export class AttandanceComponent implements OnInit {
   }
 
   getStudents(data: any) {
-    this.api.getStudentByInstitute(data).subscribe((res: any) => {
+    this.api.getStudentsByInstitute(data).subscribe((res: any) => {
       this.students = res;
     });
   }

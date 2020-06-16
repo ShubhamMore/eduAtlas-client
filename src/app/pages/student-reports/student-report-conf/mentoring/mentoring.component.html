@@ -1,6 +1,37 @@
 <nb-card>
   <nb-card-header>
-    <p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
+    <div class="row">
+      <div class="col-sm-6">
+        <p style="color: black; font-weight: bold;">Scheduled Mentoring</p>
+      </div>
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
+          <nb-option value="all">All</nb-option>
+          <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
+            course.name
+          }}</nb-option>
+        </nb-select>
+      </div>
+
+      <div class="col-sm-3">
+        <nb-select
+          placeholder="Select Batch"
+          fullWidth
+          status="basic"
+          (selectedChange)="onSelectBatch($event)"
+        >
+          <nb-option value="all">All</nb-option>
+          <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
+            batch.batchCode
+          }}</nb-option>
+        </nb-select>
+      </div>
+    </div>
   </nb-card-header>
   <nb-card-body>
     <table class="table table-borderless" *ngIf="students.length > 0; else noStudents">

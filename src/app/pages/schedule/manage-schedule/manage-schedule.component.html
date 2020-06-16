@@ -56,8 +56,8 @@
             <td>{{ i + 1 }}</td>
             <td>{{ schedule.courseId }}</td>
             <td>{{ schedule.batchId }}</td>
-            <td>{{ schedule.scheduleStart }}</td>
-            <td>{{ schedule.scheduleEnd }}</td>
+            <td>{{ getScheduleDate(schedule.scheduleStart) }}</td>
+            <td>{{ getScheduleDate(schedule.scheduleEnd) }}</td>
             <td>
               <button class="mr-3" nbButton status="primary" (click)="viewSchedule(schedule._id)">
                 View

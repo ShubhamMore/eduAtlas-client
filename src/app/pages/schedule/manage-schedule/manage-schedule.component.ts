@@ -77,6 +77,11 @@ export class ManageScheduleComponent implements OnInit {
     });
   }
 
+  getScheduleDate(date: any) {
+    const d = date.split('-');
+    return `${d[2]}-${d[1]}-${d[0]}`;
+  }
+
   editSchedule(code: any) {
     this.router.navigate(['/pages/institute/edit-schedule', this.instituteId], {
       queryParams: { schedule: code, edit: 'true' },

@@ -10,6 +10,10 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class MentoringComponent implements OnInit {
   instituteId: string;
+  institute: any;
+  batchId: string;
+  courseId: string;
+  batches: any[];
   students: any[];
   display: boolean;
 
@@ -22,16 +26,43 @@ export class MentoringComponent implements OnInit {
 
   ngOnInit(): void {
     this.display = false;
+    this.courseId = 'all';
+    this.batches = [];
     this.students = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
-    this.api.getStudentsByInstitute({ instituteId: this.instituteId }).subscribe(
-      (res: any) => {
-        this.students = res;
-        console.log(res);
-        this.display = true;
-      },
-      (err) => {},
-    );
+    this.getCourses(this.instituteId);
+    this.onSelectCourse('all');
+  }
+
+  getCourses(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.institute = data;
+      this.display = true;
+    });
+  }
+
+  onSelectCourse(id: string) {
+    this.courseId = id;
+    if (id === 'all') {
+      this.getStudents({ instituteId: this.instituteId });
+    } else {
+      this.batchId = 'all';
+      this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    }
+  }
+
+  onSelectBatch(id: string) {
+    if (id === 'all') {
+      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId });
+    } else {
+      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
+    }
+  }
+
+  getStudents(data: any) {
+    this.api.getStudentsByInstitute(data).subscribe((res: any) => {
+      this.students = res;
+    });
   }
 
   schedule(student: any) {
