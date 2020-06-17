@@ -412,6 +412,9 @@ export class ApiService {
         paidOn: curInstallment.paidOn,
         amount: curInstallment.amount,
         paymentMode: curInstallment.paymentMode,
+        bankDetails: curInstallment.bankDetails,
+        transDetails: curInstallment.transDetails,
+        paymentDate: curInstallment.paymentDate,
         amountPending: curInstallment.amountPending,
       };
       data.installments.push(installment);
@@ -445,6 +448,9 @@ export class ApiService {
         paidOn: curInstallment.paidOn,
         amount: curInstallment.amount,
         paymentMode: curInstallment.paymentMode,
+        bankDetails: curInstallment.bankDetails,
+        transDetails: curInstallment.transDetails,
+        paymentDate: curInstallment.paymentDate,
         amountPending: curInstallment.amountPending,
       };
       data.installments.push(installment);
