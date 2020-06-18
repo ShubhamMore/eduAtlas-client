@@ -32,6 +32,14 @@ export class ManageAnnouncementsComponent implements OnInit {
     });
   }
 
+  repeat(id: string) {}
+
+  edit(id: string) {
+    this.router.navigate(['/pages/communication/add-announcements/', this.instituteId], {
+      queryParams: { announcement: id, edit: true },
+    });
+  }
+
   getAnnouncement(id: any) {
     this.announceService.getAnnouncements(id).subscribe((data: any) => {
       this.announcements = data;

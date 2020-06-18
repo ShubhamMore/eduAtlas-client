@@ -9,6 +9,15 @@ import { throwError, Observable } from 'rxjs';
 })
 export class AnnouncementService {
   constructor(private http: HttpClient) {}
+  editAnnouncement(announcement: any) {
+    return this.http
+      .post(`${environment.server}/institute/announcement/editAnnouncement`, announcement)
+      .pipe(
+        tap((response) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
   postAnnouncement(announcement: any) {
     return this.http
       .post(`${environment.server}/institute/announcement/makeAnnouncement`, announcement)

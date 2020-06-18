@@ -15,7 +15,10 @@ export class AnnouncementsComponent implements OnInit {
   file: File;
 
   announcementForm: FormGroup;
-  announcement = [];
+  announcements = [];
+  announcementId: any;
+  announcement: any;
+  edit: any;
   batches: any[];
   institute: any;
   display = false;
@@ -31,6 +34,10 @@ export class AnnouncementsComponent implements OnInit {
 
   ngOnInit() {
     this.routerId = this.active.snapshot.paramMap.get('id');
+    this.active.queryParams.subscribe((data) => {
+      this.announcementId = data.announcement;
+      this.edit = data.edit;
+    });
     this.batches = [];
     this.announcementForm = this.fb.group({
       title: [''],
@@ -38,39 +45,49 @@ export class AnnouncementsComponent implements OnInit {
       instituteId: [this.routerId],
       batchCodes: [],
       categories: [],
-      // batchCodes: this.fb.array([]),
-      // categories: this.fb.array([]),
     });
     this.getInstitute(this.routerId);
-    this.getAnnouncement(this.routerId);
+    this.getAnnouncements(this.routerId);
   }
 
   getBatches(id: any) {
     this.api.getBatches(id).subscribe((data: any) => {
       this.batches = data.batch;
-      this.display = true;
-
-      // console.log('my batch' + JSON.parse(JSON.stringify(data)));
+      if (this.edit) {
+        this.getSingleAnnouncement(this.announcementId);
+      } else {
+        this.display = true;
+      }
     });
   }
 
-  getAnnouncement(id: any) {
+  getAnnouncements(id: any) {
     this.announceService.getAnnouncements(id).subscribe((data: any) => {
-      this.announcement = data;
-      // console.log('announce =>', this.announcement);
+      this.announcements = data;
     });
+  }
+
+  getSingleAnnouncement(id: any) {
+    this.announceService.getSingleAnnouncement(id).subscribe(
+      (res: any) => {
+        this.announcement = res;
+        this.announcementForm.patchValue({
+          title: res.title,
+          text: res.text,
+          batchCodes: res.batchCodes,
+          categories: res.categories,
+        });
+        this.display = true;
+      },
+      (err: any) => {
+        this.location.back();
+      },
+    );
   }
 
   onFilePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    // const imgExt: string[] = ['jpg', 'png'];
-    // const ext = file.name
-    // if (!(imgExt.indexOf(ext) !== -1)) {
-    // this.invalidImage = true;
-    // return;
-    // }
-    // this.imageRequired = false;
-    // this.invalidImage = false;
+
     this.file = file;
   }
 
@@ -78,8 +95,6 @@ export class AnnouncementsComponent implements OnInit {
     this.api.getInstitute(id).subscribe((data: any) => {
       this.institute = data.institute;
       this.getBatches(this.routerId);
-
-      // console.log(this.institute.institute);
     });
   }
 
@@ -94,7 +109,6 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   onSubmit() {
-    // console.log('text =>', this.announce);
     const announce = new FormData();
     announce.append('title', this.announcementForm.value.title);
     announce.append('text', this.announcementForm.value.text);
@@ -104,28 +118,42 @@ export class AnnouncementsComponent implements OnInit {
     if (this.file) {
       announce.append('announcement', this.file, this.announcementForm.value.title);
     }
-    this.announceService.postAnnouncement(announce).subscribe(
-      (res) => {
-        this.showToast('top-right', 'success', 'Announcement Added Successfully');
-        this.location.back();
-      },
-      (err: any) => {
-        this.showToast('top-right', 'danger', err.err.message);
-      },
-    );
+
+    if (this.edit) {
+      announce.append('_id', this.announcementId);
+      this.announceService.editAnnouncement(announce).subscribe(
+        (res) => {
+          this.showToast('top-right', 'success', 'Announcement Edited Successfully');
+          this.location.back();
+        },
+        (err: any) => {
+          this.showToast('top-right', 'danger', err.err.message);
+        },
+      );
+    } else {
+      this.announceService.postAnnouncement(announce).subscribe(
+        (res) => {
+          this.showToast('top-right', 'success', 'Announcement Added Successfully');
+          this.location.back();
+        },
+        (err: any) => {
+          this.showToast('top-right', 'danger', err.err.message);
+        },
+      );
+    }
   }
 
   onDelete(id: any) {
     this.announceService.deleteAnnouncement(id).subscribe(
       (res) => {
         // console.log(res);
-        const i = this.announcement.findIndex((e) => e._id === id);
+        const i = this.announcements.findIndex((e: any) => e._id === id);
         // console.log(i);
         if (i !== -1) {
-          this.announcement.splice(i, 1);
+          this.announcements.splice(i, 1);
           this.showToast('top-right', 'success', 'Announcement Deleted Successfully');
         }
-        this.getAnnouncement(this.routerId);
+        this.getAnnouncements(this.routerId);
       },
       (err) => {
         this.showToast('top-right', 'danger', 'Announcement Deletion Failed');

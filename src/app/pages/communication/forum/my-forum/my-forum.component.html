@@ -9,7 +9,12 @@
         <h3 class="text-white">My Forums</h3>
       </div>
       <div class="col-sm-3">
-        <nb-select placeholder="Select Course" status="basic" fullWidth (selectedChange)="onSelectCourse($event)">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
           <nb-option value="">All</nb-option>
           <nb-option *ngFor="let course of courses" [value]="course._id">{{
             course.name
@@ -19,7 +24,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table class="table table-borderless text-center" *ngIf="myForums; else noForums">
+    <table class="table table-borderless text-center" *ngIf="myForums.length > 0; else noForums">
       <thead>
         <tr>
           <th>Topic</th>
@@ -28,13 +33,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let myforum of myForums;let i = index">
+        <tr *ngFor="let myforum of myForums; let i = index">
           <td>{{ myforum.title }}</td>
           <td>{{ myforum.courseId }}</td>
-          <td>{{myforum.date}}</td>
+          <td>{{ myforum.date }}</td>
           <td class="text-right">
             <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(myforum._id)">Edit</button>
-            <button class="mb-2" nbButton status="danger" (click)="delete(myforum._id,i)">
+            <button class="mb-2" nbButton status="danger" (click)="delete(myforum._id, i)">
               Delete
             </button>
           </td>

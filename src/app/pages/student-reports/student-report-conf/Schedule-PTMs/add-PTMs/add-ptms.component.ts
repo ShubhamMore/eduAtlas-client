@@ -40,7 +40,7 @@ export class AddPTMsComponent implements OnInit {
       batchId: ['', Validators.required],
       date: ['', Validators.required],
       time: ['', Validators.required],
-      topic: ['', Validators.required],
+      topic: [''],
       description: [''],
       instituteId: [this.instituteId],
     });

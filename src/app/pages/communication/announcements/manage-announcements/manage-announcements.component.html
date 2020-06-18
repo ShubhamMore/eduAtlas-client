@@ -31,13 +31,22 @@
                     <span> {{ item.title }}</span>
                   </td>
                   <td>
-                    <a [href]="item.attachment.secure_url" *ngIf="item.attachment">{{
-                      item.attachment.file_name
-                    }}</a
-                    ><span *ngIf="!item.attachment">--</span>
+                    <a
+                      [href]="item.attachment.secure_url"
+                      *ngIf="item.attachment"
+                      target="_blank"
+                      >{{ item.attachment.file_name }}</a
+                    >
+                    <span *ngIf="!item.attachment">--</span>
                   </td>
                   <div>
                     <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">View</button>
+                    <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">
+                      Edit
+                    </button>
+                    <button class="mr-3 mb-2" nbButton status="success" (click)="repeat(item._id)">
+                      Repeat
+                    </button>
                     <button class="mb-2" nbButton status="danger" (click)="onDelete(item._id)">
                       Delete
                     </button>
