@@ -62,29 +62,31 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let day of schedule.days; let i = index">
-                <td>
-                  {{ i + 1 }}
-                </td>
-                <td>
-                  {{ day.day }}
-                </td>
-                <td>
-                  {{ getScheduleDate(day.date) }}
-                </td>
-                <td>
-                  {{ day.startTime ? day.startTime : '--' }}
-                </td>
-                <td>
-                  {{ day.endTime ? day.endTime : '--' }}
-                </td>
-                <td>
-                  {{ day.topic ? day.topic : '--' }}
-                </td>
-                <td>
-                  {{ day.teacher ? day.teacher : '--' }}
-                </td>
-              </tr>
+              <ng-container *ngFor="let day of schedule.days; let i = index">
+                <tr *ngIf="day.select">
+                  <td>
+                    {{ i + 1 }}
+                  </td>
+                  <td>
+                    {{ day.day }}
+                  </td>
+                  <td>
+                    {{ getScheduleDate(day.date) }}
+                  </td>
+                  <td>
+                    {{ day.startTime ? day.startTime : '--' }}
+                  </td>
+                  <td>
+                    {{ day.endTime ? day.endTime : '--' }}
+                  </td>
+                  <td>
+                    {{ day.topic ? day.topic : '--' }}
+                  </td>
+                  <td>
+                    {{ day.teacher ? day.teacher : '--' }}
+                  </td>
+                </tr>
+              </ng-container>
             </tbody>
           </table>
         </div>

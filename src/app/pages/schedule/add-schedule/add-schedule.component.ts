@@ -33,7 +33,7 @@ export class AddScheduleComponent implements OnInit {
   batches: any[] = [];
   teachers: any[] = [];
 
-  days: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  days: string[] = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
 
   date: number;
   noOfDays: number;
@@ -49,7 +49,8 @@ export class AddScheduleComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-    this.date = Date.now();
+    const date = new Date();
+    this.date = date.getTime() - (7 % date.getDay()) * (24 * 60 * 60 * 1000);
     this.schedules = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
 
@@ -83,9 +84,17 @@ export class AddScheduleComponent implements OnInit {
       this.getDate(group.value.scheduleStart).getTime() >
       this.getDate(group.value.scheduleEnd).getTime()
     ) {
-      return { invalidSchedule: true };
+      return { invalidScheduleEndDate: true };
     }
     return null;
+  }
+
+  onDaySelect(event: any, i: any) {
+    if (event) {
+      this.enableDay(i);
+    } else {
+      this.disableDay(i);
+    }
   }
 
   startTimePicked(startTime: any) {
@@ -134,7 +143,7 @@ export class AddScheduleComponent implements OnInit {
         this.scheduleEndTime = this.schedule.days[0].endTime;
         const scheduleDays = this.scheduleForm.get('days') as FormArray;
         scheduleDays.controls = [];
-        this.schedule.days.forEach((day: any) => {
+        this.schedule.days.forEach((day: any, i: number) => {
           const scheduleData = {
             day: day.day,
             date: day.date,
@@ -142,9 +151,14 @@ export class AddScheduleComponent implements OnInit {
             endTime: day.endTime,
             teacher: day.teacher,
             topic: day.topic,
-            select: true,
+            select: day.select,
           };
           this.addScheduleDay(scheduleData);
+          if (day.select) {
+            this.enableDay(i);
+          } else {
+            this.disableDay(i);
+          }
         });
         this.display = true;
       },
@@ -172,6 +186,22 @@ export class AddScheduleComponent implements OnInit {
     scheduleDays.push(this.scheduleDay(scheduleData));
   }
 
+  enableDay(i: number) {
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls[i].get('startTime').enable();
+    scheduleDays.controls[i].get('endTime').enable();
+    scheduleDays.controls[i].get('teacher').enable();
+    scheduleDays.controls[i].get('topic').enable();
+  }
+
+  disableDay(i: number) {
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls[i].get('startTime').disable();
+    scheduleDays.controls[i].get('endTime').disable();
+    scheduleDays.controls[i].get('teacher').disable();
+    scheduleDays.controls[i].get('topic').disable();
+  }
+
   generateSchedule() {
     const scheduleDays = this.scheduleForm.get('days') as FormArray;
     scheduleDays.controls = [];
@@ -190,6 +220,7 @@ export class AddScheduleComponent implements OnInit {
         select: false,
       };
       this.addScheduleDay(scheduleData);
+      this.disableDay(i);
     }
   }
 
@@ -280,6 +311,7 @@ export class AddScheduleComponent implements OnInit {
     this.scheduleService
       .getScheduleByBatch(this.instituteId, this.courseId, this.batchId)
       .subscribe((res: any[]) => {
+        console.log(res);
         this.schedules = res;
       });
   }
@@ -305,7 +337,7 @@ export class AddScheduleComponent implements OnInit {
     this.scheduleEndTime = this.schedule.days[0].endTime;
     const scheduleDays = this.scheduleForm.get('days') as FormArray;
     scheduleDays.controls = [];
-    this.schedule.days.forEach((day: any) => {
+    this.schedule.days.forEach((day: any, i: number) => {
       const scheduleData = {
         day: day.day,
         date: day.date,
@@ -313,10 +345,38 @@ export class AddScheduleComponent implements OnInit {
         endTime: day.endTime,
         teacher: day.teacher,
         topic: day.topic,
-        select: true,
+        select: day.select,
       };
       this.addScheduleDay(scheduleData);
+      if (day.select) {
+        this.enableDay(i);
+      } else {
+        this.disableDay(i);
+      }
     });
+  }
+
+  addAnotherClass(i: number) {
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    const day: any = scheduleDays.controls[i].value;
+    console.log(day);
+    const scheduleData: any = {
+      day: day.day,
+      date: day.date,
+      startTime: '',
+      endTime: '',
+      teacher: '',
+      topic: '',
+      select: false,
+    };
+    const schedule = this.scheduleDay(scheduleData);
+    scheduleDays.controls.splice(i, 0, schedule);
+    this.disableDay(i);
+  }
+
+  removeClass(i: number) {
+    const scheduleDays = this.scheduleForm.get('days') as FormArray;
+    scheduleDays.controls.splice(i, 1);
   }
 
   onSubmit() {
@@ -327,9 +387,7 @@ export class AddScheduleComponent implements OnInit {
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
       this.scheduleForm.value.days.forEach((day: any) => {
-        if (day.select) {
-          days.push(day);
-        }
+        days.push(day);
       });
       schedule.days = days;
       this.scheduleService.addSchedule(schedule).subscribe(
@@ -351,9 +409,7 @@ export class AddScheduleComponent implements OnInit {
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
       this.scheduleForm.value.days.forEach((day: any) => {
-        if (day.select) {
-          days.push(day);
-        }
+        days.push(day);
       });
       schedule.days = days;
 

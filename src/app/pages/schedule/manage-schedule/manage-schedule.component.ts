@@ -19,6 +19,20 @@ export class ManageScheduleComponent implements OnInit {
   batches: any[] = [];
   schedules: any = [];
 
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
   display: boolean;
   constructor(
     private router: Router,
@@ -43,6 +57,27 @@ export class ManageScheduleComponent implements OnInit {
     });
   }
 
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
+  }
+
+  time(time: any) {
+    const hour = +time.split(':')[0];
+    const min = time.split(':')[1];
+    let t = '';
+    if (hour >= 12) {
+      t = (hour - 12).toString() + ':' + min + ' PM';
+    } else {
+      t = hour.toString() + ':' + min + ' AM';
+    }
+    return t;
+  }
+
   onSelectCourse(id: string) {
     this.courseId = id;
     if (id === 'all') {
@@ -50,6 +85,7 @@ export class ManageScheduleComponent implements OnInit {
     } else {
       this.batchId = 'all';
       this.batches = this.institute.batch.filter((b: any) => b.course === id);
+      this.onSelectBatch(this.batchId);
     }
   }
 

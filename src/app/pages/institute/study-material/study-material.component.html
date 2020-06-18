@@ -1,0 +1,48 @@
+<nb-card>
+  <nb-card-header>
+    <h4>ADD STUDY MATERIAL</h4>
+  </nb-card-header>
+  <nb-card-body> </nb-card-body>
+</nb-card>
+
+<nb-card>
+  <nb-card-header>
+    <h4>STUDY MATERIAL</h4>
+  </nb-card-header>
+  <nb-card-body>
+    <div class="table-responsive" *ngIf="materials.length > 0; else noMaterial">
+      <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>TITLE</th>
+            <th>CATEGORY</th>
+            <th>FILE/LINK</th>
+            <th>SHARED WITH</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let material of materials; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ material.title }}</td>
+            <td>{{ material.category }}</td>
+            <td>{{ material.file }}</td>
+            <td>{{ material.batches.join(',') }}</td>
+            <td>
+              <button class="btn mr-3 mb-2 btn-yellow" nbButton (click)="editMaterial(i)">
+                EDIT
+              </button>
+              <button class="btn mb-2" nbButton status="danger" (click)="deleteMaterial(i)">
+                DELETE
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ng-template #noMaterial>
+      <p class="test-center pt-5 pb-5">No Study Material Available</p>
+    </ng-template>
+  </nb-card-body>
+</nb-card>

@@ -793,12 +793,12 @@ export class AddStudentsComponent implements OnInit {
       this.studentForm.value.courseDetails.batch = '';
     }
 
-    this.feeDetailsForm.markAllAsTouched();
-    if (this.feeDetailsForm.invalid) {
-      // If Form is invalid then return
-      this.showToaster('top-right', 'warning', 'Please Fill all Fee Details Correctly');
-      return;
-    }
+    // this.feeDetailsForm.markAllAsTouched();
+    // if (this.feeDetailsForm.invalid) {
+    //   // If Form is invalid then return
+    //   this.showToaster('top-right', 'warning', 'Please Fill all Fee Details Correctly');
+    //   return;
+    // }
 
     // In editing Mode
     if (this.edit === 'true') {
