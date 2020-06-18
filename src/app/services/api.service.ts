@@ -1232,4 +1232,52 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
+  /********************** STUDY MATERIAL ********************* */
+  editStudyMaterial(StudyMaterial: any) {
+    return this.http
+      .post(`${environment.server}/institute/studyMaterial/editStudyMaterial`, StudyMaterial)
+      .pipe(
+        tap((response) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
+  addStudyMaterial(StudyMaterial: any) {
+    return this.http
+      .post(`${environment.server}/institute/studyMaterial/addStudyMaterial`, StudyMaterial)
+      .pipe(
+        tap((response) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
+  getStudyMaterials(data: any) {
+    return this.http
+      .post(`${environment.server}/institute/studyMaterial/getStudyMaterial`, data)
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
+  getSingleStudyMaterial(id: any) {
+    return this.http
+      .post(`${environment.server}/institute/studyMaterial/getSingleStudyMaterial`, {
+        id,
+      })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
+  deleteStudyMaterial(id: any) {
+    return this.http
+      .post<any>(`${environment.server}/institute/studyMaterial/deleteStudyMaterial`, { _id: id })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
 }

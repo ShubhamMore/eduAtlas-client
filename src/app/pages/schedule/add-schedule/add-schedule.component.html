@@ -112,41 +112,6 @@
             <small>*Select Valid End Date</small>
           </div>
         </div>
-
-        <!-- <div class="col-sm-3">
-          <label for="scheduleStartTime">Schedule Start Time</label>
-          <input
-            type="time"
-            nbInput
-            id="scheduleStartTime"
-            status="basic"
-            [value]="scheduleStartTime"
-            fullWidth
-            placeholder="scheduleStartTime"
-            (input)="startTimePicked($event.target.value)"
-          />
-        </div>
-
-        <div class="col-sm-3">
-          <label for="scheduleEndTime">Schedule End Time</label>
-          <input
-            type="time"
-            nbInput
-            id="scheduleEndTime"
-            status="basic"
-            [value]="scheduleEndTime"
-            fullWidth
-            placeholder="End Time"
-            (input)="endTimePicked($event.target.value)"
-          />
-          <div
-            *ngIf="
-              scheduleForm.get('scheduleEnd').invalid && scheduleForm.get('scheduleEnd').touched
-            "
-          >
-            <small>*This field is required</small>
-          </div>
-        </div> -->
       </div>
 
       <hr />
@@ -193,7 +158,7 @@
                         <td>{{ day.startTime }}</td>
                         <td>{{ day.endTime }}</td>
                         <td>{{ day.topic }}</td>
-                        <td>{{ day.teacherName }}</td>
+                        <td>{{ schedule.teacherData[j].teacherName }}</td>
                       </tr>
                     </ng-container>
                   </tbody>
@@ -202,48 +167,6 @@
             </nb-accordion-item-body>
           </nb-accordion-item>
         </nb-accordion>
-        <!-- <nb-card *ngFor="let schedule of schedules; let i = index">
-          <nb-card-header>
-            <button
-              class="btn btn-sm btn-yellow-black float-right"
-              (click)="useRecurrenceSchedule(i)"
-            >
-              Use This
-            </button>
-            <p>
-              Schedule From {{ getScheduleDate(schedule.scheduleStart) }} to
-              {{ getScheduleDate(schedule.endDate) }}
-            </p>
-          </nb-card-header>
-          <nb-card-body>
-            <div class="table-responsive">
-              <table class="table table-borderless">
-                <thead>
-                  <tr>
-                    <th>DAY</th>
-                    <th>DATE</th>
-                    <th>FROM TIME</th>
-                    <th>TO TIME</th>
-                    <th>TOPIC</th>
-                    <th>TEACHER</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <ng-container *ngFor="let day of schedule.days; let j = index">
-                    <tr *ngIf="day.select">
-                      <td>{{ day.day }}</td>
-                      <td>{{ getScheduleDate(day.date) }}</td>
-                      <td>{{ day.startTime }}</td>
-                      <td>{{ day.endTime }}</td>
-                      <td>{{ day.topic }}</td>
-                      <td>{{ day.teacherName }}</td>
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
-            </div>
-          </nb-card-body>
-        </nb-card> -->
         <hr />
       </div>
 

@@ -3,8 +3,6 @@ import { ApiService } from './../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
-import { HttpParams } from '@angular/common/http';
-import { runInThisContext } from 'vm';
 
 @Component({
   selector: 'ngx-manage-schedule',
@@ -17,7 +15,7 @@ export class ManageScheduleComponent implements OnInit {
   batchId: string;
   courseId: string;
   batches: any[] = [];
-  schedules: any = [];
+  schedules: any[] = [];
 
   months: string[] = [
     'JAN',
@@ -103,6 +101,7 @@ export class ManageScheduleComponent implements OnInit {
 
   getSchedules(data: any) {
     this.scheduleService.getScheduleByInstitute(data).subscribe((res: any) => {
+      console.log(res);
       this.schedules = res;
     });
   }
