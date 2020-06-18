@@ -18,13 +18,27 @@ export class AddAttendanceComponent implements OnInit {
   availableBatches: any[];
   students: any[];
   attendance: any[];
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
 
   constructor(
     private api: ApiService,
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.date = Date.now();
@@ -143,5 +157,13 @@ export class AddAttendanceComponent implements OnInit {
       },
       (err) => this.showToaster('top-right', 'danger', err.error.message),
     );
+  }
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
   }
 }

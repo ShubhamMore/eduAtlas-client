@@ -45,7 +45,7 @@ export class AddScheduleComponent implements OnInit {
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
     private location: Location,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
@@ -137,8 +137,8 @@ export class AddScheduleComponent implements OnInit {
         this.onSelectCourse(this.schedule.courseId);
         this.scheduleForm.patchValue({ batchId: this.schedule.batchId });
 
-        this.scheduleForm.get('scheduleStart').disable();
-        this.scheduleForm.get('scheduleEnd').disable();
+        // this.scheduleForm.get('scheduleStart').disable();
+        // this.scheduleForm.get('scheduleEnd').disable();
         this.scheduleStartTime = this.schedule.days[0].startTime;
         this.scheduleEndTime = this.schedule.days[0].endTime;
         const scheduleDays = this.scheduleForm.get('days') as FormArray;

@@ -14,12 +14,7 @@
         <h4>SCHEDULE CLASS</h4>
       </div>
       <div class="col-sm-3">
-        <nb-select
-          placeholder="Select Course"
-          status="basic"
-          fullWidth
-          (selectedChange)="onSelectCourse($event)"
-        >
+        <nb-select placeholder="Select Course" status="basic" fullWidth (selectedChange)="onSelectCourse($event)">
           <nb-option value="all">All</nb-option>
           <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
             course.name
@@ -28,12 +23,7 @@
       </div>
 
       <div class="col-sm-3">
-        <nb-select
-          placeholder="Select Batch"
-          fullWidth
-          status="basic"
-          (selectedChange)="onSelectBatch($event)"
-        >
+        <nb-select placeholder="Select Batch" fullWidth status="basic" (selectedChange)="onSelectBatch($event)">
           <nb-option value="all">All</nb-option>
           <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
             batch.batchCode
@@ -48,28 +38,13 @@
         <nb-accordion-item-header style="width: 100%;">
           <div class="row" style="width: 100%;">
             <div class="col-12 pt-2">
-              <button
-                class="float-right"
-                nbButton
-                status="danger"
-                (click)="deleteSchedule(schedule._id)"
-              >
+              <button class="float-right" nbButton status="danger" (click)="deleteSchedule(schedule._id)">
                 Delete
               </button>
-              <button
-                class="mr-3 btn-yellow float-right"
-                nbButton
-                status=""
-                (click)="editSchedule(schedule._id)"
-              >
+              <button class="mr-3 btn-yellow float-right" nbButton status="" (click)="editSchedule(schedule._id)">
                 Edit
               </button>
-              <button
-                class="mr-3 float-right"
-                nbButton
-                status="primary"
-                (click)="viewSchedule(schedule._id)"
-              >
+              <button class="mr-3 float-right" nbButton status="primary" (click)="viewSchedule(schedule._id)">
                 View
               </button>
               <p class="">
