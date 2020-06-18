@@ -1,6 +1,6 @@
 <nb-card>
   <nb-card-header>
-    <p style="color: black; font-weight: bold;">Add Student Here</p>
+    <p style="color: black; font-weight: bold;">{{ edit ? 'Edit' : 'Add' }} Student Here</p>
   </nb-card-header>
   <nb-card-body>
     <nb-checkbox
@@ -150,9 +150,11 @@
             <label for="p-contact">Parent Contact</label>
             <input
               type="text"
+              pattern="\d*"
               nbInput
               status="basic"
               maxlength="10"
+              minlength="10"
               id="p-contact"
               formControlName="parentContact"
               fullWidth
@@ -216,6 +218,13 @@
             <nb-option value="">Select Course</nb-option>
             <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
           </nb-select>
+          <small
+            *ngIf="
+              studentForm.get('courseDetails').get('course').invalid &&
+              studentForm.get('courseDetails').get('course').touched
+            "
+            >*Select Course.</small
+          >
         </div>
 
         <div class="col-sm-3">
@@ -246,6 +255,13 @@
               fullWidth
               placeholder="Roll Number"
             />
+            <small
+              *ngIf="
+                studentForm.get('courseDetails').get('rollNo').invalid &&
+                studentForm.get('courseDetails').get('rollNo').touched
+              "
+              >*Roll Number id Required.</small
+            >
             <!-- <small *ngIf="f.rollNo.errors && f.rollNo.touched">*Student Roll no. is required</small> -->
           </div>
         </div>
@@ -302,6 +318,13 @@
             placeholder="Additional Discount"
             (input)="calculateNetPayableAmount()"
           />
+          <small
+            *ngIf="
+              studentForm.get('courseDetails').hasError('invalidDiscount') &&
+              studentForm.get('courseDetails').get('additionalDiscount').touched
+            "
+            >*Discount not greater than 100%.</small
+          >
         </div>
 
         <div class="col-sm-3">
@@ -444,7 +467,14 @@
                 "
               >
                 <nb-card [formGroupName]="i">
-                  <nb-card-header class="bg-light text-dark">
+                  <nb-card-header
+                    class="text-white"
+                    [ngClass]="
+                      feeDetailsForm.get('installments')['controls'][i].value.paidStatus
+                        ? 'bg-success'
+                        : 'bg-danger'
+                    "
+                  >
                     <div class="row">
                       <div class="col-md-8">
                         <nb-checkbox

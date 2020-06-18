@@ -247,7 +247,7 @@ export class AddInstituteComponent implements OnInit {
       (data) => {
         if (data.instituteId) {
           this.instituteId = data.instituteId;
-          this.showToast('top-right', 'success', 'Institute Added Successfully, Make Your Payment');
+          // this.showToast('top-right', 'success', 'Institute Added Successfully, Make Your Payment');
           this.paymentDetails = this.paymentService.getPaymentDetails();
           const orderDetails = {
             userId: this.user._id,

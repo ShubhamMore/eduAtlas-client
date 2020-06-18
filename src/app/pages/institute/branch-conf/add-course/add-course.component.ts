@@ -43,7 +43,7 @@ export class AddCourseComponent implements OnInit {
     this.course = this.fb.group({
       name: ['', Validators.required],
       courseCode: ['', Validators.required],
-      fees: [''],
+      fees: ['', Validators.required],
       duration: ['', Validators.required],
       gst: [''],
       gstValue: [''],
@@ -120,8 +120,18 @@ export class AddCourseComponent implements OnInit {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('courseId', this.courseId);
-      const course = this.course.value;
-      course._id = this.courseId;
+
+      const course = {
+        _id: this.courseId,
+        name: this.course.value.name,
+        courseCode: this.course.value.courseCode.trim(),
+        fees: this.course.value.fees,
+        duration: this.course.value.duration,
+        gst: this.course.value.gst,
+        gstValue: this.course.value.gstValue,
+        discription: this.course.value.discription,
+        totalFee: this.course.value.totalFee,
+      };
       this.api.updateCourse(param, course).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Course Updated');
@@ -139,7 +149,17 @@ export class AddCourseComponent implements OnInit {
     }
 
     if (!this.edit) {
-      this.api.addCourse(this.instituteId, this.course.value).subscribe(
+      const course = {
+        name: this.course.value.name,
+        courseCode: this.course.value.courseCode.trim(),
+        fees: this.course.value.fees,
+        duration: this.course.value.duration,
+        gst: this.course.value.gst,
+        gstValue: this.course.value.gstValue,
+        discription: this.course.value.discription,
+        totalFee: this.course.value.totalFee,
+      };
+      this.api.addCourse(this.instituteId, course).subscribe(
         (data) => {
           this.showToast('top-right', 'success', 'Course Added Successfully');
           setTimeout(() => {

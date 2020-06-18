@@ -97,7 +97,14 @@ export class DiscountComponent implements OnInit {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('discountId', this.discountId);
-      this.api.updateDiscount(param, this.discountForm.value).subscribe(
+      const discount = {
+        _id: this.discountId,
+        discountCode: this.discountForm.value.discountCode.trim(),
+        description: this.discountForm.value.description,
+        amount: this.discountForm.value.amount.trim(),
+        discountType: this.discountForm.value.discountType,
+      };
+      this.api.updateDiscount(param, discount).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Discount Updated');
           setTimeout(() => {
@@ -112,7 +119,13 @@ export class DiscountComponent implements OnInit {
         },
       );
     } else {
-      this.api.addDiscount(this.instituteId, this.discountForm.value).subscribe(
+      const discount = {
+        discountCode: this.discountForm.value.discountCode.trim(),
+        description: this.discountForm.value.description,
+        amount: this.discountForm.value.amount.trim(),
+        discountType: this.discountForm.value.discountType,
+      };
+      this.api.addDiscount(this.instituteId, discount).subscribe(
         (data) => {
           this.showToast('top-right', 'success', 'Discount Added Successfully');
           setTimeout(() => {

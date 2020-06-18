@@ -30,18 +30,21 @@ export class ManageCourseComponent implements OnInit {
   }
 
   delete(id: any) {
-    let param = new HttpParams();
-    param = param.append('instituteId', this.instituteId);
-    param = param.append('courseId', id);
-    this.api.deleteCourse(param).subscribe(
-      (res) => {
-        const i = this.courses.findIndex((e) => e._id === id);
-        if (i !== -1) {
-          this.courses.splice(i, 1);
-        }
-      },
-      (error) => console.error(error),
-    );
+    const confirm = window.confirm('Are u sure, you want to Delete This Course?');
+    if (confirm) {
+      let param = new HttpParams();
+      param = param.append('instituteId', this.instituteId);
+      param = param.append('courseId', id);
+      this.api.deleteCourse(param).subscribe(
+        (res) => {
+          const i = this.courses.findIndex((e) => e._id === id);
+          if (i !== -1) {
+            this.courses.splice(i, 1);
+          }
+        },
+        (error) => console.error(error),
+      );
+    }
   }
 
   edit(id: string) {
