@@ -9,6 +9,12 @@ import { MENU_ITEMS } from '../../pages/pages-menu';
   providedIn: 'root',
 })
 export class RoleAssignService {
+  role: any;
+
+  getRole() {
+    return this.role;
+  }
+
   constructor(private http: HttpClient) {}
 
   addRole(role: any) {
@@ -38,6 +44,7 @@ export class RoleAssignService {
 
   assignRoles(role: string) {
     if (role && role === 'Counselor') {
+      this.role = role;
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -57,6 +64,7 @@ export class RoleAssignService {
       MENU_ITEMS[14].hidden = false;
     }
     if (role && role === 'Teacher') {
+      this.role = role;
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -76,6 +84,7 @@ export class RoleAssignService {
       MENU_ITEMS[14].hidden = true;
     }
     if (role && role === 'institute') {
+      this.role = role;
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;
@@ -97,6 +106,7 @@ export class RoleAssignService {
       MENU_ITEMS[13].children[2].hidden = false;
       MENU_ITEMS[14].hidden = false;
     } else if (role && role === 'Manager') {
+      this.role = role;
       MENU_ITEMS[1].hidden = true;
       MENU_ITEMS[2].hidden = false;
       MENU_ITEMS[3].hidden = false;

@@ -22,7 +22,7 @@ export class ForumDetailsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-    private authService: AuthService,
+    public authService: AuthService,
   ) {}
   ngOnInit(): void {
     this.instituteId = this.route.snapshot.paramMap.get('id');

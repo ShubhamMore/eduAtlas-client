@@ -38,7 +38,7 @@ export class ECommerceComponent implements OnInit {
 
   totalStudents: any = 0;
   totalBatches: any = 0;
-
+  role: any;
   study = [];
   constructor(
     private api: ApiService,
@@ -57,7 +57,6 @@ export class ECommerceComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-
     this.instituteId = this.active.snapshot.paramMap.get('id');
 
     MENU_ITEMS[11].link = '/pages/institute/manage-schedule/' + this.instituteId;
@@ -116,6 +115,8 @@ export class ECommerceComponent implements OnInit {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
       this.roleService.assignRoles(this.authService.getUser().role);
+      this.role = this.roleService.getRole();
+      console.log(this.role);
       this.display = true;
     });
   }

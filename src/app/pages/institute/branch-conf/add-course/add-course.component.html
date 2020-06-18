@@ -42,13 +42,14 @@
             type="text"
             nbInput
             fullWidth
-            status="basic"
+            [status]="f.fees.errors && submitted ? 'danger' : 'basic'"
             #fees
             (keyup)="courseFee(fees.value)"
             id="fees"
             formControlName="fees"
             placeholder="Course Fees"
           />
+          <small *ngIf="f.fees.errors && submitted">*Course Fees is required</small>
         </div>
       </div>
       <hr />

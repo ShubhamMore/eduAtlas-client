@@ -42,7 +42,7 @@ export class ManageDiscountComponent implements OnInit {
   }
 
   delete(id: string) {
-    const confirm = window.prompt('Are u sure, you want to Delete This Discount?');
+    const confirm = window.confirm('Are u sure, you want to Delete This Discount?');
     if (confirm) {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);

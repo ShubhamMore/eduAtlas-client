@@ -87,21 +87,31 @@ export class AddBatchesComponent implements OnInit {
       let param = new HttpParams();
       param = param.append('instituteId', this.instituteId);
       param = param.append('batchId', this.batchId);
-      const batch = this.batchForm.value;
-      batch._id = this.batchId;
+
+      const batch = {
+        _id: this.batchId,
+        course: this.batchForm.value.course,
+        batchCode: this.batchForm.value.batchCode.trim(),
+        description: this.batchForm.value.description,
+      };
       this.api.updateBatch(param, batch).subscribe(
-        (res) => {
+        (res: any) => {
           this.showToast('top-right', 'success', 'Successfully Updated');
           this.router.navigate(['/pages/institute/branch-config/manage-batch/', this.instituteId]);
         },
-        (error) => {
+        (error: any) => {
           this.showToast('top-right', 'danger', error.error.message);
         },
       );
     }
 
     if (!this.edit) {
-      this.api.addBatch(this.instituteId, this.batchForm.value).subscribe(
+      const batch = {
+        course: this.batchForm.value.course,
+        batchCode: this.batchForm.value.batchCode.trim(),
+        description: this.batchForm.value.description,
+      };
+      this.api.addBatch(this.instituteId, batch).subscribe(
         () => {
           this.showToast('top-right', 'success', 'Successfully Added');
           setTimeout(() => {

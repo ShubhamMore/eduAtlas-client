@@ -59,11 +59,12 @@ export class SignUpComponent implements OnInit {
   }
 
   onSignUp() {
+    this.signUpForm.markAllAsTouched();
     if (this.signUpForm.invalid) {
-      this.showToast('top-right', 'warning', 'Insufficient Data, Please fill all Fields Correctly');
+      this.showToast('top-right', 'danger', 'Insufficient Data, Please fill all Fields Correctly');
       return;
     } else if (!this.tnc) {
-      this.showToast('top-right', 'warning', 'Accept Terms and Conditions');
+      this.showToast('top-right', 'danger', 'Accept Terms and Conditions');
       return;
     }
 

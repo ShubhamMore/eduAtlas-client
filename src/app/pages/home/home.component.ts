@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   display: boolean;
 
   institutes: any[] = [];
-
+  role: any;
   students: any[] = [];
   studentReq: any[] = [];
 
@@ -67,7 +67,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.showAddInstituteBtn = true;
       this.api.getInstitutes().subscribe((data: any) => {
         this.institutes = data;
-        console.log(this.institutes);
 
         if (this.institutes.length > 0) {
           MENU_ITEMS[1].children[1].hidden = false;
@@ -81,7 +80,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
         MENU_ITEMS[1].hidden = true;
         this.institutes = data;
-        console.log(data);
         if (this.institutes.length > 0) {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
@@ -94,7 +92,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/pages/membership']);
   }
 
-  viewInstitute(id: string, name: string) {
+  viewInstitute(id: string, name?: string) {
     const role = this.getEmployeeRole(id);
     this.roleService.assignRoles(role);
     this.router.navigate(['/pages/dashboard', id]);

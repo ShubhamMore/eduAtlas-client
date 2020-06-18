@@ -69,7 +69,10 @@
                 <p class="text-center pt-5">No Classes Today</p>
               </ng-template>
             </nb-tab>
-            <nb-tab tabTitle="PENDING FEES">
+            <nb-tab
+              tabTitle="PENDING FEES"
+              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+            >
               <div class="table-responsive" *ngIf="pendingFees.length > 0; else noFees">
                 <table class="table table-borderless">
                   <thead>
@@ -94,7 +97,10 @@
                 <p class="text-center pt-5">No Pending Fees</p>
               </ng-template>
             </nb-tab>
-            <nb-tab tabTitle="STUDENT REQUESTS">
+            <nb-tab
+              tabTitle="STUDENT REQUESTS"
+              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+            >
               <div class="table-responsive" *ngIf="studentRequest.length > 0; else noStudents">
                 <table class="table table-borderless">
                   <thead>
@@ -117,7 +123,10 @@
                 <p class="text-center pt-5">No Student Requests</p>
               </ng-template>
             </nb-tab>
-            <nb-tab tabTitle="FOLLOW UPS">
+            <nb-tab
+              tabTitle="FOLLOW UPS"
+              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+            >
               <div class="table-responsive" *ngIf="newLeads.length > 0; else noLeads">
                 <table class="table table-borderless">
                   <thead>
@@ -149,7 +158,10 @@
 
     <div class="col-md-6">
       <div class="row">
-        <div class="col-md-6">
+        <div
+          class="col-md-6"
+          *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+        >
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
@@ -166,7 +178,10 @@
           </nb-card>
         </div>
 
-        <div class="col-md-6">
+        <div
+          class="col-md-6"
+          *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+        >
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">

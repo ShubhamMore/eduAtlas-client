@@ -17,10 +17,10 @@
     <hr />
     <div class="row">
       <div class="col-md-3">
-        <label>Crated By :</label><span> {{ forumCommentData.createdByName }}</span>
+        <label>Created By :</label><span> {{ forumCommentData.createdByName }}</span>
       </div>
       <div class="col-md-3">
-        <label>Crated at :</label><span> {{ getFormattedDateTime(forumCommentData.date) }}</span>
+        <label>Created at :</label><span> {{ getFormattedDateTime(forumCommentData.date) }}</span>
       </div>
       <div class="col-md-3" *ngIf="forumCommentData.courseName">
         <label>Course Name : </label><span> {{ forumCommentData.courseName }}</span>

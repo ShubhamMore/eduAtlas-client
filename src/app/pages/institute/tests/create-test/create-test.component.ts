@@ -97,11 +97,11 @@ export class CreateTestComponent implements OnInit {
       if (!this.edit) {
         this.api.addTest(this.createTestForm.value).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Test Added Successfully');
+            this.showToast('top-right', 'success', 'Test Added Successfully');
             this.location.back();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       } else {
@@ -109,11 +109,11 @@ export class CreateTestComponent implements OnInit {
         test._id = this.test._id;
         this.api.updateTest(test).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Test Updated Successfully');
+            this.showToast('top-right', 'success', 'Test Updated Successfully');
             this.location.back();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       }

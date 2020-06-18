@@ -757,7 +757,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  updateBatch(params: any, batch: batchData) {
+  updateBatch(params: any, batch: any) {
     return this.http
       .patch(environment.server + '/institute/course/batch/', batch, {
         params: params,
