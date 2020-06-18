@@ -828,6 +828,8 @@ export class AddStudentsComponent implements OnInit {
           )
           .subscribe(
             (res) => {
+              console.log(this.student);
+              console.log(this.feesUpdated);
               if (this.feesUpdated) {
                 this.updateFees(this.student._id, this.studentFees._id);
               } else {
