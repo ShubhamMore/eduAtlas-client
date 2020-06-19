@@ -81,7 +81,9 @@ export class SignUpComponent implements OnInit {
         if (res.success) {
           this.authService.signUp(user).subscribe(
             (signUpRes: any) => {
-              this.router.navigate(['/otp'], { queryParams: { phone: user.phone } });
+              this.router.navigate(['/otp'], {
+                queryParams: { phone: user.phone, email: user.email },
+              });
             },
             (err: any) => {
               this.showToast('top-right', 'danger', 'This Email or Phone already exist');
