@@ -33,13 +33,8 @@
 
     <div class="row mb-2">
       <div class="col-12">
-        <nb-checkbox
-          (checkedChange)="changeFieUpload($event)"
-          [(ngModel)]="fileUpload"
-          fullWidth
-          status="basic"
-          >Upload Test File</nb-checkbox
-        >
+        <nb-checkbox (checkedChange)="changeFieUpload($event)" [(ngModel)]="fileUpload" fullWidth status="basic">Upload
+          Test File</nb-checkbox>
         <a class="ml-3" [href]="sampleExcel" *ngIf="fileUpload">Sample File</a>
       </div>
     </div>
@@ -61,15 +56,8 @@
                     <td>{{ student.rollNo }}</td>
 
                     <td>
-                      <input
-                        type="number"
-                        nbInput
-                        pattern="\d*"
-                        maxlength="3"
-                        [id]="student.studentId"
-                        [value]="student.marks"
-                        (input)="addMarks($event, i)"
-                      />
+                      <input type="number" nbInput pattern="\d*" maxlength="3" [id]="student.studentId"
+                        [value]="student.marks" (input)="addMarks($event, i)" />
                     </td>
                   </tr>
                 </ng-container>
@@ -83,17 +71,8 @@
       </ng-template>
     </div>
     <div *ngIf="fileUpload">
-      <input
-        type="file"
-        nbInput
-        status="basic"
-        fullWidth
-        id="score"
-        (change)="onFilePicked($event)"
-      />
-      <span style="color: #f00;" *ngIf="invalidFile"
-        >*File format must be *.xsl, *.xlsx, *.csv</span
-      >
+      <input type="file" nbInput status="basic" fullWidth id="score" (change)="onFilePicked($event)" />
+      <span style="color: #f00;" *ngIf="invalidFile">*File format must be *.xsl, *.xlsx, *.csv</span>
       <p *ngIf="file && !invalidFile">{{ file.name }}</p>
     </div>
     <div class="row">

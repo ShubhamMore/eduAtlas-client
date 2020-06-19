@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { AttributeMarker } from '@angular/compiler/src/core';
 import { AttendanceService } from '../../../../services/attendance.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'ngx-add-attendance',
@@ -22,7 +23,11 @@ export class AddAttendanceComponent implements OnInit {
   attendanceBasicDetail: any;
   students: any[];
   attendance: any[];
+  edit: string;
+  invalidFile: boolean = false;
+  file: File;
   markAllCheckBox: boolean = true;
+  sampleExcel: any;
   months: string[] = [
     'JAN',
     'FEB',
@@ -43,7 +48,8 @@ export class AddAttendanceComponent implements OnInit {
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-    private attendanceService: AttendanceService
+    private attendanceService: AttendanceService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -53,15 +59,71 @@ export class AddAttendanceComponent implements OnInit {
     this.students = [];
     this.availableBatches = [];
     this.attendance = [];
+    this.sampleExcel = environment.server + '/sample/attendance.xlsx';
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((param: Params) => {
       var courseId = param.courseId;
       var batchId = param.batchId;
-
+      this.edit = param.edit;
       this.attendanceBasicDetail = this.attendanceService.getAttendanceData();
-      this.getStudentsByBatch(courseId, batchId);
+      if (!this.edit) {
+        this.getStudentsByBatch(courseId, batchId);
+      } else {
+        this.getAttendance();
+      }
     });
 
+  }
+  onFilePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+
+    const imgExt: string[] = ['xsl', 'xlsx', 'csv'];
+    const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+    if (!(imgExt.indexOf(ext) !== -1)) {
+      this.invalidFile = true;
+      return;
+    }
+    this.invalidFile = false;
+    this.file = file;
+
+    const fetchAttendanceFile = new FormData();
+    fetchAttendanceFile.append('scheduleId', this.attendanceBasicDetail._id);
+    fetchAttendanceFile.append('lectureId', this.attendanceBasicDetail.days._id);
+    fetchAttendanceFile.append('date', this.attendanceBasicDetail.days.date);
+    fetchAttendanceFile.append('courseId', this.attendanceBasicDetail.courseId);
+    fetchAttendanceFile.append('batchId', this.attendanceBasicDetail.batchId);
+    fetchAttendanceFile.append('instituteId', this.instituteId);
+    fetchAttendanceFile.append('uploadfile', this.file, this.file.name);
+
+    this.api.attendanceByFile(fetchAttendanceFile).subscribe(
+      (res: any) => {
+        this.showToaster('top-right', 'success', 'Attendance Fetched Succesfully');
+        if (res) {
+          this.attendance = res;
+        }
+      },
+      (err) => {
+        this.showToaster(
+          'top-right',
+          'danger',
+          err.error.message,
+        );
+      },
+    );
+  }
+  getAttendance() {
+    var req = {
+      'date': this.attendanceBasicDetail.days.date,
+      'instituteId': this.instituteId,
+      'courseId': this.attendanceBasicDetail.courseId,
+      'batchId': this.attendanceBasicDetail.batchId
+    }
+
+    this.api.getAttendanceByDate(req).subscribe((res: any) => {
+      if (res) {
+        this.attendance = res;
+      }
+    })
   }
 
   getStudentsByBatch(courseId, batchId) {
@@ -122,11 +184,21 @@ export class AddAttendanceComponent implements OnInit {
       'instituteId': this.instituteId,
       'attendance': this.attendance
     }
-    this.api.addAttendance(request).subscribe((res) => {
-      this.showToaster('top-right', 'success', 'Attendance Added Successfully!')
-    }, (err) => {
-      this.showToaster('top-right', 'danger', err.error.message);
-    })
+    if (!this.edit) {
+      this.api.addAttendance(request).subscribe((res) => {
+        this.showToaster('top-right', 'success', 'Attendance Added Successfully!')
+        this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
+      }, (err) => {
+        this.showToaster('top-right', 'danger', err.error.message);
+      })
+    } else {
+      this.api.addAttendance(request).subscribe((res) => {
+        this.showToaster('top-right', 'success', 'Attendance Updated Successfully!')
+        this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
+      }, (err) => {
+        this.showToaster('top-right', 'danger', err.error.message);
+      })
+    }
   }
   showToaster(position: any, status: any, message: any) {
     this.toasterService.show(status, message, {

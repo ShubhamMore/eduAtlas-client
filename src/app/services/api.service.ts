@@ -889,6 +889,21 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  getAttendanceByDate(attendanceRequest: any) {
+    const url = `${environment.server}/institute/attendance/getAttendanceByDate`;
+    return this.http.post(url, attendanceRequest).pipe(
+      tap((data) => { }),
+      catchError(this.handleError),
+    );
+  }
+  attendanceByFile(attendanceRequest: any) {
+    const url = `${environment.server}/institute/attendance/attendanceByFile`;
+    return this.http.post(url, attendanceRequest).pipe(
+      tap((data) => { }),
+      catchError(this.handleError),
+    );
+  }
+
 
   // =====================Online Classes API===================
 

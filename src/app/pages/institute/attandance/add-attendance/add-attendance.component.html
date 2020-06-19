@@ -1,81 +1,10 @@
-<!-- <nb-card>
-  <nb-card-header>
-    <p style="font-weight: bold;">Add Attendance</p>
-  </nb-card-header>
-  <nb-card-body>
-    <form [formGroup]="attandanceform" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="col-sm-6">
-          <nb-select placeholder="Select Course" formControlName="courseId" (selectedChange)="onSelectCourse($event)"
-            state="basic" fullWidth>
-            <nb-option *ngFor="let course of courses" value="{{ course.id }}">{{
-              course.name
-            }}</nb-option>
-          </nb-select>
-        </div>
-        <div class="col-sm-6">
-          <nb-select formControlName="batchId" placeholder="Select Batch" (selectedChange)="onSelectBatch()"
-            state="basic" fullWidth>
-            <nb-option *ngFor="let batch of availableBatches" value="{{ batch._id }}">{{
-              batch.batchCode
-            }}</nb-option>
-          </nb-select>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-sm-6">
-          <input type="date" nbInput status="basic" formControlName="date" fullWidth placeholder="Pick Date"
-            (input)="getStudents()" />
-        </div>
-
-        <div class="col-sm-6 text-right" *ngIf="students.length > 0">
-          <button class="btn btn-yellow" type="submit" [disabled]="!attandanceform.valid" style="color: black;">
-            Submit
-          </button>
-        </div>
-      </div>
-    </form>
-    <hr />
-    <div class="row attendanceList" *ngIf="students.length > 0; else empty_students">
-      <div class="table-responsive">
-        <table class="table table-borderless text-center">
-          <thead>
-            <tr>
-              <th class="text-center">Roll No</th>
-              <th class="text-center">Student</th>
-              <th class="text-center">Mark Attendance</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let student of students; let i = index">
-              <td>{{ student.studentRollNo }}</td>
-              <td>
-                {{ student.studentName }}
-              </td>
-              <td>
-                <div class="attendance-selector text-center">
-                  <input type="checkbox" [id]="student.studentId" class="attendance"
-                    [checked]="student.attendanceStatus" (change)="markAttendance($event, student.studentId, i)" />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <ng-template #empty_students>
-      <p class="pl-3 text-center">No Students Found</p>
-    </ng-template>
-  </nb-card-body>
-</nb-card> -->
-
 <nb-card>
   <nb-card-body>
     <div class="row">
       <div class="col-md-1">
         <div class="date-block">
-          <!-- <span class="day">{{ getDay(day.date) }}</span>
-          <span class="month">{{ getMonth(day.date) }}</span> -->
+          <span class="day">{{ getDay(attendanceBasicDetail.days.date) }}</span>
+          <span class="month">{{ getMonth(attendanceBasicDetail.days.date) }}</span>
         </div>
       </div>
       <div class="col-md-3">
@@ -96,7 +25,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <label>Batch : </label><span class="boldText">{{attendanceBasicDetail.batchId}}</span>
+        <label>Batch : </label><span class="boldText">{{attendanceBasicDetail.days.batchName}}</span>
       </div>
     </div>
     <hr>
@@ -109,9 +38,15 @@
       <div class="boldText lastLine">
         <span>Upload the file using the "Upload" button</span>
         <div>
-          <button class="btn btn-yellow-black" (click)="markAttendance()">Download</button>
-          <button nbButton status="success" (click)="markAttendance()">Upload</button>
+          <a class="btn btn-yellow-black" style="color:black;padding: 10px;" [href]="sampleExcel">Download</a>
+          <button nbButton status="success" (click)="fileInput.click()">Upload</button>
+          <input type="file" nbInput status="basic" style="display: none;" fullWidth (change)="onFilePicked($event)"
+            #fileInput />
         </div>
+      </div>
+      <div class="text-right" style="margin-right: 20px;">
+        <span style="color: #f00;" *ngIf="invalidFile">*File format must be *.xsl, *.xlsx, *.csv</span>
+        <span style="font-weight: bold;" *ngIf="file && !invalidFile">{{ file.name }}</span>
       </div>
     </div>
   </nb-card-body>
