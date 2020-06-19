@@ -80,22 +80,23 @@
       </div>
       <div class="col-md-3">
         <div>
-          <label>Date : </label><span></span>
+          <label>Date : </label><span class="boldText">{{attendanceBasicDetail.days.date}}</span>
         </div>
         <div>
-          <label>Time : </label><span></span>
+          <label>Time : </label><span class="boldText">{{attendanceBasicDetail.days.startTime}} -
+            {{attendanceBasicDetail.days.endTime}}</span>
         </div>
       </div>
       <div class="col-md-3">
         <div>
-          <label>Topic : </label><span></span>
+          <label>Topic : </label><span class="boldText">{{attendanceBasicDetail.days.topic}}</span>
         </div>
         <div>
-          <label>Teacher : </label><span></span>
+          <label>Teacher : </label><span class="boldText">{{attendanceBasicDetail.days.teacherName}}</span>
         </div>
       </div>
       <div class="col-md-3">
-        <label>Batch : </label><span></span>
+        <label>Batch : </label><span class="boldText">{{attendanceBasicDetail.batchId}}</span>
       </div>
     </div>
     <hr>
@@ -125,7 +126,8 @@
   <nb-card-body>
     <div class="lastLine">
       <span>Check the students that are/were present in this class or select all by clicking on the button</span>
-      <button class="btn btn-yellow-black" (click)="markAttendance()">Select All</button>
+      <button class="btn btn-yellow-black"
+        (click)="markAllAttendance()">{{markAllCheckBox?'Select All':'Deselect ALl'}}</button>
     </div>
     <div class="table-responsive attendanceTable">
       <table class="table table-borderless text-center">
@@ -138,12 +140,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let singleAttendance of attendance ;let i = index">
             <td></td>
-            <td></td>
-            <td></td>
+            <td>{{singleAttendance.studentName}}</td>
+            <td>{{singleAttendance.studentRollNo}}</td>
             <td>
-              <nb-checkbox (checkedChange)="onDaySelect($event, i)"></nb-checkbox>
+              <nb-checkbox (checkedChange)="markSingleAttendance($event, i)"
+                [checked]="singleAttendance.attendanceStatus">
+              </nb-checkbox>
             </td>
           </tr>
         </tbody>

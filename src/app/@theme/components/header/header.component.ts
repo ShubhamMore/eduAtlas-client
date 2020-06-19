@@ -8,6 +8,7 @@ import {
   NbThemeService,
   NbPopoverDirective,
   NbWindowRef,
+  NbDialogService,
 } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -30,13 +31,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('chatWindow', { static: false }) chatWindow: TemplateRef<any>;
   @ViewChild(NbPopoverDirective, { static: false }) chatPopup: NbPopoverDirective;
 
-  notifications: { name: string; title: string }[] = [
-    { name: 'Carla Espinosa', title: 'Nurse' },
-    { name: 'Bob Kelso', title: 'Doctor of Medicine' },
-    { name: 'Janitor', title: 'Janitor' },
-    { name: 'Perry Cox', title: 'Doctor of Medicine' },
-    { name: 'Ben Sullivan', title: 'Carpenter and photographer' },
-  ];
+  notifications = [{
+    _id: '',
+    title: 'title',
+    message: 'message',
+    date: 'date',
+    seen: false
+  }];
   chatmessage = {};
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -88,7 +89,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private roleService: RoleAssignService,
     private windowService: NbWindowService,
     private chatService: SocketioService,
-  ) {}
+    private dialogService: NbDialogService
+  ) { }
 
   ngOnInit() {
     this.userPictureOnly = false;
@@ -101,8 +103,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getInstitutes();
     this.chatService.getChatMembers();
     this.getMembers();
+    //  this.getNotifications()
     this.chatService.setupSocketConnection();
     this.socket = this.chatService.getSocket();
+    /*Listeneing to notifications*/
+    this.socket.on('notify', (notification: any) => {
+      this.notifications.push(notification);
+    });
+    /*Listeneing to messages*/
     this.socket.on('message', (message) => {
       if (!this.chatmessage[message.receiverId]) {
         this.openChatBoxForNewIncomingMessage(message);
@@ -207,7 +215,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
       receiverName: receiverData.userName,
     });
   }
-  openNotificationBox() {}
+  getNotifications() {
+    this.api.getNotifications().subscribe((res: any) => {
+      this.notifications = res;
+    }, (err) => {
+
+    })
+  }
+  openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
+    this.dialogService.open(notificationDialog, { context: notification });
+  }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
   }
