@@ -1,3 +1,4 @@
+import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-classes-upgrade.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { OnlineClassesConfComponent } from './online-classes-conf/online-classes-conf.component';
@@ -14,6 +15,7 @@ const routes = [
       { path: 'create-class/:id', component: AddOnlineClassComponent },
       { path: 'create-class/:id/edit', component: AddOnlineClassComponent },
       { path: 'manage-class/:id', component: ManageOnlineClassComponent },
+      { path: ':id', component: OnlineClassesUpgradeComponent },
     ],
   },
 ];

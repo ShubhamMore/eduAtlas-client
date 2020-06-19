@@ -19,7 +19,7 @@ export class AddLeadComponent implements OnInit {
   edit: string;
   message: string;
   courses: courseData;
-  status = ['Pending', 'Contacted', 'Lead Won', 'Lead Lost'];
+  status = ['OPEN', 'LOST', ' WON'];
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
@@ -39,14 +39,19 @@ export class AddLeadComponent implements OnInit {
       }
     });
     this.leadForm = this.fb.group({
-      leadName: [''],
-      leadContact: [''],
+      leadName: ['', Validators.required],
+      leadContact: ['', Validators.required],
       leadEmail: ['', Validators.email],
-      date: [''],
-      course: [''],
-      status: [''],
+      address: [''],
+      date: ['', Validators.required],
+      followUpDate: ['', Validators.required],
+      instituteId: [this.instituteId],
+      courseId: ['', Validators.required],
+      status: ['', Validators.required],
+      strength: ['', Validators.required],
+      mode: ['', Validators.required],
+      source: ['', Validators.required],
       comment: [''],
-      source: [''],
     });
     this.getCourses();
   }
@@ -70,11 +75,15 @@ export class AddLeadComponent implements OnInit {
           leadName: data.leadName,
           leadContact: data.leadContact,
           leadEmail: data.leadEmail,
-          date: data.addedDate,
-          course: data.courseId,
+          courseId: data.courseId,
+          address: data.address,
+          date: data.date,
+          followUpDate: data.followUpDate,
           status: data.status,
-          comment: data.comment,
+          strength: data.strength,
+          mode: data.mode,
           source: data.source,
+          comment: data.comment,
         });
       },
       (err) => console.error(err),
@@ -87,20 +96,10 @@ export class AddLeadComponent implements OnInit {
     if (this.leadForm.invalid) {
       return;
     }
-    const data = {
-      leadName: this.leadForm.get('leadName').value,
-      leadContact: this.leadForm.get('leadContact').value,
-      leadEmail: this.leadForm.get('leadEmail').value,
-      addedDate: this.leadForm.get('date').value,
-      courseId: this.leadForm.get('course').value,
-      status: this.leadForm.get('status').value,
-      comment: this.leadForm.get('comment').value,
-      source: this.leadForm.get('source').value,
-      instituteId: this.instituteId,
-      _id: this.leadId,
-    };
+    const data: any = this.leadForm.value;
 
     if (this.edit === 'true') {
+      data._id = this.leadId;
       this.api.updateLead(data).subscribe(
         (res: any) => {
           this.showToast('top-right', 'success', 'Lead Updated Successfully');

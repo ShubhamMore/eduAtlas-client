@@ -9,7 +9,7 @@
     <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-4">
-          <label for="name">Lead Name</label>
+          <label for="name">*Name</label>
           <input
             type="text"
             nbInput
@@ -18,22 +18,25 @@
             status="basic"
             formControlName="leadName"
             [status]="f.leadName.errors && submitted ? 'danger' : 'basic'"
-            placeholder="Lead Name"
+            placeholder="Name"
           />
           <small *ngIf="f.leadName.errors && submitted">*Lead Name is Required</small>
         </div>
         <div class="col-sm-4">
-          <label for="leadContact">Lead Contact</label>
+          <label for="leadContact">*Lead Contact</label>
           <input
             type="text"
             nbInput
             id="leadContact"
             maxlength="10"
+            minlength="10"
             fullWidth
             status="basic"
+            [status]="f.leadContact.errors && submitted ? 'danger' : 'basic'"
             formControlName="leadContact"
             placeholder="Lead Contact"
           />
+          <small *ngIf="f.leadContact.errors && submitted">*Lead Contact is Required</small>
         </div>
 
         <div class="col-sm-4">
@@ -43,7 +46,6 @@
             nbInput
             fullWidth
             id="leadEmail"
-            status="basic"
             formControlName="leadEmail"
             [status]="f.leadEmail.errors && submitted ? 'danger' : 'basic'"
             placeholder="Lead Email"
@@ -53,37 +55,36 @@
       </div>
       <br />
       <div class="row">
-        <div class="col-sm-3">
-          <label for="date">Date</label>
-          <input
-            type="date"
+        <div class="col-12">
+          <label for="address">Address</label>
+          <textarea
+            type="text"
             nbInput
-            status="basic"
-            formControlName="date"
             fullWidth
-            placeholder="Pick Date"
-          />
+            id="address"
+            formControlName="address"
+            placeholder="Address"
+          ></textarea>
         </div>
+      </div>
+      <br />
+
+      <div class="row">
         <div class="col-sm-3">
-          <label for="course">Course</label>
-          <nb-select placeholder="Course" id="course" status="basic" formControlName="course">
+          <label for="course">*Course</label>
+          <nb-select
+            placeholder="Course"
+            id="course"
+            [status]="f.courseId.errors && submitted ? 'danger' : 'basic'"
+            formControlName="courseId"
+          >
             <nb-option *ngFor="let course of courses" [value]="course._id">{{
               course.name
             }}</nb-option>
           </nb-select>
+          <small *ngIf="f.courseId.errors && submitted">*Course is Required</small>
         </div>
-        <div class="col-sm-3">
-          <label for="source">Lead Source</label>
-          <input
-            type="text"
-            nbInput
-            fullWidth
-            id="source"
-            status="basic"
-            formControlName="source"
-            placeholder="Lead Source"
-          />
-        </div>
+
         <div class="col-sm-3">
           <label for="status">Status</label>
           <nb-select
@@ -97,30 +98,96 @@
           </nb-select>
           <small *ngIf="f.status.errors && submitted">*Status is Required</small>
         </div>
+
+        <div class="col-sm-3">
+          <label for="strength">*Strength</label>
+          <nb-select
+            placeholder="Strength"
+            id="strength"
+            [status]="f.strength.errors && submitted ? 'danger' : 'basic'"
+            formControlName="strength"
+          >
+            <nb-option value="HOT">HOT</nb-option>
+            <nb-option value="COLD">COLD</nb-option>
+          </nb-select>
+          <small *ngIf="f.strength.errors && submitted">*Strength is Required</small>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="mode">*Mode</label>
+          <nb-select
+            placeholder="Mode"
+            id="mode"
+            [status]="f.source.errors && submitted ? 'danger' : 'basic'"
+            formControlName="mode"
+          >
+            <nb-option value="WALKIN">WALKIN</nb-option>
+            <nb-option value="TELEPHONIC">TELEPHONIC</nb-option>
+            <nb-option value="EMAIL">EMAIL</nb-option>
+            <nb-option value="DIGITAL">DIGITAL</nb-option>
+          </nb-select>
+          <small *ngIf="f.mode.errors && submitted">*Mode is Required</small>
+        </div>
       </div>
       <br />
       <div class="row">
-        <div class="col-sm-12">
-          <label for="comment">Comment</label>
-          <textarea
-            type="text"
-            nbInput
-            id="comment"
-            status="basic"
-            fullWidth
-            formControlName="comment"
-            placeholder="Comment"
-            cols="15"
-            rows="7"
+        <div class="col-sm-4">
+          <label for="source">*Source</label>
+          <nb-select
+            placeholder="Source"
+            id="source"
+            [status]="f.source.errors && submitted ? 'danger' : 'basic'"
+            formControlName="source"
           >
-          </textarea>
+            <nb-option value="REFERRAL">REFERRAL</nb-option>
+            <nb-option value="SEMINAR">SEMINAR</nb-option>
+            <nb-option value="ADVERTISEMENT">ADVERTISEMENT</nb-option>
+            <nb-option value="DIGITAL MEDIA">DIGITAL MEDIA</nb-option>
+            <nb-option value="CLASSIFIEDS">CLASSIFIEDS</nb-option>
+            <nb-option value="OTHERS">OTHERS</nb-option>
+          </nb-select>
+          <small *ngIf="f.source.errors && submitted">*Source is Required</small>
+        </div>
+
+        <div class="col-sm-8">
+          <label for="comment">*Comment</label>
+          <input type="text" nbInput formControlName="comment" fullWidth placeholder="Comment" />
         </div>
       </div>
+      <br />
 
-      <div style="text-align: right; margin: 1rem;">
-        <button type="submit" class="btn btn-yellow-black">
-          {{ edit ? 'Update' : 'Add' }}
-        </button>
+      <div class="row">
+        <div class="col-sm-4">
+          <label for="date">*Date</label>
+          <input
+            type="date"
+            nbInput
+            [status]="f.date.errors && submitted ? 'danger' : 'basic'"
+            formControlName="date"
+            fullWidth
+            placeholder="Pick Date"
+          />
+          <small *ngIf="f.date.errors && submitted">*Date is Required</small>
+        </div>
+
+        <div class="col-sm-4">
+          <label for="followUpDate">*Next Follow Up Date</label>
+          <input
+            type="date"
+            nbInput
+            [status]="f.followUpDate.errors && submitted ? 'danger' : 'basic'"
+            formControlName="followUpDate"
+            fullWidth
+            placeholder="Pick Date"
+          />
+          <small *ngIf="f.followUpDate.errors && submitted">*Next Follow Up Date is Required</small>
+        </div>
+
+        <div class="col-sm-4 mt-5">
+          <button type="submit" class="btn btn-yellow-black float-right">
+            {{ edit ? 'Update' : 'Add' }} Lead
+          </button>
+        </div>
       </div>
     </form>
   </nb-card-body>

@@ -19,6 +19,7 @@ import {
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OnlineClassesConfComponent } from './online-classes-conf/online-classes-conf.component';
+import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-classes-upgrade.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { OnlineClassesConfComponent } from './online-classes-conf/online-classes
     OnlineClassSettingsComponent,
     ManageOnlineClassComponent,
     AddOnlineClassComponent,
+    OnlineClassesUpgradeComponent,
   ],
   imports: [
     CommonModule,
