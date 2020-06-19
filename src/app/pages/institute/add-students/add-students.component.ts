@@ -722,11 +722,6 @@ export class AddStudentsComponent implements OnInit {
           if (curInstallment.paidStatus) {
             this.alreadyPaid.push(i);
           }
-
-          // if (curInstallment.paidStatus === 'true') {
-          //   installment.controls[i].get('paidStatus').disable();
-          //   installment.controls[i].get('paymentMode').disable();
-          // }
         });
         this.disableFeeFormFields();
       });
@@ -761,6 +756,15 @@ export class AddStudentsComponent implements OnInit {
     if (this.edit) {
       this.feesUpdated = true;
     }
+  }
+
+  changePendingAmount(i: any) {
+    const installment = this.feeDetailsForm.get('installments') as FormArray;
+    let amountCollected = 0;
+    for (let j = 0; j <= i; j++) {
+      amountCollected += +installment.controls[j].get('amount').value;
+    }
+    installment.controls[i].patchValue({ amountPending: +this.netPayable - amountCollected });
   }
 
   updateFees(studentId: string, feeId: string) {
@@ -863,7 +867,7 @@ export class AddStudentsComponent implements OnInit {
               this.alreadyRegistered = true;
               return;
             }
-            this.alreadyRegistered = true;
+            // this.alreadyRegistered = true;
             this.showToaster('top-right', 'danger', err.error.message);
           },
         );

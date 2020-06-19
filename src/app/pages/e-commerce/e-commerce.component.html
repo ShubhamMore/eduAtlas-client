@@ -188,7 +188,12 @@
                 <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
               </div>
               <br />
-              <button class="btn btn-yellow">COLLECT INSTALLMENT</button>
+              <button
+                class="btn btn-yellow"
+                [routerLink]="'/pages/institute/manage-students/' + this.instituteId"
+              >
+                COLLECT INSTALLMENT
+              </button>
             </nb-card-body>
           </nb-card>
         </div>
@@ -247,69 +252,4 @@
       </nb-card>
     </div>
   </div>
-  <!-- 
-  <div class="row" [hidden]="!display">
-    <div class="col-sm-6">
-      <nb-card [hidden]="false">
-        <nb-card-header style="background-color: #ffd500;">
-          <span>UPCOMING CLASS</span>
-          <input type="date" id="date" placeholder="Pick Date" />
-        </nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="text-center">No Upcoming Class Available</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <div class="col-sm-6">
-      <nb-card>
-        <nb-card-header style="background-color: #ffd500;">STUDENT REQUESTS </nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="text-center">No Requests Available</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div>
-
-  <div class="row" [hidden]="!display">
-    <div class="col-sm-6">
-      <nb-card [hidden]="false">
-        <nb-card-header style="background-color: #ffd500;">
-          PENDING FEES
-          <input type="date" id="date" placeholder="Pick Date" />
-        </nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="text-center">No Pending Fees Available</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <div class="col-sm-6">
-      <nb-card [hidden]="false">
-        <nb-card-header style="background-color: #ffd500;">LEADS </nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="test-center">No Leads</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div>
-  <div class="row" [hidden]="!display">
-    <div class="col-sm-6">
-      <nb-card [hidden]="false">
-        <nb-card-header style="background-color: #ffd500;">Messages</nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="test-center">No Messages</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-
-    <div class="col-sm-6">
-      <nb-card [hidden]="false">
-        <nb-card-header style="background-color: #ffd500;">New Leads</nb-card-header>
-        <nb-card-body style="max-height: 35vh;">
-          <p class="test-center">No New Leads</p>
-        </nb-card-body>
-      </nb-card>
-    </div>
-  </div> -->
 </ng-container>

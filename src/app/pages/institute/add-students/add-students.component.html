@@ -460,8 +460,6 @@
                     placeholder="Installment Date"
                     (input)="dateChanged($event.target.value)"
                   />
-                  <!-- [nbDatepicker]="datePicker"
-              <nb-datepicker #datePicker></nb-datepicker> -->
                 </div>
               </div>
 
@@ -485,13 +483,15 @@
                         "
                       >
                         <div class="row">
-                          <div class="col-md-8">
+                          <div class="col-md-4">
                             <nb-checkbox
                               formControlName="paidStatus"
                               status="basic"
                               (checkedChange)="onPaidAmount($event, i)"
                             ></nb-checkbox>
-                            &nbsp;&nbsp;
+                            &nbsp;Click On Tick To make this payment as Done
+                          </div>
+                          <div class="col-md-4 text-center">
                             <span>Installment {{ i + 1 }}</span>
                           </div>
                           <div class="col-md-4">
@@ -519,6 +519,7 @@
                               fullWidth
                               formControlName="amount"
                               placeholder="Amount"
+                              (input)="changePendingAmount(i)"
                             />
                           </div>
                           <div class="col-sm-4">
@@ -583,137 +584,6 @@
                       </nb-card-body>
                     </nb-card>
                   </ng-container>
-
-                  <!-- <div class="table-responsive">
-                <table class="table table-borderless">
-                  <thead>
-                    <tr>
-                      <th>Installment No.</th>
-                      <th>Paid</th>
-                      <th>Installment Date</th>
-                      <th>Amount</th>
-                      <th>payment Mode</th>
-                      <th>payment Date</th>
-                      <th>Bank/Mode</th>
-                      <th>Transaction Id / Instrument No.</th>
-                      <th>Amount Pending</th>
-                    </tr>
-                  </thead>
-                  <tbody formArrayName="installments">
-                    <ng-container
-                      *ngFor="
-                        let installment of feeDetailsForm.get('installments')['controls'];
-                        let i = index
-                      "
-                    >
-                      <tr [formGroupName]="i">
-                        <td>
-                          <input
-                            type="text"
-                            pattern="\d*"
-                            nbInput
-                            status="basic"
-                            formControlName="installmentNo"
-                            fullWidth
-                            placeholder="Installment No"
-                            disabled="true"
-                          />
-                        </td>
-
-                        <td>
-                          <nb-checkbox
-                            formControlName="paidStatus"
-                            status="basic"
-                            (checkedChange)="onPaidAmount($event, i)"
-                          ></nb-checkbox>
-                        </td>
-
-                        <td>
-                          <input
-                            type="date"
-                            nbInput
-                            status="basic"
-                            formControlName="paidOn"
-                            fullWidth
-                            placeholder="Installment Date"
-                          />
-                        </td>
-
-                        <td>
-                          <input
-                            type="text"
-                            pattern="\d*"
-                            nbInput
-                            status="basic"
-                            fullWidth
-                            formControlName="amount"
-                            placeholder="Amount"
-                          />
-                        </td>
-
-                        <td>
-                          <nb-select
-                            placeholder="Select Mode"
-                            status="basic"
-                            formControlName="paymentMode"
-                            placeholder="Payment Mode"
-                            (selectedChange)="onSelectPaymentMode($event, i)"
-                          >
-                            <nb-option *ngFor="let mode of modes" [value]="mode">{{
-                              mode
-                            }}</nb-option>
-                          </nb-select>
-                        </td>
-
-                        <td>
-                          <input
-                            type="text"
-                            nbInput
-                            status="basic"
-                            formControlName="bankDetails"
-                            fullWidth
-                            placeholder="Bank/Mode"
-                          />
-                        </td>
-
-                        <td>
-                          <input
-                            type="text"
-                            nbInput
-                            status="basic"
-                            formControlName="transDetails"
-                            fullWidth
-                            placeholder="Transaction/Instrument No"
-                          />
-                        </td>
-
-                        <td>
-                          <input
-                            type="date"
-                            nbInput
-                            status="basic"
-                            formControlName="PaymentDate"
-                            fullWidth
-                            placeholder="Date"
-                          />
-                        </td>
-
-                        <td>
-                          <input
-                            type="text"
-                            pattern="\d*"
-                            nbInput
-                            status="basic"
-                            formControlName="amountPending"
-                            fullWidth
-                            placeholder="Amount Pending"
-                          />
-                        </td>
-                      </tr>
-                    </ng-container>
-                  </tbody>
-                </table>
-              </div> -->
                 </div>
               </div>
             </div>

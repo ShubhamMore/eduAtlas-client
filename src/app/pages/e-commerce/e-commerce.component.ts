@@ -116,7 +116,6 @@ export class ECommerceComponent implements OnInit {
       this.myInstitute = res;
       this.roleService.assignRoles(this.authService.getUser().role);
       this.role = this.roleService.getRole();
-      console.log(this.role);
       this.display = true;
     });
   }
