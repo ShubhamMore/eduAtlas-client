@@ -10,12 +10,26 @@ import { courseData } from '../../../../assets/dataTypes/dataType';
   styleUrls: ['./manage-lead.component.scss'],
 })
 export class ManageLeadComponent implements OnInit {
-  leads: any;
+  upcomingLeads: any[] = [];
+  lostLeads: any[] = [];
   instituteId: string;
   courses: courseData;
   selectedCourseId: string;
   selectedStatus: string;
-  status = ['Pending', 'Contacted', 'Lead Won', 'Lead Lost'];
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
   constructor(
     private api: ApiService,
     private router: Router,
@@ -36,14 +50,16 @@ export class ManageLeadComponent implements OnInit {
       (err) => console.error(err),
     );
   }
-  onSelectCourse(courseId) {
+  onSelectCourse(courseId: any) {
     this.selectedCourseId = courseId;
     this.getLeads();
   }
-  onSelectStatus(status) {
-    this.selectedStatus = status;
-    this.getLeads();
+
+  getFormattedDate(date: any) {
+    const d = date.split('-');
+    return `${d[2]}-${d[1]}-${d[0]}`;
   }
+
   getLeads() {
     this.api
       .getLeadsByOfInstitute({
@@ -51,30 +67,58 @@ export class ManageLeadComponent implements OnInit {
         status: this.selectedStatus,
         courseId: this.selectedCourseId,
       })
-      .subscribe((data) => {
-        this.leads = data;
+      .subscribe((data: any[]) => {
+        data.forEach((lead: any) => {
+          if (lead.status === 'OPEN') {
+            this.upcomingLeads.push(lead);
+          } else {
+            this.lostLeads.push(lead);
+          }
+        });
       });
   }
+
   view(id: string) {
     this.router.navigate([`/pages/institute/view-lead/${this.instituteId}`], {
       queryParams: { leadId: id },
     });
   }
+
   edit(id: string) {
     this.router.navigate([`/pages/institute/add-leads/${this.instituteId}`], {
       queryParams: { leadId: id, edit: true },
     });
   }
 
-  delete(id: string, index) {
+  deleteLostLead(id: string, index: number) {
     this.api.deleteLead({ _id: id }).subscribe(
       () => {
-        this.leads.splice(index, 1);
+        this.lostLeads.splice(index, 1);
         this.showToast('top-right', 'success', 'Lead Deleted Successfully');
       },
       (err) => console.error(err),
     );
   }
+
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
+  }
+
+  deleteUpcomingLead(id: string, index: number) {
+    this.api.deleteLead({ _id: id }).subscribe(
+      () => {
+        this.upcomingLeads.splice(index, 1);
+        this.showToast('top-right', 'success', 'Lead Deleted Successfully');
+      },
+      (err) => console.error(err),
+    );
+  }
+
   addLead() {
     this.router.navigate([`/pages/institute/add-leads/${this.instituteId}`]);
   }

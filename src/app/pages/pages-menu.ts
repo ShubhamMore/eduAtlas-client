@@ -199,16 +199,23 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
-    title: 'Leads',
+    title: 'EA Live',
     // icon: 'fa fa-bullhorn',
     link: '',
     hidden: true, // 14
   },
 
   {
-    title: 'Study Material',
+    title: 'Leads',
     // icon: 'fa fa-bullhorn',
     link: '',
     hidden: true, // 15
+  },
+
+  {
+    title: 'Study Material',
+    // icon: 'fa fa-bullhorn',
+    link: '',
+    hidden: true, // 16
   },
 ];

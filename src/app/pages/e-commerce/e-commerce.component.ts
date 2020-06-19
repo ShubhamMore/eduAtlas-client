@@ -81,14 +81,18 @@ export class ECommerceComponent implements OnInit {
     MENU_ITEMS[8].children[4].link = '/pages/student-reports/manage-ptms/' + this.instituteId;
     MENU_ITEMS[11].link = '/pages/institute/manage-schedule/' + this.instituteId;
     MENU_ITEMS[12].link = '/pages/institute/attandance/' + this.instituteId;
+
     MENU_ITEMS[13].children[0].link =
       '/pages/institute/online-classes/settings/' + this.instituteId;
     MENU_ITEMS[13].children[1].link =
       '/pages/institute/online-classes/create-class/' + this.instituteId;
     MENU_ITEMS[13].children[2].link =
       '/pages/institute/online-classes/manage-class/' + this.instituteId;
-    MENU_ITEMS[14].link = '/pages/institute/manage-leads/' + this.instituteId;
-    MENU_ITEMS[15].link = '/pages/institute/study-material/' + this.instituteId;
+
+    MENU_ITEMS[14].link = '/pages/institute/online-classes/' + this.instituteId;
+
+    MENU_ITEMS[15].link = '/pages/institute/manage-leads/' + this.instituteId;
+    MENU_ITEMS[16].link = '/pages/institute/study-material/' + this.instituteId;
 
     // this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
@@ -114,6 +118,14 @@ export class ECommerceComponent implements OnInit {
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
+      this.instituteService.setInstitute(this.myInstitute.institute);
+      if (this.myInstitute.institute.currentPlan !== 'Lite') {
+        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = false;
+      } else {
+        MENU_ITEMS[13].hidden = false;
+        MENU_ITEMS[13].hidden = true;
+      }
       this.roleService.assignRoles(this.authService.getUser().role);
       this.role = this.roleService.getRole();
       this.display = true;

@@ -101,7 +101,6 @@ export class ManageScheduleComponent implements OnInit {
 
   getSchedules(data: any) {
     this.scheduleService.getScheduleByInstitute(data).subscribe((res: any) => {
-      console.log(res);
       this.schedules = res;
     });
   }

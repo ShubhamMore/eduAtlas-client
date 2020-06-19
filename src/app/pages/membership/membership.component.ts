@@ -28,7 +28,8 @@ export class MembershipComponent implements OnInit {
   }
 
   activate(amount: string, planType: string) {
-    this.paymentService.setPaymentDetails(amount, planType);
+    const gstCalculatedAmount = (+amount + +amount * 0.18).toFixed(2);
+    this.paymentService.setPaymentDetails(gstCalculatedAmount, planType);
     this.router.navigate(['/pages/institute/add-institute'], { relativeTo: this.route });
   }
 }

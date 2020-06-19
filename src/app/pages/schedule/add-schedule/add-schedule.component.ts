@@ -45,12 +45,12 @@ export class AddScheduleComponent implements OnInit {
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
     private location: Location,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;
     const date = new Date();
-    this.date = date.getTime() - (7 % date.getDay()) * (24 * 60 * 60 * 1000);
+    this.date = date.getTime() - ((date.getDay() % 7) - 1) * (24 * 60 * 60 * 1000);
     this.schedules = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
 
@@ -311,7 +311,6 @@ export class AddScheduleComponent implements OnInit {
     this.scheduleService
       .getScheduleByBatch(this.instituteId, this.courseId, this.batchId)
       .subscribe((res: any[]) => {
-        console.log(res);
         this.schedules = res;
       });
   }
@@ -325,13 +324,10 @@ export class AddScheduleComponent implements OnInit {
   useRecurrenceSchedule(index: number) {
     this.schedule = this.schedules[index];
     this.scheduleForm.patchValue({
-      courseId: this.schedule.courseId,
       scheduleStart: this.schedule.scheduleStart,
       scheduleEnd: this.schedule.scheduleEnd,
       recurrence: this.schedule.recurrence,
     });
-    this.onSelectCourse(this.schedule.courseId);
-    this.scheduleForm.patchValue({ batchId: this.schedule.batchId });
 
     this.scheduleStartTime = this.schedule.days[0].startTime;
     this.scheduleEndTime = this.schedule.days[0].endTime;
@@ -359,7 +355,6 @@ export class AddScheduleComponent implements OnInit {
   addAnotherClass(i: number) {
     const scheduleDays = this.scheduleForm.get('days') as FormArray;
     const day: any = scheduleDays.controls[i].value;
-    console.log(day);
     const scheduleData: any = {
       day: day.day,
       date: day.date,
@@ -387,6 +382,9 @@ export class AddScheduleComponent implements OnInit {
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
       this.scheduleForm.value.days.forEach((day: any) => {
+        if (day.select) {
+          day.teacher = day.teacher === '' ? null : day.teacher;
+        }
         days.push(day);
       });
       schedule.days = days;
@@ -409,6 +407,9 @@ export class AddScheduleComponent implements OnInit {
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
       this.scheduleForm.value.days.forEach((day: any) => {
+        if (day.select) {
+          day.teacher = day.teacher === '' ? null : day.teacher;
+        }
         days.push(day);
       });
       schedule.days = days;
