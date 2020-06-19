@@ -97,10 +97,8 @@ export class AddAttendanceComponent implements OnInit {
 
     this.api.attendanceByFile(fetchAttendanceFile).subscribe(
       (res: any) => {
-        this.showToaster('top-right', 'success', 'Attendance Fetched Succesfully');
-        if (res) {
-          this.attendance = res;
-        }
+        this.showToaster('top-right', 'success', 'Attendance Marked Succesfully');
+        this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
       },
       (err) => {
         this.showToaster(

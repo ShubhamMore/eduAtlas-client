@@ -17,16 +17,14 @@
 
 <div class="row" *ngIf="display">
   <div class="col-sm-6">
-    <nb-card status="basic" style="max-height: 35vh;">
-      <nb-card-header style="background-color: #ffd500;">
-        MY INSTITUTES
+    <nb-card status="basic">
+      <nb-card-header style="background-color: #00d68f;">
+        <h5 class="text-white">MY INSTITUTES</h5>
       </nb-card-header>
       <nb-card-body>
-        <!-- <nb-list>
-          <nb-list-item> -->
         <ng-container>
-          <div class="table-responsive">
-            <table class="table">
+          <div class="table-responsive" *ngIf="institutes.length > 0">
+            <table class="table" style="max-height: 35vh;">
               <tbody>
                 <ng-container *ngFor="let item of institutes; let i = index">
                   <tr class="border-bottom" *ngIf="item.active">
@@ -65,24 +63,13 @@
               </tbody>
             </table>
           </div>
-          <!-- <a (click)="viewInstitute(item._id)" style="width: 100%; cursor: pointer;">
-            <span
-              ><img
-                [src]="item.basicInfo.logo.secure_url"
-                width="30px"
-                height="30px"
-                style="border-radius: 100%;"
-            /></span>
-
-            <span class="ml-3">{{ item.basicInfo.name }}</span>
-            <span class="ml-3">{{ item.address.city }}</span>
-            <span style="float: right;">
-              <img src="../../../assets/img/rarrow.png" width="30px" height="30px" />
-            </span>
-          </a> -->
+          <br />
+          <div class="text-center">
+            <button class="btn btn-yellow-black" routerLink="/pages/membership">
+              ADD INSTITUTE
+            </button>
+          </div>
         </ng-container>
-        <!-- </nb-list-item>
-        </nb-list> -->
       </nb-card-body>
     </nb-card>
   </div>
@@ -105,14 +92,6 @@
             </a>
           </div>
         </div>
-      </nb-card-body>
-    </nb-card>
-    <nb-card>
-      <nb-card-body>
-        <p class="font-weight-bold">
-          SMS BALANCE
-        </p>
-        <h2>0 SMS Pending</h2>
       </nb-card-body>
     </nb-card>
   </div>

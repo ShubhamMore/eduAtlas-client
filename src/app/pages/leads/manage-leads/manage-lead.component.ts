@@ -50,6 +50,7 @@ export class ManageLeadComponent implements OnInit {
       (err) => console.error(err),
     );
   }
+
   onSelectCourse(courseId: any) {
     this.selectedCourseId = courseId;
     this.getLeads();
@@ -61,6 +62,8 @@ export class ManageLeadComponent implements OnInit {
   }
 
   getLeads() {
+    this.upcomingLeads = [];
+    this.lostLeads = [];
     this.api
       .getLeadsByOfInstitute({
         instituteId: this.instituteId,

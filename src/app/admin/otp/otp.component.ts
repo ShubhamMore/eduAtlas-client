@@ -11,6 +11,7 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class OtpComponent implements OnInit {
   phone: string;
+  email: string;
   otp: string;
 
   loginOTP: boolean;
@@ -27,6 +28,7 @@ export class OtpComponent implements OnInit {
     this.route.queryParams.subscribe((param: Params) => {
       this.loginOTP = param.type === 'login' ? true : false;
       this.phone = param.phone;
+      this.email = param.email;
       this.getOtp();
     });
   }
@@ -36,7 +38,7 @@ export class OtpComponent implements OnInit {
   }
 
   getOtp() {
-    this.otpService.getOtp(this.phone).subscribe(
+    this.otpService.getOtp(this.phone, this.email).subscribe(
       (res: any) => {
         this.showToast('top-right', 'success', 'OTP Sent to ' + this.phone);
       },

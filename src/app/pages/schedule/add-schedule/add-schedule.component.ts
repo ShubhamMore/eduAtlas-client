@@ -45,7 +45,7 @@ export class AddScheduleComponent implements OnInit {
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
     private location: Location,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
