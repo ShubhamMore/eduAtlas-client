@@ -722,11 +722,6 @@ export class AddStudentsComponent implements OnInit {
           if (curInstallment.paidStatus) {
             this.alreadyPaid.push(i);
           }
-
-          // if (curInstallment.paidStatus === 'true') {
-          //   installment.controls[i].get('paidStatus').disable();
-          //   installment.controls[i].get('paymentMode').disable();
-          // }
         });
         this.disableFeeFormFields();
       });
@@ -763,6 +758,15 @@ export class AddStudentsComponent implements OnInit {
     }
   }
 
+  changePendingAmount(i: any) {
+    const installment = this.feeDetailsForm.get('installments') as FormArray;
+    let amountCollected = 0;
+    for (let j = 0; j <= i; j++) {
+      amountCollected += +installment.controls[j].get('amount').value;
+    }
+    installment.controls[i].patchValue({ amountPending: +this.netPayable - amountCollected });
+  }
+
   updateFees(studentId: string, feeId: string) {
     this.enableFeeFormFields();
     this.feeDetailsForm.value.noOfInstallments = this.noOfInstallments;
@@ -793,12 +797,12 @@ export class AddStudentsComponent implements OnInit {
       this.studentForm.value.courseDetails.batch = '';
     }
 
-    this.feeDetailsForm.markAllAsTouched();
-    if (this.feeDetailsForm.invalid) {
-      // If Form is invalid then return
-      this.showToaster('top-right', 'warning', 'Please Fill all Fee Details Correctly');
-      return;
-    }
+    // this.feeDetailsForm.markAllAsTouched();
+    // if (this.feeDetailsForm.invalid) {
+    //   // If Form is invalid then return
+    //   this.showToaster('top-right', 'warning', 'Please Fill all Fee Details Correctly');
+    //   return;
+    // }
 
     // In editing Mode
     if (this.edit === 'true') {
@@ -865,7 +869,7 @@ export class AddStudentsComponent implements OnInit {
               this.alreadyRegistered = true;
               return;
             }
-            this.alreadyRegistered = true;
+            // this.alreadyRegistered = true;
             this.showToaster('top-right', 'danger', err.error.message);
           },
         );

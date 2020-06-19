@@ -110,8 +110,10 @@
             <label for="contact">*Employee Contact Number</label>
             <input
               type="text"
+              pattern="\d*"
               nbInput
               maxlength="10"
+              minlength="10"
               [status]="f.contact.errors && f.contact.touched ? 'danger' : 'basic'"
               id="contact"
               formControlName="contact"

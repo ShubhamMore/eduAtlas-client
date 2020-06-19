@@ -51,7 +51,7 @@ export class AddEmployee implements OnInit {
       this.employeeForm = this.fb.group({
         name: ['', Validators.required],
         employeeEmail: ['', Validators.compose([Validators.required, Validators.email])],
-        contact: ['', Validators.compose([Validators.required])],
+        contact: ['', Validators.required],
         address: [''],
         role: ['', Validators.required],
       });

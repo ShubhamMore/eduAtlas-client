@@ -204,4 +204,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '',
     hidden: true, // 14
   },
+
+  {
+    title: 'Study Material',
+    // icon: 'fa fa-bullhorn',
+    link: '',
+    hidden: true, // 15
+  },
 ];

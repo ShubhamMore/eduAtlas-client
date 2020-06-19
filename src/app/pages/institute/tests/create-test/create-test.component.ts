@@ -49,6 +49,7 @@ export class CreateTestComponent implements OnInit {
       instituteId: [this.instituteId],
       date: ['', Validators.required],
       testName: ['', Validators.required],
+      testCode: ['', Validators.required],
       totalMarks: ['', Validators.required],
     });
   }
@@ -62,6 +63,7 @@ export class CreateTestComponent implements OnInit {
           courseId: this.test.courseId,
           date: this.test.date,
           testName: this.test.testName,
+          testCode: this.test.testCode,
           totalMarks: this.test.totalMarks,
         });
 

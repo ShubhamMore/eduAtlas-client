@@ -17,6 +17,20 @@ export class AttandanceComponent implements OnInit {
   batches: any[];
   students: any[];
   display: boolean;
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
 
   constructor(
     private api: ApiService,
@@ -24,7 +38,7 @@ export class AttandanceComponent implements OnInit {
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
@@ -32,8 +46,7 @@ export class AttandanceComponent implements OnInit {
     this.batches = [];
     this.students = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
-    this.getCourses(this.instituteId);
-    this.onSelectCourse('all');
+    this.getAttendanceByInstitute();
   }
 
   viewStudentAttendance(id: any) {
@@ -42,37 +55,13 @@ export class AttandanceComponent implements OnInit {
     });
   }
 
-  addAttendance() {
+  markAttendance() {
     this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId]);
   }
 
-  getCourses(id: string) {
-    this.api.getCourseTD(id).subscribe((data: any) => {
-      this.institute = data;
-      this.display = true;
-    });
-  }
 
-  onSelectCourse(id: string) {
-    this.courseId = id;
-    if (id === 'all') {
-      this.getStudents({ instituteId: this.instituteId });
-    } else {
-      this.batchId = 'all';
-      this.batches = this.institute.batch.filter((b: any) => b.course === id);
-    }
-  }
-
-  onSelectBatch(id: string) {
-    if (id === 'all') {
-      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId });
-    } else {
-      this.getStudents({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
-    }
-  }
-
-  getStudents(data: any) {
-    this.api.getStudentsByInstitute(data).subscribe((res: any) => {
+  getAttendanceByInstitute() {
+    this.api.getAttendanceByInstitute({ 'instituteId': this.instituteId }).subscribe((res: any) => {
       this.students = res;
     });
   }
@@ -82,5 +71,13 @@ export class AttandanceComponent implements OnInit {
       position,
       status,
     });
+  }
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
   }
 }

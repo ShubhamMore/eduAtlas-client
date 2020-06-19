@@ -1,0 +1,24 @@
+.date-block {
+    float: left;
+    width: 75px;
+    height: 75px;
+    background-color: #ffd500;
+  }
+
+  .boldText{
+      font-weight: bold;
+  }
+  .uploadInstructions button{
+      margin: 0 20px;
+  }
+
+  .lastLine{
+    display: flex;
+    justify-content: space-between;
+  }
+  .attendanceTable{
+      padding-top: 15px;
+  }
+  .attendanceTable table th{
+      background-color: #ffd500;
+  }

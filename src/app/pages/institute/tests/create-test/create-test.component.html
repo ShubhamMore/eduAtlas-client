@@ -101,7 +101,32 @@
 
         <div class="col-sm-4">
           <div class="form-group">
-            <label for="totalMarks">*Total Marks</label>
+            <label for="testCode">*Test Code</label>
+            <input
+              type="text"
+              nbInput
+              [status]="
+                createTestForm.get('testCode').invalid && createTestForm.get('testCode').touched
+                  ? 'danger'
+                  : 'basic'
+              "
+              id="testCode"
+              fullWidth
+              formControlName="testCode"
+              placeholder="Test Code"
+            />
+            <small
+              *ngIf="
+                createTestForm.get('testCode').invalid && createTestForm.get('testCode').touched
+              "
+              >*Code is required</small
+            >
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="totalMarks">*Test Marks</label>
             <input
               type="text"
               nbInput
@@ -115,7 +140,7 @@
               id="totalMarks"
               fullWidth
               formControlName="totalMarks"
-              placeholder="Total Marks"
+              placeholder="Test Marks"
             />
             <small
               *ngIf="

@@ -13,7 +13,6 @@ import { Location } from '@angular/common';
 })
 export class AnnouncementsComponent implements OnInit {
   file: File;
-
   announcementForm: FormGroup;
   announcements = [];
   announcementId: any;
@@ -87,7 +86,6 @@ export class AnnouncementsComponent implements OnInit {
 
   onFilePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-
     this.file = file;
   }
 

@@ -1,3 +1,4 @@
+import { StudyMaterialComponent } from './../study-material/study-material.component';
 import { ViewAttendanceComponent } from './../attandance/view-attendance/view-attendance.component';
 import { AddAttendanceComponent } from './../attandance/add-attendance/add-attendance.component';
 import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
@@ -42,6 +43,8 @@ const routes: Routes = [
 
       { path: 'view-student/:id', component: ViewStudentComponent },
       { path: 'pending-students/:id', component: PendingStudentComponent },
+
+      { path: 'study-material/:id', component: StudyMaterialComponent },
 
       { path: 'add-schedule/:id', component: AddScheduleComponent },
       { path: 'manage-schedule/:id', component: ManageScheduleComponent },
