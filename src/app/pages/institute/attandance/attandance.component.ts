@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
+import { AttendanceService } from '../../../services/attendance.service';
 
 @Component({
   selector: 'ngx-attandance',
@@ -15,7 +16,7 @@ export class AttandanceComponent implements OnInit {
   batchId: string;
   courseId: string;
   batches: any[];
-  students: any[];
+  attendanceSchedule: any = {};
   display: boolean;
   months: string[] = [
     'JAN',
@@ -38,13 +39,13 @@ export class AttandanceComponent implements OnInit {
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
+    private attendanceService: AttendanceService
   ) { }
 
   ngOnInit() {
     this.display = false;
     this.courseId = 'all';
     this.batches = [];
-    this.students = [];
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getAttendanceByInstitute();
   }
@@ -55,14 +56,23 @@ export class AttandanceComponent implements OnInit {
     });
   }
 
-  markAttendance() {
-    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId]);
+  markAttendance(attendance: any) {
+    this.attendanceService.setAttendanceData(attendance);
+    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], { queryParams: { 'courseId': attendance.courseId, 'batchId': attendance.batchId } });
+  }
+  editAttendance(attendance: any) {
+    this.attendanceService.setAttendanceData(attendance);
+    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], { queryParams: { 'courseId': attendance.courseId, 'batchId': attendance.batchId, 'edit': true } });
   }
 
-
   getAttendanceByInstitute() {
+    this.attendanceSchedule.unmarked = [];
+    this.attendanceSchedule.marked = [];
     this.api.getAttendanceByInstitute({ 'instituteId': this.instituteId }).subscribe((res: any) => {
-      this.students = res;
+      if (res) {
+        this.attendanceSchedule.unmarked = res.unmarkedData;
+        this.attendanceSchedule.marked = res.markedData;
+      }
     });
   }
 
