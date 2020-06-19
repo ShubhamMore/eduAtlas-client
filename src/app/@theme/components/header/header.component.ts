@@ -31,13 +31,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @ViewChild('chatWindow', { static: false }) chatWindow: TemplateRef<any>;
   @ViewChild(NbPopoverDirective, { static: false }) chatPopup: NbPopoverDirective;
 
-  notifications = [{
-    _id: '',
-    title: 'title',
-    message: 'message',
-    date: 'date',
-    seen: false
-  }];
+  notifications: any;
   chatmessage = {};
 
   private destroy$: Subject<void> = new Subject<void>();
@@ -103,7 +97,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.getInstitutes();
     this.chatService.getChatMembers();
     this.getMembers();
-    //  this.getNotifications()
+    this.getNotifications();
     this.chatService.setupSocketConnection();
     this.socket = this.chatService.getSocket();
     /*Listeneing to notifications*/
@@ -165,7 +159,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
-
+  deleteNotification(notificationId, index) {
+    this.api.deleteNotification({ 'notificationId': notificationId }).subscribe((res) => {
+      this.notifications.splice(index, 1);
+    });
+  }
   getEmployeeRole(instituteId: any) {
     const institiute = this.institutes.find((institute) => {
       return instituteId === institute._id;

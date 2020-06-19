@@ -1262,6 +1262,13 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  deleteNotification(data: any) {
+    const url = `${environment.server}/institute/notification/deleteNotification`;
+    return this.http.post(url, data).pipe(
+      tap((data) => { }),
+      catchError(this.handleError),
+    );
+  }
 
   /********************** STUDY MATERIAL ********************* */
   editStudyMaterial(StudyMaterial: any) {

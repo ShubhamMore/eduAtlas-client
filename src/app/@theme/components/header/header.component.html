@@ -61,10 +61,12 @@
 <ng-template #notificationPopup>
   <div class="chatPopup">
     <nb-list *ngIf="notifications && notifications.length>0;else noNotifications">
-      <nb-list-item *ngFor="let notification of notifications"
-        (click)="openNotificationBox(notification,notificationDialog)">
+      <nb-list-item *ngFor="let notification of notifications;let i = index">
         <div style="cursor: pointer;">
-          <span style="font-weight: bold;">{{notification.title}} </span><span> ({{notification.date}})</span>
+          <span (click)="openNotificationBox(notification,notificationDialog)"
+            style="font-weight: bold;">{{notification.title}} </span><span> ({{notification.date}})</span>
+          <span style="position: absolute;right: 20px;"><i (click)="deleteNotification(notification._id,i)"
+              class="fa fa-trash" style="font-size: 18px;" aria-hidden="true"></i></span>
         </div>
 
       </nb-list-item>
