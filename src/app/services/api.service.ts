@@ -1239,13 +1239,21 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  // =====================Notification Apis==============================
+  getNotifications() {
+    const url = `${environment.server}/institute/notification/getNotifications`;
+    return this.http.post(url, {}).pipe(
+      tap((data) => { }),
+      catchError(this.handleError),
+    );
+  }
 
   /********************** STUDY MATERIAL ********************* */
   editStudyMaterial(StudyMaterial: any) {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/editStudyMaterial`, StudyMaterial)
       .pipe(
-        tap((response) => {}),
+        tap((response) => { }),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1254,7 +1262,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/addStudyMaterial`, StudyMaterial)
       .pipe(
-        tap((response) => {}),
+        tap((response) => { }),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1263,7 +1271,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/getStudyMaterial`, data)
       .pipe(
-        tap((res) => {}),
+        tap((res) => { }),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1274,7 +1282,7 @@ export class ApiService {
         id,
       })
       .pipe(
-        tap((res) => {}),
+        tap((res) => { }),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1283,7 +1291,7 @@ export class ApiService {
     return this.http
       .post<any>(`${environment.server}/institute/studyMaterial/deleteStudyMaterial`, { _id: id })
       .pipe(
-        tap((res) => {}),
+        tap((res) => { }),
         catchError((err) => this.handleError(err)),
       );
   }
