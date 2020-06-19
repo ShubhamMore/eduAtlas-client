@@ -1,179 +1,89 @@
-<!-- <nb-card>
-  <nb-card-header>
-    <button class="btn btn-yellow-black float-right" (click)="addAttendance()">
-      Add Attendance
-    </button>
-    <h4>Attendance</h4>
-  </nb-card-header>
-  <nb-card-body *ngIf="display">
-    <div class="row">
-      <div class="col-sm-6"></div>
-      <div class="col-sm-3">
-        <nb-select
-          placeholder="Select Course"
-          status="basic"
-          fullWidth
-          (selectedChange)="onSelectCourse($event)"
-        >
-          <nb-option value="all">All</nb-option>
-          <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
-            course.name
-          }}</nb-option>
-        </nb-select>
-      </div>
-
-      <div class="col-sm-3">
-        <nb-select
-          placeholder="Select Batch"
-          fullWidth
-          status="basic"
-          (selectedChange)="onSelectBatch($event)"
-        >
-          <nb-option value="all">All</nb-option>
-          <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
-            batch.batchCode
-          }}</nb-option>
-        </nb-select>
-      </div>
-    </div>
-
-    <br />
-
-    <div class="table-responsive" *ngIf="students.length > 0; else no_student">
-      <table class="table table-borderless">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Student</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of students; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ student.basicDetails.name }}</td>
-            <td>
-              <button
-                class="mr-3"
-                nbButton
-                status="primary"
-                (click)="viewStudentAttendance(student._id)"
-              >
-                View Attendance
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <ng-template #no_student>
-      <h6 class="text-center mt-5">No student</h6>
-    </ng-template>
-  </nb-card-body>
-</nb-card> -->
-
-<!-- <nb-card>
-  <nb-card-header>
-    <span><img class="my-auto float-left" [src]="myInstitute.institute.basicInfo.logo.secure_url" width="40px"
-        height="40px" style="border-radius: 100%; border: 1px solid #000;" /></span>
-    <span class="ml-3 my-auto" style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;">
-      {{ myInstitute.institute.basicInfo.name | uppercase }}
-    </span>
-    <span style="
-        font-size: 10px;
-        font-weight: normal;
-        background-color: #009acd;
-        color: #fff;
-        padding: 2px 8px;
-        border-radius: 10px;
-      ">{{ myInstitute.institute.currentPlan | uppercase }}</span>
-
-    <span class="float-right mr-3">
-      <span>Total Students: {{ totalStudents }}</span><br />
-      <span>Total Batches: {{ totalBatches }}</span>
-    </span>
-  </nb-card-header>
-</nb-card> -->
-
 <nb-card>
   <nb-card-body>
     <nb-tabset fullWidth>
       <nb-tab tabTitle="UnMarked Class">
-        <div class="row" *ngFor="let unmarkedAttendance of attendanceSchedule.unmarked">
-          <div class="col-md-1">
-            <div class="date-block">
-              <span class="day">{{ getDay(unmarkedAttendance.days.date) }}</span>
-              <span class="month">{{ getMonth(unmarkedAttendance.days.date) }}</span>
+        <div *ngIf="attendanceSchedule.unmarked.length>0;else noRecords">
+          <div class="row" *ngFor="let unmarkedAttendance of attendanceSchedule.unmarked">
+            <div class="col-md-1">
+              <div class="date-block">
+                <span class="day">{{ getDay(unmarkedAttendance.days.date) }}</span>
+                <span class="month">{{ getMonth(unmarkedAttendance.days.date) }}</span>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Date : </label><span class="boldText">{{unmarkedAttendance.days.date}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Date : </label><span class="boldText">{{unmarkedAttendance.days.date}}</span>
+              </div>
+              <div>
+                <label>Time : </label><span class="boldText">{{unmarkedAttendance.days.startTime}} -
+                  {{unmarkedAttendance.days.endTime}}</span>
+              </div>
             </div>
-            <div>
-              <label>Time : </label><span class="boldText">{{unmarkedAttendance.days.startTime}} -
-                {{unmarkedAttendance.days.endTime}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Topic : </label><span class="boldText">{{unmarkedAttendance.days.topic}}</span>
+              </div>
+              <div>
+                <label>Teacher : </label><span class="boldText">{{unmarkedAttendance.days.teacherName}}</span>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Topic : </label><span class="boldText">{{unmarkedAttendance.days.topic}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Course : </label><span class="boldText">{{unmarkedAttendance.days.courseName}}</span>
+              </div>
+              <div>
+                <label>Batch : </label><span class="boldText">{{unmarkedAttendance.days.batchName}}</span>
+              </div>
             </div>
-            <div>
-              <label>Teacher : </label><span class="boldText">{{unmarkedAttendance.days.teacherName}}</span>
+            <div class="col-md-2">
+              <button class="btn btn-yellow-black" (click)="markAttendance(unmarkedAttendance)">Mark</button>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Course : </label><span class="boldText">{{unmarkedAttendance.courseId}}</span>
-            </div>
-            <div>
-              <label>Batch : </label><span class="boldText">{{unmarkedAttendance.batchId}}</span>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <button class="btn btn-yellow-black" (click)="markAttendance(unmarkedAttendance)">Mark</button>
           </div>
         </div>
       </nb-tab>
       <nb-tab tabTitle="Marked Class">
-        <div class="row" *ngFor="let markedAttendance of attendanceSchedule.marked">
-          <div class="col-md-1">
-            <div class="date-block">
-              <span class="day">{{ getDay(markedAttendance.days.date) }}</span>
-              <span class="month">{{ getMonth(markedAttendance.days.date) }}</span>
+        <div *ngIf="attendanceSchedule.marked.length>0;else noRecords">
+          <div class="row" *ngFor="let markedAttendance of attendanceSchedule.marked">
+            <div class="col-md-1">
+              <div class="date-block">
+                <span class="day">{{ getDay(markedAttendance.days.date) }}</span>
+                <span class="month">{{ getMonth(markedAttendance.days.date) }}</span>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Date : </label><span class="boldText">{{markedAttendance.days.date}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Date : </label><span class="boldText">{{markedAttendance.days.date}}</span>
+              </div>
+              <div>
+                <label>Time : </label><span class="boldText">{{markedAttendance.days.startTime}} -
+                  {{markedAttendance.days.endTime}}</span>
+              </div>
             </div>
-            <div>
-              <label>Time : </label><span class="boldText">{{markedAttendance.days.startTime}} -
-                {{markedAttendance.days.endTime}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Topic : </label><span class="boldText">{{markedAttendance.days.topic}}</span>
+              </div>
+              <div>
+                <label>Teacher : </label><span class="boldText">{{markedAttendance.days.teacherName}}</span>
+              </div>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Topic : </label><span class="boldText">{{markedAttendance.days.topic}}</span>
+            <div class="col-md-3">
+              <div>
+                <label>Course : </label><span class="boldText">{{markedAttendance.days.courseName}}</span>
+              </div>
+              <div>
+                <label>Batch : </label><span class="boldText">{{markedAttendance.days.batchName}}</span>
+              </div>
             </div>
-            <div>
-              <label>Teacher : </label><span class="boldText">{{markedAttendance.days.teacherName}}</span>
+            <div class="col-md-2">
+              <button nbButton status="danger" (click)="editAttendance(markedAttendance)">Edit</button>
             </div>
-          </div>
-          <div class="col-md-3">
-            <div>
-              <label>Course : </label><span class="boldText">{{markedAttendance.courseId}}</span>
-            </div>
-            <div>
-              <label>Batch : </label><span class="boldText">{{markedAttendance.batchId}}</span>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <button nbButton status="danger" (click)="editAttendance(markedAttendance._id)">Edit</button>
           </div>
         </div>
       </nb-tab>
     </nb-tabset>
   </nb-card-body>
 </nb-card>
+<ng-template #noRecords>
+  <p class="text-center pt-5">No Records Found</p>
+</ng-template>
