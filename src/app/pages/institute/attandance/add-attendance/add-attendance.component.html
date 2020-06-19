@@ -42,6 +42,8 @@
           <button nbButton status="success" (click)="fileInput.click()">Upload</button>
           <input type="file" nbInput status="basic" style="display: none;" fullWidth (change)="onFilePicked($event)"
             #fileInput />
+          <button *ngIf="file && !invalidFile" style="margin-left: 0px;" class="btn btn-yellow-black"
+            (click)="uploadFile()">Submit</button>
         </div>
       </div>
       <div class="text-right" style="margin-right: 20px;">

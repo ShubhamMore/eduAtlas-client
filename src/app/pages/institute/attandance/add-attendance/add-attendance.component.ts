@@ -85,7 +85,9 @@ export class AddAttendanceComponent implements OnInit {
     }
     this.invalidFile = false;
     this.file = file;
+  }
 
+  uploadFile() {
     const fetchAttendanceFile = new FormData();
     fetchAttendanceFile.append('scheduleId', this.attendanceBasicDetail._id);
     fetchAttendanceFile.append('lectureId', this.attendanceBasicDetail.days._id);
