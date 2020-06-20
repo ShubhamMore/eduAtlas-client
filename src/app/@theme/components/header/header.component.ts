@@ -237,7 +237,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dialogService.open(notificationDialog, { context: notification });
     this.api.seenNotification({ 'notification': notification._id }).subscribe((res) => {
       this.notifications.map((singleNotification) => {
-        if (singleNotification._id === notification._id) {
+        if (singleNotification._id === notification._id && !notification.seen) {
           this.notificationCount--;
           return singleNotification.seen = true;
         } else {

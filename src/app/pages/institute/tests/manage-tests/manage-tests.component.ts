@@ -42,7 +42,7 @@ export class ManageTestsComponent implements OnInit {
     this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap, this.instituteId);
-    // this.getTests({ instituteId: this.instituteId });
+    this.getTests({ instituteId: this.instituteId });
   }
 
 
