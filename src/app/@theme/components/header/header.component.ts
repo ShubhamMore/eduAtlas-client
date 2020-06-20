@@ -222,10 +222,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getNotifications() {
     this.api.getNotifications().subscribe((res: any) => {
       this.notifications = res;
-      this.notifications.forEach((notification) => {
+      this.notifications.map((notification) => {
         if (!notification.seen) {
           this.notificationCount++;
         }
+        notification.date = new Date(notification.date);
+        return notification;
       });
     }, (err) => {
 
