@@ -59,7 +59,7 @@
 
 <ng-template #notificationPopup>
   <div class="chatPopup">
-    <<<<<<< HEAD <nb-list *ngIf="notifications && notifications.length>0;else noNotifications">
+    <nb-list *ngIf="notifications && notifications.length>0;else noNotifications">
       <nb-list-item *ngFor="let notification of notifications;let i = index"
         [ngClass]="!notification.seen?'newNotification':''">
         <div style="cursor: pointer;">
@@ -68,19 +68,10 @@
           <span style="position: absolute;right: 20px;"><i
               (click)="deleteNotification(notification._id,i,notification.seen)" class="fa fa-trash"
               style="font-size: 18px;" aria-hidden="true"></i></span>
-          =======
-          <nb-list *ngIf="notifications && notifications.length > 0; else noNotifications">
-            <nb-list-item *ngFor="let notification of notifications; let i = index">
-              <div style="cursor: pointer;">
-                <span (click)="openNotificationBox(notification, notificationDialog)"
-                  style="font-weight: bold;">{{ notification.title }} </span><span> ({{ notification.date }})</span>
-                <span style="position: absolute; right: 20px;"><i (click)="deleteNotification(notification._id, i)"
-                    class="fa fa-trash" style="font-size: 18px;" aria-hidden="true"></i></span>
-                >>>>>>> 7319582a1a7047d37089685bbd19e7a6df2f5ecb
-              </div>
-            </nb-list-item>
-          </nb-list>
         </div>
+      </nb-list-item>
+    </nb-list>
+  </div>
 </ng-template>
 
 <ng-template #chatWindow let-receiverData>
