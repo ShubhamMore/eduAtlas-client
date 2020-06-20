@@ -3,42 +3,42 @@
     <nb-tabset fullWidth>
       <nb-tab tabTitle="UPCOMING/PENDING TESTS">
         <div *ngIf="tests && tests.unmarked.length>0;else noRecords">
-          <div class="row" *ngFor="let unmarkedTest of tests.unmarked">
+          <div class="row" *ngFor="let unmarkedTest of tests.unmarked;let i = index">
             <div class="col-md-1">
               <div class="date-block">
-                <span class="day">{{ getDay(unmarkedTest.days.date) }}</span>
-                <span class="month">{{ getMonth(unmarkedTest.days.date) }}</span>
+                <span class="day">{{ getDay(unmarkedTest.date) }}</span>
+                <span class="month">{{ getMonth(unmarkedTest.date) }}</span>
               </div>
             </div>
             <div class="col-md-3">
               <div>
-                <span class="boldText">{{unmarkedTest.days.date}}</span>
+                <span class="boldText">{{unmarkedTest.testName}}</span>
               </div>
               <div>
-                <label>Time : </label><span class="boldText">{{unmarkedTest.days.startTime}} -
-                  {{unmarkedTest.days.endTime}}</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div>
-                <label></label><span class="boldText"></span>
-              </div>
-              <div>
-                <label>Teacher : </label><span class="boldText">{{unmarkedTest.days.teacherName}}</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div>
-                <label></label><span class="boldText"></span>
-              </div>
-              <div>
-                <label>Batch : </label><span class="boldText">{{unmarkedTest.days.batchName}}</span>
+                <label>Max Marks : </label><span class="boldText">{{unmarkedTest.totalMarks}}</span>
               </div>
             </div>
             <div class="col-md-2">
-              <button nbButton status="success" (click)="editAttendance(markedAttendance)">MARK</button>
-              <button class="btn btn-yellow-black" (click)="editAttendance(markedAttendance)">EDIT MARKS</button>
-              <button nbButton status="success" (click)="editAttendance(markedAttendance)">DELETE</button>
+              <div>
+                <label></label><span class="boldText"></span>
+              </div>
+              <div>
+                <label>Time : </label><span class="boldText">{{unmarkedTest.startTime}} -
+                  {{unmarkedTest.toTime}}</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div>
+                <label></label><span class="boldText"></span>
+              </div>
+              <div>
+                <label>Batch : </label><span class="boldText">{{unmarkedTest.batchCode}}</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <button nbButton status="success" (click)="markTest(unmarkedTest._id)">MARK</button>
+              <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">EDIT</button>
+              <button nbButton status="danger" (click)="deleteTest(unmarkedTest._id,i)">DELETE</button>
             </div>
           </div>
         </div>
@@ -52,17 +52,25 @@
           <div class="row" *ngFor="let markedTest of tests.marked">
             <div class="col-md-1">
               <div class="date-block">
-                <span class="day">{{ getDay(markedTest.days.date) }}</span>
-                <span class="month">{{ getMonth(markedTest.days.date) }}</span>
+                <span class="day">{{ getDay(markedTest.date) }}</span>
+                <span class="month">{{ getMonth(markedTest.date) }}</span>
               </div>
             </div>
             <div class="col-md-3">
               <div>
-                <span class="boldText">{{markedTest.days.date}}</span>
+                <span class="boldText">{{markedTest.testName}}</span>
               </div>
               <div>
-                <label>Time : </label><span class="boldText">{{markedTest.days.startTime}} -
-                  {{markedTest.days.endTime}}</span>
+                <label>Max Marks : </label><span class="boldText">{{markedTest.totalMarks}} </span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div>
+                <label></label><span class="boldText"></span>
+              </div>
+              <div>
+                <label>Time : </label><span class="boldText">{{markedTest.startTime}} -
+                  {{markedTest.toTime}}</span>
               </div>
             </div>
             <div class="col-md-3">
@@ -70,20 +78,11 @@
                 <label></label><span class="boldText"></span>
               </div>
               <div>
-                <label>Teacher : </label><span class="boldText">{{markedTest.days.teacherName}}</span>
+                <label>Batch : </label><span class="boldText">{{markedTest.batchCode}}</span>
               </div>
             </div>
             <div class="col-md-3">
-              <div>
-                <label></label>
-                <span class="boldText"></span>
-              </div>
-              <div>
-                <label>Batch : </label><span class="boldText">{{markedTest.days.batchName}}</span>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <button class="btn btn-yellow-black" (click)="editAttendance(markedTest)">EDIT MARKS</button>
+              <button class="btn btn-yellow-black" (click)="editMarks(markedTest._id)">EDIT MARKS</button>
             </div>
           </div>
         </div>
