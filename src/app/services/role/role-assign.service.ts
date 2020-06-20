@@ -53,23 +53,23 @@ export class RoleAssignService {
       MENU_ITEMS[5].hidden = false;
       MENU_ITEMS[6].hidden = false;
       MENU_ITEMS[6].children[1].hidden = false;
-      MENU_ITEMS[7].hidden = false;
-      MENU_ITEMS[8].hidden = false;
-      MENU_ITEMS[8].children[4].hidden = false;
-      MENU_ITEMS[11].hidden = false;
-      MENU_ITEMS[12].hidden = false;
+      MENU_ITEMS[7].hidden = true;
+      MENU_ITEMS[8].hidden = true;
+      MENU_ITEMS[8].children[4].hidden = true;
+      MENU_ITEMS[11].hidden = true;
+      MENU_ITEMS[12].hidden = true;
       if (this.instituteService.getInstitute().currentPlan !== 'Lite') {
-        MENU_ITEMS[13].hidden = false;
+        MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[13].children[0].hidden = true;
         MENU_ITEMS[13].children[1].hidden = false;
         MENU_ITEMS[13].children[2].hidden = false;
         MENU_ITEMS[14].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;
-        MENU_ITEMS[14].hidden = false;
+        MENU_ITEMS[14].hidden = true;
       }
       MENU_ITEMS[15].hidden = false;
-      MENU_ITEMS[16].hidden = false;
+      MENU_ITEMS[16].hidden = true;
     }
     if (role && role === 'Teacher') {
       this.role = role;
