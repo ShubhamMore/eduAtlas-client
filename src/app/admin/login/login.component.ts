@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/student/home'], {
               relativeTo: this.route,
             });
-          }else{
+          } else {
             this.showToast('top-right', 'success', `Login Success`);
             this.router.navigate(['/pages/home'], {
               relativeTo: this.route,

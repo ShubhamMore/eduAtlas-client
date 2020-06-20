@@ -40,14 +40,18 @@
           <td>{{ student.basicDetails.studentContact }}</td>
           <!-- <td>{{ student.courseDetails.course }}</td> -->
           <td>
-            <button class="mr-2" nbButton status="primary" (click)="view(student.eduAtlasId)">
+            <button class="mr-2 mb-2" nbButton status="primary" (click)="view(student.eduAtlasId)">
               View
             </button>
-            <button type="button" class="btn btn-yellow mr-2" (click)="edit(student.eduAtlasId)">
+            <button
+              type="button"
+              class="btn btn-yellow mr-2 mb-2"
+              (click)="edit(student.eduAtlasId)"
+            >
               Edit
             </button>
             <button
-              class="mr-2"
+              class="mr-2 mb-2"
               nbButton
               status="danger"
               (click)="delete(student.eduAtlasId, student.instituteDetails._id)"

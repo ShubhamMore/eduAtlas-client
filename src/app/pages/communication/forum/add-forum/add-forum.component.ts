@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,6 @@ import { AuthService } from '../../../../services/auth-services/auth.service';
   templateUrl: './add-forum.component.html',
   styleUrls: ['./add-forum.component.scss'],
 })
-
 export class AddForumComponent implements OnInit {
   forumForm: FormGroup;
   instituteId: string;
@@ -28,7 +27,7 @@ export class AddForumComponent implements OnInit {
     private toasterService: NbToastrService,
     private location: Location,
     private authService: AuthService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
@@ -42,8 +41,8 @@ export class AddForumComponent implements OnInit {
     this.forumForm = this.fb.group({
       topic: ['', Validators.required],
       description: ['', Validators.required],
-      courseId: ['']
-    })
+      courseId: [''],
+    });
     this.getCourses();
   }
 
@@ -56,9 +55,8 @@ export class AddForumComponent implements OnInit {
     );
   }
   getForum() {
-    this.api.getSingleForum({'_id':this.forumId}).subscribe(
-      (data:any) => {
-       
+    this.api.getSingleForum({ _id: this.forumId }).subscribe(
+      (data: any) => {
         this.forumForm.patchValue({
           topic: data.title,
           description: data.description,
@@ -79,23 +77,20 @@ export class AddForumComponent implements OnInit {
       return;
     }
 
-    var forumReq = {
-      'instituteId': this.instituteId,
-      'courseId': this.forumForm.get('courseId').value,
-      'createdBy': this.authService.getUser()._id,
-      'createdByName': this.authService.getUser().name,
-      'title': this.forumForm.get('topic').value,
-      'description': this.forumForm.get('description').value,
-      '_id':this.forumId
-    }
+    const forumReq = {
+      instituteId: this.instituteId,
+      courseId: this.forumForm.get('courseId').value,
+      createdBy: this.authService.getUser()._id,
+      createdByName: this.authService.getUser().name,
+      title: this.forumForm.get('topic').value,
+      description: this.forumForm.get('description').value,
+      _id: this.forumId,
+    };
     if (this.edit === 'true') {
       this.api.updateForum(forumReq).subscribe(
         (data) => {
           this.showToast('top-right', 'success', 'Forum Updated Successfully');
-          this.router.navigate([
-            '/pages/communication/forum/',
-            this.instituteId,
-          ]);
+          this.router.navigate(['/pages/communication/forum/', this.instituteId]);
         },
         (err) => {
           this.showToast('top-right', 'danger', err.error.message);
@@ -107,10 +102,7 @@ export class AddForumComponent implements OnInit {
       this.api.addForum(forumReq).subscribe(
         () => {
           this.showToast('top-right', 'success', 'Forum Added Successfully');
-          this.router.navigate([
-            '/pages/communication/forum/',
-            this.instituteId,
-          ]);
+          this.router.navigate(['/pages/communication/forum/', this.instituteId]);
         },
         (err) => {
           this.showToast('top-right', 'danger', err.error.message);
@@ -131,4 +123,4 @@ export class AddForumComponent implements OnInit {
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }
-} 
+}
