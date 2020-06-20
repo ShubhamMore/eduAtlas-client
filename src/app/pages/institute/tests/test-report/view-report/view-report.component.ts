@@ -42,12 +42,12 @@ export class ViewReportComponent implements OnInit {
     responsive: true,
     scales: {
       yAxes: [{
-          ticks: {
-              beginAtZero: true,
-              max:100
-          }
+        ticks: {
+          beginAtZero: true,
+          max: 100
+        }
       }]
-  }
+    }
   };
   public barChartLabels = [];
   public barChartType = 'line';
@@ -83,7 +83,9 @@ export class ViewReportComponent implements OnInit {
   getTest(id: string) {
     this.api.getSingleTest({ _id: id }).subscribe(
       (res: any) => {
-        this.test = res;
+        if (res) {
+          this.test = res[0];
+        }
         this.course = this.institute.course.find(
           (c: any) => c._id === this.test.courseId,
         ).courseCode;
@@ -122,26 +124,26 @@ export class ViewReportComponent implements OnInit {
     });
   }
 
-  getStudentTestReport(studentId,dialog: TemplateRef<any>) {
+  getStudentTestReport(studentId, dialog: TemplateRef<any>) {
 
-    
+
     this.api.getScoresOfStutdentByInstitute({ 'studentId': studentId, 'instituteId': this.instituteId }).subscribe((res: any) => {
 
-      res.sort((test1,test2)=>{
+      res.sort((test1, test2) => {
         const test1Date = new Date(test1.date);
         const test2Date = new Date(test2.date);
-        if(test1Date>test2Date){
+        if (test1Date > test2Date) {
           return 1;
-        }else{
+        } else {
           return -1;
         }
       })
 
-      var percentageArray = res.map((test)=>{
+      var percentageArray = res.map((test) => {
         return test.students.percentage;
       })
-      var labelsArray = res.map((test)=>{
-        return test.testName+"("+test.date+")";
+      var labelsArray = res.map((test) => {
+        return test.testName + "(" + test.date + ")";
       })
 
       this.barChartLabels = labelsArray;
@@ -152,9 +154,9 @@ export class ViewReportComponent implements OnInit {
       ];
       this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
     }, (err) => {
-        this.showToast('top-right','danger',err.error.message );
+      this.showToast('top-right', 'danger', err.error.message);
     })
-    
+
   }
 
   showToast(position: any, status: any, message: any) {

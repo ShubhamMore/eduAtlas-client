@@ -19,7 +19,7 @@ export class CreateTestsScoreComponent implements OnInit {
   file: File;
   fileUpload: boolean;
   invalidFile: boolean;
-  test: any;
+  test: any = null;
   course: string;
   batch: string;
   display: boolean;
@@ -48,6 +48,7 @@ export class CreateTestsScoreComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.test = null;
     this.display = false;
     this.sampleExcel = environment.server + '/sample/scores.xlsx';
     this.invalidFile = false;
@@ -56,26 +57,14 @@ export class CreateTestsScoreComponent implements OnInit {
     this.route.queryParams.subscribe((param) => {
       this.testId = param.test;
     });
-    this.getCourses(this.instituteId);
     this.students = [];
     this.studentScore = [];
+    this.getCourses(this.instituteId);
+    this.getTest(this.testId);
   }
 
   changeFieUpload(event: any) {
     this.fileUpload = event;
-  }
-
-  onFilePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-
-    const imgExt: string[] = ['xsl', 'xlsx', 'csv'];
-    const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
-    if (!(imgExt.indexOf(ext) !== -1)) {
-      this.invalidFile = true;
-      return;
-    }
-    this.invalidFile = false;
-    this.file = file;
   }
 
   getCourses(id: string) {
@@ -88,11 +77,42 @@ export class CreateTestsScoreComponent implements OnInit {
       }
     });
   }
+  onFilePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+
+    const imgExt: string[] = ['xsl', 'xlsx', 'csv'];
+    const ext = file.name.substring(file.name.lastIndexOf('.') + 1).toLowerCase();
+    if (!(imgExt.indexOf(ext) !== -1)) {
+      this.invalidFile = true;
+      return;
+    }
+    this.invalidFile = false;
+    this.file = file;
+  }
+  uploadFile() {
+    const scoreFile = new FormData();
+    scoreFile.append('_id', this.test._id);
+    scoreFile.append('batchName', this.batch);
+    scoreFile.append('uploadfile', this.file, this.test.testName);
+
+    this.api.addScoreUsingExcel(scoreFile).subscribe(
+      (res) => {
+        this.showToast('top-right', 'success', 'Score File Updated Successfully');
+        this.location.back();
+      },
+      (err) => {
+        this.showToast('top right', 'danger', err.err.message);
+      },
+    );
+  }
 
   getTest(id: string) {
     this.api.getSingleTest({ _id: id }).subscribe(
       (res: any) => {
-        this.test = res;
+        if (res) {
+          this.test = res[0];
+        }
+
         this.course = this.institute.course.find(
           (c: any) => c._id === this.test.courseId,
         ).courseCode;
@@ -100,7 +120,7 @@ export class CreateTestsScoreComponent implements OnInit {
         if (this.test.students.length > 0) {
           this.studentScore = this.test.students;
         } else {
-          this.getStudents(res.instituteId, res.batchId, res.courseId);
+          this.getStudents(this.instituteId, this.test.batchId, this.test.courseId);
         }
         this.display = true;
       },
@@ -108,27 +128,34 @@ export class CreateTestsScoreComponent implements OnInit {
     );
   }
 
+
   getStudents(instituteID: string, batchId: string, courseId: string) {
     this.api.getStudentsByBatch(instituteID, courseId, batchId).subscribe((res: any[]) => {
       this.students = res;
       this.students.sort((student1, student2) => {
-        if (+student1.instituteDetails.rollNumber >= +student2.instituteDetails.rollNumber) {
+        if (student1.instituteDetails.rollNumber >= +student2.instituteDetails.rollNumber) {
           return 1;
         } else {
           return -1;
         }
       });
 
+
+      this.studentScore = [];
       this.students.forEach((student) => {
         const scoreData = {
           studentId: student._id,
+          studentName: student.basicDetails.name,
           rollNo: student.instituteDetails.rollNumber,
+          batchCode: this.batch,
           marks: '',
         };
 
         this.studentScore.push(scoreData);
       });
     });
+
+
   }
 
   addMarks(event: any, i: number) {
@@ -136,40 +163,17 @@ export class CreateTestsScoreComponent implements OnInit {
     this.studentScore[i].marks = mark;
   }
 
-  addScore() {
-    if (!this.fileUpload) {
-      this.api.addTestScore({ _id: this.test._id, scores: this.studentScore }).subscribe(
-        (res) => {
-          this.showToast('top right', 'success', 'Score Updated Successfully');
-          this.location.back();
-        },
-        (err) => {
-          this.showToast('top right', 'danger', err.err.message);
-        },
-      );
-    } else {
-      if (this.file) {
-        const scoreFile = new FormData();
-        scoreFile.append('_id', this.test._id);
-        scoreFile.append('uploadfile', this.file, this.test.testName);
+  saveMarks() {
+    this.api.addTestScore({ _id: this.test._id, 'batchName': this.batch, scores: this.studentScore }).subscribe(
+      (res) => {
+        this.showToast('top right', 'success', 'Score Updated Successfully');
+        this.location.back();
+      },
+      (err) => {
+        this.showToast('top right', 'danger', err.err.message);
+      },
+    );
 
-        this.api.addScoreUsingExcel(scoreFile).subscribe(
-          (res) => {
-            this.showToast('top-right', 'success', 'Score File Updated Successfully');
-            this.location.back();
-          },
-          (err) => {
-            this.showToast(
-              'top-right',
-              'danger',
-              'Invalid Data in File, Please Enter Valid Roll Numbers',
-            );
-          },
-        );
-      } else {
-        this.invalidFile = true;
-      }
-    }
   }
 
   getMonth(date: string) {
