@@ -3,37 +3,20 @@
     <div class="col-12">
       <nb-card>
         <nb-card-header>
-          <span
-            ><img
-              class="my-auto float-left"
-              [src]="myInstitute.institute.basicInfo.logo.secure_url"
-              width="40px"
-              height="40px"
-              style="border-radius: 100%; border: 1px solid #000;"
-          /></span>
-          <span
-            class="ml-3 my-auto"
-            style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;"
-          >
-            {{ myInstitute.institute.basicInfo.name | uppercase }}
-          </span>
-          <span
-            style="
-              font-size: 10px;
-              font-weight: normal;
-              background-color: #009acd;
-              color: #fff;
-              padding: 2px 8px;
-              border-radius: 10px;
-            "
-            >{{ myInstitute.institute.currentPlan | uppercase }}</span
-          >
+          <div class="instituteBox">
+            <span><img class="my-auto float-left" [src]="myInstitute.institute.basicInfo.logo.secure_url" width="40px"
+                height="40px" style="border-radius: 100%; border: 1px solid #000;" /></span>
+            <span class="ml-3 my-auto verticalCenter"
+              style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;">
+              {{ myInstitute.institute.basicInfo.name | uppercase }}
+            </span>
+            <span class="planDiv">{{ myInstitute.institute.currentPlan | uppercase }}</span>
 
-          <span class="float-right mr-3">
-            <span>Total Students: {{ totalStudents }}</span
-            ><br />
-            <span>Total Batches: {{ totalBatches }}</span>
-          </span>
+            <span class="float-right mr-3 ">
+              <span>Total Students: {{ totalStudents }}</span><br />
+              <span>Total Batches: {{ totalBatches }}</span>
+            </span>
+          </div>
         </nb-card-header>
       </nb-card>
     </div>
@@ -69,10 +52,7 @@
                 <p class="text-center pt-5">No Classes Today</p>
               </ng-template>
             </nb-tab>
-            <nb-tab
-              tabTitle="PENDING FEES"
-              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
-            >
+            <nb-tab tabTitle="PENDING FEES" *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'">
               <div class="table-responsive" *ngIf="pendingFees.length > 0; else noFees">
                 <table class="table table-borderless">
                   <thead>
@@ -97,10 +77,8 @@
                 <p class="text-center pt-5">No Pending Fees</p>
               </ng-template>
             </nb-tab>
-            <nb-tab
-              tabTitle="STUDENT REQUESTS"
-              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
-            >
+            <nb-tab tabTitle="STUDENT REQUESTS"
+              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'">
               <div class="table-responsive" *ngIf="studentRequest.length > 0; else noStudents">
                 <table class="table table-borderless">
                   <thead>
@@ -123,10 +101,7 @@
                 <p class="text-center pt-5">No Student Requests</p>
               </ng-template>
             </nb-tab>
-            <nb-tab
-              tabTitle="FOLLOW UPS"
-              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
-            >
+            <nb-tab tabTitle="FOLLOW UPS" *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'">
               <div class="table-responsive" *ngIf="newLeads.length > 0; else noLeads">
                 <table class="table table-borderless">
                   <thead>
@@ -158,40 +133,28 @@
 
     <div class="col-md-6">
       <div class="row">
-        <div
-          class="col-md-6"
-          *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
-        >
+        <div class="col-md-6" *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'">
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
                 <img class="inst-logo" src="../../../assets/img/add-user.png" alt="Institute" />
               </div>
               <br />
-              <button
-                class="btn btn-yellow"
-                [routerLink]="'/pages/institute/add-students/' + this.instituteId"
-              >
+              <button class="btn btn-yellow" [routerLink]="'/pages/institute/add-students/' + this.instituteId">
                 ADD STUDENT
               </button>
             </nb-card-body>
           </nb-card>
         </div>
 
-        <div
-          class="col-md-6"
-          *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
-        >
+        <div class="col-md-6" *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'">
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
                 <img class="inst-logo" src="../../../assets/img/rupee.png" alt="Institute" />
               </div>
               <br />
-              <button
-                class="btn btn-yellow"
-                [routerLink]="'/pages/institute/manage-students/' + this.instituteId"
-              >
+              <button class="btn btn-yellow" [routerLink]="'/pages/institute/manage-students/' + this.instituteId">
                 COLLECT INSTALLMENT
               </button>
             </nb-card-body>
@@ -205,10 +168,7 @@
                 <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
               </div>
               <br />
-              <button
-                class="btn btn-yellow"
-                [routerLink]="'/pages/institute/add-schedule/' + this.instituteId"
-              >
+              <button class="btn btn-yellow" [routerLink]="'/pages/institute/add-schedule/' + this.instituteId">
                 ADD CLASS
               </button>
             </nb-card-body>
@@ -222,10 +182,7 @@
                 <img class="inst-logo" src="../../../assets/img/calendar.png" alt="Institute" />
               </div>
               <br />
-              <button
-                class="btn btn-yellow"
-                [routerLink]="'/pages/institute/attandance/' + this.instituteId"
-              >
+              <button class="btn btn-yellow" [routerLink]="'/pages/institute/attandance/' + this.instituteId">
                 ADD ATTENDANCE
               </button>
             </nb-card-body>

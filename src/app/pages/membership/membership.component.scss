@@ -7,7 +7,7 @@ nb-card-header {
 }
 
 .pricingDiv {
-  padding: 50px 200px;
+  padding: 50px 10px;
 }
 
 .priceTable {
@@ -68,7 +68,7 @@ nb-card-header {
 }
 
 .headerValue {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 400;
   padding-top: 13px;
 }
@@ -88,25 +88,61 @@ nb-card-header {
 }
 
 .pricingTitle {
-  font-size: 55px;
+  font-size: 45px;
   font-weight: bold;
   font-family: 'Poppins';
 }
 
 @include media-breakpoint-down(sm) {
   .pricingDiv {
-    padding: 50px 20px;
+    padding: 0;
     .priceTable th {
       height: 139px;
       width: auto;
       padding: 0px;
     }
   }
+  .featuresHeader {
+    font-weight: 400;
+    font-size: auto;
+    line-height:unset;
+    text-transform: none;
+    color: rgb(98, 98, 98);
+    padding-bottom: 15px;
+  }
+  .headerValue {
+    font-size: auto;
+    font-weight: 400;
+    padding-top: 13px;
+  }
+  .priceTable th {
+    height: auto;
+    width: auto;
+    padding: 0px;
+  }
 }
 
 @include media-breakpoint-down(lg) {
   .pricingDiv {
     padding: 50px 20px;
+  }
+  .featuresHeader {
+    font-weight: 400;
+    font-size: auto;
+    line-height:unset;
+    text-transform: none;
+    color: rgb(98, 98, 98);
+    padding-bottom: 15px;
+  }
+  .headerValue {
+    font-size: auto;
+    font-weight: 400;
+    padding-top: 13px;
+  }
+  .priceTable th {
+    height: auto;
+    width: auto;
+    padding: 0px;
   }
 }
 @include media-breakpoint-down(xl) {
