@@ -256,11 +256,13 @@ export class AddStudentsComponent implements OnInit {
           // IN editing Mode or Already Registered mode Student Email field is Disabled
           // (Enable Only in Add New Student Mode)
           this.studentForm.get('name').disable();
-          // (Enable Only in Add New Student Mode)
           this.studentForm.get('studentEmail').disable();
-          // IN editing Mode or Already Registered mode Student Contact field is Disabled
-          // (Enable Only in Add New Student Mode)
           this.studentForm.get('contact').disable();
+          this.studentForm.get('parentName').disable();
+          this.studentForm.get('parentEmail').disable();
+          this.studentForm.get('parentContact').disable();
+          this.studentForm.get('address').disable();
+
           // Set Class Level Eduatlas Id
           this.studentEduId = data.eduAtlasId;
           this.otpSent = false;
@@ -677,12 +679,15 @@ export class AddStudentsComponent implements OnInit {
 
         this.dataFetched = true;
 
-        // Disable Student name in editing mode
+        // IN editing Mode or Already Registered mode Student Email field is Disabled
+        // (Enable Only in Add New Student Mode)
         this.studentForm.get('name').disable();
-        // Disable Student email in editing mode
         this.studentForm.get('studentEmail').disable();
-        // Disable Student contact in editing mode
         this.studentForm.get('contact').disable();
+        this.studentForm.get('parentName').disable();
+        this.studentForm.get('parentEmail').disable();
+        this.studentForm.get('parentContact').disable();
+        this.studentForm.get('address').disable();
 
         // Disable Course Details in editing Mode
         this.disableCourseDetails();
