@@ -44,10 +44,7 @@
       <nb-card class="card-height-1">
         <nb-card-body>
           <nb-tabset fullWidth>
-            <nb-tab
-              tabTitle="UPCOMING CLASSES"
-              *ngIf="myInstitute.institute.currentPlan !== 'Lite'"
-            >
+            <nb-tab tabTitle="UPCOMING CLASSES">
               <div class="table-responsive" *ngIf="classes.length > 0; else noClasses">
                 <table class="table table-borderless">
                   <thead>
@@ -168,7 +165,7 @@
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
-                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+                <img class="inst-logo" src="../../../assets/img/add-user.png" alt="Institute" />
               </div>
               <br />
               <button
@@ -188,7 +185,7 @@
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
-                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+                <img class="inst-logo" src="../../../assets/img/rupee.png" alt="Institute" />
               </div>
               <br />
               <button
@@ -222,7 +219,7 @@
           <nb-card class="card-height-2">
             <nb-card-body>
               <div class="image-container">
-                <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
+                <img class="inst-logo" src="../../../assets/img/calendar.png" alt="Institute" />
               </div>
               <br />
               <button

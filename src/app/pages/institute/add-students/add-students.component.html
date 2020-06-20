@@ -465,125 +465,124 @@
 
               <hr />
 
-              <div class="row">
-                <div class="col-12" formArrayName="installments">
-                  <ng-container
-                    *ngFor="
-                      let installment of feeDetailsForm.get('installments')['controls'];
-                      let i = index
-                    "
-                  >
-                    <nb-card [formGroupName]="i">
-                      <nb-card-header
-                        class="text-white"
-                        [ngClass]="
-                          feeDetailsForm.get('installments')['controls'][i].value.paidStatus
-                            ? 'bg-success'
-                            : 'bg-danger'
-                        "
-                      >
-                        <div class="row">
-                          <div class="col-md-4">
-                            <nb-checkbox
-                              formControlName="paidStatus"
-                              status="basic"
-                              (checkedChange)="onPaidAmount($event, i)"
-                            ></nb-checkbox>
-                            &nbsp;Click On Tick To make this payment as Done
-                          </div>
-                          <div class="col-md-4 text-center">
-                            <span>Installment {{ i + 1 }}</span>
-                          </div>
-                          <div class="col-md-4">
-                            <input
-                              class="form-control"
-                              nbInput
-                              type="date"
-                              status="basic"
-                              formControlName="paidOn"
-                              fullWidth
-                              placeholder="Installment Date"
-                            />
-                          </div>
+              <div class="row" formArrayName="installments">
+                <div
+                  class="col-12"
+                  *ngFor="
+                    let installment of feeDetailsForm.get('installments')['controls'];
+                    let i = index
+                  "
+                >
+                  <nb-card [formGroupName]="i">
+                    <nb-card-header
+                      class="text-white"
+                      [ngClass]="
+                        feeDetailsForm.get('installments')['controls'][i].value.paidStatus
+                          ? 'bg-success'
+                          : 'bg-danger'
+                      "
+                    >
+                      <div class="row">
+                        <div class="col-md-4">
+                          <nb-checkbox
+                            formControlName="paidStatus"
+                            status="basic"
+                            (checkedChange)="onPaidAmount($event, i)"
+                          ></nb-checkbox>
+                          &nbsp;Click On Tick To make this payment as Done
                         </div>
-                      </nb-card-header>
-                      <nb-card-body>
-                        <div class="row">
-                          <div class="col-sm-4">
-                            <label>Amount</label>
-                            <input
-                              type="text"
-                              pattern="\d*"
-                              nbInput
-                              status="basic"
-                              fullWidth
-                              formControlName="amount"
-                              placeholder="Amount"
-                              (input)="changePendingAmount(i)"
-                            />
-                          </div>
-                          <div class="col-sm-4">
-                            <label>Pending Amount</label>
-                            <input
-                              type="text"
-                              pattern="\d*"
-                              nbInput
-                              status="basic"
-                              formControlName="amountPending"
-                              fullWidth
-                              placeholder="Amount Pending"
-                            />
-                          </div>
-                          <div class="col-sm-4">
-                            <label>Payment Mode</label>
-                            <nb-select
-                              status="basic"
-                              formControlName="paymentMode"
-                              placeholder="Payment Mode"
-                              (selectedChange)="onSelectPaymentMode($event, i)"
-                            >
-                              <nb-option *ngFor="let mode of modes" [value]="mode">{{
-                                mode
-                              }}</nb-option>
-                            </nb-select>
-                          </div>
-                          <div class="col-sm-4">
-                            <label>Bank/Mode</label>
-                            <input
-                              type="text"
-                              nbInput
-                              status="basic"
-                              formControlName="bankDetails"
-                              fullWidth
-                              placeholder="Bank/Mode"
-                            />
-                          </div>
-                          <div class="col-sm-4">
-                            <label>Transaction Id / Instrument No.</label>
-                            <input
-                              type="text"
-                              nbInput
-                              status="basic"
-                              formControlName="transDetails"
-                              fullWidth
-                              placeholder="Transaction/Instrument No"
-                            />
-                          </div>
-                          <div class="col-sm-4">
-                            <label>Payment Date</label>
-                            <input
-                              type="date"
-                              nbInput
-                              status="basic"
-                              formControlName="paymentDate"
-                              fullWidth
-                              placeholder="Date"
-                            />
-                          </div>
+                        <div class="col-md-4 text-center">
+                          <span>Installment {{ i + 1 }}</span>
                         </div>
-                      </nb-card-body>
-                    </nb-card>
-                  </ng-container>
+                        <div class="col-md-4">
+                          <input
+                            class="form-control"
+                            nbInput
+                            type="date"
+                            status="basic"
+                            formControlName="paidOn"
+                            fullWidth
+                            placeholder="Installment Date"
+                          />
+                        </div>
+                      </div>
+                    </nb-card-header>
+                    <nb-card-body>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <label>Amount</label>
+                          <input
+                            type="text"
+                            pattern="\d*"
+                            nbInput
+                            status="basic"
+                            fullWidth
+                            formControlName="amount"
+                            placeholder="Amount"
+                            (input)="changePendingAmount(i)"
+                          />
+                        </div>
+                        <div class="col-sm-4">
+                          <label>Pending Amount</label>
+                          <input
+                            type="text"
+                            pattern="\d*"
+                            nbInput
+                            status="basic"
+                            formControlName="amountPending"
+                            fullWidth
+                            placeholder="Amount Pending"
+                          />
+                        </div>
+                        <div class="col-sm-4">
+                          <label>Payment Mode</label>
+                          <nb-select
+                            status="basic"
+                            formControlName="paymentMode"
+                            placeholder="Payment Mode"
+                            (selectedChange)="onSelectPaymentMode($event, i)"
+                          >
+                            <nb-option *ngFor="let mode of modes" [value]="mode">{{
+                              mode
+                            }}</nb-option>
+                          </nb-select>
+                        </div>
+                        <div class="col-sm-4">
+                          <label>Bank/Mode</label>
+                          <input
+                            type="text"
+                            nbInput
+                            status="basic"
+                            formControlName="bankDetails"
+                            fullWidth
+                            placeholder="Bank/Mode"
+                          />
+                        </div>
+                        <div class="col-sm-4">
+                          <label>Transaction Id / Instrument No.</label>
+                          <input
+                            type="text"
+                            nbInput
+                            status="basic"
+                            formControlName="transDetails"
+                            fullWidth
+                            placeholder="Transaction/Instrument No"
+                          />
+                        </div>
+                        <div class="col-sm-4">
+                          <label>Payment Date</label>
+                          <input
+                            type="date"
+                            nbInput
+                            status="basic"
+                            formControlName="paymentDate"
+                            fullWidth
+                            placeholder="Date"
+                          />
+                        </div>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
                 </div>
               </div>
             </div>

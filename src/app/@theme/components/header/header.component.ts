@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private roleService: RoleAssignService,
     private windowService: NbWindowService,
     private chatService: SocketioService,
-    private dialogService: NbDialogService
+    private dialogService: NbDialogService,
   ) { }
 
   ngOnInit() {
@@ -119,7 +119,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socket.emit('message', message);
   }
   openChatBoxForNewIncomingMessage(message) {
-    var user = {
+    const user = {
       eduAtlasId: message.receiverId,
       basicDetails: {
         name: message.msg.user.name,

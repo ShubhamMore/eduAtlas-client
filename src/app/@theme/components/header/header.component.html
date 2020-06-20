@@ -36,32 +36,30 @@
 
 <ng-template #chatPopup>
   <div class="chatPopup">
-
     <nb-tabset fullWidth>
       <nb-tab tabTitle="Teachers">
-        <nb-list *ngIf="chatMembers;else noChatMembers">
+        <nb-list *ngIf="chatMembers; else noChatMembers">
           <nb-list-item *ngFor="let user of chatMembers.employeeDetails">
-            <nb-user [name]="user.basicDetails.name" style="cursor:pointer" (click)="openChatBox(user)">
+            <nb-user [name]="user.basicDetails.name" style="cursor: pointer;" (click)="openChatBox(user)">
             </nb-user>
           </nb-list-item>
         </nb-list>
       </nb-tab>
       <nb-tab tabTitle="Students">
-        <nb-list *ngIf="chatMembers;else noChatMembers">
+        <nb-list *ngIf="chatMembers; else noChatMembers">
           <nb-list-item *ngFor="let user of chatMembers.studentsDetails">
-            <nb-user [name]="user.basicDetails.name" style="cursor:pointer" (click)="openChatBox(user)">
+            <nb-user [name]="user.basicDetails.name" style="cursor: pointer;" (click)="openChatBox(user)">
             </nb-user>
           </nb-list-item>
         </nb-list>
       </nb-tab>
     </nb-tabset>
-
   </div>
 </ng-template>
 
 <ng-template #notificationPopup>
   <div class="chatPopup">
-    <nb-list *ngIf="notifications && notifications.length>0;else noNotifications">
+    <<<<<<< HEAD <nb-list *ngIf="notifications && notifications.length>0;else noNotifications">
       <nb-list-item *ngFor="let notification of notifications;let i = index"
         [ngClass]="!notification.seen?'newNotification':''">
         <div style="cursor: pointer;">
@@ -70,11 +68,19 @@
           <span style="position: absolute;right: 20px;"><i
               (click)="deleteNotification(notification._id,i,notification.seen)" class="fa fa-trash"
               style="font-size: 18px;" aria-hidden="true"></i></span>
+          =======
+          <nb-list *ngIf="notifications && notifications.length > 0; else noNotifications">
+            <nb-list-item *ngFor="let notification of notifications; let i = index">
+              <div style="cursor: pointer;">
+                <span (click)="openNotificationBox(notification, notificationDialog)"
+                  style="font-weight: bold;">{{ notification.title }} </span><span> ({{ notification.date }})</span>
+                <span style="position: absolute; right: 20px;"><i (click)="deleteNotification(notification._id, i)"
+                    class="fa fa-trash" style="font-size: 18px;" aria-hidden="true"></i></span>
+                >>>>>>> 7319582a1a7047d37089685bbd19e7a6df2f5ecb
+              </div>
+            </nb-list-item>
+          </nb-list>
         </div>
-
-      </nb-list-item>
-    </nb-list>
-  </div>
 </ng-template>
 
 <ng-template #chatWindow let-receiverData>
@@ -84,7 +90,8 @@
         [message]="msg.text" [reply]="msg.reply" [sender]="msg.user.name" [date]="msg.date" [files]="msg.files"
         [avatar]="msg.user.avatar">
       </nb-chat-message>
-      <nb-chat-form (send)="sendMessage(chatmessage[receiverData.userId].messages, $event,receiverData)"></nb-chat-form>
+      <nb-chat-form (send)="sendMessage(chatmessage[receiverData.userId].messages, $event, receiverData)">
+      </nb-chat-form>
     </nb-chat>
   </div>
 </ng-template>
@@ -95,10 +102,10 @@
 
 <ng-template #notificationDialog let-ref="dialogRef" let-notification>
   <nb-card>
-    <nb-card-header>{{notification.title}}</nb-card-header>
+    <nb-card-header>{{ notification.title }}</nb-card-header>
     <nb-card-body>
       <div style="display: block; width: 1000px;">
-        {{notification.message}}
+        {{ notification.message }}
       </div>
     </nb-card-body>
     <nb-card-footer>
