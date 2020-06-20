@@ -46,13 +46,19 @@
                 </div>
                 <div class="detail"><strong>Email: </strong> {{ lead.leadEmail }}</div>
                 <div class="detail"><strong>Contact: </strong> {{ lead.leadContact }}</div>
-                <div class="detail"><strong>Course: </strong> {{ lead.courseId }}</div>
+                <div class="detail">
+                  <strong>Course: </strong> {{ getCourseName(lead.courseId) }}
+                </div>
               </div>
             </td>
             <td>
               <div class="meeting-details">
-                <div class="detail"><strong>Lead Date: </strong> {{ lead.date }}</div>
-                <div class="detail"><strong>Last Follow Up: </strong> {{ lead.followUpDate }}</div>
+                <div class="detail">
+                  <strong>Lead Date: </strong> {{ getFormattedDate(lead.date) }}
+                </div>
+                <div class="detail">
+                  <strong>Last Follow Up: </strong> {{ getFormattedDate(lead.followUpDate) }}
+                </div>
                 <div class="detail"><strong>Strength: </strong> {{ lead.strength }}</div>
               </div>
             </td>

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { courseData } from '../../../../assets/dataTypes/dataType';
 
 @Component({
   selector: 'ngx-manage-lead',
@@ -13,7 +12,7 @@ export class ManageLeadComponent implements OnInit {
   upcomingLeads: any[] = [];
   lostLeads: any[] = [];
   instituteId: string;
-  courses: courseData;
+  courses: any[] = [];
   selectedCourseId: string;
   selectedStatus: string;
   months: string[] = [
@@ -49,6 +48,15 @@ export class ManageLeadComponent implements OnInit {
       },
       (err) => console.error(err),
     );
+  }
+
+  getCourseName(id: any) {
+    const course = this.courses.find((curCourse: any) => curCourse._id === id);
+
+    if (course) {
+      return course.name;
+    }
+    return '';
   }
 
   onSelectCourse(courseId: any) {

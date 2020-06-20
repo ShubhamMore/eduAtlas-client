@@ -32,6 +32,7 @@ export class ViewStudentComponent implements OnInit {
 
     this.getStudent(this.studentEduId, this.instituteId, this.courseId);
   }
+
   getStudent(student: string, institute: string, course: string) {
     this.api
       .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
@@ -49,10 +50,18 @@ export class ViewStudentComponent implements OnInit {
   deleteStudent() {
     const confirm = window.confirm('Are u sure, You want to delete this Student?');
     if (confirm) {
-      this.api.deleteStudentCourse(this.courseId, this.studentEduId).subscribe(() => {
-        this.location.back();
-        this.showToaster('top-right', 'success', 'New Student Deleted Successfully!');
-      });
+      this.api
+        .deleteStudentCourse(
+          this.student.instituteDetails._id,
+          this.studentEduId,
+          this.student.instituteDetails.instituteId,
+          this.courseId,
+          this.student._id,
+        )
+        .subscribe(() => {
+          this.location.back();
+          this.showToaster('top-right', 'success', 'New Student Deleted Successfully!');
+        });
     }
   }
   // Show Toaster
