@@ -10,7 +10,7 @@
                 <span class="month">{{ getMonth(unmarkedTest.date) }}</span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div>
                 <span class="boldText">{{unmarkedTest.testName}}</span>
               </div>
@@ -27,7 +27,7 @@
                   {{unmarkedTest.toTime}}</span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div>
                 <label></label><span class="boldText"></span>
               </div>
@@ -35,7 +35,7 @@
                 <label>Batch : </label><span class="boldText">{{unmarkedTest.batchCode}}</span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5">
               <button nbButton status="success" (click)="markTest(unmarkedTest._id)">MARK</button>
               <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">EDIT</button>
               <button nbButton status="danger" (click)="deleteTest(unmarkedTest._id,i)">DELETE</button>
