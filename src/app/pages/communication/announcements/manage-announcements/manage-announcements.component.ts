@@ -32,7 +32,11 @@ export class ManageAnnouncementsComponent implements OnInit {
     });
   }
 
-  repeat(id: string) {}
+  repeat(id: string) {
+    this.router.navigate(['/pages/communication/add-announcements/', this.instituteId], {
+      queryParams: { announcement: id, repeat: true },
+    });
+  }
 
   edit(id: string) {
     this.router.navigate(['/pages/communication/add-announcements/', this.instituteId], {

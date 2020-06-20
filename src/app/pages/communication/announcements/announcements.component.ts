@@ -18,6 +18,7 @@ export class AnnouncementsComponent implements OnInit {
   announcementId: any;
   announcement: any;
   edit: any;
+  repeat: any;
   batches: any[];
   institute: any;
   display = false;
@@ -36,6 +37,7 @@ export class AnnouncementsComponent implements OnInit {
     this.active.queryParams.subscribe((data) => {
       this.announcementId = data.announcement;
       this.edit = data.edit;
+      this.repeat = data.repeat;
     });
     this.batches = [];
     this.announcementForm = this.fb.group({
@@ -53,7 +55,7 @@ export class AnnouncementsComponent implements OnInit {
   getBatches(id: any) {
     this.api.getBatches(id).subscribe((data: any) => {
       this.batches = data.batch;
-      if (this.edit) {
+      if (this.edit || this.repeat) {
         this.getSingleAnnouncement(this.announcementId);
       } else {
         this.display = true;
@@ -125,6 +127,16 @@ export class AnnouncementsComponent implements OnInit {
       this.announceService.editAnnouncement(announce).subscribe(
         (res) => {
           this.showToast('top-right', 'success', 'Announcement Edited Successfully');
+          this.location.back();
+        },
+        (err: any) => {
+          this.showToast('top-right', 'danger', err.err.message);
+        },
+      );
+    } else if (this.repeat) {
+      this.announceService.postAnnouncement(announce).subscribe(
+        (res) => {
+          this.showToast('top-right', 'success', 'Announcement Repeated Successfully');
           this.location.back();
         },
         (err: any) => {
