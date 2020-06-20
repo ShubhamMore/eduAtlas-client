@@ -9,51 +9,43 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./manage-tests.component.scss'],
 })
 export class ManageTestsComponent implements OnInit {
-  institute: any;
-  instituteId: string;
-  batches: any[] = [];
-  courses: any[] = [];
-  display: boolean;
-  courseId: string;
-  batch: string;
 
-  tests: any[];
+  instituteId: string;
+
+  display: boolean;
+  tests: any = {};
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
 
   constructor(
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    this.tests.unmarked = [];
+    this.tests.marked = [];
     this.display = false;
-    this.tests = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap, this.instituteId);
-    this.getCourses(this.instituteId);
-    this.getTests({ instituteId: this.instituteId });
+    // this.getTests({ instituteId: this.instituteId });
   }
 
-  getCourses(id: string) {
-    this.api.getCourseTD(id).subscribe((data: any) => {
-      // console.log(data);
-      this.institute = data;
-      if (data) {
-        this.courses = this.institute.course;
-      }
-    });
-  }
 
-  onSelectCourse(id: string) {
-    this.courseId = id;
-    this.batches = this.institute.batch.filter((b: any) => b.course === id);
-  }
-
-  onSelectBatch(batchId: string) {
-    this.batch = batchId;
-    this.getTests({ instituteId: this.instituteId, batchId: batchId });
-  }
 
   createTest() {
     this.router.navigate([`/pages/institute/test/create-test/${this.instituteId}`], {
@@ -100,5 +92,15 @@ export class ManageTestsComponent implements OnInit {
 
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
+  }
+
+
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
   }
 }

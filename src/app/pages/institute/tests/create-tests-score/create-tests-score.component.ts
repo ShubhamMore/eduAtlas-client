@@ -25,13 +25,27 @@ export class CreateTestsScoreComponent implements OnInit {
   display: boolean;
   studentScore: any[];
   sampleExcel: any;
+  months: string[] = [
+    'JAN',
+    'FEB',
+    'MAR',
+    'APR',
+    'MAY',
+    'JUN',
+    'JUL',
+    'AUG',
+    'SEP',
+    'OCT',
+    'NOV',
+    'DEC',
+  ];
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
@@ -90,7 +104,7 @@ export class CreateTestsScoreComponent implements OnInit {
         }
         this.display = true;
       },
-      (err) => {},
+      (err) => { },
     );
   }
 
@@ -156,6 +170,15 @@ export class CreateTestsScoreComponent implements OnInit {
         this.invalidFile = true;
       }
     }
+  }
+
+  getMonth(date: string) {
+    const month = date.split('-')[1];
+    return this.months[+month - 1];
+  }
+
+  getDay(date: string) {
+    return date.split('-')[2];
   }
 
   showToast(position: any, status: any, message: any) {

@@ -60,7 +60,8 @@ const NB_MODULES = [
   NbListModule,
   NbWindowModule.forRoot({ windowClass: 'chatWindow' }),
   NbChatModule,
-  NbTabsetModule
+  NbTabsetModule,
+  NbBadgeModule
 ];
 const COMPONENTS = [
   HeaderComponent,

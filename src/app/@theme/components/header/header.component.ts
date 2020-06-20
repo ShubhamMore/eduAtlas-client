@@ -18,6 +18,7 @@ import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
 import { NbWindowService } from '@nebular/theme';
 import { SocketioService } from '../../../services/chat.service';
+import { single } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-header',
@@ -42,6 +43,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: any;
   socket: any;
   openedChatWindows: NbWindowRef[] = [];
+  notificationCount: number = 0;
   userMenu = [
     { title: 'Edit Profile' },
     { title: 'Change Password', link: 'pages/change-password' },
@@ -102,6 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socket = this.chatService.getSocket();
     /*Listeneing to notifications*/
     this.socket.on('notify', (notification: any) => {
+      this.notificationCount++;
       this.notifications.push(notification);
     });
     /*Listeneing to messages*/
@@ -159,8 +162,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     }
   }
-  deleteNotification(notificationId, index) {
+  deleteNotification(notificationId, index, seen) {
     this.api.deleteNotification({ 'notificationId': notificationId }).subscribe((res) => {
+      if (!seen) {
+        this.notificationCount--;
+      }
       this.notifications.splice(index, 1);
     });
   }
@@ -179,7 +185,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.openedChatWindows.forEach((openedWindow: NbWindowRef) => {
       openedWindow.close();
     });
-
+    this.notificationCount = 0;
     this.chatService.clearChatMembers();
   }
 
@@ -216,12 +222,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getNotifications() {
     this.api.getNotifications().subscribe((res: any) => {
       this.notifications = res;
+      this.notifications.forEach((notification) => {
+        if (!notification.seen) {
+          this.notificationCount++;
+        }
+      });
     }, (err) => {
 
     })
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
     this.dialogService.open(notificationDialog, { context: notification });
+    this.api.seenNotification({ 'notification': notification._id }).subscribe((res) => {
+      this.notifications.map((singleNotification) => {
+        if (singleNotification._id === notification._id) {
+          this.notificationCount--;
+          return singleNotification.seen = true;
+        } else {
+          return singleNotification;
+        }
+      })
+    })
   }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
