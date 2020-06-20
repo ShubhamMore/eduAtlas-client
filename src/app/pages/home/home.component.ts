@@ -1,3 +1,4 @@
+import { User } from './../../@core/data/users';
 import { InstituteService } from './../../services/institute.service';
 import { HeaderComponent } from './../../@theme/components/header/header.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   fee = ['week', 'month'];
 
   studentPendingFee: any[] = [];
-
+  user: any;
   messages: any[] = [];
   newLeads: any[] = [];
   showAddInstituteBtn: boolean;
@@ -43,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.display = false;
+    this.user = this.authService.getUser();
     this.getInstitutes();
 
     MENU_ITEMS[2].hidden = true;
@@ -95,16 +97,18 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   viewInstitute(id: string, name?: string) {
-    const role = this.getEmployeeRole(id);
+    let role: any;
+    role = this.getEmployeeRole(id);
     this.roleService.assignRoles(role);
     this.router.navigate(['/pages/dashboard', id]);
   }
 
   getEmployeeRole(instituteId: any) {
-    const institute = this.institutes.find((inst) => {
+    const institute = this.institutes.find((inst: any) => {
       return instituteId === inst._id;
     });
     if (institute) {
+      this.instituteService.setInstitute(institute);
       return institute.role;
     }
   }

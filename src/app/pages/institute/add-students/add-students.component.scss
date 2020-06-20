@@ -1,20 +1,21 @@
-
-small{
-    color: red;
+small {
+  color: red;
 }
-.details{
-    display: grid;
-    grid-gap:10px;
-    grid-template-columns: repeat(auto-fill, 224px); 
+.details {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 224px);
 }
 
-.feeDetail{
-   display: grid;
-   grid-gap: 10px;
-   grid-template-columns: repeat(auto-fill, 224px); 
-   
+.feeDetail {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, 224px);
 }
-nb-select{display:block}
-p{color:black;font-weight:bold}
-
-   
+nb-select {
+  display: block;
+}
+p {
+  color: black;
+  font-weight: bold;
+}
