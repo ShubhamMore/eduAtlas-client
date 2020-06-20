@@ -9,13 +9,12 @@
     <form [formGroup]="leadForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col-sm-4">
-          <label for="name">*Name</label>
+          <label for="leadName">*Name</label>
           <input
             type="text"
             nbInput
-            id="name"
+            id="leadName"
             fullWidth
-            status="basic"
             formControlName="leadName"
             [status]="f.leadName.errors && submitted ? 'danger' : 'basic'"
             placeholder="Name"

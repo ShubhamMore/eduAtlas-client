@@ -83,8 +83,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private roleService: RoleAssignService,
     private windowService: NbWindowService,
     private chatService: SocketioService,
-    private dialogService: NbDialogService
-  ) { }
+    private dialogService: NbDialogService,
+  ) {}
 
   ngOnInit() {
     this.userPictureOnly = false;
@@ -116,7 +116,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.socket.emit('message', message);
   }
   openChatBoxForNewIncomingMessage(message) {
-    var user = {
+    const user = {
       eduAtlasId: message.receiverId,
       basicDetails: {
         name: message.msg.user.name,
@@ -160,7 +160,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
   deleteNotification(notificationId, index) {
-    this.api.deleteNotification({ 'notificationId': notificationId }).subscribe((res) => {
+    this.api.deleteNotification({ notificationId: notificationId }).subscribe((res) => {
       this.notifications.splice(index, 1);
     });
   }
@@ -214,11 +214,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
   getNotifications() {
-    this.api.getNotifications().subscribe((res: any) => {
-      this.notifications = res;
-    }, (err) => {
-
-    })
+    this.api.getNotifications().subscribe(
+      (res: any) => {
+        this.notifications = res;
+      },
+      (err) => {},
+    );
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
     this.dialogService.open(notificationDialog, { context: notification });
