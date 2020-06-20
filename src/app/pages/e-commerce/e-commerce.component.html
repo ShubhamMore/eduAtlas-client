@@ -44,10 +44,7 @@
       <nb-card class="card-height-1">
         <nb-card-body>
           <nb-tabset fullWidth>
-            <nb-tab
-              tabTitle="UPCOMING CLASSES"
-              *ngIf="myInstitute.institute.currentPlan !== 'Lite'"
-            >
+            <nb-tab tabTitle="UPCOMING CLASSES">
               <div class="table-responsive" *ngIf="classes.length > 0; else noClasses">
                 <table class="table table-borderless">
                   <thead>

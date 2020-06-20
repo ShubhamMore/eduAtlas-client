@@ -128,6 +128,7 @@ export class ECommerceComponent implements OnInit {
       }
       this.roleService.assignRoles(this.authService.getUser().role);
       this.role = this.roleService.getRole();
+
       this.display = true;
     });
   }
@@ -137,7 +138,9 @@ export class ECommerceComponent implements OnInit {
       (res: any) => {
         this.studentRequest = res;
       },
-      (err) => console.error(err),
+      (err) => {
+        console.error(err);
+      },
     );
   }
 

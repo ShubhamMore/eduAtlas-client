@@ -64,7 +64,7 @@
             </table>
           </div>
           <br />
-          <div class="text-center">
+          <div class="text-center" *ngIf="showAddInstituteBtn">
             <button class="btn btn-yellow-black" routerLink="/pages/membership">
               ADD INSTITUTE
             </button>
@@ -74,8 +74,8 @@
     </nb-card>
   </div>
 
-  <div class="col-sm-6">
-    <nb-card *ngIf="showAddInstituteBtn">
+  <div class="col-sm-6" *ngIf="showAddInstituteBtn">
+    <nb-card>
       <nb-card-body>
         <div class="row">
           <div class="col-sm-2">
