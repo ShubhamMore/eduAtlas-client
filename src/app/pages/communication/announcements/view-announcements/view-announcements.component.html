@@ -11,6 +11,11 @@
         announcement.attachment.file_name
       }}</a>
     </div>
+    <div>
+      <p><strong>Date: </strong>{{ announcement.date }}</p>
+      <p><strong>Batches: </strong>{{ announcement.batchCodes.join(',') }}</p>
+      <p><strong>Categories: </strong>{{ announcement.categories.join(',') }}</p>
+    </div>
     <div [innerHTML]="announcement.text | safeHtml"></div>
   </nb-card-body>
 </nb-card>

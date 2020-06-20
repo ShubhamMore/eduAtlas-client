@@ -68,7 +68,7 @@ export class ManageScheduleComponent implements OnInit {
     const hour = +time.split(':')[0];
     const min = time.split(':')[1];
     let t = '';
-    if (hour >= 12) {
+    if (hour > 12) {
       t = (hour - 12).toString() + ':' + min + ' PM';
     } else {
       t = hour.toString() + ':' + min + ' AM';
