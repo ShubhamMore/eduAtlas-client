@@ -30,7 +30,7 @@ export class CreateTestComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
@@ -51,21 +51,27 @@ export class CreateTestComponent implements OnInit {
       testName: ['', Validators.required],
       testCode: ['', Validators.required],
       totalMarks: ['', Validators.required],
+      startTime: ['', Validators.required],
+      toTime: ['', Validators.required],
     });
   }
 
   getTest(id: string) {
     this.api.getSingleTest({ _id: id }).subscribe(
       (data: any) => {
-        this.test = data;
-        this.createTestForm.patchValue({
-          instituteId: this.test.instituteId,
-          courseId: this.test.courseId,
-          date: this.test.date,
-          testName: this.test.testName,
-          testCode: this.test.testCode,
-          totalMarks: this.test.totalMarks,
-        });
+        if (data) {
+          this.test = data[0];
+          this.createTestForm.patchValue({
+            instituteId: this.test.instituteId,
+            courseId: this.test.courseId,
+            date: this.test.date,
+            testName: this.test.testName,
+            testCode: this.test.testCode,
+            totalMarks: this.test.totalMarks,
+            startTime: this.test.startTime,
+            toTime: this.test.toTime
+          });
+        }
 
         this.onSelectCourse(this.test.courseId);
 
@@ -74,7 +80,7 @@ export class CreateTestComponent implements OnInit {
         });
         this.display = true;
       },
-      (err: any) => {},
+      (err: any) => { },
     );
   }
 

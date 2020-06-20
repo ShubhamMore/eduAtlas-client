@@ -53,34 +53,45 @@ export class ManageTestsComponent implements OnInit {
     });
   }
 
-  edit(id: string) {
+  editTest(id: string) {
     this.router.navigate([`/pages/institute/test/create-test/${this.instituteId}/edit`], {
       queryParams: { test: id, edit: 'true' },
     });
   }
 
-  score(id: string, batchId: string) {
+  markTest(id: string) {
     this.router.navigate([`/pages/institute/test/add-test-score/${this.instituteId}`], {
-      queryParams: { test: id, batch: batchId },
+      queryParams: { test: id },
+    });
+  }
+  editMarks(id: string) {
+    this.router.navigate([`/pages/institute/test/add-test-score/${this.instituteId}`], {
+      queryParams: { test: id, edit: true },
     });
   }
 
   deleteTest(id: string, i: number) {
-    this.api.deleteTest({ _id: id }).subscribe(
-      (res: any) => {
-        this.tests.splice(i, 1);
-        this.showToast('top right', 'success', 'Test Deleted Successfully');
-      },
-      (err) => {
-        this.showToast('top right', 'danger', err.err.message);
-      },
-    );
+    const confirm = window.confirm('Are u sure, You want to delete this Test?');
+    if (confirm) {
+      this.api.deleteTest({ _id: id }).subscribe(
+        (res: any) => {
+          this.tests.unmarked.splice(i, 1);
+          this.showToast('top-right', 'success', 'Test Deleted Successfully');
+        },
+        (err) => {
+          this.showToast('top-right', 'danger', err.err.message);
+        },
+      );
+    }
   }
 
   getTests(data: any) {
     this.api.getTestByInstitute(data).subscribe(
       (res: any) => {
-        this.tests = res;
+        if (res) {
+          this.tests.marked = res.markedTest;
+          this.tests.unmarked = res.umarkedTest;
+        }
         this.display = true;
         console.log(res);
       },
@@ -91,7 +102,10 @@ export class ManageTestsComponent implements OnInit {
   }
 
   showToast(position: any, status: any, message: any) {
-    this.toasterService.show(status, message, { position, status });
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
   }
 
 

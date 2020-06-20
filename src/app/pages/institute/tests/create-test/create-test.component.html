@@ -89,7 +89,28 @@
               ">*Marks is required</small>
           </div>
         </div>
-
+        <div class="col-sm-4">
+          <label for="startTime">*From Time</label>
+          <input type="time" nbInput fullWidth [status]="
+            createTestForm.get('startTime').invalid && createTestForm.get('startTime').touched
+                ? 'danger'
+                : 'basic'
+            " formControlName="startTime" />
+          <span style="color: #f00;"
+            *ngIf="createTestForm.get('startTime').invalid && createTestForm.get('startTime').touched">*From Time is
+            Required</span>
+        </div>
+        <div class="col-sm-4">
+          <label for="toTime">*To Time</label>
+          <input type="time" nbInput fullWidth [status]="
+              createTestForm.get('toTime').invalid && createTestForm.get('toTime').touched
+                ? 'danger'
+                : 'basic'
+            " formControlName="toTime" />
+          <span style="color: #f00;"
+            *ngIf="createTestForm.get('toTime').invalid && createTestForm.get('toTime').touched">*To Time is
+            Required</span>
+        </div>
       </div>
 
       <div class="row">
