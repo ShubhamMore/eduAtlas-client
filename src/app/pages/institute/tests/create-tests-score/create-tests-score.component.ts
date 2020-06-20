@@ -45,7 +45,7 @@ export class CreateTestsScoreComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -104,7 +104,7 @@ export class CreateTestsScoreComponent implements OnInit {
         }
         this.display = true;
       },
-      (err) => { },
+      (err) => {},
     );
   }
 

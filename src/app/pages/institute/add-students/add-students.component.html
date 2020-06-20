@@ -247,7 +247,6 @@
                 <label for="roll">*Roll Number</label>
                 <input
                   type="text"
-                  pattern="\d*"
                   nbInput
                   [status]="
                     studentForm.get('courseDetails').get('rollNo').invalid &&
@@ -297,7 +296,7 @@
                 id="additionalDiscountType"
                 fullWidth
                 formControlName="additionalDiscountType"
-                (selectedChange)="calculateNetPayableAmount()"
+                (selectedChange)="changeAdditionalDiscountType()"
               >
                 <!-- <nb-option value="">Select Parent Course</nb-option> -->
                 <nb-option value="percentage">
@@ -384,7 +383,7 @@
                     <nb-option value="2">Half Yearly</nb-option>
                     <nb-option value="3">Quarterly</nb-option>
                     <nb-option value="4">Monthly</nb-option>
-                    <nb-option value="1">Custom</nb-option>
+                    <!-- <nb-option value="1">Custom</nb-option> -->
                   </nb-select>
                 </div>
 

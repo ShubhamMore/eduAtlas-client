@@ -14,7 +14,7 @@ import { AuthService } from '../../../../services/auth-services/auth.service';
 })
 export class ManageInstituteComponent implements OnInit {
   confirmDelete: boolean;
-  showAddInstituteBtn:boolean;
+  showAddInstituteBtn: boolean;
   institutes: any[];
 
   instituteUser: instituteData;
@@ -24,20 +24,20 @@ export class ManageInstituteComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private toastrService: NbToastrService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {
     this.institutes = [];
     this.getInstitutes();
-    if(this.authService.getUser() && this.authService.getUser()==='institute' ){
+    if (this.authService.getUser() && this.authService.getUser() === 'institute') {
       this.showAddInstituteBtn = true;
     }
   }
 
   getInstitutes() {
     const user = this.authService.getUser();
-    if(user && user.role === 'institute'){
+    if (user && user.role === 'institute') {
       this.api.getInstitutes().subscribe((institutes: any) => {
         this.institutes = institutes;
         if (institutes.length > 0) {

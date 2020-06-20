@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../../services/api.service';
-import { instituteData } from '../../../../../../assets/dataTypes/dataType';
 import { MENU_ITEMS } from '../../../../pages-menu';
 @Component({
   selector: 'ngx-view-institute',

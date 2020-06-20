@@ -46,9 +46,7 @@ export class ViewAttendanceComponent implements OnInit {
         });
         this.display = true;
       },
-      (err: any) => {
-        console.log(err);
-      },
+      (err: any) => {},
     );
   }
 
@@ -94,12 +92,9 @@ export class ViewAttendanceComponent implements OnInit {
                 this.absent += 1;
               }
             });
-            console.log(this.attendance, this.present, this.absent, this.total);
           }
         },
-        (err: any) => {
-          console.log(err);
-        },
+        (err: any) => {},
       );
   }
 

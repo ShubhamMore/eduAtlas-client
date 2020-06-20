@@ -255,6 +255,8 @@ export class AddStudentsComponent implements OnInit {
 
           // IN editing Mode or Already Registered mode Student Email field is Disabled
           // (Enable Only in Add New Student Mode)
+          this.studentForm.get('name').disable();
+          // (Enable Only in Add New Student Mode)
           this.studentForm.get('studentEmail').disable();
           // IN editing Mode or Already Registered mode Student Contact field is Disabled
           // (Enable Only in Add New Student Mode)
@@ -361,6 +363,11 @@ export class AddStudentsComponent implements OnInit {
     // Set Selected Discount
     this.selectedDiscount = this.discounts.find((dicount: any) => dicount.id === id);
     // Calculate Net Payable Amount
+    this.calculateNetPayableAmount();
+  }
+
+  changeAdditionalDiscountType() {
+    this.studentForm.get('courseDetails').patchValue({ additionalDiscount: 0 });
     this.calculateNetPayableAmount();
   }
 
@@ -661,6 +668,7 @@ export class AddStudentsComponent implements OnInit {
             course: this.student.instituteDetails.courseId,
             discount: this.student.instituteDetails.discount,
             rollNo: this.student.instituteDetails.rollNumber,
+            additionalDiscountType: this.student.instituteDetails.additionalDiscountType,
             additionalDiscount: this.student.instituteDetails.additionalDiscount,
             netPayable: this.student.instituteDetails.netPayable,
           },
@@ -669,10 +677,16 @@ export class AddStudentsComponent implements OnInit {
 
         this.dataFetched = true;
 
+        // Disable Student name in editing mode
+        this.studentForm.get('name').disable();
         // Disable Student email in editing mode
         this.studentForm.get('studentEmail').disable();
         // Disable Student contact in editing mode
         this.studentForm.get('contact').disable();
+
+        // Disable Course Details in editing Mode
+        this.disableCourseDetails();
+
         // Select and set Student Course
         this.onSelectCourse(this.student.instituteDetails.courseId);
 
@@ -774,13 +788,35 @@ export class AddStudentsComponent implements OnInit {
     this.disableFeeFormFields();
     this.api.updateStudentFees(this.studentFees._id, feeFormValue).subscribe(
       (res: any) => {
-        this.showToaster('top-right', 'success', 'Student Fees Successfully!');
+        this.showToaster('top-right', 'success', 'Student Fees Updated Successfully!');
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       },
       (err: any) => {
         this.showToaster('top-right', 'danger', err.error.message);
       },
     );
+  }
+
+  disableCourseDetails() {
+    // Disable Student course in editing mode
+    this.studentForm.get(['courseDetails', 'course']).disable();
+    // Disable Student Discount in editing mode
+    this.studentForm.get(['courseDetails', 'discount']).disable();
+    // Disable Student additional Discount Type in editing mode
+    this.studentForm.get(['courseDetails', 'additionalDiscountType']).disable();
+    // Disable Student additional Discount in editing mode
+    this.studentForm.get(['courseDetails', 'additionalDiscount']).disable();
+  }
+
+  enableCourseDetails() {
+    // enable Student course in save edit mode
+    this.studentForm.get(['courseDetails', 'course']).enable();
+    // enable Student Discount in save edit mode
+    this.studentForm.get(['courseDetails', 'discount']).enable();
+    // enable Student additional Discount Type in save edit mode
+    this.studentForm.get(['courseDetails', 'additionalDiscountType']).enable();
+    // enable Student additional Discount in save edit mode
+    this.studentForm.get(['courseDetails', 'additionalDiscount']).enable();
   }
 
   // Submit form From DOM
@@ -804,6 +840,8 @@ export class AddStudentsComponent implements OnInit {
     //   return;
     // }
 
+    this.enableCourseDetails();
+
     // In editing Mode
     if (this.edit === 'true') {
       if (this.student.instituteDetails.courseId !== this.studentForm.value.courseDetails.course) {
@@ -813,15 +851,20 @@ export class AddStudentsComponent implements OnInit {
           .subscribe(
             (res: any) => {
               // Call Student Add Fees Api
+              this.disableCourseDetails();
               this.addFees(this.student._id, this.studentEduId);
             },
-            (err) => this.showToaster('top-right', 'danger', err.error.message),
+            (err) => {
+              this.disableCourseDetails();
+              this.showToaster('top-right', 'danger', err.error.message);
+            },
           );
       } else if (
         this.student.instituteDetails.batchId !== this.studentForm.value.courseDetails.batch ||
         this.student.instituteDetails.rollNumber !== this.studentForm.value.courseDetails.rollNo
       ) {
         // If Batch changed then update student batch in student Course
+
         this.api
           .updateStudentCourse(
             this.studentForm.value,
@@ -831,19 +874,25 @@ export class AddStudentsComponent implements OnInit {
             this.studentEduId,
           )
           .subscribe(
-            (res) => {
+            (res: any) => {
               if (this.feesUpdated) {
                 this.updateFees(this.student._id, this.studentFees._id);
               } else {
                 this.showToaster('top-right', 'success', 'Student Course Updated Successfully!');
                 this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
               }
+              this.disableCourseDetails();
             },
-            (err) => this.showToaster('top-right', 'danger', err.error.message),
+            (err: any) => {
+              this.disableCourseDetails();
+              this.showToaster('top-right', 'danger', err.error.message);
+            },
           );
       } else if (this.feesUpdated) {
+        this.disableCourseDetails();
         this.updateFees(this.student._id, this.studentFees._id);
       } else {
+        this.disableCourseDetails();
         this.showToaster('top-right', 'success', 'No Update');
         this.router.navigate([`/pages/institute/manage-students/${this.instituteId}`]);
       }
