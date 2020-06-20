@@ -691,7 +691,6 @@ export class AddStudentsComponent implements OnInit {
 
         // Disable Course Details in editing Mode
         this.disableCourseDetails();
-
         // Select and set Student Course
         this.onSelectCourse(this.student.instituteDetails.courseId);
 
