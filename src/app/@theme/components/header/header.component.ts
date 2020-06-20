@@ -42,6 +42,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
   user: any;
   socket: any;
+  employeeChatFilter: string;
+  studentChatFilter: string;
   openedChatWindows: NbWindowRef[] = [];
   notificationCount: number = 0;
   userMenu = [
@@ -86,7 +88,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private windowService: NbWindowService,
     private chatService: SocketioService,
     private dialogService: NbDialogService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userPictureOnly = false;
@@ -231,7 +233,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           return notification;
         });
       },
-      (err) => {},
+      (err) => { },
     );
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
@@ -246,6 +248,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+  filterChatsForEmployee() {
+
+    this.chatMembers.employeeDetails = this.chatMembers.employeeDetails.map((employee) => {
+      if (employee.basicDetails.name.toLowerCase().includes(this.employeeChatFilter.toLowerCase())) {
+        employee.filterOut = false;
+        return employee;
+      } else {
+        employee.filterOut = true;
+        return employee;
+      }
+    });
+
+  }
+  filterChatsForStudents() {
+    this.chatMembers.studentsDetails = this.chatMembers.studentsDetails.map((student) => {
+      if (student.basicDetails.name.toLowerCase().includes(this.studentChatFilter.toLowerCase())) {
+        student.filterOut = false;
+        return student;
+      } else {
+        student.filterOut = true;
+        return student;
+      }
+    });
+
   }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
