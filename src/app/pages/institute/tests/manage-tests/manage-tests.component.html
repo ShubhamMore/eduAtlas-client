@@ -2,8 +2,8 @@
   <nb-card-body>
     <nb-tabset fullWidth>
       <nb-tab tabTitle="UPCOMING/PENDING TESTS">
-        <div *ngIf="tests && tests.unmarked.length>0;else noRecords">
-          <div class="row" *ngFor="let unmarkedTest of tests.unmarked;let i = index">
+        <div *ngIf="tests && tests.unmarked.length > 0; else noRecords">
+          <div class="row" *ngFor="let unmarkedTest of tests.unmarked; let i = index">
             <div class="col-md-1">
               <div class="date-block">
                 <span class="day">{{ getDay(unmarkedTest.date) }}</span>
@@ -12,43 +12,46 @@
             </div>
             <div class="col-md-2">
               <div>
-                <span class="boldText">{{unmarkedTest.testName}}</span>
+                <span class="boldText">{{ unmarkedTest.testName }}</span>
               </div>
               <div>
-                <label>Max Marks : </label><span class="boldText">{{unmarkedTest.totalMarks}}</span>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div>
-                <label></label><span class="boldText"></span>
-              </div>
-              <div>
-                <label>Time : </label><span class="boldText">{{unmarkedTest.startTime}} -
-                  {{unmarkedTest.toTime}}</span>
+                <label>Max Marks : </label
+                ><span class="boldText">{{ unmarkedTest.totalMarks }}</span>
               </div>
             </div>
             <div class="col-md-2">
+              <div><label></label><span class="boldText"></span></div>
               <div>
-                <label></label><span class="boldText"></span>
+                <label>Time : </label
+                ><span class="boldText"
+                  >{{ unmarkedTest.startTime }} - {{ unmarkedTest.toTime }}</span
+                >
               </div>
+            </div>
+            <div class="col-md-2">
+              <div><label></label><span class="boldText"></span></div>
               <div>
-                <label>Batch : </label><span class="boldText">{{unmarkedTest.batchCode}}</span>
+                <label>Batch : </label><span class="boldText">{{ unmarkedTest.batchCode }}</span>
               </div>
             </div>
             <div class="col-md-5">
               <button nbButton status="success" (click)="markTest(unmarkedTest._id)">MARK</button>
-              <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">EDIT</button>
-              <button nbButton status="danger" (click)="deleteTest(unmarkedTest._id,i)">DELETE</button>
+              <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">
+                EDIT
+              </button>
+              <button nbButton status="danger" (click)="deleteTest(unmarkedTest._id, i)">
+                DELETE
+              </button>
             </div>
           </div>
         </div>
-        <hr>
+        <hr />
         <div class="text-center">
-          <button class="btn btn-yellow-black" (click)="createTest(markedTest)">ADD TEST</button>
+          <button class="btn btn-yellow-black" (click)="createTest()">ADD TEST</button>
         </div>
       </nb-tab>
       <nb-tab tabTitle="MARKED TESTS">
-        <div *ngIf="tests && tests.marked.length>0;else noRecords">
+        <div *ngIf="tests && tests.marked.length > 0; else noRecords">
           <div class="row" *ngFor="let markedTest of tests.marked">
             <div class="col-md-1">
               <div class="date-block">
@@ -58,37 +61,36 @@
             </div>
             <div class="col-md-3">
               <div>
-                <span class="boldText">{{markedTest.testName}}</span>
+                <span class="boldText">{{ markedTest.testName }}</span>
               </div>
               <div>
-                <label>Max Marks : </label><span class="boldText">{{markedTest.totalMarks}} </span>
+                <label>Max Marks : </label
+                ><span class="boldText">{{ markedTest.totalMarks }} </span>
               </div>
             </div>
             <div class="col-md-2">
+              <div><label></label><span class="boldText"></span></div>
               <div>
-                <label></label><span class="boldText"></span>
-              </div>
-              <div>
-                <label>Time : </label><span class="boldText">{{markedTest.startTime}} -
-                  {{markedTest.toTime}}</span>
+                <label>Time : </label
+                ><span class="boldText">{{ markedTest.startTime }} - {{ markedTest.toTime }}</span>
               </div>
             </div>
             <div class="col-md-3">
+              <div><label></label><span class="boldText"></span></div>
               <div>
-                <label></label><span class="boldText"></span>
-              </div>
-              <div>
-                <label>Batch : </label><span class="boldText">{{markedTest.batchCode}}</span>
+                <label>Batch : </label><span class="boldText">{{ markedTest.batchCode }}</span>
               </div>
             </div>
             <div class="col-md-3">
-              <button class="btn btn-yellow-black" (click)="editMarks(markedTest._id)">EDIT MARKS</button>
+              <button class="btn btn-yellow-black" (click)="editMarks(markedTest._id)">
+                EDIT MARKS
+              </button>
             </div>
           </div>
         </div>
-        <hr>
+        <hr />
         <div class="text-center">
-          <button class="btn btn-yellow-black" (click)="createTest(markedTest)">ADD TEST</button>
+          <button class="btn btn-yellow-black" (click)="createTest()">ADD TEST</button>
         </div>
       </nb-tab>
     </nb-tabset>
