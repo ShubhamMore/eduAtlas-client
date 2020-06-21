@@ -40,12 +40,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     private instituteService: InstituteService,
     private authService: AuthService,
     private roleService: RoleAssignService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
     this.user = this.authService.getUser();
     this.getInstitutes();
+    this.instituteService.publishData('');
 
     MENU_ITEMS[2].hidden = true;
     MENU_ITEMS[3].hidden = true;
@@ -100,6 +101,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let role: any;
     role = this.getEmployeeRole(id);
     this.roleService.assignRoles(role);
+    this.instituteService.publishData(id);
     this.router.navigate(['/pages/dashboard', id]);
   }
 

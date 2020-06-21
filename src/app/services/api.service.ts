@@ -11,14 +11,14 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   // ======================= FIND USER ==============================
   //
   findEduatlasUser(id: string) {
     const url = `${environment.server}/institute/findEduatlasUser`;
     return this.http.post(url, { id }).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -34,7 +34,7 @@ export class ApiService {
   getDashboardInfo(id: string) {
     const url = `${environment.server}/institute/getDashboardInfo`;
     return this.http.post(url, { instituteId: id }).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -42,7 +42,7 @@ export class ApiService {
   getInstitute(id: string) {
     const url = `${environment.server}/institute/oneInstitute/${id}`;
     return this.http.get<instituteData>(url).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -72,7 +72,7 @@ export class ApiService {
     postData.append('logo', institute.logo, institute.name);
     return this.http.post(environment.server + '/institute/addInstitute', postData).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data: any) => { }),
+      tap((data: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -127,7 +127,7 @@ export class ApiService {
   getCourseTD(id: string) {
     const url = `${environment.server}/institute/getCourseTD/${id}`;
     return this.http.get(url).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -135,7 +135,7 @@ export class ApiService {
   getCoursesOfStudentByInstitute(data: any) {
     const url = `${environment.server}/institute/student/getCoursesOfStudentByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((res: any) => { }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -171,7 +171,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/add', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -181,7 +181,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getOneStudent', { eduatlasId: data })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -195,7 +195,7 @@ export class ApiService {
         role,
       })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -217,7 +217,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getOneStudentByInstitute', data)
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -227,7 +227,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getStudentByInstitute', data)
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -237,7 +237,7 @@ export class ApiService {
   getActiveStudents(id: string, courseId: string, batchId: string) {
     const data = { instituteId: id, courseId };
     return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       catchError(this.handleError),
     );
   }
@@ -246,7 +246,7 @@ export class ApiService {
   getPendingStudents(id: string, courseId: string) {
     const data = { instituteId: id, courseId };
     return this.http.post(environment.server + '/institute/student/getPendingStudents', data).pipe(
-      tap((res: any) => { }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -274,7 +274,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/addCourseStudent', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -309,7 +309,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/student/updateStudentCourse', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -355,7 +355,7 @@ export class ApiService {
         batchId: batchId,
       })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -365,20 +365,29 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/student/getStudentsByInstitute', data)
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
 
   //  DELETE STUDENT COURSE
-  deleteStudentCourse(instituteId: string, eduAtlasId: string) {
+  deleteStudentCourse(
+    instituteDetailsObjId: string,
+    eduAtlasId: string,
+    instituteId: string,
+    courseId: string,
+    studentId: string,
+  ) {
     return this.http
       .post(environment.server + '/institute/student/deleteStudentCourse', {
-        _id: instituteId,
+        _id: instituteDetailsObjId,
         eduatlasId: eduAtlasId,
+        instituteId,
+        courseId,
+        studentId,
       })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -424,7 +433,7 @@ export class ApiService {
 
     const url = `${environment.server}/institute/fee/addFee`;
     return this.http.post(url, data).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       catchError(this.handleError),
     );
   }
@@ -458,7 +467,7 @@ export class ApiService {
 
     const url = `${environment.server}/institute/fee/updateFeeOfStudent`;
     return this.http.post(url, data).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       catchError(this.handleError),
     );
   }
@@ -478,7 +487,7 @@ export class ApiService {
         courseId: studentCourseId,
       })
       .pipe(
-        tap((data) => { }),
+        tap((data) => {}),
         catchError(this.handleError),
       );
   }
@@ -486,7 +495,7 @@ export class ApiService {
   deleteStudentFees(id: string) {
     const url = `${environment.server}/institute/deleteFees`;
     return this.http.post(url, { _id: id }).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -563,7 +572,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getEmployeesByEmail', data)
       .pipe(
-        tap((res: any) => { }),
+        tap((res: any) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -575,7 +584,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getEmployeesByInstituteId', data)
       .pipe(
-        tap((res: any) => { }),
+        tap((res: any) => {}),
         catchError(this.handleError),
       );
   }
@@ -592,7 +601,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/addEmployeeInstitute', data)
       .pipe(
-        tap((res: any) => { }),
+        tap((res: any) => {}),
         catchError(this.handleError),
       );
   }
@@ -609,7 +618,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/updateEmployeeInstituteDetails', data)
       .pipe(
-        map(() => { }),
+        map(() => {}),
         catchError(this.handleError),
       );
   }
@@ -642,7 +651,7 @@ export class ApiService {
         empId: eduAtlasId,
       })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError(this.handleError),
       );
   }
@@ -651,7 +660,7 @@ export class ApiService {
 
   getStudent(data: any) {
     return this.http.post(environment.server + '/institute/student/getStudent', data).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       map((res: any) => res.student),
       catchError(this.handleError),
     );
@@ -668,7 +677,7 @@ export class ApiService {
   getStudents(instituteId) {
     const url = `${environment.server}/institute/student/all/${instituteId}`;
     return this.http.get(url).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -676,7 +685,7 @@ export class ApiService {
   getPendingFeeByInstitute(instituteId: any) {
     const url = `${environment.server}/institute/fee/getPendingFeeByInstitute`;
     return this.http.post(url, { instituteId }).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -685,13 +694,13 @@ export class ApiService {
 
   getCourses(id: any) {
     return this.http.get(`${environment.server}/institute/course/all/${id}`).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   addCourse(id: string, course: any) {
     return this.http.post(`${environment.server}/institute/course/addCourse/${id}`, course).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -727,7 +736,7 @@ export class ApiService {
 
   getBatches(branchId: string) {
     return this.http.get(`${environment.server}/institute/course/batches/${branchId}`).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -744,7 +753,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/course/addBatch/${branchId}`, batch)
       .pipe(
-        tap((data) => { }),
+        tap((data) => {}),
         catchError(this.handleError),
       );
   }
@@ -772,7 +781,7 @@ export class ApiService {
 
   getDiscounts(id: string) {
     return this.http.get(`${environment.server}/institute/course/discounts/${id}`).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -789,7 +798,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/course/addDiscount/${id}`, discount)
       .pipe(
-        tap((data) => { }),
+        tap((data) => {}),
         catchError(this.handleError),
       );
   }
@@ -825,7 +834,7 @@ export class ApiService {
   addReceipt(id: string, receipt: any) {
     receipt.id = null;
     return this.http.post(`${environment.server}/institute/course/addReciept/${id}`, receipt).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -854,14 +863,14 @@ export class ApiService {
   getStudentsAttendance(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceByDate`;
     return this.http.post(url, attendanceRequest).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getAttendanceByInstitute(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceByInstitute`;
     return this.http.post(url, attendanceRequest).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -869,7 +878,7 @@ export class ApiService {
   getAttendanceForStudent(data: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceForStudent`;
     return this.http.post(url, data).pipe(
-      tap((res: any) => { }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -877,7 +886,7 @@ export class ApiService {
   getStudentAttendanceByCourse(data: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceForStudentByCourse`;
     return this.http.post(url, data).pipe(
-      tap((res: any) => { }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -885,32 +894,31 @@ export class ApiService {
   addAttendance(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/addAttendance`;
     return this.http.post(url, attendanceRequest).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getAttendanceByDate(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/getAttendanceByDate`;
     return this.http.post(url, attendanceRequest).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   attendanceByFile(attendanceRequest: any) {
     const url = `${environment.server}/institute/attendance/attendanceByFile`;
     return this.http.post(url, attendanceRequest).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
-
 
   // =====================Online Classes API===================
 
   addCredentials(data: any) {
     const url = `${environment.server}/institute/zoom/addCredentials`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -918,7 +926,7 @@ export class ApiService {
   getCredentials() {
     const url = `${environment.server}/institute/zoom/getCredentials`;
     return this.http.get(url).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -926,7 +934,7 @@ export class ApiService {
   getZoomAuth(data) {
     const url = `${environment.server}/institute/zoom/getZoomAuth`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -934,7 +942,7 @@ export class ApiService {
   getAllMeetings() {
     const url = `${environment.server}/institute/zoom/getAllMeetings`;
     return this.http.post(url, {}).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -942,7 +950,7 @@ export class ApiService {
   deleteMeeting(data) {
     const url = `${environment.server}/institute/zoom/deleteMeeting`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -950,7 +958,7 @@ export class ApiService {
   updateMeeting(data) {
     const url = `${environment.server}/institute/zoom/updateMeeting`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -958,21 +966,21 @@ export class ApiService {
   createMeeting(data) {
     const url = `${environment.server}/institute/zoom/createMeeting`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getOneMeeting(data) {
     const url = `${environment.server}/institute/zoom/getOneMeeting`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getMeetingByBatch(data) {
     const url = `${environment.server}/institute/zoom/getMeetingsFromZoom`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -981,7 +989,7 @@ export class ApiService {
   getTestByInstitute(data: any) {
     const url = `${environment.server}/institute/tests/getTestByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -989,7 +997,7 @@ export class ApiService {
   addTest(data: any) {
     const url = `${environment.server}/institute/tests/addTest`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -997,7 +1005,7 @@ export class ApiService {
   getSingleTest(data: any) {
     const url = `${environment.server}/institute/tests/getSingleTest`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1005,7 +1013,7 @@ export class ApiService {
   updateTest(data: any) {
     const url = `${environment.server}/institute/tests/updateTest`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1014,7 +1022,7 @@ export class ApiService {
     const url = `${environment.server}/institute/tests/addScoreUsingExcel
     `;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1022,7 +1030,7 @@ export class ApiService {
   addTestScore(data: any) {
     const url = `${environment.server}/institute/tests/addTestScore`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1030,7 +1038,7 @@ export class ApiService {
   getTestByStudent(data: any) {
     const url = `${environment.server}/institute/tests/getTestByStudent`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1038,7 +1046,7 @@ export class ApiService {
   deleteTest(data: any) {
     const url = `${environment.server}/institute/tests/deleteTest`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1047,14 +1055,14 @@ export class ApiService {
   getTestsForReports(data: any) {
     const url = `${environment.server}/institute/tests/getTestsForReports`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getScoresOfStutdentByInstitute(data: any) {
     const url = `${environment.server}/institute/tests/getScoresOfStutdentByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1063,7 +1071,7 @@ export class ApiService {
   addPtm(data: any) {
     const url = `${environment.server}/institute/ptm/addPtm`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1071,28 +1079,28 @@ export class ApiService {
   getPtmByInstitute(data: any) {
     const url = `${environment.server}/institute/ptm/getPtmOfInstitutes`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getSinglePtm(data: any) {
     const url = `${environment.server}/institute/ptm/getSinglePtm`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   updatePtm(data: any) {
     const url = `${environment.server}/institute/ptm/updatePtm`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   deletePtm(data: any) {
     const url = `${environment.server}/institute/ptm/deletePtm`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1103,7 +1111,7 @@ export class ApiService {
     console.log('sda');
     const url = `${environment.server}/institute/mentoring/addMentoring`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1111,7 +1119,7 @@ export class ApiService {
   updateMentoring(data: any) {
     const url = `${environment.server}/institute/mentoring/updateMentoring`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1119,7 +1127,7 @@ export class ApiService {
   deleteMentoring(data: any) {
     const url = `${environment.server}/institute/mentoring/deleteMentoring`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1127,7 +1135,7 @@ export class ApiService {
   getMentorings(data: any) {
     const url = `${environment.server}/institute/mentoring/getMentoringOfStudentByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1136,7 +1144,7 @@ export class ApiService {
   addLead(data: any) {
     const url = `${environment.server}/institute/leads/addLead`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1144,7 +1152,7 @@ export class ApiService {
   updateLead(data: any) {
     const url = `${environment.server}/institute/leads/updateLead`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1152,14 +1160,14 @@ export class ApiService {
   deleteLead(data: any) {
     const url = `${environment.server}/institute/leads/deleteLead`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getSingleLead(data: any) {
     const url = `${environment.server}/institute/leads/getSingleLead`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1167,7 +1175,7 @@ export class ApiService {
   getSingleLeadToView(data: any) {
     const url = `${environment.server}/institute/leads/getSingleLeadToView`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1175,7 +1183,7 @@ export class ApiService {
   getLeadsByOfInstitute(data: any) {
     const url = `${environment.server}/institute/leads/getLeadsByOfInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1183,7 +1191,7 @@ export class ApiService {
   addForum(data: any) {
     const url = `${environment.server}/institute/forum/addForum `;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1191,7 +1199,7 @@ export class ApiService {
   updateForum(data: any) {
     const url = `${environment.server}/institute/forum/updateForum`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1199,42 +1207,42 @@ export class ApiService {
   deleteForum(data: any) {
     const url = `${environment.server}/institute/forum/deleteForum`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getSingleForum(data: any) {
     const url = `${environment.server}/institute/forum/getSingleForum`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getForumsByInstitute(data: any) {
     const url = `${environment.server}/institute/forum/getForumsByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getMyForum(data: any) {
     const url = `${environment.server}/institute/forum/getMyForum`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   addComment(data: any) {
     const url = `${environment.server}/institute/forum/addComment`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   deleteComment(data: any) {
     const url = `${environment.server}/institute/forum/deleteComment`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1243,14 +1251,14 @@ export class ApiService {
   getChatMembers() {
     const url = `${environment.server}/institute/chats/getMembers`;
     return this.http.post(url, {}).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   getChats(data: any) {
     const url = `${environment.server}/institute/chats/getChats`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1258,21 +1266,21 @@ export class ApiService {
   getNotifications() {
     const url = `${environment.server}/institute/notification/getNotifications`;
     return this.http.post(url, {}).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   deleteNotification(data: any) {
     const url = `${environment.server}/institute/notification/deleteNotification`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
   seenNotification(data: any) {
     const url = `${environment.server}/institute/notification/seenNotification`;
     return this.http.post(url, data).pipe(
-      tap((data) => { }),
+      tap((data) => {}),
       catchError(this.handleError),
     );
   }
@@ -1282,7 +1290,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/editStudyMaterial`, StudyMaterial)
       .pipe(
-        tap((response) => { }),
+        tap((response) => {}),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1291,7 +1299,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/addStudyMaterial`, StudyMaterial)
       .pipe(
-        tap((response) => { }),
+        tap((response) => {}),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1300,7 +1308,7 @@ export class ApiService {
     return this.http
       .post(`${environment.server}/institute/studyMaterial/getStudyMaterial`, data)
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1311,7 +1319,7 @@ export class ApiService {
         id,
       })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError((err) => this.handleError(err)),
       );
   }
@@ -1320,7 +1328,7 @@ export class ApiService {
     return this.http
       .post<any>(`${environment.server}/institute/studyMaterial/deleteStudyMaterial`, { _id: id })
       .pipe(
-        tap((res) => { }),
+        tap((res) => {}),
         catchError((err) => this.handleError(err)),
       );
   }

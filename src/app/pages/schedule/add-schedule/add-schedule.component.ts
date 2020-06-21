@@ -366,15 +366,24 @@ export class AddScheduleComponent implements OnInit {
     };
     const schedule = this.scheduleDay(scheduleData);
     scheduleDays.controls.splice(i + 1, 0, schedule);
+    if (this.edit) {
+      this.schedule.days.splice(i + 1, 0, schedule);
+      this.scheduleForm.value.days.splice(i + 1, 0, schedule);
+    }
     this.disableDay(i + 1);
   }
 
   removeClass(i: number) {
     const scheduleDays = this.scheduleForm.get('days') as FormArray;
     scheduleDays.controls.splice(i, 1);
+    if (this.edit) {
+      this.schedule.days.splice(i, 1);
+      this.scheduleForm.value.days.splice(i, 1);
+    }
   }
 
   onSubmit() {
+    this.scheduleForm.markAllAsTouched();
     if (this.scheduleForm.invalid) {
       return;
     }
@@ -393,7 +402,7 @@ export class AddScheduleComponent implements OnInit {
           this.showToast('top-right', 'success', 'Schedule Added Successfully');
           setTimeout(() => {
             this.back();
-          }, 1000);
+          }, 200);
         },
         (error: any) => {
           this.showToast('top-right', 'danger', error.error.message);
@@ -403,7 +412,6 @@ export class AddScheduleComponent implements OnInit {
     } else {
       this.scheduleForm.value.scheduleStart = this.schedule.scheduleStart;
       this.scheduleForm.value.scheduleEnd = this.schedule.scheduleEnd;
-
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
       this.scheduleForm.value.days.forEach((day: any) => {

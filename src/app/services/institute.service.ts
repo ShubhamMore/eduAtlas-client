@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,8 +8,10 @@ export class InstituteService {
   institutes: any[] = [];
 
   institute: any;
+  private selectedInstituteObservable = new Subject<string>();
 
-  constructor() {}
+  selectedInstitute = this.selectedInstituteObservable.asObservable();
+  constructor() { }
 
   setInstitute(institute: any) {
     this.institute = institute;
@@ -25,4 +28,10 @@ export class InstituteService {
   getInstitutes() {
     return this.institutes;
   }
+
+  publishData(data: any) {
+    this.selectedInstituteObservable.next(data);
+  }
+
+
 }

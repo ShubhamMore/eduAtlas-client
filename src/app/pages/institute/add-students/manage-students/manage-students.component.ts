@@ -74,18 +74,26 @@ export class ManageStudentsComponent implements OnInit {
     });
   }
 
-  delete(eduAtlId: string, courseObjId: string) {
+  delete(eduAtlId: string, instituteDetailsObjId: string, studentObjId: string) {
     const confirm = window.confirm('Are u sure, You want to delete this Student?');
     if (confirm) {
-      this.api.deleteStudentCourse(courseObjId, eduAtlId).subscribe(() => {
-        const i = this.students.findIndex(
-          (student) => student.instituteDetails._id === courseObjId,
-        );
-        if (i !== -1) {
-          this.students.splice(i, 1);
-          this.showToaster('top-right', 'success', 'New Student Deleted Successfully!');
-        }
-      });
+      this.api
+        .deleteStudentCourse(
+          instituteDetailsObjId,
+          eduAtlId,
+          this.instituteId,
+          this.course,
+          studentObjId,
+        )
+        .subscribe(() => {
+          const i = this.students.findIndex(
+            (student) => student.instituteDetails._id === instituteDetailsObjId,
+          );
+          if (i !== -1) {
+            this.students.splice(i, 1);
+            this.showToaster('top-right', 'success', 'Student Deleted Successfully!');
+          }
+        });
     }
   }
 

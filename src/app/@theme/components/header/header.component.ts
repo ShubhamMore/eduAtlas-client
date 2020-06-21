@@ -12,7 +12,7 @@ import {
 } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
@@ -42,8 +42,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
   user: any;
   socket: any;
+  employeeChatFilter: string;
+  studentChatFilter: string;
   openedChatWindows: NbWindowRef[] = [];
   notificationCount: number = 0;
+  selectedInstitute: any;
+  instituteChangeSubscription: Subscription
   userMenu = [
     { title: 'Edit Profile' },
     { title: 'Change Password', link: 'pages/change-password' },
@@ -86,7 +90,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private windowService: NbWindowService,
     private chatService: SocketioService,
     private dialogService: NbDialogService,
-  ) {}
+  ) {
+    this.instituteChangeSubscription = this.instituteService.selectedInstitute.subscribe(
+      instititeId => {
+        this.selectedInstitute = instititeId;
+
+      });
+  }
 
   ngOnInit() {
     this.userPictureOnly = false;
@@ -187,6 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.notificationCount = 0;
     this.chatService.clearChatMembers();
+    this.instituteChangeSubscription.unsubscribe();
   }
 
   openChatBox(user: any) {
@@ -231,7 +242,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           return notification;
         });
       },
-      (err) => {},
+      (err) => { },
     );
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
@@ -246,6 +257,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+  filterChatsForEmployee() {
+
+    this.chatMembers.employeeDetails = this.chatMembers.employeeDetails.map((employee) => {
+      if (employee.basicDetails.name.toLowerCase().includes(this.employeeChatFilter.toLowerCase())) {
+        employee.filterOut = false;
+        return employee;
+      } else {
+        employee.filterOut = true;
+        return employee;
+      }
+    });
+
+  }
+  filterChatsForStudents() {
+    this.chatMembers.studentsDetails = this.chatMembers.studentsDetails.map((student) => {
+      if (student.basicDetails.name.toLowerCase().includes(this.studentChatFilter.toLowerCase())) {
+        student.filterOut = false;
+        return student;
+      } else {
+        student.filterOut = true;
+        return student;
+      }
+    });
+
   }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);
