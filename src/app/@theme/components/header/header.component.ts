@@ -12,7 +12,7 @@ import {
 } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
@@ -47,6 +47,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openedChatWindows: NbWindowRef[] = [];
   notificationCount: number = 0;
   selectedInstitute: any;
+  instituteChangeSubscription: Subscription
   userMenu = [
     { title: 'Edit Profile' },
     { title: 'Change Password', link: 'pages/change-password' },
@@ -90,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private chatService: SocketioService,
     private dialogService: NbDialogService,
   ) {
-    this.instituteService.selectedInstitute.subscribe(
+    this.instituteChangeSubscription = this.instituteService.selectedInstitute.subscribe(
       instititeId => {
         this.selectedInstitute = instititeId;
 
@@ -196,6 +197,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.notificationCount = 0;
     this.chatService.clearChatMembers();
+    this.instituteChangeSubscription.unsubscribe();
   }
 
   openChatBox(user: any) {
