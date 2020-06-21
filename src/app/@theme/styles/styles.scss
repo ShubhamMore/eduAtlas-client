@@ -48,16 +48,16 @@
 }
 
 .btn-yellow-black {
-  background-color: #ffd500;
-  text-transform: uppercase;
-  color: #000;
-  font-weight: bold;
-  transition: all 0.2s;
+  background-color: #ffd500!important;
+  text-transform: uppercase!important;
+  color: #000!important;
+  font-weight: bold!important;
+  transition: all 0.2s!important;
 }
 
 .btn-yellow-black:hover {
-  background-color: #ffd50099;
-  color: #00000099;
+  background-color: #ffd50099!important;
+  color: #00000099!important;
 }
 .nb-theme-default nb-layout .layout {
   min-height: 0vh;
