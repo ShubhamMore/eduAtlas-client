@@ -50,7 +50,7 @@ export class AddAttendanceComponent implements OnInit {
     private toasterService: NbToastrService,
     private attendanceService: AttendanceService,
     private router: Router,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.date = Date.now();
@@ -62,8 +62,8 @@ export class AddAttendanceComponent implements OnInit {
     this.sampleExcel = environment.server + '/sample/attendance.xlsx';
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((param: Params) => {
-      var courseId = param.courseId;
-      var batchId = param.batchId;
+      const courseId = param.courseId;
+      const batchId = param.batchId;
       this.edit = param.edit;
       this.attendanceBasicDetail = this.attendanceService.getAttendanceData();
       if (!this.edit) {
@@ -72,7 +72,6 @@ export class AddAttendanceComponent implements OnInit {
         this.getAttendance();
       }
     });
-
   }
   onFilePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -99,48 +98,45 @@ export class AddAttendanceComponent implements OnInit {
 
     this.api.attendanceByFile(fetchAttendanceFile).subscribe(
       (res: any) => {
-        this.showToaster('top-right', 'success', 'Attendance Marked Succesfully');
+        this.showToaster('top-right', 'success', 'Attendance Marked Successfully');
         this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
       },
       (err) => {
-        this.showToaster(
-          'top-right',
-          'danger',
-          err.error.message,
-        );
+        this.showToaster('top-right', 'danger', err.error.message);
       },
     );
   }
   getAttendance() {
-    var req = {
-      'date': this.attendanceBasicDetail.days.date,
-      'instituteId': this.instituteId,
-      'courseId': this.attendanceBasicDetail.courseId,
-      'batchId': this.attendanceBasicDetail.batchId
-    }
+    const req = {
+      date: this.attendanceBasicDetail.days.date,
+      instituteId: this.instituteId,
+      courseId: this.attendanceBasicDetail.courseId,
+      batchId: this.attendanceBasicDetail.batchId,
+    };
 
     this.api.getAttendanceByDate(req).subscribe((res: any) => {
       if (res) {
         this.attendance = res;
       }
-    })
+    });
   }
 
   getStudentsByBatch(courseId, batchId) {
-    this.api.getStudentsByBatch(this.instituteId, courseId, batchId).subscribe((res: any) => {
-      if (res) {
-        this.attendance = res.map((student) => {
-          return {
-            'studentId': student._id,
-            'studentName': student.basicDetails.name,
-            'studentRollNo': student.instituteDetails.rollNumber,
-            'attendanceStatus': false
-          }
-        });
-      }
-    }, (err) => {
-
-    })
+    this.api.getStudentsByBatch(this.instituteId, courseId, batchId).subscribe(
+      (res: any) => {
+        if (res) {
+          this.attendance = res.map((student) => {
+            return {
+              studentId: student._id,
+              studentName: student.basicDetails.name,
+              studentRollNo: student.instituteDetails.rollNumber,
+              attendanceStatus: false,
+            };
+          });
+        }
+      },
+      (err) => {},
+    );
   }
 
   markAllAttendance() {
@@ -175,29 +171,35 @@ export class AddAttendanceComponent implements OnInit {
   }
 
   saveAttendance() {
-    var request = {
-      'scheduleId': this.attendanceBasicDetail._id,
-      'lectureId': this.attendanceBasicDetail.days._id,
-      'date': this.attendanceBasicDetail.days.date,
-      'courseId': this.attendanceBasicDetail.courseId,
-      'batchId': this.attendanceBasicDetail.batchId,
-      'instituteId': this.instituteId,
-      'attendance': this.attendance
-    }
+    const request = {
+      scheduleId: this.attendanceBasicDetail._id,
+      lectureId: this.attendanceBasicDetail.days._id,
+      date: this.attendanceBasicDetail.days.date,
+      courseId: this.attendanceBasicDetail.courseId,
+      batchId: this.attendanceBasicDetail.batchId,
+      instituteId: this.instituteId,
+      attendance: this.attendance,
+    };
     if (!this.edit) {
-      this.api.addAttendance(request).subscribe((res) => {
-        this.showToaster('top-right', 'success', 'Attendance Added Successfully!')
-        this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
-      }, (err) => {
-        this.showToaster('top-right', 'danger', err.error.message);
-      })
+      this.api.addAttendance(request).subscribe(
+        (res) => {
+          this.showToaster('top-right', 'success', 'Attendance Added Successfully!');
+          this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
+        },
+        (err) => {
+          this.showToaster('top-right', 'danger', err.error.message);
+        },
+      );
     } else {
-      this.api.addAttendance(request).subscribe((res) => {
-        this.showToaster('top-right', 'success', 'Attendance Updated Successfully!')
-        this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
-      }, (err) => {
-        this.showToaster('top-right', 'danger', err.error.message);
-      })
+      this.api.addAttendance(request).subscribe(
+        (res) => {
+          this.showToaster('top-right', 'success', 'Attendance Updated Successfully!');
+          this.router.navigate(['/pages/institute/attandance/' + this.instituteId]);
+        },
+        (err) => {
+          this.showToaster('top-right', 'danger', err.error.message);
+        },
+      );
     }
   }
   showToaster(position: any, status: any, message: any) {
@@ -234,5 +236,4 @@ export class AddAttendanceComponent implements OnInit {
   getDay(date: string) {
     return date.split('-')[2];
   }
-
 }

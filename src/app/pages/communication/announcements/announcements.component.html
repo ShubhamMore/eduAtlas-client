@@ -6,7 +6,10 @@
     <form [formGroup]="announcementForm" (submit)="onSubmit()">
       <div class="form-group-inline">
         <label for="title">TITLE</label>
-        <input nbInput type="text" id="title" status="warning" formControlName="title" fullWidth />
+        <input nbInput type="text" id="title" formControlName="title" fullWidth />
+        <!-- <div *ngIf="announcementForm.get('title').invalid && announcementForm.get('title').touched">
+          <small class="error">*Title is required</small>
+        </div> -->
       </div>
 
       <br />
@@ -70,11 +73,19 @@
                 <nb-option *ngFor="let i of institute.category" value="{{ i }}">{{ i }}</nb-option>
               </nb-select>
             </div>
+            <div class="col-sm-6">
+              <input type="date" nbInput fullWidth formControlName="date" placeholder="Date" />
+              <!-- <div
+                *ngIf="announcementForm.get('date').invalid && announcementForm.get('date').touched"
+              >
+                <small class="error">*Date is required</small>
+              </div> -->
+            </div>
           </div>
         </div>
 
         <div class="col-sm-2 pt-5" style="border-left: 1px solid lightgrey;">
-          <button class="btn btn-yellow-black float-right" (click)="onSubmit()">
+          <button class="btn btn-yellow-black float-right">
             Announce &nbsp;&nbsp;<img
               src="../../../../assets/img/rarrow.png"
               width="20px"

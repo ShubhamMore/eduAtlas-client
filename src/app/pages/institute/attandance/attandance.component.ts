@@ -39,8 +39,8 @@ export class AttandanceComponent implements OnInit {
     private active: ActivatedRoute,
     private fb: FormBuilder,
     private toasterService: NbToastrService,
-    private attendanceService: AttendanceService
-  ) { }
+    private attendanceService: AttendanceService,
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -58,17 +58,21 @@ export class AttandanceComponent implements OnInit {
 
   markAttendance(attendance: any) {
     this.attendanceService.setAttendanceData(attendance);
-    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], { queryParams: { 'courseId': attendance.courseId, 'batchId': attendance.batchId } });
+    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], {
+      queryParams: { courseId: attendance.courseId, batchId: attendance.batchId },
+    });
   }
   editAttendance(attendance: any) {
     this.attendanceService.setAttendanceData(attendance);
-    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], { queryParams: { 'courseId': attendance.courseId, 'batchId': attendance.batchId, 'edit': true } });
+    this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], {
+      queryParams: { courseId: attendance.courseId, batchId: attendance.batchId, edit: true },
+    });
   }
 
   getAttendanceByInstitute() {
     this.attendanceSchedule.unmarked = [];
     this.attendanceSchedule.marked = [];
-    this.api.getAttendanceByInstitute({ 'instituteId': this.instituteId }).subscribe((res: any) => {
+    this.api.getAttendanceByInstitute({ instituteId: this.instituteId }).subscribe((res: any) => {
       if (res) {
         this.attendanceSchedule.unmarked = res.unmarkedData;
         this.attendanceSchedule.marked = res.markedData;

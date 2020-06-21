@@ -1,5 +1,5 @@
 import { NbToastrService } from '@nebular/theme';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -40,6 +40,7 @@ export class AnnouncementsComponent implements OnInit {
     this.batches = [];
     this.announcementForm = this.fb.group({
       title: [''],
+      date: [''],
       text: [''],
       instituteId: [this.routerId],
       batchCodes: [],
@@ -72,6 +73,7 @@ export class AnnouncementsComponent implements OnInit {
         this.announcement = res;
         this.announcementForm.patchValue({
           title: res.title,
+          date: res.date,
           text: res.text,
           batchCodes: res.batchCodes,
           categories: res.categories,
@@ -109,6 +111,7 @@ export class AnnouncementsComponent implements OnInit {
   onSubmit() {
     const announce = new FormData();
     announce.append('title', this.announcementForm.value.title);
+    announce.append('date', this.announcementForm.value.date);
     announce.append('text', this.announcementForm.value.text);
     announce.append('instituteId', this.announcementForm.value.instituteId);
     announce.append('batchCodes', JSON.stringify(this.announcementForm.value.batchCodes));

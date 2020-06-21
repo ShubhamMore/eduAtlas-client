@@ -86,7 +86,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private windowService: NbWindowService,
     private chatService: SocketioService,
     private dialogService: NbDialogService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.userPictureOnly = false;
@@ -163,7 +163,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
   deleteNotification(notificationId, index, seen) {
-    this.api.deleteNotification({ 'notificationId': notificationId }).subscribe((res) => {
+    this.api.deleteNotification({ notificationId: notificationId }).subscribe((res) => {
       if (!seen) {
         this.notificationCount--;
       }
@@ -220,31 +220,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
   getNotifications() {
-    this.api.getNotifications().subscribe((res: any) => {
-      this.notifications = res;
-      this.notifications.map((notification) => {
-        if (!notification.seen) {
-          this.notificationCount++;
-        }
-        notification.date = new Date(notification.date);
-        return notification;
-      });
-    }, (err) => {
-
-    })
+    this.api.getNotifications().subscribe(
+      (res: any) => {
+        this.notifications = res;
+        this.notifications.map((notification) => {
+          if (!notification.seen) {
+            this.notificationCount++;
+          }
+          notification.date = new Date(notification.date);
+          return notification;
+        });
+      },
+      (err) => {},
+    );
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
     this.dialogService.open(notificationDialog, { context: notification });
-    this.api.seenNotification({ 'notification': notification._id }).subscribe((res) => {
+    this.api.seenNotification({ notification: notification._id }).subscribe((res) => {
       this.notifications.map((singleNotification) => {
         if (singleNotification._id === notification._id && !notification.seen) {
           this.notificationCount--;
-          return singleNotification.seen = true;
+          return (singleNotification.seen = true);
         } else {
           return singleNotification;
         }
-      })
-    })
+      });
+    });
   }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);

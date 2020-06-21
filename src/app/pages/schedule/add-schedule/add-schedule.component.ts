@@ -45,7 +45,7 @@ export class AddScheduleComponent implements OnInit {
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
     private location: Location,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -365,8 +365,8 @@ export class AddScheduleComponent implements OnInit {
       select: false,
     };
     const schedule = this.scheduleDay(scheduleData);
-    scheduleDays.controls.splice(i, 0, schedule);
-    this.disableDay(i);
+    scheduleDays.controls.splice(i + 1, 0, schedule);
+    this.disableDay(i + 1);
   }
 
   removeClass(i: number) {

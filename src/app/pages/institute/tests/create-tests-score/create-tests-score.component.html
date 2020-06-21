@@ -85,10 +85,10 @@
           <tr *ngFor="let student of studentScore; let i = index">
             <td>{{student.rollNo}}</td>
             <td>{{student.studentName}}</td>
-            <td>{{student.batchCode}}</td>
+            <td>{{batch}}</td>
             <td>
-              <input type="number" nbInput pattern="\d*" maxlength="3" [id]="student.studentId" [value]="student.marks"
-                (input)="addMarks($event, i)" />/{{test.totalMarks}}
+              <input type="number" nbInput pattern="\d*" maxlength="3" [id]="student.studentId" style="width: 80px;"
+                [value]="student.marks" (input)="addMarks($event, i)" />/{{test.totalMarks}}
             </td>
           </tr>
         </tbody>
