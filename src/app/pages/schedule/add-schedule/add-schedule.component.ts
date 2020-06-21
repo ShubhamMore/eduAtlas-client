@@ -366,6 +366,10 @@ export class AddScheduleComponent implements OnInit {
     };
     const schedule = this.scheduleDay(scheduleData);
     scheduleDays.controls.splice(i + 1, 0, schedule);
+    if (this.edit) {
+      this.schedule.days.splice(i + 1, 0, schedule);
+      this.scheduleForm.value.days.splice(i + 1, 0, schedule);
+    }
     this.disableDay(i + 1);
   }
 
