@@ -367,8 +367,6 @@ export class AddScheduleComponent implements OnInit {
     const schedule = this.scheduleDay(scheduleData);
     scheduleDays.controls.splice(i + 1, 0, schedule);
     if (this.edit) {
-      this.schedule.days.splice(i + 1, 0, schedule);
-      this.scheduleForm.value.days.splice(i + 1, 0, schedule);
     }
     this.disableDay(i + 1);
   }
@@ -377,7 +375,6 @@ export class AddScheduleComponent implements OnInit {
     const scheduleDays = this.scheduleForm.get('days') as FormArray;
     scheduleDays.controls.splice(i, 1);
     if (this.edit) {
-      this.schedule.days.splice(i, 1);
       this.scheduleForm.value.days.splice(i, 1);
     }
   }
@@ -388,13 +385,15 @@ export class AddScheduleComponent implements OnInit {
       return;
     }
     if (!this.edit) {
+      const scheduleDays = this.scheduleForm.get('days') as FormArray;
+
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
-      this.scheduleForm.value.days.forEach((day: any) => {
-        if (day.select) {
-          day.teacher = day.teacher === '' ? null : day.teacher;
+      scheduleDays.controls.forEach((day: any) => {
+        if (day.value.select) {
+          day.value.teacher = day.value.teacher === '' ? null : day.value.teacher;
         }
-        days.push(day);
+        days.push(day.value);
       });
       schedule.days = days;
       this.scheduleService.addSchedule(schedule).subscribe(
@@ -410,18 +409,20 @@ export class AddScheduleComponent implements OnInit {
         },
       );
     } else {
+      const scheduleDays = this.scheduleForm.get('days') as FormArray;
+
       this.scheduleForm.value.scheduleStart = this.schedule.scheduleStart;
       this.scheduleForm.value.scheduleEnd = this.schedule.scheduleEnd;
       const schedule = this.scheduleForm.value;
       const days: any[] = [];
-      this.scheduleForm.value.days.forEach((day: any) => {
-        if (day.select) {
-          day.teacher = day.teacher === '' ? null : day.teacher;
+      scheduleDays.controls.forEach((day: any) => {
+        if (day.value.select) {
+          day.value.teacher = day.value.teacher === '' ? null : day.value.teacher;
         }
-        days.push(day);
+        days.push(day.value);
       });
       schedule.days = days;
-
+      // console.log(schedule);
       this.scheduleService.updateSchedule(schedule, this.schedule._id).subscribe(
         (res: any) => {
           this.showToast('top-right', 'success', 'Schedule Updated Successfully');
@@ -430,8 +431,8 @@ export class AddScheduleComponent implements OnInit {
           }, 1000);
         },
         (error: any) => {
+          console.log(error);
           this.showToast('top-right', 'danger', error.error.message);
-          console.error(error);
         },
       );
     }
