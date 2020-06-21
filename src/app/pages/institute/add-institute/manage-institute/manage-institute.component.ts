@@ -6,6 +6,7 @@ import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
 import { AuthService } from '../../../../services/auth-services/auth.service';
+import { InstituteService } from '../../../../services/institute.service';
 
 @Component({
   selector: 'ngx-manage-institute',
@@ -25,7 +26,8 @@ export class ManageInstituteComponent implements OnInit {
     private router: Router,
     private toastrService: NbToastrService,
     private authService: AuthService,
-  ) {}
+    private instituteService: InstituteService
+  ) { }
 
   ngOnInit() {
     this.institutes = [];
@@ -50,6 +52,8 @@ export class ManageInstituteComponent implements OnInit {
   }
 
   getInstitute(id: string) {
+
+    this.instituteService.publishData(id);
     this.router.navigate(['/pages/dashboard', id]);
   }
 

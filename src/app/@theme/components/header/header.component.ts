@@ -46,6 +46,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   studentChatFilter: string;
   openedChatWindows: NbWindowRef[] = [];
   notificationCount: number = 0;
+  selectedInstitute: any;
   userMenu = [
     { title: 'Edit Profile' },
     { title: 'Change Password', link: 'pages/change-password' },
@@ -88,7 +89,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private windowService: NbWindowService,
     private chatService: SocketioService,
     private dialogService: NbDialogService,
-  ) { }
+  ) {
+    this.instituteService.selectedInstitute.subscribe(
+      instititeId => {
+        this.selectedInstitute = instititeId;
+
+      });
+  }
 
   ngOnInit() {
     this.userPictureOnly = false;

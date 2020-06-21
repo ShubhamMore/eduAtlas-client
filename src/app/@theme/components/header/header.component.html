@@ -9,8 +9,8 @@
   </div>
 
   <nb-card class="mt-4">
-    <nb-select status="primary" placeholder="Select Institute" fullWidth (click)="setInstitutes()"
-      (selectedChange)="onSelect($event)">
+    <nb-select status="primary" placeholder="Select Institute" [(ngModel)]="selectedInstitute" fullWidth
+      (click)="setInstitutes()" (selectedChange)="onSelect($event)">
       <nb-option value="">Select Institute</nb-option>
       <nb-option *ngFor="let item of institutes" value="{{ item._id }}">{{
         item.basicInfo.name
