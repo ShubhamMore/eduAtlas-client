@@ -27,7 +27,7 @@ export class PendingStudentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.students = [];
@@ -57,30 +57,29 @@ export class PendingStudentComponent implements OnInit {
   }
 
   onSelectCourse(id: string) {
-    this.searchStudentFilter = "";
+    this.searchStudentFilter = '';
     this.hideHeaders = false;
     if (id == 'all') {
       this.getStudents(this.instituteId, null, null);
-    }
-    else if (id !== '') {
+    } else if (id !== '') {
       this.course = id;
       this.getStudents(this.instituteId, id, id);
     }
   }
 
-  view(student: string) {
+  view(student: string, course: string) {
     this.router.navigate([`/pages/institute/view-student/${this.instituteId}`], {
-      queryParams: { student, course: this.course },
+      queryParams: { student, course: course },
     });
   }
 
-  edit(student: string) {
+  edit(student: string, course: string) {
     this.router.navigate([`/pages/institute/add-students/${this.instituteId}/edit`], {
-      queryParams: { student, course: this.course, edit: 'true' },
+      queryParams: { student, course: course, edit: 'true' },
     });
   }
 
-  delete(eduAtlId: string, instituteDetailsObjId: string, studentObjId: string) {
+  delete(eduAtlId: string, instituteDetailsObjId: string, course: string, studentObjId: string) {
     const confirm = window.confirm('Are u sure, You want to delete this Student?');
     if (confirm) {
       this.api
@@ -88,7 +87,7 @@ export class PendingStudentComponent implements OnInit {
           instituteDetailsObjId,
           eduAtlId,
           this.instituteId,
-          this.course,
+          course,
           studentObjId,
         )
         .subscribe(() => {
@@ -106,7 +105,9 @@ export class PendingStudentComponent implements OnInit {
   filterPendingStudents() {
     var totalCount = this.students.length;
     this.students = this.students.map((student) => {
-      if (student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())) {
+      if (
+        student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
+      ) {
         this.hideHeaders = false;
         student.filterOut = false;
         return student;

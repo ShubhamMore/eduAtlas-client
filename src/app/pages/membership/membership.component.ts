@@ -18,6 +18,7 @@ export class MembershipComponent implements OnInit {
   ngOnInit() {
     MENU_ITEMS[1].hidden = false;
     MENU_ITEMS[2].hidden = true;
+    MENU_ITEMS[3].hidden = true;
     MENU_ITEMS[4].hidden = true;
     MENU_ITEMS[5].hidden = true;
     MENU_ITEMS[6].hidden = true;
@@ -25,6 +26,12 @@ export class MembershipComponent implements OnInit {
     MENU_ITEMS[8].hidden = true;
     MENU_ITEMS[9].hidden = true;
     MENU_ITEMS[10].hidden = true;
+    MENU_ITEMS[11].hidden = true;
+    MENU_ITEMS[12].hidden = true;
+    MENU_ITEMS[13].hidden = true;
+    MENU_ITEMS[14].hidden = true;
+    MENU_ITEMS[15].hidden = true;
+    MENU_ITEMS[16].hidden = true;
   }
 
   activate(amount: string, planType: string) {
