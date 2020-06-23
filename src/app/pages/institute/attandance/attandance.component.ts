@@ -40,7 +40,7 @@ export class AttandanceComponent implements OnInit {
     private fb: FormBuilder,
     private toasterService: NbToastrService,
     private attendanceService: AttendanceService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.display = false;
@@ -79,7 +79,13 @@ export class AttandanceComponent implements OnInit {
       }
     });
   }
-
+  isMarkAllowed(date: string) {
+    if (date && new Date(date).getTime() < Date.now()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
   showToaster(position: any, status: any, message: any) {
     this.toasterService.show(status, message, {
       position,

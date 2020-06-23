@@ -36,7 +36,8 @@
               </div>
             </div>
             <div class="col-md-2">
-              <button class="btn btn-yellow-black" (click)="markAttendance(unmarkedAttendance)">Mark</button>
+              <button class="btn btn-yellow-black" [disabled]="isMarkAllowed(unmarkedAttendance.date)"
+                (click)="markAttendance(unmarkedAttendance)">Mark</button>
             </div>
           </div>
         </div>
