@@ -5,17 +5,16 @@
         <p class="font-weight-bolder">Pending Students</p>
       </div>
 
-      <div class="col-sm-3"></div>
+      <div class="col-sm-3"><label>Search Student</label>
+        <input type="text" nbInput [(ngModel)]="searchStudentFilter" (input)="filterPendingStudents()" fullWidth
+          placeholder="Search Student By Name" /></div>
 
       <div class="col-sm-3">
         <div class="form-group">
-          <nb-select
-            placeholder="Select Course"
-            status="basic"
-            fullWidth
-            (selectedChange)="onSelectCourse($event)"
-          >
-            <nb-option value="">Select Course</nb-option>
+          <label>Select Course</label>
+          <nb-select placeholder="Select Course" status="basic" fullWidth (selectedChange)="onSelectCourse($event)"
+            selected="all">
+            <nb-option value="all">All</nb-option>
             <nb-option *ngFor="let i of courses" [value]="i._id">{{ i.name }}</nb-option>
           </nb-select>
         </div>
@@ -23,7 +22,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table *ngIf="students.length > 0; else noStudents">
+    <table *ngIf="students.length > 0 && !hideHeaders; else noStudents">
       <thead>
         <tr>
           <th>Name</th>
@@ -34,7 +33,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let student of students; let i = index">
+        <tr *ngFor="let student of students; let i = index" [hidden]="student.filterOut">
           <td>{{ student.basicDetails.name }}</td>
           <td>{{ student.instituteDetails.rollNumber }}</td>
           <td>{{ student.basicDetails.studentContact }}</td>
@@ -43,19 +42,11 @@
             <button class="mr-2 mb-2" nbButton status="primary" (click)="view(student.eduAtlasId)">
               View
             </button>
-            <button
-              type="button"
-              class="btn btn-yellow mb-2 mr-2"
-              (click)="edit(student.eduAtlasId)"
-            >
+            <button type="button" class="btn btn-yellow mb-2 mr-2" (click)="edit(student.eduAtlasId)">
               Edit
             </button>
-            <button
-              class="mr-2 mb-2"
-              nbButton
-              status="danger"
-              (click)="delete(student.eduAtlasId, student.instituteDetails._id, student._id)"
-            >
+            <button class="mr-2 mb-2" nbButton status="danger"
+              (click)="delete(student.eduAtlasId, student.instituteDetails._id, student._id)">
               Delete
             </button>
           </td>
@@ -63,7 +54,7 @@
       </tbody>
     </table>
     <ng-template #noStudents>
-      <p class="text-center pt-5">{{ noStudent }}</p>
+      <p class="text-center pt-5">No Students Found</p>
     </ng-template>
   </nb-card-body>
 </nb-card>
