@@ -5,7 +5,7 @@ import { ViewAttendanceComponent } from './../attandance/view-attendance/view-at
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InstRoutingModule } from './institute-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   NbCardModule,
   NbLayoutModule,
@@ -84,7 +84,8 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     NbAccordionModule,
     NbStepperModule,
     NbToastrModule.forRoot(),
+    FormsModule
   ],
   providers: [TeacherGuard, BranchManagerGuard],
 })
-export class InstituteModule {}
+export class InstituteModule { }
