@@ -12,11 +12,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class PendingStudentComponent implements OnInit {
   institute: any;
   form: FormGroup;
-  noStudent: string;
   courses: any[];
   course: string;
+  hideHeaders: boolean = false;
 
   batches: any[];
+  searchStudentFilter: string;
 
   students = [];
   instituteId: string;
@@ -26,7 +27,7 @@ export class PendingStudentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.students = [];
@@ -37,14 +38,13 @@ export class PendingStudentComponent implements OnInit {
     });
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourseTd(this.instituteId);
-    this.noStudent = 'Select Course';
+    this.getStudents(this.instituteId, null, null);
   }
 
   getStudents(id: string, courseId: string, batchId: string) {
     this.api.getPendingStudents(id, courseId).subscribe((data: any) => {
       this.students = data;
       if (data.length === 0) {
-        this.noStudent = 'No Record';
       }
     });
   }
@@ -57,7 +57,12 @@ export class PendingStudentComponent implements OnInit {
   }
 
   onSelectCourse(id: string) {
-    if (id !== '') {
+    this.searchStudentFilter = "";
+    this.hideHeaders = false;
+    if (id == 'all') {
+      this.getStudents(this.instituteId, null, null);
+    }
+    else if (id !== '') {
       this.course = id;
       this.getStudents(this.instituteId, id, id);
     }
@@ -96,6 +101,24 @@ export class PendingStudentComponent implements OnInit {
           }
         });
     }
+  }
+
+  filterPendingStudents() {
+    var totalCount = this.students.length;
+    this.students = this.students.map((student) => {
+      if (student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())) {
+        this.hideHeaders = false;
+        student.filterOut = false;
+        return student;
+      } else {
+        totalCount--;
+        student.filterOut = true;
+        if (totalCount == 0) {
+          this.hideHeaders = true;
+        }
+        return student;
+      }
+    });
   }
 
   showToaster(position: any, status: any, message: any) {
