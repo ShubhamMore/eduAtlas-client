@@ -124,7 +124,7 @@
                   placeholder="Student Contact No."
                 />
                 <small *ngIf="f.contact.errors && f.contact.touched"
-                  >*Student Contact Number is required.</small
+                  >*Please Enter Valid Contact Number.</small
                 >
               </div>
             </div>
@@ -165,7 +165,7 @@
                   fullWidth
                   placeholder="Parent Contact"
                 />
-                <small *ngIf="f.parentContact.errors">*Enter Correct Phone no.</small>
+                <small *ngIf="f.parentContact.errors">*Please Enter Valid Contact Number.</small>
               </div>
             </div>
 
@@ -235,7 +235,7 @@
             <div class="col-sm-3">
               <label for="batch">Batch</label>
               <nb-select placeholder="Select Batch" formControlName="batch" status="basic">
-                <nb-option value="">No Batch Assign</nb-option>
+                <nb-option value="">No Batch Assigned</nb-option>
                 <nb-option *ngFor="let item of batches" [value]="item._id">{{
                   item.batchCode
                 }}</nb-option>
@@ -569,7 +569,7 @@
                             placeholder="Transaction/Instrument No"
                           />
                         </div>
-                        <div class="col-sm-4">
+                        <!-- <div class="col-sm-4">
                           <label>Payment Date</label>
                           <input
                             type="date"
@@ -579,7 +579,7 @@
                             fullWidth
                             placeholder="Date"
                           />
-                        </div>
+                        </div> -->
                       </div>
                     </nb-card-body>
                   </nb-card>

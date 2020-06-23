@@ -47,9 +47,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   openedChatWindows: NbWindowRef[] = [];
   notificationCount: number = 0;
   selectedInstitute: any;
-  instituteChangeSubscription: Subscription
+  instituteChangeSubscription: Subscription;
   userMenu = [
-    { title: 'Edit Profile' },
+    // { title: 'Edit Profile' },
     { title: 'Change Password', link: 'pages/change-password' },
   ];
 
@@ -92,10 +92,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private dialogService: NbDialogService,
   ) {
     this.instituteChangeSubscription = this.instituteService.selectedInstitute.subscribe(
-      instititeId => {
-        this.selectedInstitute = instititeId;
-
-      });
+      (instituteId: any) => {
+        this.selectedInstitute = instituteId;
+      },
+    );
   }
 
   ngOnInit() {
@@ -242,7 +242,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           return notification;
         });
       },
-      (err) => { },
+      (err) => {},
     );
   }
   openNotificationBox(notification, notificationDialog: TemplateRef<any>) {
@@ -259,9 +259,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
   filterChatsForEmployee() {
-
     this.chatMembers.employeeDetails = this.chatMembers.employeeDetails.map((employee) => {
-      if (employee.basicDetails.name.toLowerCase().includes(this.employeeChatFilter.toLowerCase())) {
+      if (
+        employee.basicDetails.name.toLowerCase().includes(this.employeeChatFilter.toLowerCase())
+      ) {
         employee.filterOut = false;
         return employee;
       } else {
@@ -269,7 +270,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         return employee;
       }
     });
-
   }
   filterChatsForStudents() {
     this.chatMembers.studentsDetails = this.chatMembers.studentsDetails.map((student) => {
@@ -281,7 +281,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
         return student;
       }
     });
-
   }
   changeTheme(themeName: string) {
     this.themeService.changeTheme(themeName);

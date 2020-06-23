@@ -42,7 +42,7 @@ export class ReceiptConfComponent implements OnInit {
       businessName: ['', Validators.required],
       address: ['', Validators.required],
       termsAndCondition: ['', Validators.required],
-      fee: ['', Validators.required],
+      fee: ['Collection Basis'],
       gstNumber: [''],
     });
   }

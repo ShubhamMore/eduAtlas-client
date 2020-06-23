@@ -188,37 +188,45 @@
             <div class="col-sm-6" formArrayName="instituteMetaTag">
               <label>Institute Meta Tag </label>
 
-              <div *ngFor="let tag of instituteMetaTag.controls; let i = index">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <input
-                      type="text"
-                      class="mt-2"
-                      [formControlName]="i"
-                      nbInput
-                      status="basic"
-                      fullWidth
-                    />
-                  </div>
-                  <div class="col-sm-4" style="padding: 8px 0;" [hidden]="i > 0">
-                    <button
-                      type="button"
-                      class="btn btn-light mr-3"
-                      (click)="addMetaTag()"
-                      status="basic"
-                    >
-                      <span>+</span>
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-light mr-3"
-                      (click)="removeMetaTag()"
-                      [hidden]="instituteMetaTag.length == 1"
-                      status="basic"
-                    >
-                      <span>-</span>
-                    </button>
-                  </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <table class="table table-borderless">
+                    <tbody>
+                      <tr *ngFor="let tag of instituteMetaTag.controls; let i = index">
+                        <td>
+                          <input
+                            type="text"
+                            class="mt-2"
+                            [formControlName]="i"
+                            nbInput
+                            status="basic"
+                            fullWidth
+                          />
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-light mr-3"
+                            (click)="addMetaTag(i)"
+                            nbButton
+                          >
+                            <span>+</span>
+                          </button>
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            class="btn btn-light mr-3"
+                            (click)="removeMetaTag(i)"
+                            [hidden]="instituteMetaTag.length == 1"
+                            nbButton
+                          >
+                            <span>-</span>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

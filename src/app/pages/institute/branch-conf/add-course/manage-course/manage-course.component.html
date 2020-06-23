@@ -17,7 +17,7 @@
             <th>Duration</th>
             <th>Fees</th>
             <th>GST</th>
-            <th>Total Fees (Rs.)</th>
+            <th>Total Fees (INR)</th>
           </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
             <td>{{ item.duration }}</td>
             <td>{{ item.fees }}</td>
             <td>{{ item.gst }}</td>
-            <td>&#x20B9; {{ item.totalFee }}</td>
+            <td>INR&nbsp;{{ item.totalFee }}</td>
             <td style="text-align: right;">
               <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">
                 Edit

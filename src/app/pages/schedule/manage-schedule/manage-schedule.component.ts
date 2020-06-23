@@ -89,7 +89,9 @@ export class ManageScheduleComponent implements OnInit {
 
   onSelectBatch(id: string) {
     if (id === 'all') {
-      this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId });
+      if (this.courseId !== 'all') {
+        this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId });
+      }
     } else {
       this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
     }

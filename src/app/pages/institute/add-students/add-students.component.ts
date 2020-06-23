@@ -538,6 +538,7 @@ export class AddStudentsComponent implements OnInit {
         amountPending: '',
       };
       this.addInstallment(installmentData);
+      this.disableFeeInstallmentDetails(i);
     }
 
     // Construct and Set Dates for Fee Details Instalment
@@ -588,7 +589,7 @@ export class AddStudentsComponent implements OnInit {
     installments.controls.forEach((installment) => {
       installment.get('amountPending').enable();
       installment.get('amount').enable();
-      installment.get('paidOn').enable();
+      // installment.get('paidOn').enable();
     });
   }
 
@@ -598,7 +599,7 @@ export class AddStudentsComponent implements OnInit {
     installments.controls.forEach((installment) => {
       installment.get('amountPending').disable();
       installment.get('amount').disable();
-      installment.get('paidOn').disable();
+      // installment.get('paidOn').disable();
     });
   }
 
@@ -740,6 +741,15 @@ export class AddStudentsComponent implements OnInit {
           if (curInstallment.paidStatus) {
             this.alreadyPaid.push(i);
           }
+          if (
+            curInstallment.paymentMode === 'Cash' ||
+            curInstallment.paymentMode === '' ||
+            curInstallment.paymentMode === null
+          ) {
+            this.disableFeeInstallmentDetails(i);
+          } else {
+            this.enableFeeInstallmentDetails(i);
+          }
         });
         this.disableFeeFormFields();
       });
@@ -773,6 +783,11 @@ export class AddStudentsComponent implements OnInit {
   onSelectPaymentMode(mode: any, i: number) {
     if (this.edit) {
       this.feesUpdated = true;
+    }
+    if (mode === 'Cash') {
+      this.disableFeeInstallmentDetails(i);
+    } else {
+      this.enableFeeInstallmentDetails(i);
     }
   }
 
@@ -821,6 +836,17 @@ export class AddStudentsComponent implements OnInit {
     this.studentForm.get(['courseDetails', 'additionalDiscountType']).enable();
     // enable Student additional Discount in save edit mode
     this.studentForm.get(['courseDetails', 'additionalDiscount']).enable();
+  }
+
+  enableFeeInstallmentDetails(i: number) {
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls[i].get('bankDetails').enable();
+    installments.controls[i].get('transDetails').enable();
+  }
+  disableFeeInstallmentDetails(i: number) {
+    const installments = this.feeDetailsForm.get('installments') as FormArray;
+    installments.controls[i].get('bankDetails').disable();
+    installments.controls[i].get('transDetails').disable();
   }
 
   // Submit form From DOM
