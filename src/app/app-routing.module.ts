@@ -28,7 +28,6 @@ const routes: Routes = [
     loadChildren: () => import('./student/student.module').then((m) => m.StudentModule),
     canActivate: [AuthGuard],
   },
-
   {
     path: 'login',
     component: LoginComponent,
@@ -80,7 +79,7 @@ const routes: Routes = [
     ],
   },
 
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'pages' },
 ];
 
