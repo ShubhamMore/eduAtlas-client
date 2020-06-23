@@ -43,6 +43,7 @@ export class ManageScheduleComponent implements OnInit {
   ngOnInit() {
     this.display = false;
     this.courseId = 'all';
+    this.batchId = 'all';
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
     this.onSelectCourse('all');
