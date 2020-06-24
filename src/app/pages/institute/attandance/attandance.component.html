@@ -46,6 +46,11 @@
             <div class="col-md-2">
               <button
                 class="btn btn-yellow-black"
+                [title]="
+                  isMarkAllowed(unmarkedAttendance.date)
+                    ? 'You cant mark this Attendance, Lecture not started yet'
+                    : 'Mark This Attendance'
+                "
                 (click)="markAttendance(unmarkedAttendance)"
                 [disabled]="isMarkAllowed(unmarkedAttendance.date)"
               >
