@@ -1,3 +1,4 @@
+import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +17,7 @@ import {
   NbMenuModule,
   NbAccordionModule,
   NbListModule,
-  NbTabsetModule
+  NbTabsetModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -32,7 +33,8 @@ import { ChartsModule } from 'ng2-charts';
     CreateTestsScoreComponent,
     ManageTestsComponent,
     TestReportComponent,
-    ViewReportComponent
+    ViewReportComponent,
+    InstituteHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,7 @@ import { ChartsModule } from 'ng2-charts';
     NbEvaIconsModule,
     NbListModule,
     ChartsModule,
-    NbTabsetModule
+    NbTabsetModule,
   ],
 })
-export class TestsModule { }
+export class TestsModule {}

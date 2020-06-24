@@ -1,3 +1,4 @@
+import { InstituteHeaderComponent } from './../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 
 import {
@@ -22,6 +23,7 @@ import { StudentReportConfComponent } from './student-report-conf/student-report
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MentoringComponent } from './student-report-conf/mentoring/mentoring.component';
+// tslint:disable-next-line: max-line-length
 import { SheduleMentoringComponent } from './student-report-conf/mentoring/shedule-mentoring/shedule-mentoring.component';
 
 @NgModule({
@@ -47,6 +49,7 @@ import { SheduleMentoringComponent } from './student-report-conf/mentoring/shedu
     ManagePTMsComponent,
     MentoringComponent,
     SheduleMentoringComponent,
+    InstituteHeaderComponent,
   ],
 })
 export class StudentReportModule {}
