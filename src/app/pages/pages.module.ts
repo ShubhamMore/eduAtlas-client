@@ -27,6 +27,7 @@ import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { MembershipComponent } from './membership/membership.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
+import { InstituteHeaderComponent } from './institute-header/institute-header.component';
 
 // import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
 
@@ -57,6 +58,7 @@ import { ProfileComponent } from './profile/profile.component';
     MembershipComponent,
     ChangePasswordComponent,
     ProfileComponent,
+    InstituteHeaderComponent,
 
     // ClassifiedComponent,
     // CreateClassifiedComponent,
