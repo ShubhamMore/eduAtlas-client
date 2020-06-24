@@ -1,3 +1,4 @@
+import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { StudyMaterialComponent } from './../study-material/study-material.component';
 import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
 import { AddAttendanceComponent } from './../attandance/add-attendance/add-attendance.component';
@@ -66,6 +67,7 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     ManageLeadComponent,
     ViewLeadComponent,
 
+    InstituteHeaderComponent,
     StudyMaterialComponent,
   ],
   imports: [
@@ -84,8 +86,8 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     NbAccordionModule,
     NbStepperModule,
     NbToastrModule.forRoot(),
-    FormsModule
+    FormsModule,
   ],
   providers: [TeacherGuard, BranchManagerGuard],
 })
-export class InstituteModule { }
+export class InstituteModule {}

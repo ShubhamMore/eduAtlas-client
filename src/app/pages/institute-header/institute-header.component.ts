@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { InstituteService } from './../../services/institute.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'ngx-institute-header',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InstituteHeaderComponent implements OnInit {
   instituteHeaderDetails: any;
-  constructor() {}
 
-  ngOnInit() {}
+  constructor(private instituteService: InstituteService) {}
+
+  ngOnInit() {
+    this.instituteHeaderDetails = this.instituteService.getInstituteHeaderDetails();
+  }
 }

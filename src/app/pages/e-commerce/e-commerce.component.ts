@@ -107,6 +107,16 @@ export class ECommerceComponent implements OnInit {
       // this.studentReq = res.studentRequests;
       this.totalStudents = res.studentCount;
       this.totalBatches = res.batchCount;
+
+      const instituteHeaderDetails = {
+        secure_url: this.myInstitute.institute.basicInfo.logo.secure_url,
+        name: this.myInstitute.institute.basicInfo.name,
+        currentPlan: this.myInstitute.institute.currentPlan,
+        totalStudents: this.totalStudents,
+        totalBatches: this.totalBatches,
+      };
+
+      this.instituteService.setInstituteHeaderDetails(instituteHeaderDetails);
     });
   }
 
