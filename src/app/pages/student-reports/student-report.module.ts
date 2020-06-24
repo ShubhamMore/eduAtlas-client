@@ -49,7 +49,7 @@ import { SheduleMentoringComponent } from './student-report-conf/mentoring/shedu
     ManagePTMsComponent,
     MentoringComponent,
     SheduleMentoringComponent,
-    InstituteHeaderComponent,
+    // InstituteHeaderComponent,
   ],
 })
 export class StudentReportModule {}

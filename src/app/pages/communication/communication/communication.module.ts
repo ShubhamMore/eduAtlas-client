@@ -36,7 +36,7 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
     AddForumComponent,
     MyForumComponent,
     ForumDetailsComponent,
-    InstituteHeaderComponent,
+    // InstituteHeaderComponent,
   ],
   imports: [
     CommonModule,

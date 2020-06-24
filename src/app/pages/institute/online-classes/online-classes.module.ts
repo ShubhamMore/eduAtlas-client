@@ -30,7 +30,7 @@ import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-c
     ManageOnlineClassComponent,
     AddOnlineClassComponent,
     OnlineClassesUpgradeComponent,
-    InstituteHeaderComponent,
+    // InstituteHeaderComponent,
   ],
   imports: [
     CommonModule,

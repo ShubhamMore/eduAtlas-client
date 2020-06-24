@@ -34,7 +34,7 @@ import { ChartsModule } from 'ng2-charts';
     ManageTestsComponent,
     TestReportComponent,
     ViewReportComponent,
-    InstituteHeaderComponent,
+    // InstituteHeaderComponent,
   ],
   imports: [
     CommonModule,
