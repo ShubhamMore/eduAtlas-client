@@ -1,6 +1,8 @@
+import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnlineClassesRoutingModule } from './online-classes-routing.module';
+// tslint:disable-next-line: max-line-length
 import { OnlineClassSettingsComponent } from './online-classes-conf/online-class-settings/online-class-settings.component';
 import { ManageOnlineClassComponent } from './online-classes-conf/manage-online-class/manage-online-class.component';
 import { AddOnlineClassComponent } from './online-classes-conf/add-online-class/add-online-class.component';
@@ -28,6 +30,7 @@ import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-c
     ManageOnlineClassComponent,
     AddOnlineClassComponent,
     OnlineClassesUpgradeComponent,
+    // InstituteHeaderComponent,
   ],
   imports: [
     CommonModule,

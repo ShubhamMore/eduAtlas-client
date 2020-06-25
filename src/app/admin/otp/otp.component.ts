@@ -13,7 +13,6 @@ export class OtpComponent implements OnInit {
   phone: string;
   email: string;
   otp: string;
-
   loginOTP: boolean;
 
   constructor(
@@ -58,7 +57,21 @@ export class OtpComponent implements OnInit {
     this.otpService.userVerify(otpData).subscribe(
       (res: any) => {
         if (this.loginOTP) {
-          if (res._id) {
+          if (res.verifyEmail) {
+            this.showToast('top-right', 'success', 'OTP Verification Successful');
+            setTimeout(() => {
+              this.showToast(
+                'top-right',
+                'warning',
+                'Email is not Verified, Please Verify your Email',
+              );
+              setTimeout(() => {
+                this.router.navigate(['/login'], {
+                  relativeTo: this.route,
+                });
+              }, 500);
+            }, 500);
+          } else if (res._id) {
             this.authService.loginSuccess(res);
             this.showToast('top-right', 'success', 'OTP Verification Successful');
             setTimeout(() => {

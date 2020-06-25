@@ -8,10 +8,20 @@ export class InstituteService {
   institutes: any[] = [];
 
   institute: any;
-  private selectedInstituteObservable = new Subject<string>();
 
+  private selectedInstituteObservable = new Subject<string>();
   selectedInstitute = this.selectedInstituteObservable.asObservable();
-  constructor() { }
+
+  private instituteHeaderDetails: any;
+
+  constructor() {}
+
+  setInstituteHeaderDetails(instituteHeaderDetails: any) {
+    this.instituteHeaderDetails = instituteHeaderDetails;
+  }
+  getInstituteHeaderDetails() {
+    return this.instituteHeaderDetails;
+  }
 
   setInstitute(institute: any) {
     this.institute = institute;
@@ -32,6 +42,4 @@ export class InstituteService {
   publishData(data: any) {
     this.selectedInstituteObservable.next(data);
   }
-
-
 }

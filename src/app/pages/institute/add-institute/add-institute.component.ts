@@ -100,7 +100,7 @@ export class AddInstituteComponent implements OnInit {
         currency: 'INR',
         name: 'eduatlas',
         description: 'Test Transaction',
-        image: '../../../../assets/images/logo.png',
+        image: '../../../../assets/img/EA FAVI.png',
         // tslint:disable-next-line: max-line-length
         order_id: '', // This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
         handler: (response: any) => {
@@ -364,12 +364,12 @@ export class AddInstituteComponent implements OnInit {
     return this.thirdForm.get('instituteMetaTag') as FormArray;
   }
 
-  addMetaTag() {
-    this.instituteMetaTag.push(this.fb.control(''));
+  addMetaTag(i: number) {
+    this.instituteMetaTag.controls.splice(i + 1, 0, this.fb.control(''));
   }
 
-  removeMetaTag() {
-    this.instituteMetaTag.removeAt(this.instituteMetaTag.length - 1);
+  removeMetaTag(i: number) {
+    this.instituteMetaTag.controls.splice(i, 1);
   }
 
   get first() {

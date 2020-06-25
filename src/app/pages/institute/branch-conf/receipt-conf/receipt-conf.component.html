@@ -38,7 +38,17 @@
 
         <div class="col-sm-4">
           <label for="fee">Fee</label>
-          <nb-select
+          <input
+            type="text"
+            nbInput
+            fullWidth
+            id="fee"
+            status="basic"
+            disabled="true"
+            formControlName="fee"
+            placeholder="Collection Basis"
+          />
+          <!-- <nb-select
             placeholder="Fee"
             id="fee"
             status="basic"
@@ -47,7 +57,7 @@
           >
             <nb-option *ngFor="let item of fees" [value]="item">{{ item }}</nb-option>
           </nb-select>
-          <small *ngIf="f.fee.errors && submitted">*Fee is Required</small>
+          <small *ngIf="f.fee.errors && submitted">*Fee is Required</small> -->
         </div>
       </div>
       <br />

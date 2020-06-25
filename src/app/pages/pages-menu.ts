@@ -4,7 +4,7 @@ import { Title } from '@angular/platform-browser';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Home',
+    title: 'Admin Home',
     icon: 'home-outline', //  0
     link: '/pages/home',
     home: true,
@@ -27,7 +27,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
-    title: 'Dashboard',
+    title: 'Institute Dashboard',
     icon: 'layout-outline', // 2
     link: '',
     pathMatch: 'full',
@@ -54,7 +54,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/institute/branch-config/manage-batch',
       },
       {
-        title: 'Discount',
+        title: 'Discounts',
         link: '/pages/institute/branch-config/manage-discount',
       },
       {
@@ -62,14 +62,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/institute/branch-config/manage-receipt',
       },
       {
-        title: 'Role Management',
+        title: 'Employee Roles',
         link: '/pages/institute/branch-config/manage-employee',
       },
     ],
   },
 
   {
-    title: 'Students',
+    title: 'Student Register',
     icon: 'person-outline',
     hidden: true, // 5
     children: [
@@ -97,7 +97,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '',
       },
       {
-        title: 'Forum',
+        title: 'Forums',
         link: '',
       },
     ],
@@ -164,7 +164,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
-    title: 'Schedule', // 11
+    title: 'Class Schedules', // 11
     // icon: 'fa fa-calendar',
     link: '/pages/institute/add-schedule/1',
     hidden: true,
@@ -206,7 +206,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
-    title: 'Leads',
+    title: 'Leads Manager',
     // icon: 'fa fa-bullhorn',
     link: '',
     hidden: true, // 15

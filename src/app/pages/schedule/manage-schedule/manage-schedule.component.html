@@ -1,3 +1,5 @@
+<ngx-institute-header></ngx-institute-header>
+
 <nb-card>
   <nb-card-header>
     <button class="btn btn-yellow-black float-right" (click)="addSchedule()">
@@ -11,7 +13,7 @@
   <nb-card-header style="background-color: #ffd500;">
     <div class="row">
       <div class="col-sm-6">
-        <h4>SCHEDULE CLASS</h4>
+        <h4>SCHEDULED CLASS</h4>
       </div>
       <div class="col-sm-3">
         <nb-select
@@ -19,8 +21,9 @@
           status="basic"
           fullWidth
           (selectedChange)="onSelectCourse($event)"
+          [(selected)]="courseId"
         >
-          <nb-option value="all">All</nb-option>
+          <nb-option value="all">All Courses</nb-option>
           <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
             course.name
           }}</nb-option>
@@ -33,8 +36,9 @@
           fullWidth
           status="basic"
           (selectedChange)="onSelectBatch($event)"
+          [(selected)]="batchId"
         >
-          <nb-option value="all">All</nb-option>
+          <nb-option value="all">All Batches</nb-option>
           <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
             batch.batchCode
           }}</nb-option>

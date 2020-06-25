@@ -43,6 +43,7 @@ export class ManageScheduleComponent implements OnInit {
   ngOnInit() {
     this.display = false;
     this.courseId = 'all';
+    this.batchId = 'all';
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
     this.onSelectCourse('all');
@@ -78,10 +79,11 @@ export class ManageScheduleComponent implements OnInit {
 
   onSelectCourse(id: string) {
     this.courseId = id;
+    this.batches = [];
+    this.batchId = 'all';
     if (id === 'all') {
       this.getSchedules({ instituteId: this.instituteId });
     } else {
-      this.batchId = 'all';
       this.batches = this.institute.batch.filter((b: any) => b.course === id);
       this.onSelectBatch(this.batchId);
     }
@@ -89,7 +91,9 @@ export class ManageScheduleComponent implements OnInit {
 
   onSelectBatch(id: string) {
     if (id === 'all') {
-      this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId });
+      if (this.courseId !== 'all') {
+        this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId });
+      }
     } else {
       this.getSchedules({ instituteId: this.instituteId, courseId: this.courseId, batchId: id });
     }

@@ -56,6 +56,14 @@ export class AttandanceComponent implements OnInit {
     });
   }
 
+  isMarkAllowed(date: string) {
+    if (date && new Date(date).getTime() < Date.now()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   markAttendance(attendance: any) {
     this.attendanceService.setAttendanceData(attendance);
     this.router.navigate(['/pages/institute/add-attandance/' + this.instituteId], {

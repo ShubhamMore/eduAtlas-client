@@ -1,3 +1,5 @@
+<!-- <ngx-institute-header></ngx-institute-header> -->
+
 <nb-card *ngIf="display">
   <nb-card-header>
     <p style="color: black; font-weight: bold;">
@@ -50,8 +52,12 @@
                     <td>{{ student.rollNo }}</td>
                     <td>{{ student.marks }}</td>
                     <td>
-                      <button class="mr-3 mb-1" nbButton status="warning"
-                        (click)="getStudentTestReport(student.studentId, dialog)">
+                      <button
+                        class="mr-3 mb-1"
+                        nbButton
+                        status="warning"
+                        (click)="getStudentTestReport(student.studentId, dialog)"
+                      >
                         Student Graph
                       </button>
                     </td>
@@ -74,8 +80,14 @@
     <nb-card-header>Student Progress</nb-card-header>
     <nb-card-body>
       <div style="display: block; width: 1000px;">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [legend]="barChartLegend" [chartType]="barChartType">
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+        >
         </canvas>
       </div>
     </nb-card-body>

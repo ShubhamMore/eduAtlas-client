@@ -47,8 +47,14 @@ export class LoginComponent implements OnInit {
         if (resData.verifyOtp) {
           this.router.navigate(['/otp'], {
             relativeTo: this.route,
-            queryParams: { phone: resData.phone, type: 'login' },
+            queryParams: {
+              phone: resData.phone,
+              email: resData.email,
+              type: 'login',
+            },
           });
+        } else if (resData.verifyEmail) {
+          this.showToast('top-right', 'warning', `Email is not Verified, Please Verify your Email`);
         } else {
           if (resData.role === 'student') {
             this.showToast('top-right', 'success', `Login Success`);
