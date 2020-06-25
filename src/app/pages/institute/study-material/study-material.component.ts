@@ -23,6 +23,7 @@ export class StudyMaterialComponent implements OnInit {
 
   materialForm: FormGroup;
   courses: any[] = [];
+  courseError: boolean;
   batches: any[] = [];
 
   videoUrl: boolean;
@@ -44,7 +45,7 @@ export class StudyMaterialComponent implements OnInit {
       category: ['', Validators.required],
       link: ['', Validators.required],
       instituteId: [this.instituteId],
-      courseId: ['', Validators.required],
+      courseId: [],
       batches: [],
     });
     this.getCourses(this.instituteId);
@@ -64,7 +65,8 @@ export class StudyMaterialComponent implements OnInit {
     this.videoUrl = false;
     this.edit = false;
     this.studyMaterialId = null;
-    this.materialForm.reset({ batches: [] });
+    this.materialForm.reset({ courseId: [], batches: [] });
+    this.batches = [];
   }
 
   editMaterial(i: any) {
@@ -108,11 +110,31 @@ export class StudyMaterialComponent implements OnInit {
     }
   }
 
-  onSelectFormCourse(id: any) {
-    if (id !== '') {
-      this.materialForm.patchValue({ batches: [] });
-      this.batches = this.institute.batch.filter((b: any) => b.course === id);
+  onSelectFormCourse(courseIds: any[]) {
+    if (courseIds.length === 0) {
+      this.courseError = true;
+    } else {
+      this.courseError = false;
     }
+    this.batches = [];
+    this.courses.forEach((course: any) => {
+      if (courseIds.includes(course.courseCode)) {
+        const batches = this.institute.batch.filter((b: any) => b.course === course._id);
+        this.batches.push(...batches);
+      }
+    });
+
+    // const curBatches = [];
+
+    // console.log(this.materialForm.value.batches);
+
+    // this.batches.forEach((batch: any) => {
+    //   if (this.materialForm.value.batches.includes(batch.batchCode)) {
+    //     curBatches.push(batch.batchCode);
+    //   }
+    // });
+
+    // this.materialForm.patchValue({ batches: curBatches });
   }
 
   onSelectCategory(event: any) {
@@ -160,19 +182,30 @@ export class StudyMaterialComponent implements OnInit {
   addMaterial() {
     this.materialForm.markAllAsTouched();
 
+    if (this.materialForm.value.courseId.length === 0) {
+      this.courseError = true;
+      return;
+    } else {
+      this.courseError = false;
+    }
+
     if (this.videoUrl && this.materialForm.value.link === '') {
-      this.showToast('top-right', 'warning', 'Video Url is Required');
-      return;
+      if (!this.edit) {
+        this.showToast('top-right', 'warning', 'Video Url is Required');
+        return;
+      }
     } else if (!this.videoUrl && !this.file) {
-      this.showToast('top-right', 'warning', 'File is Required');
-      return;
+      if (!this.edit) {
+        this.showToast('top-right', 'warning', 'File is Required');
+        return;
+      }
     }
 
     const material = new FormData();
     material.append('title', this.materialForm.value.title);
     material.append('category', this.materialForm.value.category);
     material.append('instituteId', this.materialForm.value.instituteId);
-    material.append('courseId', this.materialForm.value.courseId);
+    material.append('courseId', JSON.stringify(this.materialForm.value.courseId));
     material.append('batches', JSON.stringify(this.materialForm.value.batches));
     if (this.file) {
       material.append('studyMaterial', this.file, this.materialForm.value.title);

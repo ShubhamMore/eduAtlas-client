@@ -80,22 +80,16 @@
           <nb-select
             placeholder="Select Course"
             formControlName="courseId"
-            [status]="
-              materialForm.get('courseId').invalid && materialForm.get('courseId').touched
-                ? 'danger'
-                : 'basic'
-            "
+            multiple
+            [status]="courseError ? 'danger' : 'basic'"
             fullWidth
             (selectedChange)="onSelectFormCourse($event)"
           >
-            <nb-option *ngFor="let course of courses" [value]="course._id">{{
+            <nb-option *ngFor="let course of courses" [value]="course.courseCode">{{
               course.name
             }}</nb-option>
           </nb-select>
-          <small
-            *ngIf="materialForm.get('courseId').invalid && materialForm.get('courseId').touched"
-            >*Course is Required</small
-          >
+          <small *ngIf="courseError">*Course is Required</small>
         </div>
 
         <div class="col-md-4">
@@ -157,7 +151,7 @@
       <div class="col-md-3">
         <nb-select placeholder="Select Course" fullWidth (selectedChange)="onSelectCourse($event)">
           <nb-option value="all">All</nb-option>
-          <nb-option *ngFor="let course of courses" [value]="course._id">{{
+          <nb-option *ngFor="let course of courses" [value]="course.courseCode">{{
             course.name
           }}</nb-option>
         </nb-select>

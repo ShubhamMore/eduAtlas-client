@@ -425,6 +425,7 @@ export class ApiService {
         transDetails: curInstallment.transDetails,
         paymentDate: curInstallment.paymentDate,
         amountPending: curInstallment.amountPending,
+        receiptLink: curInstallment.receiptLink,
       };
       data.installments.push(installment);
     });
@@ -461,6 +462,7 @@ export class ApiService {
         transDetails: curInstallment.transDetails,
         paymentDate: curInstallment.paymentDate,
         amountPending: curInstallment.amountPending,
+        receiptLink: curInstallment.receiptLink,
       };
       data.installments.push(installment);
     });
