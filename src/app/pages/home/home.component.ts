@@ -9,6 +9,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../services/role/role-assign.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'ngx-home',
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     private instituteService: InstituteService,
     private authService: AuthService,
     private roleService: RoleAssignService,
+    private menuService: MenuService,
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     MENU_ITEMS[14].hidden = true;
     MENU_ITEMS[15].hidden = true;
     MENU_ITEMS[16].hidden = true;
+    this.menuService.setMenuSeqList();
   }
 
   getInstitutes() {
@@ -80,6 +83,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           MENU_ITEMS[1].children[1].hidden = true;
         }
+        this.menuService.setMenuSeqList();
       });
     } else if (user && user.role === 'employee') {
       this.api.getEmployeeInstitutes({ email: user.email }).subscribe((data: any) => {
@@ -89,6 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
         }
+        this.menuService.setMenuSeqList();
       });
     }
   }

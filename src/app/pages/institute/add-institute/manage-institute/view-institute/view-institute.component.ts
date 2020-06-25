@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../../../services/api.service';
 import { MENU_ITEMS } from '../../../../pages-menu';
+import { MenuService } from '../../../../../services/menu.service';
 @Component({
   selector: 'ngx-view-institute',
   templateUrl: './view-institute.component.html',
@@ -12,7 +13,7 @@ export class ViewInstituteComponent implements OnInit {
   user: any;
   instituteId: string;
 
-  constructor(private api: ApiService, private router: ActivatedRoute) {}
+  constructor(private api: ApiService, private router: ActivatedRoute, private menuService: MenuService) { }
 
   ngOnInit() {
     this.instituteId = this.router.snapshot.paramMap.get('id');
@@ -22,6 +23,7 @@ export class ViewInstituteComponent implements OnInit {
     MENU_ITEMS[2].hidden = false;
     MENU_ITEMS[3].hidden = false;
     MENU_ITEMS[4].hidden = false;
+    this.menuService.setMenuSeqList();
   }
 
   getInstitute(id: string) {

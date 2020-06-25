@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { MENU_ITEMS } from '../../pages/pages-menu';
+import { MenuService } from '../menu.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,25 +17,25 @@ export class RoleAssignService {
     return this.role;
   }
 
-  constructor(private http: HttpClient, private instituteService: InstituteService) {}
+  constructor(private http: HttpClient, private instituteService: InstituteService, private menuService: MenuService) { }
 
   addRole(role: any) {
     return this.http.post(`${environment.server}/institute/role`, role).pipe(
-      tap((res) => {}),
+      tap((res) => { }),
       catchError(this.handleError),
     );
   }
 
   getOtp(phone: any, params: any) {
     return this.http.get(`${environment.server}/users/sendOTP/${phone}`, { params: params }).pipe(
-      tap((res: any) => {}),
+      tap((res: any) => { }),
       catchError(this.handleError),
     );
   }
 
   verifyOtp(params: any) {
     return this.http.get(environment.server + '/users/verifyOTP', { params: params }).pipe(
-      tap((res) => {}),
+      tap((res) => { }),
       catchError((err) => this.handleError(err)),
     );
   }
@@ -154,5 +155,6 @@ export class RoleAssignService {
       MENU_ITEMS[15].hidden = false;
       MENU_ITEMS[16].hidden = false;
     }
+    this.menuService.setMenuSeqList();
   }
 }

@@ -2,6 +2,7 @@ import { PaymentService } from './../../services/payment.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../pages-menu';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'ngx-membership',
@@ -13,7 +14,8 @@ export class MembershipComponent implements OnInit {
     private paymentService: PaymentService,
     private router: Router,
     private route: ActivatedRoute,
-  ) {}
+    private menuService: MenuService,
+  ) { }
 
   ngOnInit() {
     MENU_ITEMS[1].hidden = false;
@@ -32,6 +34,7 @@ export class MembershipComponent implements OnInit {
     MENU_ITEMS[14].hidden = true;
     MENU_ITEMS[15].hidden = true;
     MENU_ITEMS[16].hidden = true;
+    this.menuService.setMenuSeqList();
   }
 
   activate(amount: string, planType: string) {

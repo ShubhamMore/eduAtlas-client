@@ -5,6 +5,7 @@ import { MENU_ITEMS } from '../pages-menu';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../services/role/role-assign.service';
 import { InstituteService } from '../../services/institute.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'ngx-ecommerce',
@@ -48,6 +49,7 @@ export class ECommerceComponent implements OnInit {
     private authService: AuthService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
+    private menuService: MenuService,
   ) {
     active.params.subscribe((val) => {
       // put the code from `ngOnInit` here
@@ -93,7 +95,7 @@ export class ECommerceComponent implements OnInit {
 
     MENU_ITEMS[15].link = '/pages/institute/manage-leads/' + this.instituteId;
     MENU_ITEMS[16].link = '/pages/institute/study-material/' + this.instituteId;
-
+    this.menuService.setMenuSeqList();
     // this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);
     this.getDashboardInfo(this.instituteId);
@@ -177,6 +179,7 @@ export class ECommerceComponent implements OnInit {
           this.instituteService.setInstitutes(this.institutes);
           this.display = true;
         }
+        this.menuService.setMenuSeqList();
       });
     }
   }

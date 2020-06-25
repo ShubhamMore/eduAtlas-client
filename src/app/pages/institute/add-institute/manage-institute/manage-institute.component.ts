@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 import { InstituteService } from '../../../../services/institute.service';
+import { MenuService } from '../../../../services/menu.service';
 
 @Component({
   selector: 'ngx-manage-institute',
@@ -26,7 +27,8 @@ export class ManageInstituteComponent implements OnInit {
     private router: Router,
     private toastrService: NbToastrService,
     private authService: AuthService,
-    private instituteService: InstituteService
+    private instituteService: InstituteService,
+    private menuService: MenuService,
   ) { }
 
   ngOnInit() {
@@ -46,6 +48,7 @@ export class ManageInstituteComponent implements OnInit {
           MENU_ITEMS[2].hidden = true;
           MENU_ITEMS[3].hidden = true;
           MENU_ITEMS[4].hidden = true;
+          this.menuService.setMenuSeqList();
         }
       });
     }
@@ -77,6 +80,7 @@ export class ManageInstituteComponent implements OnInit {
             MENU_ITEMS[2].hidden = true;
             MENU_ITEMS[3].hidden = true;
             MENU_ITEMS[4].hidden = true;
+            this.menuService.setMenuSeqList();
           }
         },
         (err) => {

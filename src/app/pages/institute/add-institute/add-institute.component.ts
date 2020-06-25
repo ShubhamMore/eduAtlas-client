@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MenuService } from '../../../services/menu.service';
 
 declare var Razorpay: any;
 @Component({
@@ -80,7 +81,8 @@ export class AddInstituteComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private paymentService: PaymentService,
     private authService: AuthService,
-  ) {}
+    private menuService: MenuService,
+  ) { }
 
   ngOnInit() {
     this.display = true;
@@ -153,7 +155,7 @@ export class AddInstituteComponent implements OnInit {
     MENU_ITEMS[3].hidden = true;
     MENU_ITEMS[4].hidden = true;
     MENU_ITEMS[1].hidden = false;
-
+    this.menuService.setMenuSeqList();
     this.getCountries();
   }
 
@@ -178,7 +180,7 @@ export class AddInstituteComponent implements OnInit {
       (res: any) => {
         this.instituteId = null;
       },
-      (err: any) => {},
+      (err: any) => { },
     );
   }
 
