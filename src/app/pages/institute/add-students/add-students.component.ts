@@ -536,6 +536,7 @@ export class AddStudentsComponent implements OnInit {
         transDetails: '',
         paymentDate: '',
         amountPending: '',
+        receiptLink: '',
       };
       this.addInstallment(installmentData);
       this.disableFeeInstallmentDetails(i);
@@ -616,6 +617,7 @@ export class AddStudentsComponent implements OnInit {
       transDetails: [installmentData.transDetails ? installmentData.transDetails : ''],
       paymentDate: [installmentData.paymentDate ? installmentData.paymentDate : ''],
       amountPending: [installmentData.amountPending ? installmentData.amountPending : ''],
+      receiptLink: [installmentData.receiptLink ? installmentData.receiptLink : ''],
     });
   }
 
@@ -735,6 +737,7 @@ export class AddStudentsComponent implements OnInit {
             bankDetails: curInstallment.bankDetails,
             transDetails: curInstallment.transDetails,
             amountPending: curInstallment.amountPending,
+            receiptLink: curInstallment.receiptLink,
           };
           this.addInstallment(installmentData);
 
