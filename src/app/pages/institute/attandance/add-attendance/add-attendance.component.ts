@@ -6,6 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { AttributeMarker } from '@angular/compiler/src/core';
 import { AttendanceService } from '../../../../services/attendance.service';
 import { environment } from '../../../../../environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-add-attendance',
@@ -50,7 +51,8 @@ export class AddAttendanceComponent implements OnInit {
     private toasterService: NbToastrService,
     private attendanceService: AttendanceService,
     private router: Router,
-  ) {}
+
+  ) { }
 
   ngOnInit() {
     this.date = Date.now();
@@ -121,6 +123,11 @@ export class AddAttendanceComponent implements OnInit {
     });
   }
 
+  viewAttendance(studentId, studentName) {
+    this.router.navigate([`/pages/institute/view-attandance/${this.instituteId}`], {
+      queryParams: { studentId, studentName },
+    });
+  }
   getStudentsByBatch(courseId, batchId) {
     this.api.getStudentsByBatch(this.instituteId, courseId, batchId).subscribe(
       (res: any) => {
@@ -135,7 +142,7 @@ export class AddAttendanceComponent implements OnInit {
           });
         }
       },
-      (err) => {},
+      (err) => { },
     );
   }
 
@@ -236,4 +243,5 @@ export class AddAttendanceComponent implements OnInit {
   getDay(date: string) {
     return date.split('-')[2];
   }
+
 }
