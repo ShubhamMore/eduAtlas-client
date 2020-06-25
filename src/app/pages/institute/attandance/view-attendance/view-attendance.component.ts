@@ -18,15 +18,16 @@ export class ViewAttendanceComponent implements OnInit {
   total = 0;
   courses: any[];
   noAttendanceData: any;
-
-  constructor(private api: ApiService, private route: ActivatedRoute, private location: Location) {}
+  studentName: any;
+  constructor(private api: ApiService, private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit() {
     this.display = false;
     this.noAttendanceData = 'Select Course';
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.route.queryParams.subscribe((data) => {
-      this.studentId = data.student;
+      this.studentId = data.studentId;
+      this.studentName = data.studentName;
     });
     this.attendance = [];
     this.courses = [];
@@ -46,7 +47,7 @@ export class ViewAttendanceComponent implements OnInit {
         });
         this.display = true;
       },
-      (err: any) => {},
+      (err: any) => { },
     );
   }
 
@@ -94,12 +95,16 @@ export class ViewAttendanceComponent implements OnInit {
             });
           }
         },
-        (err: any) => {},
+        (err: any) => { },
       );
   }
 
   getScheduleDate(date: any) {
     const d = date.split('-');
     return `${d[2]}-${d[1]}-${d[0]}`;
+  }
+
+  back() {
+    this.location.back();
   }
 }

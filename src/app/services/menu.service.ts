@@ -25,5 +25,6 @@ export class MenuService {
         this.menuInSeq.push(MENU_ITEMS[14]);
         this.menuInSeq.push(MENU_ITEMS[7]);
         this.menuInSeq.push(MENU_ITEMS[16]);
+        this.menuInSeq.push(MENU_ITEMS[8]);
     }
 }
