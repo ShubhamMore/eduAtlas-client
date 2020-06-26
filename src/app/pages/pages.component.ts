@@ -16,18 +16,13 @@ import { MenuService } from '../services/menu.service';
   `,
 })
 export class PagesComponent implements OnInit {
-
-  constructor(
-    private menuService: MenuService,
-  ) { }
+  constructor(public menuService: MenuService) {}
   menu = MENU_ITEMS;
   menuSeq = [];
   institutes = [];
   menuInSeq = [];
 
-
   ngOnInit(): void {
     this.menuService.setMenuSeqList();
   }
-
 }
