@@ -9,7 +9,7 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./test-report.component.scss'],
 })
 export class TestReportComponent implements OnInit {
-  
+
   institute: any;
   instituteId: string;
   batches: any[] = [];
@@ -17,21 +17,24 @@ export class TestReportComponent implements OnInit {
   courseId: string;
   batch: string;
 
-  tests: any[];
+  students: any[];
+  searchStudentFilter: string;
+  hideHeaders: boolean = false;
 
   constructor(
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.display = false;
-    this.tests = [];
+    this.students = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
     console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getCourses(this.instituteId);
+    this.getStudents();
   }
 
   getCourses(id: string) {
@@ -42,32 +45,68 @@ export class TestReportComponent implements OnInit {
     });
   }
 
+  getBatchName(batchId: string) {
+    return this.institute.batch.find((b: any) => b._id === batchId).batchCode;
+  }
+  getCourseName(courseId: string) {
+    return this.institute.course.find((b: any) => b._id === courseId).name;
+  }
+
   onSelectCourse(id: string) {
+    this.searchStudentFilter = '';
+    this.hideHeaders = false;
     this.courseId = id;
     this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    this.getStudents();
   }
 
   onSelectBatch(batchId: string) {
+    this.searchStudentFilter = '';
+    this.hideHeaders = false;
     this.batch = batchId;
-    this.getTestsForReports(this.instituteId, batchId);
+    this.getStudents();
   }
 
-  viewScore(testId,batchId) {
+  getStudents() {
+    this.api.getActiveStudents(this.instituteId, this.courseId, this.batch).subscribe((data: any) => {
+      this.students = data;
+    });
+  }
+  viewScore(studentId, batchId) {
     this.router.navigate([`/pages/institute/test/view-report/${this.instituteId}`], {
-      queryParams: {testId},
+      queryParams: { studentId, batchId },
     });
   }
 
   getTestsForReports(instituteId: any, batchId: any) {
     this.api.getTestsForReports({ instituteId: instituteId, batchId: batchId }).subscribe(
       (res: any) => {
-        this.tests = res;
+        this.students = res;
         console.log(res);
       },
       (err) => {
         console.log(err);
       },
     );
+  }
+  filterActiveStudents() {
+    var totalCount = this.students.length;
+    this.students = this.students.map((student) => {
+      if (
+        student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
+      ) {
+        this.hideHeaders = false;
+        student.filterOut = false;
+        return student;
+      } else {
+        totalCount--;
+        student.filterOut = true;
+        if (totalCount == 0) {
+          this.hideHeaders = true;
+        }
+        return student;
+      }
+    });
   }
 
   showToast(position: any, status: any, message: any) {

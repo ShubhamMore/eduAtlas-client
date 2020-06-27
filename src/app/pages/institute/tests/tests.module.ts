@@ -56,4 +56,4 @@ import { ChartsModule } from 'ng2-charts';
     NbTabsetModule,
   ],
 })
-export class TestsModule {}
+export class TestsModule { }

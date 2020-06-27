@@ -235,7 +235,7 @@ export class ApiService {
 
   //  GET ACTIVE STUDENTs
   getActiveStudents(id: string, courseId: string, batchId: string) {
-    const data = { instituteId: id, courseId };
+    const data = { instituteId: id, courseId, batchId };
     return this.http.post(environment.server + '/institute/student/getActiveStudents', data).pipe(
       tap((res) => { }),
       catchError(this.handleError),
@@ -1075,6 +1075,14 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  getScoreOfStudentByBatch(data: any) {
+    const url = `${environment.server}/institute/tests/getScoreOfStudentByBatch`;
+    return this.http.post(url, data).pipe(
+      tap((data) => { }),
+      catchError(this.handleError),
+    );
+  }
+
 
   /****************   Schedule PTMs   ****************** */
   addPtm(data: any) {

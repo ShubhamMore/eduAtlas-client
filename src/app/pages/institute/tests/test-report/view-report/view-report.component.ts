@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NbToastrService, NbDialogService } from '@nebular/theme';
+import { NbToastrService } from '@nebular/theme';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NbWindowService } from '@nebular/theme';
@@ -14,18 +14,18 @@ declare var $: any;
   styleUrls: ['./view-report.component.scss'],
 })
 export class ViewReportComponent implements OnInit {
-  testId: string;
+  studentId: string;
   instituteId: string;
   institute: any;
   students: any[];
   file: File;
-  fileUpload: boolean;
   invalidFile: boolean;
   test: any;
   course: string;
   batch: string;
   display: boolean;
   studentScore: any[];
+  batchId: string;
   @ViewChild('escClose', { read: TemplateRef, static: false }) escCloseTemplate: TemplateRef<HTMLElement>;
   @ViewChild('disabledEsc', { read: TemplateRef, static: false }) disabledEscTemplate: TemplateRef<HTMLElement>;
   constructor(
@@ -34,7 +34,6 @@ export class ViewReportComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-    private dialogService: NbDialogService
   ) { }
 
   public barChartOptions = {
@@ -53,14 +52,28 @@ export class ViewReportComponent implements OnInit {
   public barChartType = 'line';
   public barChartLegend = true;
   public barChartData = [];
+  public chartColors: any[] = [
+    {
+      borderColor: ["#FFD500"],
+      backgroundColor: ["rgba(250,214,1,0.1)"],
+    }, {
+      borderColor: ["#EA596B"],
+      backgroundColor: ["rgba(239,86,107,0.1)"],
+    }, {
+      borderColor: ["#30BD9A"],
+      backgroundColor: ["rgba(48,189,154,0.1)"],
+    }, {
+      borderColor: ["#009BCC"],
+      backgroundColor: ["rgba(0,154,204,0.1)"],
+    }];
 
   ngOnInit() {
     this.display = false;
     this.invalidFile = false;
-    this.fileUpload = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.route.queryParams.subscribe((param) => {
-      this.testId = param.testId;
+      this.studentId = param.studentId;
+      this.batchId = param.batchId;
     });
     this.getCourses(this.instituteId);
     this.students = [];
@@ -72,92 +85,63 @@ export class ViewReportComponent implements OnInit {
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
-      if (this.testId) {
-        this.getTest(this.testId);
+      if (this.studentId) {
+        this.getScoreOfStudentByBatch(this.studentId);
       } else {
         this.location.back();
       }
     });
   }
 
-  getTest(id: string) {
-    this.api.getSingleTest({ _id: id }).subscribe(
+  getScoreOfStudentByBatch(id: string) {
+    this.api.getScoreOfStudentByBatch({ 'studentId': id, 'batchId': this.batchId }).subscribe(
       (res: any) => {
         if (res) {
-          this.test = res[0];
+          this.test = res;
         }
         this.course = this.institute.course.find(
-          (c: any) => c._id === this.test.courseId,
+          (c: any) => c._id === this.test[0].courseId,
         ).courseCode;
-        this.batch = this.institute.batch.find((b: any) => b._id === this.test.batchId).batchCode;
-        if (this.test.students.length > 0) {
-          this.studentScore = this.test.students;
-        } else {
-          this.getStudents(res.instituteId, res.batchId, res.courseId);
-        }
+        this.batch = this.institute.batch.find((b: any) => b._id === this.test[0].batchId).batchCode;
+
         this.display = true;
+        res.sort((test1, test2) => {
+          const test1Date = new Date(test1.date);
+          const test2Date = new Date(test2.date);
+          if (test1Date > test2Date) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })
+        var percentageArray = [];
+        var highestArray = [];
+        var lowestArray = [];
+        var averageArray = [];
+        var labelsArray = [];
+        res.forEach(test => {
+          test.students.studentPercentage ? percentageArray.push(test.students.studentPercentage) : percentageArray.push(0)
+          test.highestPercentage ? highestArray.push(test.highestPercentage) : highestArray.push(0);
+          test.lowestPercentage ? lowestArray.push(test.lowestPercentage) : lowestArray.push(0);
+          test.averagePercentage ? averageArray.push(test.averagePercentage) : averageArray.push(0);
+          labelsArray.push(test.testName + "(" + test.date + ")");
+        });
+        this.barChartLabels = labelsArray;
+        this.barChartType = 'line';
+        this.barChartLegend = true;
+        this.barChartData = [
+          { data: highestArray, label: 'HIGHEST' },
+          { data: lowestArray, label: 'LOWEST' },
+          { data: averageArray, label: 'AVERAGE' },
+          { data: percentageArray, label: 'STUDENT MARKS' },
+        ];
       },
       (err) => { },
     );
   }
 
-  getStudents(instituteID: string, batchId: string, courseId: string) {
-    this.api.getStudentsByBatch(instituteID, courseId, batchId).subscribe((res: any[]) => {
-      this.students = res;
-      this.students.sort((student1, student2) => {
-        if (+student1.instituteDetails.rollNumber >= +student2.instituteDetails.rollNumber) {
-          return 1;
-        } else {
-          return -1;
-        }
-      });
-
-      this.students.forEach((student) => {
-        const scoreData = {
-          studentId: student._id,
-          rollNo: student.instituteDetails.rollNumber,
-          marks: '',
-        };
-
-        this.studentScore.push(scoreData);
-      });
-    });
-  }
-
-  getStudentTestReport(studentId, dialog: TemplateRef<any>) {
 
 
-    this.api.getScoresOfStutdentByInstitute({ 'studentId': studentId, 'instituteId': this.instituteId }).subscribe((res: any) => {
-
-      res.sort((test1, test2) => {
-        const test1Date = new Date(test1.date);
-        const test2Date = new Date(test2.date);
-        if (test1Date > test2Date) {
-          return 1;
-        } else {
-          return -1;
-        }
-      })
-
-      var percentageArray = res.map((test) => {
-        return test.students.percentage;
-      })
-      var labelsArray = res.map((test) => {
-        return test.testName + "(" + test.date + ")";
-      })
-
-      this.barChartLabels = labelsArray;
-      this.barChartType = 'line';
-      this.barChartLegend = true;
-      this.barChartData = [
-        { data: percentageArray, label: res[0].students.studentName },
-      ];
-      this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
-    }, (err) => {
-      this.showToast('top-right', 'danger', err.error.message);
-    })
-
-  }
 
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });

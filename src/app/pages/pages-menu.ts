@@ -112,7 +112,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Define Test',
       }, // 7
       {
-        title: 'Test Reports',
+        title: 'View Report',
       },
     ],
   },

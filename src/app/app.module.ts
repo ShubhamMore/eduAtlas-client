@@ -87,4 +87,4 @@ import { TermsAndConditionsComponent } from './admin/terms-and-conditions/terms-
   bootstrap: [AppComponent],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
-export class AppModule {}
+export class AppModule { }
