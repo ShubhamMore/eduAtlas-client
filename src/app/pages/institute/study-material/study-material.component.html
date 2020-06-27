@@ -99,19 +99,14 @@
             fullWidth
             formControlName="batches"
             multiple
-            [status]="
-              materialForm.get('batches').invalid && materialForm.get('batches').touched
-                ? 'danger'
-                : 'basic'
-            "
+            [status]="batchError ? 'danger' : 'basic'"
+            (selectedChange)="onSelectFormBatch()"
           >
             <nb-option *ngFor="let i of batches" value="{{ i.batchCode }}">{{
               i.batchCode
             }}</nb-option>
           </nb-select>
-          <small *ngIf="materialForm.get('batches').invalid && materialForm.get('batches').touched"
-            >*Batch is Required</small
-          >
+          <small *ngIf="batchError">*Batch is Required</small>
         </div>
 
         <div class="col-md-4 pt-4">
@@ -125,7 +120,7 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-yellow-black float-right" type="submit">SHARE</button>
+          <button type="submit" class="btn btn-yellow-black float-right">SHARE</button>
           <button
             *ngIf="edit"
             class="btn float-right mr-3"
@@ -181,10 +176,16 @@
             </td>
             <td>{{ material.batches.join(',') }}</td>
             <td>
-              <button class="btn mr-3 mb-2 btn-yellow" nbButton (click)="editMaterial(i)">
+              <button
+                type="button"
+                class="btn mr-3 mb-2 btn-yellow"
+                nbButton
+                (click)="editMaterial(i)"
+              >
                 EDIT
               </button>
               <button
+                type="button"
                 class="btn mb-2"
                 nbButton
                 status="danger"

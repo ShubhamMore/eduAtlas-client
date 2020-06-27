@@ -24,6 +24,7 @@ export class StudyMaterialComponent implements OnInit {
   materialForm: FormGroup;
   courses: any[] = [];
   courseError: boolean;
+  batchError: boolean;
   batches: any[] = [];
 
   videoUrl: boolean;
@@ -134,7 +135,15 @@ export class StudyMaterialComponent implements OnInit {
     //   }
     // });
 
-    // this.materialForm.patchValue({ batches: curBatches });
+    this.materialForm.patchValue({ batches: this.batches });
+  }
+
+  onSelectFormBatch() {
+    if (!this.materialForm.value.batches || this.materialForm.value.courseId.batches === 0) {
+      this.batchError = true;
+    } else {
+      this.batchError = false;
+    }
   }
 
   onSelectCategory(event: any) {
@@ -181,19 +190,25 @@ export class StudyMaterialComponent implements OnInit {
 
   addMaterial() {
     this.materialForm.markAllAsTouched();
-
-    if (this.materialForm.value.courseId.length === 0) {
+    if (!this.materialForm.value.courseId || this.materialForm.value.courseId.length === 0) {
       this.courseError = true;
-      return;
     } else {
       this.courseError = false;
     }
 
+    if (!this.materialForm.value.batches || this.materialForm.value.courseId.batches === 0) {
+      this.batchError = true;
+    } else {
+      this.batchError = false;
+    }
+
+    if (this.courseError || this.batchError) {
+      return;
+    }
+
     if (this.videoUrl && this.materialForm.value.link === '') {
-      if (!this.edit) {
-        this.showToast('top-right', 'warning', 'Video Url is Required');
-        return;
-      }
+      this.showToast('top-right', 'warning', 'Video Url is Required');
+      return;
     } else if (!this.videoUrl && !this.file) {
       if (!this.edit) {
         this.showToast('top-right', 'warning', 'File is Required');
@@ -204,7 +219,7 @@ export class StudyMaterialComponent implements OnInit {
     const material = new FormData();
     material.append('title', this.materialForm.value.title);
     material.append('category', this.materialForm.value.category);
-    material.append('instituteId', this.materialForm.value.instituteId);
+    material.append('instituteId', this.instituteId);
     material.append('courseId', JSON.stringify(this.materialForm.value.courseId));
     material.append('batches', JSON.stringify(this.materialForm.value.batches));
     if (this.file) {
