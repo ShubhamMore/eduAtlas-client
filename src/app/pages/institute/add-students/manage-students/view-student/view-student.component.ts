@@ -13,6 +13,8 @@ export class ViewStudentComponent implements OnInit {
   instituteId: string;
   studentEduId: string;
   courseId: string;
+  display: boolean;
+  institute: any;
 
   constructor(
     private api: ApiService,
@@ -23,6 +25,7 @@ export class ViewStudentComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
 
     this.route.queryParams.subscribe((data) => {
@@ -30,7 +33,24 @@ export class ViewStudentComponent implements OnInit {
       this.courseId = data.course;
     });
 
+    this.getCourses();
+
     this.getStudent(this.studentEduId, this.instituteId, this.courseId);
+  }
+
+  getCourses() {
+    this.api.getCourseTD(this.instituteId).subscribe((res: any) => {
+      this.institute = res;
+      this.display = true;
+    });
+  }
+
+  getCourse(id: any) {
+    return this.institute.course.find((course: any) => course._id === id).name;
+  }
+
+  getBatch(id: any) {
+    return this.institute.batch.find((batch: any) => batch._id === id).batchCode;
   }
 
   getStudent(student: string, institute: string, course: string) {
@@ -38,6 +58,7 @@ export class ViewStudentComponent implements OnInit {
       .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
       .subscribe((data) => {
         this.student = data[0];
+        console.log(data);
       });
   }
 

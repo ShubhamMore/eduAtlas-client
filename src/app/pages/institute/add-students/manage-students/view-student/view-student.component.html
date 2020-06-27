@@ -9,102 +9,148 @@
   </nb-card-header>
   <nb-card-body>
     <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Name</p>
+      <div class="col-12">
+        <h3>Student Details</h3>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <td><strong>Name: </strong></td>
+                <td>{{ student.basicDetails.name }}</td>
+              </tr>
+              <tr>
+                <td><strong>EduAtlas Id: </strong></td>
+                <td>{{ student.eduAtlasId }}</td>
+              </tr>
+              <tr>
+                <td><strong>Email: </strong></td>
+                <td>{{ student.basicDetails.studentEmail }}</td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td><strong>Contact: </strong></td>
+                <td>{{ student.basicDetails.studentContact }}</td>
+              </tr>
+              <tr>
+                <td><strong>Address: </strong></td>
+                <td>{{ student.parentDetails.address }}</td>
+              </tr>
+              <tr>
+                <td><strong>Parent Name: </strong></td>
+                <td>{{ student.parentDetails.name }}</td>
+              </tr>
+              <tr>
+                <td><strong>Parent Email: </strong></td>
+                <td>{{ student.parentDetails.parentEmail }}</td>
+              </tr>
+              <tr>
+                <td><strong>Parent Contact: </strong></td>
+                <td>{{ student.parentDetails.parentContact }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="col-sm-5">
-        <p>{{ student.basicDetails.name }}</p>
+      <div class="col-12" *ngIf="display">
+        <h3>Course Details</h3>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <td><strong>Course: </strong></td>
+                <td>{{ getCourse(student.instituteDetails.courseId) }}</td>
+              </tr>
+              <tr>
+                <td><strong>Batch: </strong></td>
+                <td>{{ getBatch(student.instituteDetails.batchId) }}</td>
+              </tr>
+              <tr>
+                <td><strong>Status: </strong></td>
+                <td>{{ student.instituteDetails.status ? 'Active' : 'Pending' }}</td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td><strong>Roll No: </strong></td>
+                <td>{{ student.instituteDetails.rollNumber }}</td>
+              </tr>
+              <tr>
+                <td><strong>Date of Admission: </strong></td>
+                <td>{{ student.fees.date }}</td>
+              </tr>
+              <tr>
+                <td><strong>Net Payable: </strong></td>
+                <td>{{ student.instituteDetails.netPayable }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Roll Number</p>
+      <div class="col-12">
+        <h3>Payment/Installment Details</h3>
+
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <tbody>
+              <tr>
+                <td><strong>Total Payable Amount: </strong></td>
+                <td>{{ student.fees.totalAmount }}</td>
+              </tr>
+              <tr>
+                <td><strong>Amount Collected: </strong></td>
+                <td>{{ student.fees.amountCollected }}</td>
+              </tr>
+              <tr>
+                <td><strong>Pending Amount: </strong></td>
+                <td>{{ student.fees.pendingAmount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Installment No.</th>
+                <th>Installment Date</th>
+                <th>Amount</th>
+                <th>Pending Amount</th>
+                <th>Payment Mode</th>
+                <th>Bank Details</th>
+                <th>Transaction Details</th>
+                <th>Receipt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let installment of student.fees.installments; let i = index"
+                [ngClass]="
+                  installment.paidStatus === 'true' ? 'paid-installment' : 'unpaid-installment'
+                "
+              >
+                <td>
+                  <strong>Installment {{ i + 1 }} </strong>
+                </td>
+                <td>{{ installment.paidOn }}</td>
+                <td>{{ installment.amount }}</td>
+                <td>{{ installment.amountPending }}</td>
+                <td>{{ installment.paymentMode }}</td>
+                <td>{{ installment.bankDetails }}</td>
+                <td>{{ installment.transDetails }}</td>
+                <td>
+                  <a
+                    class="receipt"
+                    [href]="installment.receiptLink"
+                    target="_blank"
+                    *ngIf="installment.paidStatus === 'true' && installment.receiptLink"
+                    >Receipt</a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div class="col-sm-5">
-        <p>{{ student.instituteDetails.rollNumber }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Email</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.basicDetails.studentEmail }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Contact</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.basicDetails.studentContact }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Parent Name</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.parentDetails.name }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Parent contact</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.parentDetails.parentContact }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Parent Email</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.parentDetails.parentEmail }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Address</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.parentDetails.address }}</p>
-      </div>
-      <div class="col-sm-1"></div>
-    </div>
-    <hr />
-    <div class="row">
-      <div class="col-sm-1"></div>
-      <div class="col-sm-5">
-        <p class="font-weight-bold">Parent contact</p>
-      </div>
-      <div class="col-sm-5">
-        <p>{{ student.parentDetails.parentContact }}</p>
-      </div>
-      <div class="col-sm-1"></div>
     </div>
   </nb-card-body>
 </nb-card>
