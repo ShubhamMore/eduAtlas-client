@@ -14,7 +14,7 @@
     "conventional-changelog": "conventional-changelog",
     "start": "ng serve",
     "build": "ng build",
-    "prod-build": "ng build --prod --aot --buildOptimizer --commonChunk --vendorChunk --optimization --progress",
+    "prod-build": "ng build --prod --aot --buildOptimizer  --progress",
     "test": "ng test",
     "test-coverage": "rimraf coverage && npm run test -- --code-coverage",
     "lint": "ng lint",

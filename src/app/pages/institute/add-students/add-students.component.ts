@@ -334,28 +334,30 @@ export class AddStudentsComponent implements OnInit {
 
   // Change Course From DOM
   onSelectCourse(id: string) {
-    // Find Batches of Selected Course
-    this.batches = this.institute.batch.filter((b: any) => b.course === id);
-    // Set Selected Course
-    this.selectedCourse = this.courses.find((course: any) => course.id === id);
-    // Set Selected Course Duration
-    this.duration = +this.selectedCourse.duration;
-    // reset Course Details Batch in DOM
-    this.studentForm.get('courseDetails').patchValue({ batch: '' });
-    // reset Course Material Records
-    this.studentForm.get('materialRecord').reset();
-    // Enable Installment Type
-    this.feeDetailsForm.get('installmentType').enable();
+    if (id !== '') {
+      // Find Batches of Selected Course
+      this.batches = this.institute.batch.filter((b: any) => b.course === id);
+      // Set Selected Course
+      this.selectedCourse = this.courses.find((course: any) => course.id === id);
+      // Set Selected Course Duration
+      this.duration = +this.selectedCourse.duration;
+      // reset Course Details Batch in DOM
+      this.studentForm.get('courseDetails').patchValue({ batch: '' });
+      // reset Course Material Records
+      this.studentForm.get('materialRecord').reset();
+      // Enable Installment Type
+      this.feeDetailsForm.get('installmentType').enable();
 
-    this.installmentType = '0';
-    this.feeDetailsForm.patchValue({ installmentType: this.installmentType });
-    if (this.edit) {
-      this.date = new Date().getTime();
-      this.feeDetailsForm.get('date').enable();
-      this.feeDetailsForm.patchValue({ date: this.constructDate(this.date) });
+      this.installmentType = '0';
+      this.feeDetailsForm.patchValue({ installmentType: this.installmentType });
+      if (this.edit) {
+        this.date = new Date().getTime();
+        this.feeDetailsForm.get('date').enable();
+        this.feeDetailsForm.patchValue({ date: this.constructDate(this.date) });
+      }
+      // Calculate Net Payable Amount
+      this.calculateNetPayableAmount();
     }
-    // Calculate Net Payable Amount
-    this.calculateNetPayableAmount();
   }
 
   // Select Discount From DOM

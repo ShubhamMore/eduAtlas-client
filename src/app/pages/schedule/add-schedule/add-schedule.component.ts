@@ -4,7 +4,7 @@ import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { NbToastrService } from '@nebular/theme';
-import { Location } from '@angular/common';
+import { Location, formatDate } from '@angular/common';
 
 @Component({
   selector: 'ngx-add-schedule',
@@ -75,7 +75,7 @@ export class AddScheduleComponent implements OnInit {
 
     this.getCourses(this.instituteId);
 
-    this.fromDatePicked(this.date);
+    this.fromDatePicked(this.constructDate(this.date));
   }
 
   dateValidator(group: FormGroup): { [s: string]: boolean } {
@@ -207,8 +207,8 @@ export class AddScheduleComponent implements OnInit {
     // const currentDay = this.getDate(this.date).getDay();
     for (let i = 0; i < this.noOfDays; i++) {
       const date = this.constructDate(this.date + i * 24 * 60 * 60 * 1000);
-      const day = new Date(date).getDay();
 
+      const day = new Date(this.getFormattedDate(date)).getDay();
       const scheduleData = {
         day: this.days[day],
         date: date,
@@ -223,11 +223,18 @@ export class AddScheduleComponent implements OnInit {
     }
   }
 
-  getDate(date: number) {
+  getDate(date: number): Date {
     return new Date(date);
   }
 
+  getFormattedDate(date: string): string {
+    return date + 'T17:00';
+  }
+
   fromDatePicked(date: any) {
+    if (typeof date === 'string') {
+      date = this.getFormattedDate(date);
+    }
     this.date = new Date(date).getTime();
     if (!this.schedule) {
       const noOfDays = 7 - this.getDate(this.date).getDay();
@@ -260,6 +267,9 @@ export class AddScheduleComponent implements OnInit {
   }
 
   toDatePicked(date: any) {
+    if (typeof date === 'string') {
+      date = this.getFormattedDate(date);
+    }
     date = new Date(date).getTime();
     this.noOfDays = (date - this.date) / (24 * 60 * 60 * 1000) + 1;
     this.schedule = null;
