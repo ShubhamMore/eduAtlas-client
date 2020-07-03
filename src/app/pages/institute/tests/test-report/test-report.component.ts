@@ -9,7 +9,6 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./test-report.component.scss'],
 })
 export class TestReportComponent implements OnInit {
-
   institute: any;
   instituteId: string;
   batches: any[] = [];
@@ -26,13 +25,12 @@ export class TestReportComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.display = false;
     this.students = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getCourses(this.instituteId);
     this.getStudents();
   }
@@ -40,7 +38,6 @@ export class TestReportComponent implements OnInit {
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
-      console.log(data);
       this.display = true;
     });
   }
@@ -68,9 +65,11 @@ export class TestReportComponent implements OnInit {
   }
 
   getStudents() {
-    this.api.getActiveStudents(this.instituteId, this.courseId, this.batch).subscribe((data: any) => {
-      this.students = data;
-    });
+    this.api
+      .getActiveStudents(this.instituteId, this.courseId, this.batch)
+      .subscribe((data: any) => {
+        this.students = data;
+      });
   }
   viewScore(studentId, batchId) {
     this.router.navigate([`/pages/institute/test/view-report/${this.instituteId}`], {
@@ -82,15 +81,12 @@ export class TestReportComponent implements OnInit {
     this.api.getTestsForReports({ instituteId: instituteId, batchId: batchId }).subscribe(
       (res: any) => {
         this.students = res;
-        console.log(res);
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   }
   filterActiveStudents() {
-    var totalCount = this.students.length;
+    let totalCount = this.students.length;
     this.students = this.students.map((student) => {
       if (
         student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
@@ -101,7 +97,7 @@ export class TestReportComponent implements OnInit {
       } else {
         totalCount--;
         student.filterOut = true;
-        if (totalCount == 0) {
+        if (totalCount === 0) {
           this.hideHeaders = true;
         }
         return student;
@@ -112,5 +108,4 @@ export class TestReportComponent implements OnInit {
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }
-
 }

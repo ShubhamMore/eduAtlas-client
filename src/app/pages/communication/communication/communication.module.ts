@@ -1,8 +1,6 @@
-import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
+// import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { ViewAnnouncementsComponent } from './../announcements/view-announcements/view-announcements.component';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { ButtonModule } from 'primeng/button';
-import { ThemeModule } from './../../../@theme/theme.module';
+
 import { ManageAnnouncementsComponent } from '../announcements/manage-announcements/manage-announcements.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
-import { MENU_ITEMS } from '../../../../pages-menu';
 
 @Component({
   selector: 'ngx-manage-course',

@@ -1,3 +1,4 @@
+// tslint:disable-next-line: max-line-length
 import { SheduleMentoringComponent } from './student-report-conf/mentoring/shedule-mentoring/shedule-mentoring.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';

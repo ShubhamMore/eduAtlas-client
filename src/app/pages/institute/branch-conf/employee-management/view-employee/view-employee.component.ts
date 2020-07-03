@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './view-employee.component.html',
   styleUrls: ['./view-employee.component.scss'],
 })
-export class ViewEmployee implements OnInit {
+export class ViewEmployeeComponent implements OnInit {
   employee: any;
   instituteId: string;
   employeeEduId: string;

@@ -13,9 +13,9 @@ import { ManageBatchComponent } from '../add-batches/manage-batch/manage-batch.c
 import { ManageDiscountComponent } from '../discount/manage-discount/manage-discount.component';
 
 import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
-import { ManageEmployee } from '../employee-management/manage-employee/manage-employee.component';
-import { AddEmployee } from '../employee-management/add-employee.component';
-import { ViewEmployee } from '../employee-management/view-employee/view-employee.component';
+import { ManageEmployeeComponent } from '../employee-management/manage-employee/manage-employee.component';
+import { AddEmployeeComponent } from '../employee-management/add-employee.component';
+import { ViewEmployeeComponent } from '../employee-management/view-employee/view-employee.component';
 
 const routes = [
   {
@@ -31,10 +31,10 @@ const routes = [
       { path: 'manage-discount/:id', component: ManageDiscountComponent },
       { path: 'manage-receipt/:id', component: ManageReceiptComponent },
       { path: 'add-receipt/:id', component: ReceiptConfComponent },
-      { path: 'add-employee/:id', component: AddEmployee },
-      { path: 'add-employee/:id/edit', component: AddEmployee },
-      { path: 'manage-employee/:id', component: ManageEmployee },
-      { path: 'view-employee/:id', component: ViewEmployee },
+      { path: 'add-employee/:id', component: AddEmployeeComponent },
+      { path: 'add-employee/:id/edit', component: AddEmployeeComponent },
+      { path: 'manage-employee/:id', component: ManageEmployeeComponent },
+      { path: 'view-employee/:id', component: ViewEmployeeComponent },
       { path: '', redirectTo: 'add-courses', pathMatch: 'full' },
     ],
   },

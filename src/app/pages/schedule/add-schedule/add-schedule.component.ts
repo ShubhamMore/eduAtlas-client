@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
@@ -40,7 +40,6 @@ export class AddScheduleComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private router: Router,
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
     private toasterService: NbToastrService,
@@ -431,7 +430,6 @@ export class AddScheduleComponent implements OnInit {
           }, 1000);
         },
         (error: any) => {
-          console.log(error);
           this.showToast('top-right', 'danger', error.error.message);
         },
       );

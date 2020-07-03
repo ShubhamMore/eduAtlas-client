@@ -1,4 +1,4 @@
-import { AuthService } from './services/auth-services/auth.service';
+import { AuthService } from '../auth.service';
 import { Injectable } from '@angular/core';
 import {
   CanActivate,
@@ -17,8 +17,8 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
-    roure: ActivatedRouteSnapshot,
-    router: RouterStateSnapshot,
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
   ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.authService.user.pipe(
       take(1),
@@ -35,5 +35,13 @@ export class AuthGuard implements CanActivate {
       //   }
       // })
     );
+  }
+
+  // tslint:disable-next-line: max-line-length
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot,
+  ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
+    return this.canActivate(route, state);
   }
 }

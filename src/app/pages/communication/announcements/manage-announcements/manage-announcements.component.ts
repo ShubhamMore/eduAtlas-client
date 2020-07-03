@@ -1,7 +1,6 @@
 import { NbToastrService } from '@nebular/theme';
 import { AnnouncementService } from './../../../../services/communication/announcement.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from './../../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,7 +13,6 @@ export class ManageAnnouncementsComponent implements OnInit {
   instituteId: string;
   display = false;
   constructor(
-    private api: ApiService,
     private toastrService: NbToastrService,
     private router: Router,
     private route: ActivatedRoute,

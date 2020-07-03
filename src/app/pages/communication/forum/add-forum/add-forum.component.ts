@@ -4,7 +4,6 @@ import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
-import { courseData } from '../../../../../assets/dataTypes/dataType';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class AddForumComponent implements OnInit {
   instituteId: string;
   forumId: string;
   edit: string;
-  courses: courseData;
+  courses: any;
   submitted = false;
   constructor(
     private fb: FormBuilder,

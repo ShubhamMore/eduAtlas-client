@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 import { AuthInterceptor } from './services/auth-services/auth-interceptor/auth-interceptor';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './services/auth-services/auth-guards/auth.guard';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -37,7 +37,6 @@ import { LoginComponent } from './admin/login/login.component';
 import { SignUpComponent } from './admin/sign-up/sign-up.component';
 import { OtpComponent } from './admin/otp/otp.component';
 import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
-import { SafeHtmlPipe } from './pipe/safe-html.pipe';
 import { TermsAndConditionsComponent } from './admin/terms-and-conditions/terms-and-conditions.component';
 
 // import { HomeComponent } from './home/home.component';
@@ -87,4 +86,4 @@ import { TermsAndConditionsComponent } from './admin/terms-and-conditions/terms-
   bootstrap: [AppComponent],
   providers: [AuthGuard, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
-export class AppModule { }
+export class AppModule {}

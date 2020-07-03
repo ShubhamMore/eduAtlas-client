@@ -8,9 +8,8 @@ describe('ManageAnnouncementsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageAnnouncementsComponent ]
-    })
-    .compileComponents();
+      declarations: [ManageAnnouncementsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

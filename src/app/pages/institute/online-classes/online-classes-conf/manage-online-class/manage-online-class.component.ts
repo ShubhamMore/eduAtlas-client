@@ -32,17 +32,12 @@ export class ManageOnlineClassComponent implements OnInit {
     'DEC',
   ];
 
-  constructor(
-    private active: ActivatedRoute,
-    private api: ApiService,
-    private router: Router,
-    private route: ActivatedRoute,
-  ) {}
+  constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.display = false;
     this.meetings = [];
-    this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
   }
 

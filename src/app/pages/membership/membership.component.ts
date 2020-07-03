@@ -15,7 +15,7 @@ export class MembershipComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private menuService: MenuService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     MENU_ITEMS[1].hidden = false;

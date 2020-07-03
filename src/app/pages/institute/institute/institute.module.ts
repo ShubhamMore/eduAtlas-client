@@ -14,9 +14,6 @@ import {
   NbSelectModule,
   NbButtonModule,
   NbListModule,
-  NbAccordionComponent,
-  NbAccordionItemBodyComponent,
-  NbAccordionItemHeaderComponent,
   NbDatepickerModule,
   NbAccordionModule,
   NbToastrModule,
@@ -27,7 +24,6 @@ import {
 import { AddInstituteComponent } from '../add-institute/add-institute.component';
 import { InstituteComponent } from '../institute.component';
 import { AddStudentsComponent } from '../add-students/add-students.component';
-import { BranchConfComponent } from '../branch-conf/branch-conf.component';
 
 import { ManageStudentsComponent } from '../add-students/manage-students/manage-students.component';
 import { ManageInstituteComponent } from '../add-institute/manage-institute/manage-institute.component';
@@ -40,8 +36,7 @@ import { PendingStudentComponent } from '../add-students/pending-student/pending
 import { AttandanceComponent } from '../attandance/attandance.component';
 import { ManageScheduleComponent } from '../../schedule/manage-schedule/manage-schedule.component';
 import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedule.component';
-import { TeacherGuard } from '../../../teacher.guard';
-import { BranchManagerGuard } from '../../../bManager.guard';
+
 import { AddLeadComponent } from '../../leads/add-leads/add-lead.component';
 import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.component';
 
@@ -88,6 +83,5 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     NbToastrModule.forRoot(),
     FormsModule,
   ],
-  providers: [TeacherGuard, BranchManagerGuard],
 })
 export class InstituteModule {}

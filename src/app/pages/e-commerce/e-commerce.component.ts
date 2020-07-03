@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../services/role/role-assign.service';
@@ -43,8 +43,6 @@ export class ECommerceComponent implements OnInit {
   study = [];
   constructor(
     private api: ApiService,
-
-    private router: Router,
     private active: ActivatedRoute,
     private authService: AuthService,
     private instituteService: InstituteService,

@@ -1,11 +1,8 @@
-import { User } from './../../@core/data/users';
 import { InstituteService } from './../../services/institute.service';
-import { HeaderComponent } from './../../@theme/components/header/header.component';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../services/role/role-assign.service';
@@ -36,13 +33,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private api: ApiService,
     private router: Router,
-    private active: ActivatedRoute,
-    private domSanitizer: DomSanitizer,
     private instituteService: InstituteService,
     private authService: AuthService,
     private roleService: RoleAssignService,
     private menuService: MenuService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;

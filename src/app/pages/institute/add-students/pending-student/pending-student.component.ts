@@ -59,7 +59,7 @@ export class PendingStudentComponent implements OnInit {
   onSelectCourse(id: string) {
     this.searchStudentFilter = '';
     this.hideHeaders = false;
-    if (id == 'all') {
+    if (id === 'all') {
       this.getStudents(this.instituteId, null, null);
     } else if (id !== '') {
       this.course = id;
@@ -103,7 +103,7 @@ export class PendingStudentComponent implements OnInit {
   }
 
   filterPendingStudents() {
-    var totalCount = this.students.length;
+    let totalCount = this.students.length;
     this.students = this.students.map((student) => {
       if (
         student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
@@ -114,7 +114,7 @@ export class PendingStudentComponent implements OnInit {
       } else {
         totalCount--;
         student.filterOut = true;
-        if (totalCount == 0) {
+        if (totalCount === 0) {
           this.hideHeaders = true;
         }
         return student;

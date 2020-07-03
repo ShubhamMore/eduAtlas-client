@@ -1,4 +1,4 @@
-import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
+// import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OnlineClassesRoutingModule } from './online-classes-routing.module';

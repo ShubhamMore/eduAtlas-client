@@ -217,8 +217,6 @@ export class AddStudentsComponent implements OnInit {
 
   verifyOtp() {
     if (this.otpSent && this.otpForm.valid) {
-      const otp = this.otpForm.value.otp;
-
       const verificationData = {
         verifyType: 'verifyUser',
         otp: this.otpForm.value.otp,

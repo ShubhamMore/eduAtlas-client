@@ -6,8 +6,8 @@ import { BranchConfComponent } from '../branch-conf.component';
 import { AddCourseComponent } from '../add-course/add-course.component';
 import { AddBatchesComponent } from '../add-batches/add-batches.component';
 import { BranchRoutingModule } from './branch-routing.module';
-import { ManageEmployee } from '../employee-management/manage-employee/manage-employee.component';
-import { AddEmployee } from '../employee-management/add-employee.component';
+import { ManageEmployeeComponent } from '../employee-management/manage-employee/manage-employee.component';
+import { AddEmployeeComponent } from '../employee-management/add-employee.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   NbCardModule,
@@ -16,7 +16,6 @@ import {
   NbButtonModule,
   NbSelectModule,
   NbMenuModule,
-  NbStepperModule,
   NbAccordionModule,
   NbCheckboxModule,
   NbDatepickerModule,
@@ -31,16 +30,16 @@ import { ManageBatchComponent } from '../../branch-conf/add-batches/manage-batch
 import { ManageDiscountComponent } from '../../branch-conf/discount/manage-discount/manage-discount.component';
 
 import { ManageReceiptComponent } from '../../branch-conf/receipt-conf/manage-receipt/manage-receipt.component';
-import { ViewEmployee } from '../employee-management/view-employee/view-employee.component';
+import { ViewEmployeeComponent } from '../employee-management/view-employee/view-employee.component';
 
 @NgModule({
   declarations: [
     BranchConfComponent,
     AddCourseComponent,
     AddBatchesComponent,
-    ManageEmployee,
-    AddEmployee,
-    ViewEmployee,
+    ManageEmployeeComponent,
+    AddEmployeeComponent,
+    ViewEmployeeComponent,
     DiscountComponent,
     ReceiptConfComponent,
     ManageCourseComponent,

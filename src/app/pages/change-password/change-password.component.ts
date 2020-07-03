@@ -3,7 +3,6 @@ import { NbToastrService } from '@nebular/theme';
 import { AuthService } from './../../services/auth-services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-change-password',
@@ -18,7 +17,6 @@ export class ChangePasswordComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-    private location: Location,
   ) {}
 
   ngOnInit() {

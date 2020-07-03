@@ -7,7 +7,6 @@ import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
 import { MembershipComponent } from './membership/membership.component';
-import { CommunicationComponent } from './communication/communication.component';
 
 const routes: Routes = [
   {

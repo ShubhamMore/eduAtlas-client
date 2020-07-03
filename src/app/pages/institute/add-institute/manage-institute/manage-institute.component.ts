@@ -1,9 +1,7 @@
-import { HeaderComponent } from './../../../../@theme/components/header/header.component';
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
-import { instituteData } from '../../../../../assets/dataTypes/dataType';
 import { ApiService } from '../../../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 import { InstituteService } from '../../../../services/institute.service';
@@ -19,7 +17,7 @@ export class ManageInstituteComponent implements OnInit {
   showAddInstituteBtn: boolean;
   institutes: any[];
 
-  instituteUser: instituteData;
+  instituteUser: any;
   displayData: boolean;
 
   constructor(
@@ -29,7 +27,7 @@ export class ManageInstituteComponent implements OnInit {
     private authService: AuthService,
     private instituteService: InstituteService,
     private menuService: MenuService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.institutes = [];
@@ -55,7 +53,6 @@ export class ManageInstituteComponent implements OnInit {
   }
 
   getInstitute(id: string) {
-
     this.instituteService.publishData(id);
     this.router.navigate(['/pages/dashboard', id]);
   }

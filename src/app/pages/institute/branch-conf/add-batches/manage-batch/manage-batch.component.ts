@@ -1,8 +1,7 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { ApiService } from '../../../../../services/api.service';
-import { MENU_ITEMS } from '../../../../pages-menu';
 import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ngx-manage-batch',

@@ -1,5 +1,5 @@
 import { AnnouncementService } from './../../../../services/communication/announcement.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
@@ -16,7 +16,6 @@ export class ViewAnnouncementsComponent implements OnInit {
   instituteId: any;
   constructor(
     private toastrService: NbToastrService,
-    private router: Router,
     private route: ActivatedRoute,
     private location: Location,
     private announceService: AnnouncementService,

@@ -17,25 +17,29 @@ export class RoleAssignService {
     return this.role;
   }
 
-  constructor(private http: HttpClient, private instituteService: InstituteService, private menuService: MenuService) { }
+  constructor(
+    private http: HttpClient,
+    private instituteService: InstituteService,
+    private menuService: MenuService,
+  ) {}
 
   addRole(role: any) {
     return this.http.post(`${environment.server}/institute/role`, role).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       catchError(this.handleError),
     );
   }
 
   getOtp(phone: any, params: any) {
     return this.http.get(`${environment.server}/users/sendOTP/${phone}`, { params: params }).pipe(
-      tap((res: any) => { }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
 
   verifyOtp(params: any) {
     return this.http.get(environment.server + '/users/verifyOTP', { params: params }).pipe(
-      tap((res) => { }),
+      tap((res) => {}),
       catchError((err) => this.handleError(err)),
     );
   }

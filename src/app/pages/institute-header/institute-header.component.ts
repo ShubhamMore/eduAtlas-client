@@ -1,5 +1,5 @@
 import { InstituteService } from './../../services/institute.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ngx-institute-header',
