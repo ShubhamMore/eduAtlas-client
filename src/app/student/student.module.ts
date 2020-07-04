@@ -19,6 +19,7 @@ import { ButtonModule } from 'primeng/button';
 
 import { StudentRoutingModule } from './student-routing.module';
 import { StudentHomeComponent } from './student-home/student-home.component';
+import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,6 @@ import { StudentHomeComponent } from './student-home/student-home.component';
     NbDatepickerModule,
     NbButtonModule,
   ],
-  declarations: [StudentComponent, StudentHomeComponent],
+  declarations: [StudentComponent, StudentHomeComponent, StudentDashboardComponent],
 })
 export class StudentModule {}

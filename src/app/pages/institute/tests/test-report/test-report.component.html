@@ -7,11 +7,22 @@
         <h3 class="text-white">STUDENT PERFORMANCE REPORT</h3>
       </div>
       <div class="col-sm-3">
-        <input type="text" nbInput [(ngModel)]="searchStudentFilter" (input)="filterActiveStudents()" fullWidth
-          placeholder="Search Student By Name" />
+        <input
+          type="text"
+          nbInput
+          [(ngModel)]="searchStudentFilter"
+          (input)="filterActiveStudents()"
+          fullWidth
+          placeholder="Search Student By Name"
+        />
       </div>
       <div class="col-sm-3">
-        <nb-select placeholder="Select Course" status="basic" fullWidth (selectedChange)="onSelectCourse($event)">
+        <nb-select
+          placeholder="Select Course"
+          status="basic"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+        >
           <nb-option value="">Select Course</nb-option>
           <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
             course.name
@@ -20,7 +31,12 @@
       </div>
 
       <div class="col-sm-3">
-        <nb-select placeholder="Select Batch" fullWidth status="basic" (selectedChange)="onSelectBatch($event)">
+        <nb-select
+          placeholder="Select Batch"
+          fullWidth
+          status="basic"
+          (selectedChange)="onSelectBatch($event)"
+        >
           <nb-option value="">Select Batch</nb-option>
           <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
             batch.batchCode
@@ -30,7 +46,10 @@
     </div>
     <div class="row" style="width: 100%;">
       <div class="col-md-12">
-        <div class="table-responsive studentTable" *ngIf="students.length > 0 && !hideHeaders; else noTests">
+        <div
+          class="table-responsive studentTable"
+          *ngIf="students.length > 0 && !hideHeaders; else noTests"
+        >
           <table class="table table-borderless text-center">
             <thead>
               <tr>
@@ -48,8 +67,18 @@
                 <td>{{ getBatchName(student.instituteDetails.batchId) }}</td>
                 <td>{{ getCourseName(student.instituteDetails.courseId) }}</td>
                 <td>
-                  <button class="mr-3 mb-1" nbButton status="success"
-                    (click)="viewScore(student._id, student.instituteDetails.batchId)">
+                  <button
+                    class="mr-3 mb-1"
+                    nbButton
+                    status="success"
+                    (click)="
+                      viewScore(
+                        student._id,
+                        student.instituteDetails.batchId,
+                        student.instituteDetails.courseId
+                      )
+                    "
+                  >
                     REPORT
                   </button>
                 </td>

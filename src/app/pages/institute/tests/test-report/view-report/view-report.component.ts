@@ -5,6 +5,8 @@ import { NbToastrService } from '@nebular/theme';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NbWindowService } from '@nebular/theme';
+import { AuthService } from '../../../../../services/auth-services/auth.service';
+import { RoleAssignService } from '../../../../../services/role/role-assign.service';
 
 declare var $: any;
 
@@ -21,32 +23,45 @@ export class ViewReportComponent implements OnInit {
   file: File;
   invalidFile: boolean;
   test: any;
+  remarks: any;
   course: string;
   batch: string;
   display: boolean;
   studentScore: any[];
   batchId: string;
-  @ViewChild('escClose', { read: TemplateRef, static: false }) escCloseTemplate: TemplateRef<HTMLElement>;
-  @ViewChild('disabledEsc', { read: TemplateRef, static: false }) disabledEscTemplate: TemplateRef<HTMLElement>;
+  remark: string;
+  suggestion: string;
+  showRemarksOption: boolean;
+  courseId: string;
+  @ViewChild('escClose', { read: TemplateRef, static: false }) escCloseTemplate: TemplateRef<
+    HTMLElement
+  >;
+  @ViewChild('disabledEsc', { read: TemplateRef, static: false }) disabledEscTemplate: TemplateRef<
+    HTMLElement
+  >;
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
     private toasterService: NbToastrService,
-  ) { }
+    private roleService: RoleAssignService,
+    private authService: AuthService,
+  ) {}
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
     scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-          max: 100
-        }
-      }]
-    }
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            max: 100,
+          },
+        },
+      ],
+    },
   };
   public barChartLabels = [];
   public barChartType = 'line';
@@ -54,18 +69,22 @@ export class ViewReportComponent implements OnInit {
   public barChartData = [];
   public chartColors: any[] = [
     {
-      borderColor: ["#FFD500"],
-      backgroundColor: ["rgba(250,214,1,0.1)"],
-    }, {
-      borderColor: ["#EA596B"],
-      backgroundColor: ["rgba(239,86,107,0.1)"],
-    }, {
-      borderColor: ["#30BD9A"],
-      backgroundColor: ["rgba(48,189,154,0.1)"],
-    }, {
-      borderColor: ["#009BCC"],
-      backgroundColor: ["rgba(0,154,204,0.1)"],
-    }];
+      borderColor: ['#FFD500'],
+      backgroundColor: ['rgba(250,214,1,0.1)'],
+    },
+    {
+      borderColor: ['#EA596B'],
+      backgroundColor: ['rgba(239,86,107,0.1)'],
+    },
+    {
+      borderColor: ['#30BD9A'],
+      backgroundColor: ['rgba(48,189,154,0.1)'],
+    },
+    {
+      borderColor: ['#009BCC'],
+      backgroundColor: ['rgba(0,154,204,0.1)'],
+    },
+  ];
 
   ngOnInit() {
     this.display = false;
@@ -74,14 +93,52 @@ export class ViewReportComponent implements OnInit {
     this.route.queryParams.subscribe((param) => {
       this.studentId = param.studentId;
       this.batchId = param.batchId;
+      this.courseId = param.courseId;
     });
+    this.getRemarks();
+
     this.getCourses(this.instituteId);
     this.students = [];
     this.studentScore = [];
+    if (
+      this.roleService.getEmployeeRole(this.instituteId) &&
+      this.roleService.getEmployeeRole(this.instituteId) == 'Teacher'
+    ) {
+      this.showRemarksOption = true;
+    } else {
+      this.showRemarksOption = false;
+    }
   }
-
-
-
+  getRemarks() {
+    var data = {
+      instituteId: this.instituteId,
+      courseId: this.courseId,
+      batchId: this.batchId,
+      studentId: this.studentId,
+    };
+    this.api.getRemarkOfStudentByInstitute(data).subscribe((res: any) => {
+      this.remarks = res;
+    });
+  }
+  addRemark() {
+    var remarkObj = {
+      instituteId: this.instituteId,
+      courseId: this.courseId,
+      batchId: this.batchId,
+      teacherId: this.authService.getUser()._id,
+      remark: this.remark,
+      suggestion: this.suggestion,
+    };
+    var data = {
+      studentId: this.studentId,
+      remarks: [remarkObj],
+    };
+    this.api.addRemark(data).subscribe((res: any) => {
+      this.remark = '';
+      this.suggestion = '';
+      this.getRemarks();
+    });
+  }
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
@@ -94,7 +151,7 @@ export class ViewReportComponent implements OnInit {
   }
 
   getScoreOfStudentByBatch(id: string) {
-    this.api.getScoreOfStudentByBatch({ 'studentId': id, 'batchId': this.batchId }).subscribe(
+    this.api.getScoreOfStudentByBatch({ studentId: id, batchId: this.batchId }).subscribe(
       (res: any) => {
         if (res) {
           this.test = res;
@@ -102,7 +159,9 @@ export class ViewReportComponent implements OnInit {
         this.course = this.institute.course.find(
           (c: any) => c._id === this.test[0].courseId,
         ).courseCode;
-        this.batch = this.institute.batch.find((b: any) => b._id === this.test[0].batchId).batchCode;
+        this.batch = this.institute.batch.find(
+          (b: any) => b._id === this.test[0].batchId,
+        ).batchCode;
 
         this.display = true;
         res.sort((test1, test2) => {
@@ -113,18 +172,20 @@ export class ViewReportComponent implements OnInit {
           } else {
             return -1;
           }
-        })
+        });
         var percentageArray = [];
         var highestArray = [];
         var lowestArray = [];
         var averageArray = [];
         var labelsArray = [];
-        res.forEach(test => {
-          test.students.studentPercentage ? percentageArray.push(test.students.studentPercentage) : percentageArray.push(0)
+        res.forEach((test) => {
+          test.students.studentPercentage
+            ? percentageArray.push(test.students.studentPercentage)
+            : percentageArray.push(0);
           test.highestPercentage ? highestArray.push(test.highestPercentage) : highestArray.push(0);
           test.lowestPercentage ? lowestArray.push(test.lowestPercentage) : lowestArray.push(0);
           test.averagePercentage ? averageArray.push(test.averagePercentage) : averageArray.push(0);
-          labelsArray.push(test.testName + "(" + test.date + ")");
+          labelsArray.push(test.testName + '(' + test.date + ')');
         });
         this.barChartLabels = labelsArray;
         this.barChartType = 'line';
@@ -136,14 +197,26 @@ export class ViewReportComponent implements OnInit {
           { data: percentageArray, label: 'STUDENT MARKS' },
         ];
       },
-      (err) => { },
+      (err) => {},
     );
   }
-
-
-
+  submitRemarks() {
+    // this.api.
+  }
 
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
+  }
+  constructDate(dateInMillisecond: number) {
+    const date = new Date(dateInMillisecond);
+    return `${date.getFullYear()}-${this.appendZero(date.getMonth() + 1)}-${this.appendZero(
+      date.getDate(),
+    )}`;
+  }
+  appendZero(n: number): string {
+    if (n < 10) {
+      return '0' + n;
+    }
+    return '' + n;
   }
 }

@@ -9,7 +9,6 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./test-report.component.scss'],
 })
 export class TestReportComponent implements OnInit {
-
   institute: any;
   instituteId: string;
   batches: any[] = [];
@@ -26,7 +25,7 @@ export class TestReportComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.display = false;
@@ -68,13 +67,15 @@ export class TestReportComponent implements OnInit {
   }
 
   getStudents() {
-    this.api.getActiveStudents(this.instituteId, this.courseId, this.batch).subscribe((data: any) => {
-      this.students = data;
-    });
+    this.api
+      .getActiveStudents(this.instituteId, this.courseId, this.batch)
+      .subscribe((data: any) => {
+        this.students = data;
+      });
   }
-  viewScore(studentId, batchId) {
+  viewScore(studentId, batchId, courseId) {
     this.router.navigate([`/pages/institute/test/view-report/${this.instituteId}`], {
-      queryParams: { studentId, batchId },
+      queryParams: { studentId, batchId, courseId },
     });
   }
 
@@ -112,5 +113,4 @@ export class TestReportComponent implements OnInit {
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }
-
 }

@@ -1,7 +1,7 @@
 <!-- <ngx-institute-header></ngx-institute-header> -->
 
 <nb-card *ngIf="display">
-  <nb-card-header style="background-color: #ffd500;color: black;">
+  <nb-card-header style="background-color: #ffd500; color: black;">
     <div class="row">
       <div class="col-sm-3">
         <label> <strong>Student Name: </strong>{{ test[0].students.studentName }}</label>
@@ -21,12 +21,19 @@
   <nb-card-body>
     <div class="text-center py-2">
       <div style="display: inline-block; width: 1000px;">
-        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-          [legend]="barChartLegend" [chartType]="barChartType" [colors]="chartColors">
+        <canvas
+          baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [legend]="barChartLegend"
+          [chartType]="barChartType"
+          [colors]="chartColors"
+        >
         </canvas>
       </div>
     </div>
-    <br>
+    <br />
     <h6>TEST PERFORMANCE SUMMARY</h6>
     <div class="table-responsive">
       <table class="table table-borderless text-center">
@@ -42,14 +49,53 @@
         <tbody>
           <tr *ngFor="let singleTest of test; let i = index">
             <td>{{ singleTest.testName }}</td>
-            <td>{{singleTest.highestScore+'/'+singleTest.totalMarks }}</td>
-            <td>{{ singleTest.averageMarks+'/'+singleTest.totalMarks }}</td>
-            <td>{{singleTest.lowestMarks+'/'+singleTest.totalMarks }}</td>
-            <td>{{ singleTest.students.marks+'/'+singleTest.totalMarks}}</td>
+            <td>{{ singleTest.highestScore + '/' + singleTest.totalMarks }}</td>
+            <td>{{ singleTest.averageMarks + '/' + singleTest.totalMarks }}</td>
+            <td>{{ singleTest.lowestMarks + '/' + singleTest.totalMarks }}</td>
+            <td>{{ singleTest.students.marks + '/' + singleTest.totalMarks }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
+    <h6>TEACHER REMARKS</h6>
+    <div class="table-responsive">
+      <table class="table table-borderless text-center">
+        <thead>
+          <tr>
+            <th>DATE</th>
+            <th>TEACHER</th>
+            <th>REMARK</th>
+            <th>SUGGESTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let remark of remarks; let i = index">
+            <td>{{ constructDate(remark.remarks.date) }}</td>
+            <td>{{ remark.remarks.teacher }}</td>
+            <td>{{ remark.remarks.remark }}</td>
+            <td>{{ remark.remarks.suggestion }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="showRemarksOption">
+      <div class="row">
+        <div class="col-md-1">
+          <label style="padding-top: 10px;">Remark</label>
+        </div>
+        <div class="col-md-3">
+          <input type="text" nbInput status="basic" [(ngModel)]="remark" fullWidth />
+        </div>
+        <div class="col-md-1">
+          <label style="padding-top: 10px;">Suggestions</label>
+        </div>
+        <div class="col-md-3">
+          <input type="text" nbInput status="basic" [(ngModel)]="suggestion" fullWidth />
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-yellow-black" (click)="addRemark()">ADD REMARKS</button>
+        </div>
+      </div>
+    </div>
   </nb-card-body>
 </nb-card>
