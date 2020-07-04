@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { NbWindowService } from '@nebular/theme';
 import { AuthService } from '../../../../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../../../../services/role/role-assign.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { single } from 'rxjs/operators';
 
 declare var $: any;
 
@@ -28,10 +30,9 @@ export class ViewReportComponent implements OnInit {
   display: boolean;
   studentScore: any[];
   batchId: string;
-  remark: string;
-  suggestion: string;
   showRemarksOption: boolean;
   courseId: string;
+  addRemarkForm: FormGroup;
   @ViewChild('escClose', { read: TemplateRef, static: false }) escCloseTemplate: TemplateRef<
     HTMLElement
   >;
@@ -45,6 +46,7 @@ export class ViewReportComponent implements OnInit {
     private toasterService: NbToastrService,
     private roleService: RoleAssignService,
     private authService: AuthService,
+    private fb: FormBuilder,
   ) {}
 
   public barChartOptions = {
@@ -106,6 +108,14 @@ export class ViewReportComponent implements OnInit {
     } else {
       this.showRemarksOption = false;
     }
+
+    this.addRemarkForm = this.fb.group({
+      remark: ['', Validators.required],
+      suggestion: [''],
+    });
+  }
+  get f() {
+    return this.addRemarkForm.controls;
   }
   getRemarks() {
     var data = {
@@ -119,23 +129,26 @@ export class ViewReportComponent implements OnInit {
     });
   }
   addRemark() {
-    var remarkObj = {
-      instituteId: this.instituteId,
-      courseId: this.courseId,
-      batchId: this.batchId,
-      teacherId: this.authService.getUser()._id,
-      remark: this.remark,
-      suggestion: this.suggestion,
-    };
-    var data = {
-      studentId: this.studentId,
-      remarks: [remarkObj],
-    };
-    this.api.addRemark(data).subscribe((res: any) => {
-      this.remark = '';
-      this.suggestion = '';
-      this.getRemarks();
-    });
+    this.addRemarkForm.markAllAsTouched();
+    if (this.addRemarkForm.valid) {
+      var remarkObj = {
+        instituteId: this.instituteId,
+        courseId: this.courseId,
+        batchId: this.batchId,
+        teacherId: this.authService.getUser()._id,
+        remark: this.addRemarkForm.get('remark').value,
+        suggestion: this.addRemarkForm.get('suggestion').value,
+      };
+      var data = {
+        studentId: this.studentId,
+        remarks: [remarkObj],
+      };
+      this.api.addRemark(data).subscribe((res: any) => {
+        this.addRemarkForm.reset();
+        this.getRemarks();
+      });
+    } else {
+    }
   }
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
@@ -171,34 +184,44 @@ export class ViewReportComponent implements OnInit {
             return -1;
           }
         });
-        var percentageArray = [];
-        var highestArray = [];
-        var lowestArray = [];
-        var averageArray = [];
-        var labelsArray = [];
-        res.forEach((test) => {
-          test.students.studentPercentage
-            ? percentageArray.push(test.students.studentPercentage)
-            : percentageArray.push(0);
-          test.highestPercentage ? highestArray.push(test.highestPercentage) : highestArray.push(0);
-          test.lowestPercentage ? lowestArray.push(test.lowestPercentage) : lowestArray.push(0);
-          test.averagePercentage ? averageArray.push(test.averagePercentage) : averageArray.push(0);
-          labelsArray.push(test.testName + '(' + test.date + ')');
-        });
-        this.barChartLabels = labelsArray;
-        this.barChartType = 'line';
-        this.barChartLegend = true;
-        this.barChartData = [
-          { data: highestArray, label: 'HIGHEST' },
-          { data: lowestArray, label: 'LOWEST' },
-          { data: averageArray, label: 'AVERAGE' },
-          { data: percentageArray, label: 'STUDENT MARKS' },
-        ];
+        this.generateGraph();
       },
       (err) => {},
     );
   }
 
+  generateGraph() {
+    var percentageArray = [];
+    var highestArray = [];
+    var lowestArray = [];
+    var averageArray = [];
+    var labelsArray = [];
+    this.test.forEach((test) => {
+      if (!test.hide) {
+        test.students.studentPercentage
+          ? percentageArray.push(test.students.studentPercentage)
+          : percentageArray.push(0);
+        test.highestPercentage ? highestArray.push(test.highestPercentage) : highestArray.push(0);
+        test.lowestPercentage ? lowestArray.push(test.lowestPercentage) : lowestArray.push(0);
+        test.averagePercentage ? averageArray.push(test.averagePercentage) : averageArray.push(0);
+        labelsArray.push(test.testName + '(' + test.date + ')');
+      }
+    });
+    this.barChartLabels = labelsArray;
+    this.barChartType = 'line';
+    this.barChartLegend = true;
+    this.barChartData = [
+      { data: highestArray, label: 'HIGHEST' },
+      { data: lowestArray, label: 'LOWEST' },
+      { data: averageArray, label: 'AVERAGE' },
+      { data: percentageArray, label: 'STUDENT MARKS' },
+    ];
+  }
+
+  changeGraph(singleTest, checkBoxValue) {
+    singleTest.hide = !checkBoxValue;
+    this.generateGraph();
+  }
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }

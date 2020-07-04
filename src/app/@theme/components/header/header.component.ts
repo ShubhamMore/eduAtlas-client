@@ -156,6 +156,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onSelect(event: any) {
     if (event !== '') {
       this.institute = event;
+      this.instituteService.setInstitute(event);
       if (this.user.role === 'institute') {
         this.router.navigate(['/pages/dashboard/', event], { relativeTo: this.route.parent });
       } else if (this.user.role === 'employee') {
