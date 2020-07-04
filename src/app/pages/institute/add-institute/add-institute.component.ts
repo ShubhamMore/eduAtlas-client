@@ -1,13 +1,11 @@
 import { PaymentService } from './../../../services/payment.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { CountryService } from '../../../services/country.service';
 import { MENU_ITEMS } from '../../pages-menu';
 import { environment } from '../../../../environments/environment';
-
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MenuService } from '../../../services/menu.service';
@@ -78,11 +76,10 @@ export class AddInstituteComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastrService: NbToastrService,
-    private domSanitizer: DomSanitizer,
     private paymentService: PaymentService,
     private authService: AuthService,
     private menuService: MenuService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = true;
@@ -180,7 +177,7 @@ export class AddInstituteComponent implements OnInit {
       (res: any) => {
         this.instituteId = null;
       },
-      (err: any) => { },
+      (err: any) => {},
     );
   }
 

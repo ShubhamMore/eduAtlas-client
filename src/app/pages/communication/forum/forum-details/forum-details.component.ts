@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { courseData } from '../../../../../assets/dataTypes/dataType';
-import { FormGroup } from '@angular/forms';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 
 @Component({

@@ -48,8 +48,8 @@ export class OnlineClassSettingsComponent implements OnInit {
   onSubmit() {
     this.settingForm.markAllAsTouched();
 
-    var userId = this.authService.getUser()._id;
-    var requestData = {
+    const userId = this.authService.getUser()._id;
+    const requestData = {
       client_id: this.settingForm.get('publicKey').value,
       client_secret_id: this.settingForm.get('secretKey').value,
       user_id: userId,

@@ -1,8 +1,7 @@
 import { InstituteService } from './../../../services/institute.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
-import { Component, OnDestroy, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import {
-  NbMediaBreakpointsService,
   NbMenuService,
   NbSidebarService,
   NbThemeService,
@@ -10,7 +9,6 @@ import {
   NbWindowRef,
   NbDialogService,
 } from '@nebular/theme';
-import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { Subject, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,7 +16,6 @@ import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
 import { NbWindowService } from '@nebular/theme';
 import { SocketioService } from '../../../services/chat.service';
-import { single } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-header',
@@ -79,12 +76,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private sidebarService: NbSidebarService,
     private menuService: NbMenuService,
     private themeService: NbThemeService,
-    private userService: UserData,
     private api: ApiService,
     private layoutService: LayoutService,
     private router: Router,
     private route: ActivatedRoute,
-    private breakpointService: NbMediaBreakpointsService,
     private instituteService: InstituteService,
     private roleService: RoleAssignService,
     private windowService: NbWindowService,

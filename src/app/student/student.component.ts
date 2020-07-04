@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MENU_ITEMS } from './student-menu';
-import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'ngx-student',

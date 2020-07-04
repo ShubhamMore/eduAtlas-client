@@ -1,12 +1,10 @@
-import { InstituteHeaderComponent } from './../institute-header/institute-header.component';
+// import { InstituteHeaderComponent } from './../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 
 import {
   NbMenuModule,
   NbLayoutModule,
   NbCardModule,
-  NbIconModule,
-  NbListModule,
   NbSelectModule,
   NbButtonModule,
   NbDatepickerModule,

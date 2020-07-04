@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { HttpParams } from '@angular/common/http';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { Location } from '@angular/common';
 
@@ -30,7 +29,6 @@ export class ViewScheduleComponent implements OnInit {
   }
 
   getSchedule(id: string) {
-    console.log(id);
     this.scheduleService.getScheduleDetails(id).subscribe(
       (res: any) => {
         this.schedule = res;

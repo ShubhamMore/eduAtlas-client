@@ -8,9 +8,8 @@ describe('OnlineClassesUpgradeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OnlineClassesUpgradeComponent ]
-    })
-    .compileComponents();
+      declarations: [OnlineClassesUpgradeComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

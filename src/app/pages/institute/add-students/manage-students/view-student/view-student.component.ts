@@ -58,7 +58,6 @@ export class ViewStudentComponent implements OnInit {
       .getOneStudentByInstitute({ eduatlasId: student, instituteId: institute, courseId: course })
       .subscribe((data) => {
         this.student = data[0];
-        console.log(data);
       });
   }
 

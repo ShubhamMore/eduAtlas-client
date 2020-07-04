@@ -1,4 +1,4 @@
-export interface courseData {
+export interface CourseData {
   id: number;
   name: string;
   code: string;
@@ -8,7 +8,7 @@ export interface courseData {
   discription: string;
   totalFee: string;
 }
-export interface instituteData {
+export interface InstituteData {
   id: number;
   iname: string;
   address: { addressLine: string; locality: string; city: string; state: string; pin: number };
@@ -17,7 +17,7 @@ export interface instituteData {
   icategory: string[];
   iMetaTag: string[];
 }
-export interface studentsData {
+export interface StudentsData {
   id: number;
   sname: string;
   roll: string;
@@ -38,7 +38,7 @@ export interface studentsData {
   mode: string;
   materialRecord: string;
 }
-export interface receiptData {
+export interface ReceiptData {
   id: number;
   businessName: string;
   address: string;
@@ -46,14 +46,14 @@ export interface receiptData {
   termsAndCondtions: string;
   fee: string;
 }
-export interface batchData {
+export interface BatchData {
   id: number;
   course: string;
   code: string;
   discription: string;
 }
 
-export interface discountData {
+export interface DiscountData {
   id: number;
   code: string;
   amount: string;

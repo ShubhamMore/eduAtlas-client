@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './manage-employee.component.html',
   styleUrls: ['./manage-employee.component.scss'],
 })
-export class ManageEmployee implements OnInit {
+export class ManageEmployeeComponent implements OnInit {
   institute: any;
   form: FormGroup;
 

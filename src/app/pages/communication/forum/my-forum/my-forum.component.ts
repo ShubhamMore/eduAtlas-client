@@ -3,7 +3,6 @@ import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
-import { courseData } from '../../../../../assets/dataTypes/dataType';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { AuthService } from '../../../../services/auth-services/auth.service';
 export class MyForumComponent implements OnInit {
   instituteId: string;
   selectedCourseId: string;
-  courses: courseData;
+  courses: any;
   myForums: any;
   constructor(
     private api: ApiService,

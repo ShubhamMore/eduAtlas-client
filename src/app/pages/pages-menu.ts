@@ -1,6 +1,4 @@
 import { NbMenuItem } from '@nebular/theme';
-import { PagesComponent } from './pages.component';
-import { Title } from '@angular/platform-browser';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {

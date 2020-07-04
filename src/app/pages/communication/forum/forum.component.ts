@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
-import { courseData } from '../../../../assets/dataTypes/dataType';
 
 @Component({
   selector: 'ngx-forum',
@@ -12,14 +10,9 @@ import { courseData } from '../../../../assets/dataTypes/dataType';
 export class ForumComponent implements OnInit {
   instituteId: string;
   selectedCourseId: string;
-  courses: courseData;
+  courses: any;
   allForums: any[] = [];
-  constructor(
-    private api: ApiService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private toasterService: NbToastrService,
-  ) {}
+  constructor(private api: ApiService, private router: Router, private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getForums();

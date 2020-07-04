@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'ngx-student-report-conf',
   templateUrl: './student-report-conf.component.html',
@@ -9,6 +8,5 @@ import { Component, OnInit } from '@angular/core';
 export class StudentReportConfComponent implements OnInit {
   constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
 import { AttendanceService } from '../../../services/attendance.service';
 
@@ -37,10 +36,9 @@ export class AttandanceComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private active: ActivatedRoute,
-    private fb: FormBuilder,
     private toasterService: NbToastrService,
     private attendanceService: AttendanceService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;

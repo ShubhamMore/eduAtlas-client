@@ -3,7 +3,6 @@ import { ApiService } from './../../../services/api.service';
 import { NbToastrService } from '@nebular/theme';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-study-material',
@@ -32,7 +31,6 @@ export class StudyMaterialComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toastrService: NbToastrService,
-    private location: Location,
     private api: ApiService,
     private active: ActivatedRoute,
   ) {}
@@ -124,16 +122,6 @@ export class StudyMaterialComponent implements OnInit {
         this.batches.push(...batches);
       }
     });
-
-    // const curBatches = [];
-
-    // console.log(this.materialForm.value.batches);
-
-    // this.batches.forEach((batch: any) => {
-    //   if (this.materialForm.value.batches.includes(batch.batchCode)) {
-    //     curBatches.push(batch.batchCode);
-    //   }
-    // });
 
     this.materialForm.patchValue({ batches: this.batches });
   }

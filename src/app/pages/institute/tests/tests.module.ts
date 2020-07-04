@@ -1,4 +1,4 @@
-import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
+// import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -56,4 +56,4 @@ import { ChartsModule } from 'ng2-charts';
     NbTabsetModule,
   ],
 })
-export class TestsModule { }
+export class TestsModule {}

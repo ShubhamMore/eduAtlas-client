@@ -1,7 +1,7 @@
 import { ApiService } from './../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Location, getLocaleDateFormat } from '@angular/common';
+import { Location } from '@angular/common';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({

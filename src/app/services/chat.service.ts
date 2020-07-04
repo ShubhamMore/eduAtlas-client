@@ -36,10 +36,10 @@ export class SocketioService {
     });
   }
 
-  getMembers(){
+  getMembers() {
     return this.chatMembers;
   }
-  clearChatMembers(){
+  clearChatMembers() {
     this.chatMembers = [];
   }
 }

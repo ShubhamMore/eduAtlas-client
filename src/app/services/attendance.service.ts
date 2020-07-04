@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 @Injectable({
-    providedIn: 'root',
+  providedIn: 'root',
 })
-
-
 export class AttendanceService {
-    attendanceData: any;
+  attendanceData: any;
 
+  setAttendanceData(attendanceData) {
+    this.attendanceData = attendanceData;
+  }
 
-    setAttendanceData(attendanceData) {
-        this.attendanceData = attendanceData
-    }
-
-    getAttendanceData() { return this.attendanceData }
+  getAttendanceData() {
+    return this.attendanceData;
+  }
 }

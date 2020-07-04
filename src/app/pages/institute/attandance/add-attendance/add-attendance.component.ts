@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { NbToastrService } from '@nebular/theme';
-import { AttributeMarker } from '@angular/compiler/src/core';
 import { AttendanceService } from '../../../../services/attendance.service';
 import { environment } from '../../../../../environments/environment';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-add-attendance',
@@ -47,12 +45,10 @@ export class AddAttendanceComponent implements OnInit {
   constructor(
     private api: ApiService,
     private active: ActivatedRoute,
-    private fb: FormBuilder,
     private toasterService: NbToastrService,
     private attendanceService: AttendanceService,
     private router: Router,
-
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.date = Date.now();
@@ -142,7 +138,7 @@ export class AddAttendanceComponent implements OnInit {
           });
         }
       },
-      (err) => { },
+      (err) => {},
     );
   }
 
@@ -243,5 +239,4 @@ export class AddAttendanceComponent implements OnInit {
   getDay(date: string) {
     return date.split('-')[2];
   }
-
 }

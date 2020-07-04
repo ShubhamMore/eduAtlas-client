@@ -217,6 +217,7 @@
                     ? 'danger'
                     : 'basic'
                 "
+                fullWidth
                 formControlName="course"
                 (selectedChange)="onSelectCourse($event)"
               >
@@ -234,7 +235,12 @@
 
             <div class="col-sm-3">
               <label for="batch">Batch</label>
-              <nb-select placeholder="Select Batch" formControlName="batch" status="basic">
+              <nb-select
+                placeholder="Select Batch"
+                formControlName="batch"
+                status="basic"
+                fullWidth
+              >
                 <nb-option value="">No Batch Assigned</nb-option>
                 <nb-option *ngFor="let item of batches" [value]="item._id">{{
                   item.batchCode
@@ -276,6 +282,7 @@
                 placeholder="Discount"
                 formControlName="discount"
                 status="basic"
+                fullWidth
                 (selectedChange)="onSelectDiscount($event)"
               >
                 <nb-option value="">Select Discount</nb-option>
@@ -377,6 +384,7 @@
                     placeholder="Select Installment Type"
                     formControlName="installmentType"
                     status="basic"
+                    fullWidth
                     (selectedChange)="onSelectInstallmentType($event)"
                   >
                     <nb-option value="0">Pay Once</nb-option>
@@ -538,6 +546,7 @@
                           <label>Payment Mode</label>
                           <nb-select
                             status="basic"
+                            fullWidth
                             formControlName="paymentMode"
                             placeholder="Payment Mode"
                             (selectedChange)="onSelectPaymentMode($event, i)"
@@ -569,17 +578,6 @@
                             placeholder="Transaction/Instrument No"
                           />
                         </div>
-                        <!-- <div class="col-sm-4">
-                          <label>Payment Date</label>
-                          <input
-                            type="date"
-                            nbInput
-                            status="basic"
-                            formControlName="paymentDate"
-                            fullWidth
-                            placeholder="Date"
-                          />
-                        </div> -->
                       </div>
                     </nb-card-body>
                   </nb-card>

@@ -1,6 +1,6 @@
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT, TitleCasePipe } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 // import { ZoomMtg } from '@zoomus/websdk';
 
@@ -42,7 +42,6 @@ export class StudentHomeComponent implements OnInit {
   }
 
   joinMeeting(url: any, meetingNumber: any, passWord: any) {
-    console.log(url);
     this.meetingNumber = meetingNumber;
     this.passWord = passWord;
     // this.meeting = true;

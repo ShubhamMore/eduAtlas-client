@@ -4,7 +4,6 @@ import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
-import { courseData } from '../../../../assets/dataTypes/dataType';
 
 @Component({
   selector: 'ngx-add-lead',
@@ -18,7 +17,7 @@ export class AddLeadComponent implements OnInit {
   leadId: string;
   edit: string;
   message: string;
-  courses: courseData;
+  courses: any;
   status = ['OPEN', 'LOST', ' WON'];
   constructor(
     private fb: FormBuilder,

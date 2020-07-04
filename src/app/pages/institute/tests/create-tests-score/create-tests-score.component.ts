@@ -2,7 +2,6 @@ import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../services/api.service';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 
@@ -40,7 +39,6 @@ export class CreateTestsScoreComponent implements OnInit {
     'DEC',
   ];
   constructor(
-    private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
@@ -128,7 +126,6 @@ export class CreateTestsScoreComponent implements OnInit {
     );
   }
 
-
   getStudents(instituteID: string, batchId: string, courseId: string) {
     this.api.getStudentsByBatch(instituteID, courseId, batchId).subscribe((res: any[]) => {
       this.students = res;
@@ -139,7 +136,6 @@ export class CreateTestsScoreComponent implements OnInit {
           return -1;
         }
       });
-
 
       this.studentScore = [];
       this.students.forEach((student) => {
@@ -154,8 +150,6 @@ export class CreateTestsScoreComponent implements OnInit {
         this.studentScore.push(scoreData);
       });
     });
-
-
   }
 
   addMarks(event: any, i: number) {
@@ -164,16 +158,17 @@ export class CreateTestsScoreComponent implements OnInit {
   }
 
   saveMarks() {
-    this.api.addTestScore({ _id: this.test._id, 'batchName': this.batch, scores: this.studentScore }).subscribe(
-      (res) => {
-        this.showToast('top right', 'success', 'Score Updated Successfully');
-        this.location.back();
-      },
-      (err) => {
-        this.showToast('top right', 'danger', err.err.message);
-      },
-    );
-
+    this.api
+      .addTestScore({ _id: this.test._id, batchName: this.batch, scores: this.studentScore })
+      .subscribe(
+        (res) => {
+          this.showToast('top right', 'success', 'Score Updated Successfully');
+          this.location.back();
+        },
+        (err) => {
+          this.showToast('top right', 'danger', err.err.message);
+        },
+      );
   }
 
   getMonth(date: string) {

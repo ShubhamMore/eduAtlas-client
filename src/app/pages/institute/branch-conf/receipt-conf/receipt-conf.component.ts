@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { MENU_ITEMS } from '../../../pages-menu';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({

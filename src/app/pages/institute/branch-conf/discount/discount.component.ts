@@ -5,7 +5,6 @@ import { Location } from '@angular/common';
 import { ApiService } from '../../../../services/api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { MENU_ITEMS } from '../../../pages-menu';
 
 @Component({
   selector: 'ngx-discount',

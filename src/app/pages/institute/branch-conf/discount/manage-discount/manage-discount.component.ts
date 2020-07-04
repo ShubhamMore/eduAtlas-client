@@ -1,7 +1,6 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
-import { MENU_ITEMS } from '../../../../pages-menu';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 

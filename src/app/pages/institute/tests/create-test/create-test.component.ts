@@ -3,7 +3,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../../services/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -26,11 +26,10 @@ export class CreateTestComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -69,7 +68,7 @@ export class CreateTestComponent implements OnInit {
             testCode: this.test.testCode,
             totalMarks: this.test.totalMarks,
             startTime: this.test.startTime,
-            toTime: this.test.toTime
+            toTime: this.test.toTime,
           });
         }
 
@@ -80,7 +79,7 @@ export class CreateTestComponent implements OnInit {
         });
         this.display = true;
       },
-      (err: any) => { },
+      (err: any) => {},
     );
   }
 

@@ -8,9 +8,8 @@ describe('ViewLeadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewLeadComponent ]
-    })
-    .compileComponents();
+      declarations: [ViewLeadComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

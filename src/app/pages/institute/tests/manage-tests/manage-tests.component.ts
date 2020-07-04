@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./manage-tests.component.scss'],
 })
 export class ManageTestsComponent implements OnInit {
-
   instituteId: string;
 
   display: boolean;
@@ -34,18 +33,15 @@ export class ManageTestsComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.tests.unmarked = [];
     this.tests.marked = [];
     this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getTests({ instituteId: this.instituteId });
   }
-
-
 
   createTest() {
     this.router.navigate([`/pages/institute/test/create-test/${this.instituteId}`], {
@@ -93,11 +89,8 @@ export class ManageTestsComponent implements OnInit {
           this.tests.unmarked = res.umarkedTest;
         }
         this.display = true;
-        console.log(res);
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   }
 
@@ -107,7 +100,6 @@ export class ManageTestsComponent implements OnInit {
       status,
     });
   }
-
 
   getMonth(date: string) {
     const month = date.split('-')[1];

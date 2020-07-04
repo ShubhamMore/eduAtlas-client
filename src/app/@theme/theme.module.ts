@@ -19,7 +19,7 @@ import {
   NbWindowModule,
   NbChatModule,
   NbTabsetModule,
-  NbInputModule
+  NbInputModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -62,7 +62,7 @@ const NB_MODULES = [
   NbChatModule,
   NbTabsetModule,
   NbInputModule,
-  FormsModule
+  FormsModule,
 ];
 const COMPONENTS = [
   HeaderComponent,

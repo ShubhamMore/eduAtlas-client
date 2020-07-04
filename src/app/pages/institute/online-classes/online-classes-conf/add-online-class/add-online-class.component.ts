@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { NbToastrService } from '@nebular/theme';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -29,7 +29,6 @@ export class AddOnlineClassComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private api: ApiService,
-    private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,

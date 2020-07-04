@@ -31,7 +31,6 @@ export class TestReportComponent implements OnInit {
     this.display = false;
     this.students = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    console.log(this.route.snapshot.paramMap, this.instituteId);
     this.getCourses(this.instituteId);
     this.getStudents();
   }
@@ -39,7 +38,6 @@ export class TestReportComponent implements OnInit {
   getCourses(id: string) {
     this.api.getCourseTD(id).subscribe((data: any) => {
       this.institute = data;
-      console.log(data);
       this.display = true;
     });
   }
@@ -83,15 +81,12 @@ export class TestReportComponent implements OnInit {
     this.api.getTestsForReports({ instituteId: instituteId, batchId: batchId }).subscribe(
       (res: any) => {
         this.students = res;
-        console.log(res);
       },
-      (err) => {
-        console.log(err);
-      },
+      (err) => {},
     );
   }
   filterActiveStudents() {
-    var totalCount = this.students.length;
+    let totalCount = this.students.length;
     this.students = this.students.map((student) => {
       if (
         student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
@@ -102,7 +97,7 @@ export class TestReportComponent implements OnInit {
       } else {
         totalCount--;
         student.filterOut = true;
-        if (totalCount == 0) {
+        if (totalCount === 0) {
           this.hideHeaders = true;
         }
         return student;

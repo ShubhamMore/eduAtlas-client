@@ -10,7 +10,7 @@ import { SocketioService } from '../../../../services/chat.service';
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.scss'],
 })
-export class AddEmployee implements OnInit {
+export class AddEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   eduAtlasEmployeeForm: FormGroup;
   instituteId: string;
@@ -103,8 +103,6 @@ export class AddEmployee implements OnInit {
 
   verifyOtp() {
     if (this.otpSent && this.otpForm.valid) {
-      const otp = this.otpForm.value.otp;
-
       const verificationData = {
         verifyType: 'verifyUser',
         otp: this.otpForm.value.otp,

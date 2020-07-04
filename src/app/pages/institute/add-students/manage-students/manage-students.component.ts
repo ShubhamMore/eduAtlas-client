@@ -42,7 +42,6 @@ export class ManageStudentsComponent implements OnInit {
   getStudents(id: string, courseId: string, batchId: string) {
     this.api.getActiveStudents(id, courseId, batchId).subscribe((data: any) => {
       this.students = data;
-      console.log(data);
     });
   }
 
@@ -100,7 +99,7 @@ export class ManageStudentsComponent implements OnInit {
   }
 
   filterActiveStudents() {
-    var totalCount = this.students.length;
+    let totalCount = this.students.length;
     this.students = this.students.map((student) => {
       if (
         student.basicDetails.name.toLowerCase().includes(this.searchStudentFilter.toLowerCase())
@@ -111,7 +110,7 @@ export class ManageStudentsComponent implements OnInit {
       } else {
         totalCount--;
         student.filterOut = true;
-        if (totalCount == 0) {
+        if (totalCount === 0) {
           this.hideHeaders = true;
         }
         return student;

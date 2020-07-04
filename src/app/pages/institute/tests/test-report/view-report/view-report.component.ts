@@ -1,8 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ApiService } from '../../../../../services/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NbWindowService } from '@nebular/theme';
 import { AuthService } from '../../../../../services/auth-services/auth.service';
@@ -40,7 +39,6 @@ export class ViewReportComponent implements OnInit {
     HTMLElement
   >;
   constructor(
-    private fb: FormBuilder,
     private api: ApiService,
     private route: ActivatedRoute,
     private location: Location,
@@ -199,9 +197,6 @@ export class ViewReportComponent implements OnInit {
       },
       (err) => {},
     );
-  }
-  submitRemarks() {
-    // this.api.
   }
 
   showToast(position: any, status: any, message: any) {

@@ -12,6 +12,7 @@ export class PlayerService {
   current: number;
   playlist: Track[] = [
     {
+      // tslint:disable-next-line: quotemark
       name: "Don't Wanna Fight",
       artist: 'Alabama Shakes',
       url: 'https://p.scdn.co/mp3-preview/6156cdbca425a894972c02fca9d76c0b70e001af',
