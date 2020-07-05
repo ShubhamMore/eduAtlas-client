@@ -15,6 +15,7 @@ export class MyForumComponent implements OnInit {
   selectedCourseId: string;
   courses: any;
   myForums: any;
+  display: boolean;
   constructor(
     private api: ApiService,
     private router: Router,
@@ -24,6 +25,7 @@ export class MyForumComponent implements OnInit {
     private authService: AuthService,
   ) {}
   ngOnInit(): void {
+    this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getMyForums();
     this.getCourses();
@@ -32,6 +34,7 @@ export class MyForumComponent implements OnInit {
     this.api.getCourseTD(this.instituteId).subscribe(
       (data: any) => {
         this.courses = data.course;
+        this.display = true;
       },
       (err) => console.error(err),
     );

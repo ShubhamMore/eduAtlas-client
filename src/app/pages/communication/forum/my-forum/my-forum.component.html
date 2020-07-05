@@ -4,7 +4,7 @@
   <button (click)="back()" class="btn btn-yellow-black float-right">Forum Page</button>
 </div>
 <br /><br />
-<nb-card status="info">
+<nb-card status="info" *ngIf="display">
   <nb-card-header>
     <div class="row mb-2" *ngIf="courses">
       <div class="col-sm-9">

@@ -50,7 +50,9 @@ export class ViewStudentComponent implements OnInit {
   }
 
   getBatch(id: any) {
-    return this.institute.batch.find((batch: any) => batch._id === id).batchCode;
+    if (id !== '') {
+      return this.institute.batch.find((batch: any) => batch._id === id).batchCode;
+    }
   }
 
   getStudent(student: string, institute: string, course: string) {
