@@ -18,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { AdminRoutingModule } from './admin-routing.module';
 import { AdminComponent } from './admin.component';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
+import { AdminPlansComponent } from './admin-plans/admin-plans.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,6 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
     NbDatepickerModule,
     NbButtonModule,
   ],
-  declarations: [AdminComponent, AdminHomeComponent],
+  declarations: [AdminComponent, AdminHomeComponent, AdminPlansComponent],
 })
 export class AdminModule {}

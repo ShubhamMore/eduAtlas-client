@@ -5,6 +5,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     title: 'Home',
     icon: 'home-outline', //  0
     link: '/admin/home',
-    home: true,
+  },
+  {
+    title: 'Plans',
+    icon: 'shield-outline', //  1
+    link: '/admin/plans',
   },
 ];
