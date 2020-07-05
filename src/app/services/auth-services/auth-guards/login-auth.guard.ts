@@ -25,7 +25,9 @@ export class LoginAuthGuard implements CanActivate {
       map((user) => {
         const isAuth = !!user;
         if (isAuth) {
-          if (user.role === 'institute' || user.role === 'employee') {
+          if (user.role === 'admin') {
+            return this.router.createUrlTree(['/admin']);
+          } else if (user.role === 'institute' || user.role === 'employee') {
             return this.router.createUrlTree(['/pages']);
           } else if (user.role === 'student') {
             return this.router.createUrlTree(['/student']);

@@ -75,7 +75,11 @@ export class OtpComponent implements OnInit {
             this.authService.loginSuccess(res);
             this.showToast('top-right', 'success', 'OTP Verification Successful');
             setTimeout(() => {
-              if (res.role === 'institute' || res.role === 'employee') {
+              if (res.role === 'admin') {
+                this.router.navigate(['/admin/home'], {
+                  relativeTo: this.route,
+                });
+              } else if (res.role === 'institute' || res.role === 'employee') {
                 this.router.navigate(['/pages/home'], {
                   relativeTo: this.route,
                 });

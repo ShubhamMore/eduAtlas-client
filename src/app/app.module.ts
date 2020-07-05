@@ -33,11 +33,11 @@ import {
   NbPopoverModule,
   NbStepperModule,
 } from '@nebular/theme';
-import { LoginComponent } from './admin/login/login.component';
-import { SignUpComponent } from './admin/sign-up/sign-up.component';
-import { OtpComponent } from './admin/otp/otp.component';
-import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
-import { TermsAndConditionsComponent } from './admin/terms-and-conditions/terms-and-conditions.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
+import { OtpComponent } from './authentication/otp/otp.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { TermsAndConditionsComponent } from './authentication/terms-and-conditions/terms-and-conditions.component';
 
 // import { HomeComponent } from './home/home.component';
 
