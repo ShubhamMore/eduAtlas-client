@@ -56,7 +56,12 @@ export class LoginComponent implements OnInit {
         } else if (resData.verifyEmail) {
           this.showToast('top-right', 'warning', `Email is not Verified, Please Verify your Email`);
         } else {
-          if (resData.role === 'student') {
+          if (resData.role === 'admin') {
+            this.showToast('top-right', 'success', `Login Success`);
+            this.router.navigate(['/admin/home'], {
+              relativeTo: this.route,
+            });
+          } else if (resData.role === 'student') {
             this.showToast('top-right', 'success', `Login Success`);
             this.router.navigate(['/student/home'], {
               relativeTo: this.route,

@@ -136,8 +136,11 @@ export class AuthService {
       const expirationDuration =
         new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogout(expirationDuration);
-
-      if (loadedUser.role === 'institute' || loadedUser.role === 'employee') {
+      if (loadedUser.role === 'admin') {
+        this.router.navigate(['/admin/home'], {
+          relativeTo: this.route,
+        });
+      } else if (loadedUser.role === 'institute' || loadedUser.role === 'employee') {
         this.router.navigate(['/pages/home'], { relativeTo: this.route });
       } else if (loadedUser.role === 'student') {
         this.router.navigate(['/student/home'], {

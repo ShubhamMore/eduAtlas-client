@@ -1,7 +1,7 @@
 import { LoginAuthGuard } from './services/auth-services/auth-guards/login-auth.guard';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { LoginComponent } from '../app/admin/login/login.component';
+import { LoginComponent } from './authentication/login/login.component';
 // import {HomeComponent } from './home/home.component'
 import { AuthGuard } from './services/auth-services/auth-guards/auth.guard';
 // import {
@@ -12,10 +12,11 @@ import { AuthGuard } from './services/auth-services/auth-guards/auth.guard';
 //   NbRequestPasswordComponent,
 //   NbResetPasswordComponent,
 // } from '@nebular/auth';
-import { SignUpComponent } from './admin/sign-up/sign-up.component';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 
-import { OtpComponent } from './admin/otp/otp.component';
-import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
+import { OtpComponent } from './authentication/otp/otp.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { AdminAuthGuard } from './services/auth-services/auth-guards/admin-auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -42,6 +43,12 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordComponent,
     canActivate: [LoginAuthGuard],
+  },
+
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
+    canActivate: [AuthGuard, AdminAuthGuard],
   },
 
   {

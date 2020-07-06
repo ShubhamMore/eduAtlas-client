@@ -43,6 +43,17 @@ import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrol
     NbDatepickerModule,
     NbButtonModule,
   ],
-  declarations: [StudentComponent, StudentHomeComponent, StudentDashboardComponent, StudentAnnouncementsComponent, StudentScheduleComponent, StudentAttendanceComponent, StudentPerformanceReportComponent, StudentStudyMaterialComponent, StudentForumsChatsComponent, StudentEnrollmentDetailsComponent],
+  declarations: [
+    StudentComponent,
+    StudentHomeComponent,
+    StudentDashboardComponent,
+    StudentAnnouncementsComponent,
+    StudentScheduleComponent,
+    StudentAttendanceComponent,
+    StudentPerformanceReportComponent,
+    StudentStudyMaterialComponent,
+    StudentForumsChatsComponent,
+    StudentEnrollmentDetailsComponent,
+  ],
 })
 export class StudentModule {}
