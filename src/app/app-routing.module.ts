@@ -1,17 +1,11 @@
+import { StudentAuthGuard } from './services/auth-services/auth-guards/student-auth.guard';
+import { InstituteAuthGuard } from './services/auth-services/auth-guards/institute-auth.guard';
 import { LoginAuthGuard } from './services/auth-services/auth-guards/login-auth.guard';
 import { ExtraOptions, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './authentication/login/login.component';
-// import {HomeComponent } from './home/home.component'
 import { AuthGuard } from './services/auth-services/auth-guards/auth.guard';
-// import {
-//   NbAuthComponent,
-//   NbLoginComponent,
-//   NbLogoutComponent,
-//   NbRegisterComponent,
-//   NbRequestPasswordComponent,
-//   NbResetPasswordComponent,
-// } from '@nebular/auth';
+
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 
 import { OtpComponent } from './authentication/otp/otp.component';
@@ -54,45 +48,14 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, InstituteAuthGuard],
   },
 
   {
     path: 'student',
     loadChildren: () => import('./student/student.module').then((m) => m.StudentModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, StudentAuthGuard],
   },
-
-  // {
-  //   path: 'auth',
-  //   component: NbAuthComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: NbLoginComponent,
-  //     },
-  //     {
-  //       path: 'login',
-  //       component: NbLoginComponent,
-  //     },
-  //     {
-  //       path: 'register',
-  //       component: NbRegisterComponent,
-  //     },
-  //     {
-  //       path: 'logout',
-  //       component: NbLogoutComponent,
-  //     },
-  //     {
-  //       path: 'request-password',
-  //       component: NbRequestPasswordComponent,
-  //     },
-  //     {
-  //       path: 'reset-password',
-  //       component: NbResetPasswordComponent,
-  //     },
-  //   ],
-  // },
 
   { path: '**', redirectTo: 'pages' },
 ];
