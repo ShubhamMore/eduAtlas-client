@@ -136,8 +136,8 @@ export class ECommerceComponent implements OnInit {
         MENU_ITEMS[13].hidden = false;
         MENU_ITEMS[13].hidden = true;
       }
-      this.roleService.assignRoles(this.authService.getUser().role);
       this.role = this.roleService.getRole();
+      this.roleService.assignRoles(this.role);
 
       this.display = true;
     });
