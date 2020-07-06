@@ -9,6 +9,7 @@ import { environment } from '../../../../environments/environment';
 import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MenuService } from '../../../services/menu.service';
+import { Location } from '@angular/common';
 
 declare var Razorpay: any;
 @Component({
@@ -79,6 +80,7 @@ export class AddInstituteComponent implements OnInit {
     private paymentService: PaymentService,
     private authService: AuthService,
     private menuService: MenuService,
+    private location: Location,
   ) {}
 
   ngOnInit() {
@@ -86,6 +88,13 @@ export class AddInstituteComponent implements OnInit {
     this.invalidImage = false;
     this.imageRequired = false;
     this.user = this.authService.getUser();
+    this.paymentDetails = this.paymentService.getPaymentDetails();
+
+    if (!this.user || !this.paymentDetails) {
+      this.showToast('top-right', 'danger', 'Invalid Payment');
+      this.location.back();
+      return;
+    }
 
     this.route.queryParams.subscribe((param: Params) => {
       this.edit = param.edit;
@@ -247,7 +256,7 @@ export class AddInstituteComponent implements OnInit {
         if (data.instituteId) {
           this.instituteId = data.instituteId;
           // this.showToast('top-right', 'success', 'Institute Added Successfully, Make Your Payment');
-          this.paymentDetails = this.paymentService.getPaymentDetails();
+
           const orderDetails = {
             userId: this.user._id,
             userPhone: this.user.phone,

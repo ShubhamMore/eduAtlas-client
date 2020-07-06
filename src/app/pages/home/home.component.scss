@@ -25,3 +25,17 @@ nb-card-header {
   font-size: 11px;
   text-align: center;
 }
+
+.plan-status {
+  padding: 3px 5px;
+  border-radius: 3px;
+  color: #fff;
+}
+
+.active {
+  background-color: #00d68f;
+}
+
+.inactive {
+  background-color: #ff3d71;
+}

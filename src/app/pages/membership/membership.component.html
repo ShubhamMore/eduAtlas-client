@@ -1,5 +1,5 @@
 <!-- <nb-layout-column> -->
-<div class="row">
+<div class="row" *ngIf="display">
   <div class="col-12">
     <div class="pricingDiv">
       <h1 class="pricingTitle">
@@ -18,22 +18,28 @@
               </th>
               <th>
                 <div class="lite">
-                  <div class="liteHeader"><span>Lite</span></div>
-                  <div class="headerValue">RS. 4999/-</div>
+                  <div class="liteHeader">
+                    <span>{{ lite.planType }}</span>
+                  </div>
+                  <div class="headerValue">RS. {{ lite.amount }}/-</div>
                   <div class="headerSubValue">+18% GST ANNUALY</div>
                 </div>
               </th>
               <th>
                 <div class="value">
-                  <div class="valueHeader"><span>Value</span></div>
-                  <div class="headerValue">RS. 9999/-</div>
+                  <div class="valueHeader">
+                    <span>{{ value.planType }}</span>
+                  </div>
+                  <div class="headerValue">RS. {{ value.amount }}/-</div>
                   <div class="headerSubValue">+18% GST ANNUALY</div>
                 </div>
               </th>
               <th>
                 <div class="power">
-                  <div class="powerHeader"><span>Power</span></div>
-                  <div class="headerValue">RS. 9999/-</div>
+                  <div class="powerHeader">
+                    <span>{{ power.planType }}</span>
+                  </div>
+                  <div class="headerValue">RS. {{ power.amount }}/-</div>
                   <div class="headerSubValue">+18% GST ANNUALY</div>
                 </div>
               </th>
@@ -271,17 +277,26 @@
             <tr>
               <td></td>
               <td>
-                <button nbButton style="color: white; background-color: #ffd500;" (click)="activate('4999', 'Lite')">
+                <button
+                  nbButton
+                  style="color: white; background-color: #ffd500;"
+                  (click)="activate(lite)"
+                >
                   Activate
                 </button>
               </td>
               <td>
-                <button nbButton style="color: white; background-color: #4c34fb;" (click)="activate('9999', 'Value')">
+                <button
+                  nbButton
+                  style="color: white; background-color: #4c34fb;"
+                  (click)="activate(value)"
+                >
                   Activate
                 </button>
               </td>
               <td>
                 <button nbButton style="color: white; background-color: #04c34f;">
+                  <!-- <button nbButton style="color: white; background-color: #04c34f;" (click)="activate(power)"> -->
                   Coming Soon
                 </button>
               </td>

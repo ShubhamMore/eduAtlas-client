@@ -1,7 +1,7 @@
 import { InstituteService } from './../../services/institute.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../pages-menu';
 import { HostListener } from '@angular/core';
 import { AuthService } from '../../services/auth-services/auth.service';
@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private api: ApiService,
     private router: Router,
+    private route: ActivatedRoute,
     private instituteService: InstituteService,
     private authService: AuthService,
     private roleService: RoleAssignService,
@@ -93,16 +94,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  onClick() {
-    this.router.navigate(['/pages/membership']);
+  addInstitute() {
+    this.router.navigate(['/pages/membership'], { queryParams: { type: 'new' } });
   }
 
-  viewInstitute(id: string, name?: string) {
+  viewInstitute(id: string, active: any) {
     let role: any;
-    role = this.getEmployeeRole(id);
-    this.roleService.assignRoles(role);
-    this.instituteService.publishData(id);
-    this.router.navigate(['/pages/dashboard', id]);
+    if (active) {
+      role = this.getEmployeeRole(id);
+      this.roleService.assignRoles(role);
+      this.instituteService.publishData(id);
+      this.router.navigate(['/pages/dashboard', id], { relativeTo: this.route });
+    } else {
+      this.router.navigate(['/pages/membership'], {
+        relativeTo: this.route,
+        queryParams: { type: 'renew', id: id },
+      });
+    }
   }
 
   getEmployeeRole(instituteId: any) {

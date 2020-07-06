@@ -27,7 +27,6 @@ import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { MembershipComponent } from './membership/membership.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
-import { PaymentComponent } from './payment/payment.component';
 
 // import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
 
@@ -58,7 +57,6 @@ import { PaymentComponent } from './payment/payment.component';
     MembershipComponent,
     ChangePasswordComponent,
     ProfileComponent,
-    PaymentComponent,
 
     // ClassifiedComponent,
     // CreateClassifiedComponent,

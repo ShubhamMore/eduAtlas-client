@@ -1,3 +1,4 @@
+import { PaymentComponent } from './../../payment/payment.component';
 import { BranchAuthGuard } from './../../../services/auth-services/auth-guards/branch-auth.guard';
 import { StudyMaterialComponent } from './../study-material/study-material.component';
 import { ViewAttendanceComponent } from './../attandance/view-attendance/view-attendance.component';
@@ -51,6 +52,8 @@ const routes: Routes = [
       { path: 'manage-leads/:id', component: ManageLeadComponent },
       { path: 'view-lead/:id', component: ViewLeadComponent },
       { path: 'add-leads/:id', component: AddLeadComponent },
+
+      { path: 'payment/:id', component: PaymentComponent },
 
       {
         path: 'branch-config',

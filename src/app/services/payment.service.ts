@@ -45,6 +45,14 @@ export class PaymentService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  getAllPlans() {
+    const url = `${environment.server}/institute/payment/getAllPlans`;
+    return this.http.post(url, {}).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   private handleError(error: any) {
     return throwError(error);
   }

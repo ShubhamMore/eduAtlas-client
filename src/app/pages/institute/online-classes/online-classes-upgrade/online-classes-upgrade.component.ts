@@ -1,4 +1,6 @@
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { RoleAssignService } from '../../../../services/role/role-assign.service';
 
 @Component({
   selector: 'ngx-online-classes-upgrade',
@@ -6,7 +8,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./online-classes-upgrade.component.scss'],
 })
 export class OnlineClassesUpgradeComponent implements OnInit {
-  constructor() {}
+  instituteId: string;
+  role: any;
+  constructor(
+    private roleService: RoleAssignService,
+    private router: Router,
+    private route: ActivatedRoute,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.role = this.roleService.getRole();
+    this.route.params.subscribe((param: Params) => {
+      this.instituteId = param.id;
+    });
+  }
+
+  upgrade() {
+    if (this.role === 'institute') {
+      this.router.navigate(['/pages/membership'], {
+        relativeTo: this.route,
+        queryParams: { type: 'upgrade', id: this.instituteId },
+      });
+    }
+  }
 }
