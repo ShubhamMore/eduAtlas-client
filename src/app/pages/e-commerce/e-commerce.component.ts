@@ -129,15 +129,15 @@ export class ECommerceComponent implements OnInit {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
       this.instituteService.setInstitute(this.myInstitute.institute);
-      if (this.myInstitute.institute.currentPlan !== 'Lite') {
+      if (this.myInstitute.institute.currentPlan == 'Lite') {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = false;
       } else {
         MENU_ITEMS[13].hidden = false;
-        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = true;
       }
+      this.roleService.assignRoles(this.authService.getUser().role);
       this.role = this.roleService.getRole();
-      this.roleService.assignRoles(this.role);
 
       this.display = true;
     });
