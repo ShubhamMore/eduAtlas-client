@@ -16,6 +16,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Add Institute',
         link: '/pages/membership',
+        queryParams: { type: 'new' },
       },
       {
         title: 'Manage Institute',
