@@ -4,7 +4,7 @@ import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';
 import { NbToastrService } from '@nebular/theme';
-import { Location, formatDate } from '@angular/common';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'ngx-add-schedule',

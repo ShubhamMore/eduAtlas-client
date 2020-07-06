@@ -1066,21 +1066,21 @@ export class ApiService {
   getScoreOfStudentByBatch(data: any) {
     const url = `${environment.server}/institute/tests/getScoreOfStudentByBatch`;
     return this.http.post(url, data).pipe(
-      tap((data) => {}),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
   getRemarkOfStudentByInstitute(data: any) {
     const url = `${environment.server}/institute/remark/getRemarkOfStudentByInstitute`;
     return this.http.post(url, data).pipe(
-      tap((data) => {}),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
   addRemark(data: any) {
     const url = `${environment.server}/institute/remark/addRemark`;
     return this.http.post(url, data).pipe(
-      tap((data) => {}),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }

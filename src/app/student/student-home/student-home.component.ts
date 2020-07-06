@@ -1,6 +1,5 @@
 import { ApiService } from './../../services/api.service';
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../student-menu';
 
 // import { ZoomMtg } from '@zoomus/websdk';
@@ -16,7 +15,7 @@ import { MENU_ITEMS } from '../student-menu';
 export class StudentHomeComponent implements OnInit {
   meetings: any[] = [];
 
-  constructor(private api: ApiService, @Inject(DOCUMENT) document) {}
+  constructor(private api: ApiService) {}
   ngOnInit() {
     this.hideOtherMenus();
   }

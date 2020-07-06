@@ -3,13 +3,9 @@ import { ApiService } from '../../../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Location } from '@angular/common';
-import { NbWindowService } from '@nebular/theme';
 import { AuthService } from '../../../../../services/auth-services/auth.service';
 import { RoleAssignService } from '../../../../../services/role/role-assign.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { single } from 'rxjs/operators';
-
-declare var $: any;
 
 @Component({
   selector: 'ngx-view-report',
@@ -102,7 +98,7 @@ export class ViewReportComponent implements OnInit {
     this.studentScore = [];
     if (
       this.roleService.getEmployeeRole(this.instituteId) &&
-      this.roleService.getEmployeeRole(this.instituteId) == 'Teacher'
+      this.roleService.getEmployeeRole(this.instituteId) === 'Teacher'
     ) {
       this.showRemarksOption = true;
     } else {
@@ -118,7 +114,7 @@ export class ViewReportComponent implements OnInit {
     return this.addRemarkForm.controls;
   }
   getRemarks() {
-    var data = {
+    const data = {
       instituteId: this.instituteId,
       courseId: this.courseId,
       batchId: this.batchId,
@@ -131,7 +127,7 @@ export class ViewReportComponent implements OnInit {
   addRemark() {
     this.addRemarkForm.markAllAsTouched();
     if (this.addRemarkForm.valid) {
-      var remarkObj = {
+      const remarkObj = {
         instituteId: this.instituteId,
         courseId: this.courseId,
         batchId: this.batchId,
@@ -139,7 +135,7 @@ export class ViewReportComponent implements OnInit {
         remark: this.addRemarkForm.get('remark').value,
         suggestion: this.addRemarkForm.get('suggestion').value,
       };
-      var data = {
+      const data = {
         studentId: this.studentId,
         remarks: [remarkObj],
       };
@@ -191,11 +187,11 @@ export class ViewReportComponent implements OnInit {
   }
 
   generateGraph() {
-    var percentageArray = [];
-    var highestArray = [];
-    var lowestArray = [];
-    var averageArray = [];
-    var labelsArray = [];
+    const percentageArray = [];
+    const highestArray = [];
+    const lowestArray = [];
+    const averageArray = [];
+    const labelsArray = [];
     this.test.forEach((test) => {
       if (!test.hide) {
         test.students.studentPercentage

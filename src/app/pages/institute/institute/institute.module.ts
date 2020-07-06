@@ -1,4 +1,3 @@
-import { PaymentComponent } from './../../payment/payment.component';
 import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { StudyMaterialComponent } from './../study-material/study-material.component';
 import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
@@ -65,8 +64,6 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
 
     InstituteHeaderComponent,
     StudyMaterialComponent,
-
-    PaymentComponent,
   ],
   imports: [
     CommonModule,
