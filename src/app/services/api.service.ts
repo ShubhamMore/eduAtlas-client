@@ -847,10 +847,6 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  private handleError(error: any) {
-    return throwError(error);
-  }
-
   // =====================Attendance API===================
 
   // GET STUDENTS FOR ATTENDANCE
@@ -1352,5 +1348,11 @@ export class ApiService {
         tap((res) => {}),
         catchError((err) => this.handleError(err)),
       );
+  }
+
+  /*************** Error Handler *************** */
+
+  private handleError(error: any) {
+    return throwError(error);
   }
 }

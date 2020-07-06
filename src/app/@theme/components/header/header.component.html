@@ -8,7 +8,7 @@
     </a>
   </div>
 
-  <nb-card class="mt-4">
+  <nb-card class="mt-4" *ngIf="user.role !== 'admin'">
     <nb-select
       status="primary"
       placeholder="Select Institute"
@@ -33,6 +33,7 @@
       [nbPopover]="chatPopup"
       nbPopoverPlacement="bottom"
       (click)="getMembers()"
+      *ngIf="user.role !== 'admin'"
     >
     </nb-action>
     <nb-action
@@ -43,6 +44,7 @@
       [badgeText]="notificationCount"
       badgePosition="top right"
       badgeStatus="danger"
+      *ngIf="user.role !== 'admin'"
     >
     </nb-action>
     <nb-action class="control-item" icon="power" (click)="logout()"></nb-action>
