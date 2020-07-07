@@ -1,3 +1,4 @@
+import { StudentService } from './../../../services/student.service';
 import { InstituteService } from './../../../services/institute.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
 import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
@@ -77,6 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private menuService: NbMenuService,
     private themeService: NbThemeService,
     private api: ApiService,
+    private studentService: StudentService,
     private layoutService: LayoutService,
     private router: Router,
     private route: ActivatedRoute,
@@ -142,6 +144,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.api.getEmployeeInstitutes({ email: this.user.email }).subscribe((inst: any) => {
         this.instituteService.setInstitutes(inst);
       });
+    } else if (this.user.role === 'student') {
+      this.studentService.getInstitutesOfStudent(this.user._id).subscribe((inst: any) => {
+        this.instituteService.setInstitutes(inst);
+      });
+    } else {
     }
   }
 
@@ -230,7 +237,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.api.getNotifications().subscribe(
       (res: any) => {
         this.notifications = res;
-        this.notifications.map((notification) => {
+        this.notifications.map((notification: any) => {
           if (!notification.seen) {
             this.notificationCount++;
           }

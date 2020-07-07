@@ -28,6 +28,8 @@ export class AddStudentsComponent implements OnInit {
   // Institute/Branch set when getCourseTD() called
   institute: any;
 
+  receipt: any;
+
   // Mode of Payments
   modes = ['Cash', 'Cheque/DD', 'Card', 'Others'];
 
@@ -299,12 +301,25 @@ export class AddStudentsComponent implements OnInit {
       this.institute = data;
       this.courses = data.course;
       this.discounts = data.discount;
-      // Check Editing Mode
-      if (this.edit === 'true') {
-        // Already Registered is set to true
-        this.alreadyRegistered = true;
-        // get Student for Editing using studentEduId, instituteId and CourseId
-        this.getStudent(this.studentEduId, this.instituteId, this.courseId);
+      this.receipt = data.reciept;
+      if (this.receipt) {
+        // Check Editing Mode
+        if (this.edit === 'true') {
+          // Already Registered is set to true
+          this.alreadyRegistered = true;
+          // get Student for Editing using studentEduId, instituteId and CourseId
+          this.getStudent(this.studentEduId, this.instituteId, this.courseId);
+        }
+      } else {
+        this.showToaster(
+          'top-right',
+          'danger',
+          'Receipt Not Found \n Please Add Receipt before Register Student',
+        );
+        this.router.navigate(['/pages/institute/branch-config/add-receipt/', this.instituteId], {
+          relativeTo: this.route,
+        });
+        return;
       }
     });
   }

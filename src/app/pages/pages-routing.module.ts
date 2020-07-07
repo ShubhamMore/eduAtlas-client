@@ -1,3 +1,4 @@
+import { ManageInstituteAuthGuard } from './../services/auth-services/auth-guards/manage-institute-auth.guard';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ const routes: Routes = [
       {
         path: 'membership',
         component: MembershipComponent,
+        canActivate: [ManageInstituteAuthGuard],
       },
       {
         path: 'dashboard/:id',

@@ -57,7 +57,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, StudentAuthGuard],
   },
 
-  { path: '**', redirectTo: 'pages' },
+  { path: '**', redirectTo: '' },
 ];
 
 const config: ExtraOptions = {

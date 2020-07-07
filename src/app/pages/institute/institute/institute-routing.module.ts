@@ -21,26 +21,41 @@ import { ViewScheduleComponent } from '../../schedule/view-schedule/view-schedul
 
 import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.component';
 import { AddLeadComponent } from '../../leads/add-leads/add-lead.component';
+import { ManageInstituteAuthGuard } from '../../../services/auth-services/auth-guards/manage-institute-auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: InstituteComponent,
     children: [
-      { path: 'add-institute', component: AddInstituteComponent },
+      {
+        path: 'add-institute',
+        component: AddInstituteComponent,
+        canActivate: [ManageInstituteAuthGuard],
+      },
+      {
+        path: 'manage-institute',
+        component: ManageInstituteComponent,
+        canActivate: [ManageInstituteAuthGuard],
+      },
+      {
+        path: 'view-institute/:id',
+        component: ViewInstituteComponent,
+        canActivate: [ManageInstituteAuthGuard],
+      },
+
       { path: 'add-students/:id', component: AddStudentsComponent },
+      {
+        path: 'manage-students/:id',
+        component: ManageStudentsComponent,
+      },
       { path: 'add-students/:id/edit', component: AddStudentsComponent },
-      { path: 'manage-institute', component: ManageInstituteComponent },
-      { path: 'manage-students/:id', component: ManageStudentsComponent },
-      { path: 'manage-institute', component: ManageInstituteComponent },
-      { path: 'view-institute/:id', component: ViewInstituteComponent },
+      { path: 'view-student/:id', component: ViewStudentComponent },
+      { path: 'pending-students/:id', component: PendingStudentComponent },
 
       { path: 'attandance/:id', component: AttandanceComponent, canActivate: [] },
       { path: 'add-attandance/:id', component: AddAttendanceComponent, canActivate: [] },
       { path: 'view-attandance/:id', component: ViewAttendanceComponent, canActivate: [] },
-
-      { path: 'view-student/:id', component: ViewStudentComponent },
-      { path: 'pending-students/:id', component: PendingStudentComponent },
 
       { path: 'study-material/:id', component: StudyMaterialComponent },
 
@@ -48,6 +63,7 @@ const routes: Routes = [
       { path: 'manage-schedule/:id', component: ManageScheduleComponent },
       { path: 'view-schedule/:id', component: ViewScheduleComponent },
       { path: 'edit-schedule/:id', component: AddScheduleComponent },
+
       { path: 'manage-leads/:id', component: ManageLeadComponent },
       { path: 'view-lead/:id', component: ViewLeadComponent },
       { path: 'add-leads/:id', component: AddLeadComponent },
