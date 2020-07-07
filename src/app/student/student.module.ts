@@ -1,3 +1,4 @@
+import { SafeHtmlPipe } from './../pipe/safe-html.pipe';
 import { StudentComponent } from './student.component';
 import { NgModule } from '@angular/core';
 
@@ -10,6 +11,7 @@ import {
   NbSelectModule,
   NbButtonModule,
   NbDatepickerModule,
+  NbAccordionModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -27,6 +29,8 @@ import { StudentPerformanceReportComponent } from './student-pages/student-perfo
 import { StudentStudyMaterialComponent } from './student-pages/student-study-material/student-study-material.component';
 import { StudentForumsChatsComponent } from './student-pages/student-forums-chats/student-forums-chats.component';
 import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrollment-details/student-enrollment-details.component';
+import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
+import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
 
 @NgModule({
   imports: [
@@ -41,6 +45,7 @@ import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrol
     NbListModule,
     NbSelectModule,
     NbDatepickerModule,
+    NbAccordionModule,
     NbButtonModule,
   ],
   declarations: [
@@ -54,6 +59,11 @@ import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrol
     StudentStudyMaterialComponent,
     StudentForumsChatsComponent,
     StudentEnrollmentDetailsComponent,
+    StudentViewAnnouncementComponent,
+
+    SafeHtmlPipe,
+
+    StudentViewScheduleComponent,
   ],
 })
 export class StudentModule {}

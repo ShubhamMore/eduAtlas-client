@@ -14,35 +14,48 @@
             </div>
             <div class="col-md-3">
               <div>
-                <label>Date : </label><span class="boldText">{{ unmarkedAttendance.days.date }}</span>
+                <label>Date : </label
+                ><span class="boldText">{{ unmarkedAttendance.days.date }}</span>
               </div>
               <div>
-                <label>Time : </label><span class="boldText">{{ unmarkedAttendance.days.startTime }} -
-                  {{ unmarkedAttendance.days.endTime }}</span>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div>
-                <label>Topic : </label><span class="boldText">{{ unmarkedAttendance.days.topic }}</span>
-              </div>
-              <div>
-                <label>Teacher : </label><span class="boldText">{{ unmarkedAttendance.days.teacherName }}</span>
+                <label>Time : </label
+                ><span class="boldText"
+                  >{{ unmarkedAttendance.days.startTime }} -
+                  {{ unmarkedAttendance.days.endTime }}</span
+                >
               </div>
             </div>
             <div class="col-md-3">
               <div>
-                <label>Course : </label><span class="boldText">{{ unmarkedAttendance.days.courseName }}</span>
+                <label>Topic : </label
+                ><span class="boldText">{{ unmarkedAttendance.days.topic }}</span>
               </div>
               <div>
-                <label>Batch : </label><span class="boldText">{{ unmarkedAttendance.days.batchName }}</span>
+                <label>Teacher : </label
+                ><span class="boldText">{{ unmarkedAttendance.days.teacherName }}</span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div>
+                <label>Course : </label
+                ><span class="boldText">{{ unmarkedAttendance.days.courseName }}</span>
+              </div>
+              <div>
+                <label>Batch : </label
+                ><span class="boldText">{{ unmarkedAttendance.days.batchName }}</span>
               </div>
             </div>
             <div class="col-md-2">
-              <button class="btn btn-yellow-black" [title]="
+              <button
+                class="btn btn-yellow-black"
+                [title]="
                   isMarkAllowed(unmarkedAttendance.date)
                     ? 'You cant mark this Attendance, Lecture not started yet'
                     : 'Mark This Attendance'
-                " (click)="markAttendance(unmarkedAttendance)" [disabled]="isMarkAllowed(unmarkedAttendance.date)">
+                "
+                (click)="markAttendance(unmarkedAttendance)"
+                [disabled]="isMarkAllowed(unmarkedAttendance.date)"
+              >
                 Mark
               </button>
             </div>
@@ -63,24 +76,30 @@
                 <label>Date : </label><span class="boldText">{{ markedAttendance.days.date }}</span>
               </div>
               <div>
-                <label>Time : </label><span class="boldText">{{ markedAttendance.days.startTime }} -
-                  {{ markedAttendance.days.endTime }}</span>
+                <label>Time : </label
+                ><span class="boldText"
+                  >{{ markedAttendance.days.startTime }} - {{ markedAttendance.days.endTime }}</span
+                >
               </div>
             </div>
             <div class="col-md-3">
               <div>
-                <label>Topic : </label><span class="boldText">{{ markedAttendance.days.topic }}</span>
+                <label>Topic : </label
+                ><span class="boldText">{{ markedAttendance.days.topic }}</span>
               </div>
               <div>
-                <label>Teacher : </label><span class="boldText">{{ markedAttendance.days.teacherName }}</span>
+                <label>Teacher : </label
+                ><span class="boldText">{{ markedAttendance.days.teacherName }}</span>
               </div>
             </div>
             <div class="col-md-3">
               <div>
-                <label>Course : </label><span class="boldText">{{ markedAttendance.days.courseName }}</span>
+                <label>Course : </label
+                ><span class="boldText">{{ markedAttendance.days.courseName }}</span>
               </div>
               <div>
-                <label>Batch : </label><span class="boldText">{{ markedAttendance.days.batchName }}</span>
+                <label>Batch : </label
+                ><span class="boldText">{{ markedAttendance.days.batchName }}</span>
               </div>
             </div>
             <div class="col-md-2">

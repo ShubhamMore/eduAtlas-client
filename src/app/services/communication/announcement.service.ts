@@ -36,6 +36,18 @@ export class AnnouncementService {
       );
   }
 
+  getStudentAnnouncements(id: any, batch: any): Observable<any> {
+    return this.http
+      .post(`${environment.server}/institute/announcement/getStudentAnnouncements`, {
+        instituteId: id,
+        batch,
+      })
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => this.handleError(err)),
+      );
+  }
+
   getSingleAnnouncement(id: any): Observable<any> {
     return this.http
       .post(`${environment.server}/institute/announcement/getSingleAnnouncement`, {

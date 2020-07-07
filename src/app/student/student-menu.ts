@@ -4,59 +4,59 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Home',
     icon: 'home-outline', //  0
-    link: '/student/home',
+    link: '/student/home/',
     home: true,
   },
   {
     title: 'Institute', //  1
-    link: '/student/manage-institute',
+    link: '/student/manage-institute/',
     home: true,
   },
   {
     title: 'Dashboard', //  2
-    link: '/student/dashboard',
+    link: '/student/dashboard/',
     home: true,
     hidden: true,
   },
   {
     title: 'Announcements', //  3
-    link: '/student/announcements',
+    link: '/student/announcements/',
     home: true,
     hidden: true,
   },
   {
     title: 'Schedule', //  4
-    link: '/student/schedule',
+    link: '/student/schedule/',
     home: true,
     hidden: true,
   },
   {
     title: 'Attendance', //  5
-    link: '/student/attendance',
+    link: '/student/attendance/',
     home: true,
     hidden: true,
   },
   {
     title: 'Performance Report', //  6
-    link: '/student/performanceReport',
+    link: '/student/performanceReport/',
     home: true,
     hidden: true,
   },
   {
     title: 'Study Materials', //  7
-    link: '/student/studentMaterial',
+    link: '/student/studentMaterial/',
     home: true,
     hidden: true,
   },
   {
     title: 'Forums & Chats', //  8
-    link: '/student/forumsAndChats',
+    link: '/student/forumsAndChats/',
     home: true,
     hidden: true,
   },
   {
     title: 'Enrollment Details', //  9
-    link: '/student/enrollmentDetails',
+    link: '/student/enrollmentDetails/',
     home: true,
     hidden: true,
   },

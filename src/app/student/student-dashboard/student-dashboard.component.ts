@@ -1,3 +1,4 @@
+import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../student-menu';
@@ -8,20 +9,25 @@ import { MENU_ITEMS } from '../student-menu';
   styleUrls: ['./student-dashboard.component.scss'],
 })
 export class StudentDashboardComponent implements OnInit {
-  constructor(private active: ActivatedRoute) {}
   instituteId: string;
+  studentId: string;
+  constructor(private active: ActivatedRoute, private studentService: StudentService) {}
   ngOnInit() {
     this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.studentId = this.studentService.getStudent()._id;
     this.setInstituteIdForMenus();
     this.showDashboardMenus();
   }
 
   setInstituteIdForMenus() {
     MENU_ITEMS.map((menu) => {
-      menu.link = menu.link + '/' + this.instituteId;
+      const link = menu.link.substring(0, menu.link.lastIndexOf('/'));
+      menu.link = link + '/' + this.instituteId;
+
       if (menu.children) {
         menu.children.map((menuChildren) => {
-          menuChildren.link = menuChildren.link + '/' + this.instituteId;
+          const childrenLink = menuChildren.link.substring(0, menuChildren.link.lastIndexOf('/'));
+          menuChildren.link = childrenLink + '/' + this.instituteId;
           return menuChildren;
         });
       }

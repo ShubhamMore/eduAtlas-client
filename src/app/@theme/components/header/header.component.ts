@@ -145,6 +145,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.instituteService.setInstitutes(inst);
       });
     } else if (this.user.role === 'student') {
+      this.studentService.setStudent(this.user);
       this.studentService.getInstitutesOfStudent(this.user._id).subscribe((inst: any) => {
         this.instituteService.setInstitutes(inst);
       });
@@ -171,7 +172,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.roleService.assignRoles(role);
         this.router.navigate(['/pages/dashboard/', event], { relativeTo: this.route.parent });
       } else if (this.user.role === 'student') {
-        this.router.navigate(['/student/dashboard/', event], { relativeTo: this.route.parent });
+        this.router.navigate(['/student/dashboard/', event], {
+          relativeTo: this.route.parent,
+        });
       }
     }
   }

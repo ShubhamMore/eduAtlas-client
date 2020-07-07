@@ -14,20 +14,26 @@
           <label>Date : </label><span class="boldText">{{ attendanceBasicDetail.days.date }}</span>
         </div>
         <div>
-          <label>Time : </label><span class="boldText">{{ attendanceBasicDetail.days.startTime }} -
-            {{ attendanceBasicDetail.days.endTime }}</span>
+          <label>Time : </label
+          ><span class="boldText"
+            >{{ attendanceBasicDetail.days.startTime }} -
+            {{ attendanceBasicDetail.days.endTime }}</span
+          >
         </div>
       </div>
       <div class="col-md-3">
         <div>
-          <label>Topic : </label><span class="boldText">{{ attendanceBasicDetail.days.topic }}</span>
+          <label>Topic : </label
+          ><span class="boldText">{{ attendanceBasicDetail.days.topic }}</span>
         </div>
         <div>
-          <label>Teacher : </label><span class="boldText">{{ attendanceBasicDetail.days.teacherName }}</span>
+          <label>Teacher : </label
+          ><span class="boldText">{{ attendanceBasicDetail.days.teacherName }}</span>
         </div>
       </div>
       <div class="col-md-3">
-        <label>Batch : </label><span class="boldText">{{ attendanceBasicDetail.days.batchName }}</span>
+        <label>Batch : </label
+        ><span class="boldText">{{ attendanceBasicDetail.days.batchName }}</span>
       </div>
     </div>
     <hr />
@@ -42,18 +48,33 @@
       <div class="boldText lastLine">
         <span>Upload the file using the "Upload" button</span>
         <div>
-          <a class="btn btn-yellow-black" style="color: black; padding: 10px;" [href]="sampleExcel">Download</a>
+          <a class="btn btn-yellow-black" style="color: black; padding: 10px;" [href]="sampleExcel"
+            >Download</a
+          >
           <button nbButton status="success" (click)="fileInput.click()">Upload</button>
-          <input type="file" nbInput status="basic" style="display: none;" fullWidth (change)="onFilePicked($event)"
-            #fileInput />
-          <button *ngIf="file && !invalidFile" style="margin-left: 0px;" class="btn btn-yellow-black"
-            (click)="uploadFile()">
+          <input
+            type="file"
+            nbInput
+            status="basic"
+            style="display: none;"
+            fullWidth
+            (change)="onFilePicked($event)"
+            #fileInput
+          />
+          <button
+            *ngIf="file && !invalidFile"
+            style="margin-left: 0px;"
+            class="btn btn-yellow-black"
+            (click)="uploadFile()"
+          >
             Submit
           </button>
         </div>
       </div>
       <div class="text-right" style="margin-right: 20px;">
-        <span style="color: #f00;" *ngIf="invalidFile">*File format must be *.xsl, *.xlsx, *.csv</span>
+        <span style="color: #f00;" *ngIf="invalidFile"
+          >*File format must be *.xsl, *.xlsx, *.csv</span
+        >
         <span style="font-weight: bold;" *ngIf="file && !invalidFile">{{ file.name }}</span>
       </div>
     </div>
@@ -68,8 +89,10 @@
   </nb-card-header>
   <nb-card-body>
     <div class="lastLine">
-      <span>Check the students that are/were present in this class or select all by clicking on the
-        button</span>
+      <span
+        >Check the students that are/were present in this class or select all by clicking on the
+        button</span
+      >
       <button class="btn btn-yellow-black" (click)="markAllAttendance()">
         {{ markAllCheckBox ? 'Select All' : 'Deselect ALl' }}
       </button>
@@ -91,14 +114,20 @@
             <td>{{ singleAttendance.studentName }}</td>
             <td>{{ singleAttendance.studentRollNo }}</td>
             <td>
-              <nb-checkbox (checkedChange)="markSingleAttendance($event, i)"
-                [checked]="singleAttendance.attendanceStatus">
+              <nb-checkbox
+                (checkedChange)="markSingleAttendance($event, i)"
+                [checked]="singleAttendance.attendanceStatus"
+              >
               </nb-checkbox>
             </td>
             <td *ngIf="edit">
-              <button nbButton status="warning"
-                (click)="viewAttendance(singleAttendance.studentId,singleAttendance.studentName)">VIEW
-                ATTENDANCE</button>
+              <button
+                nbButton
+                status="warning"
+                (click)="viewAttendance(singleAttendance.studentId, singleAttendance.studentName)"
+              >
+                VIEW ATTENDANCE
+              </button>
             </td>
           </tr>
         </tbody>

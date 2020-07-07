@@ -129,7 +129,7 @@ export class ECommerceComponent implements OnInit {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;
       this.instituteService.setInstitute(this.myInstitute.institute);
-      if (this.myInstitute.institute.currentPlan == 'Lite') {
+      if (this.myInstitute.institute.currentPlan === 'Lite') {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = false;
       } else {
