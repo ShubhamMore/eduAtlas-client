@@ -60,4 +60,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
     hidden: true,
   },
+  {
+    title: 'Meetings', //  10
+    link: '/student/meeting/',
+    home: true,
+    hidden: true,
+  },
+  {
+    title: 'Mentoring', //  11
+    link: '/student/mentoring/',
+    home: true,
+    hidden: true,
+  },
 ];

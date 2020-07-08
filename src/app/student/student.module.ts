@@ -35,6 +35,8 @@ import { StudentViewAnnouncementComponent } from './student-pages/student-announ
 import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
 import { ChartsModule } from 'ng2-charts';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StudentMeetingComponent } from './student-pages/student-meeting/student-meeting.component';
+import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
 
 @NgModule({
   imports: [
@@ -70,6 +72,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     SafeHtmlPipe,
 
     StudentViewScheduleComponent,
+
+    StudentMeetingComponent,
+
+    StudentMentoringComponent,
   ],
 })
 export class StudentModule {}

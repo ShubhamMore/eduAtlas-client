@@ -44,5 +44,7 @@ export class StudentDashboardComponent implements OnInit {
     MENU_ITEMS[7].hidden = false;
     MENU_ITEMS[8].hidden = false;
     MENU_ITEMS[9].hidden = false;
+    MENU_ITEMS[10].hidden = false;
+    MENU_ITEMS[11].hidden = false;
   }
 }
