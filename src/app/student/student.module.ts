@@ -39,6 +39,8 @@ import { StudentViewScheduleComponent } from './student-pages/student-schedule/s
 import { ChartsModule } from 'ng2-charts';
 import { StudentMeetingComponent } from './student-pages/student-meeting/student-meeting.component';
 import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
+import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
+import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
 
 @NgModule({
   imports: [
@@ -74,6 +76,9 @@ import { StudentMentoringComponent } from './student-pages/student-mentoring/stu
     StudentForumsChatsComponent,
     StudentEnrollmentDetailsComponent,
     StudentViewAnnouncementComponent,
+    StudentInstitutesComponent,
+    StudentForumCommentComponent,
+    StudentViewEnrollmentComponent,
 
     SafeHtmlPipe,
 

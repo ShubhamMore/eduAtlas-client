@@ -83,6 +83,10 @@ const routes: Routes = [
         component: StudentEnrollmentDetailsComponent,
       },
       {
+        path: 'viewEnrollment/:id',
+        component: StudentViewEnrollmentComponent,
+      },
+      {
         path: 'meeting/:id',
         component: StudentMeetingComponent,
       },
