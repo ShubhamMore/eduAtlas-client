@@ -132,7 +132,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         name: message.msg.user.name,
       },
     };
-    this.openChatBox(user);
+    this.openChatBox(user, null);
   }
 
   getInstitutes() {
@@ -206,7 +206,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.instituteChangeSubscription.unsubscribe();
   }
 
-  openChatBox(user: any) {
+  openChatBox(user: any, listType: string) {
+    if (listType && listType == 'instituteList') {
+      user.basicDetails = {};
+      user.basicDetails.name = user.instituteUsers.name;
+      user.eduAtlasId = user.instituteUsers.eduAtlasId;
+    } else if (listType && listType == 'teacherDetails') {
+      user.basicDetails = {};
+      user.basicDetails.name = user.teachers.name;
+      user.eduAtlasId = user.teachers.eduAtlasId;
+    }
     this.chatPopup.hide();
     if (!this.chatmessage[user.eduAtlasId]) {
       this.chatmessage[user.eduAtlasId] = {

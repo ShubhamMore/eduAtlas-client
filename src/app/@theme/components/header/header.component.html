@@ -57,7 +57,7 @@
 <ng-template #chatPopup>
   <div class="chatPopup">
     <nb-tabset fullWidth>
-      <nb-tab tabTitle="Teachers">
+      <nb-tab tabTitle="Teachers" *ngIf="chatMembers.employeeDetails">
         <nb-list *ngIf="chatMembers; else noChatMembers">
           <nb-list-item>
             <input
@@ -80,7 +80,7 @@
           </nb-list-item>
         </nb-list>
       </nb-tab>
-      <nb-tab tabTitle="Students">
+      <nb-tab tabTitle="Students" *ngIf="chatMembers.studentsDetails">
         <nb-list *ngIf="chatMembers; else noChatMembers">
           <nb-list-item>
             <input
@@ -98,6 +98,52 @@
               [name]="user.basicDetails.name"
               style="cursor: pointer;"
               (click)="openChatBox(user)"
+            >
+            </nb-user>
+          </nb-list-item>
+        </nb-list>
+      </nb-tab>
+      <nb-tab tabTitle="Teachers" *ngIf="chatMembers.teacherDetails">
+        <nb-list *ngIf="chatMembers; else noChatMembers">
+          <nb-list-item>
+            <input
+              type="text"
+              nbInput
+              status="basic"
+              [(ngModel)]="employeeChatFilter"
+              fullWidth
+              placeholder="Search Chat"
+              (input)="filterChatsForEmployee()"
+            />
+          </nb-list-item>
+          <nb-list-item *ngFor="let user of chatMembers.teacherDetails" [hidden]="user.filterOut">
+            <nb-user
+              [name]="user.teachers.name"
+              style="cursor: pointer;"
+              (click)="openChatBox(user, 'teacherDetails')"
+            >
+            </nb-user>
+          </nb-list-item>
+        </nb-list>
+      </nb-tab>
+      <nb-tab tabTitle="Institute" *ngIf="chatMembers.instituteDetails">
+        <nb-list *ngIf="chatMembers; else noChatMembers">
+          <nb-list-item>
+            <input
+              type="text"
+              nbInput
+              status="basic"
+              [(ngModel)]="studentChatFilter"
+              fullWidth
+              placeholder="Search Chat"
+              (input)="filterChatsForStudents()"
+            />
+          </nb-list-item>
+          <nb-list-item *ngFor="let user of chatMembers.instituteDetails" [hidden]="user.filterOut">
+            <nb-user
+              [name]="user.instituteUsers.name"
+              style="cursor: pointer;"
+              (click)="openChatBox(user, 'instituteList')"
             >
             </nb-user>
           </nb-list-item>

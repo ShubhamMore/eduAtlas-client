@@ -16,6 +16,7 @@ import {
   NbDatepickerModule,
   NbAccordionModule,
   NbInputModule,
+  NbCheckboxModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -35,8 +36,9 @@ import { StudentForumsChatsComponent } from './student-pages/student-forums-chat
 import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrollment-details/student-enrollment-details.component';
 import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
 import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
-import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
-import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
+import { ChartsModule } from 'ng2-charts';
+import { StudentMeetingComponent } from './student-pages/student-meeting/student-meeting.component';
+import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
 
 @NgModule({
   imports: [
@@ -57,6 +59,8 @@ import { StudentViewEnrollmentComponent } from './student-pages/student-enrollme
     NbDatepickerModule,
     NbAccordionModule,
     NbButtonModule,
+    ChartsModule,
+    NbCheckboxModule,
   ],
   declarations: [
     StudentComponent,
@@ -75,11 +79,9 @@ import { StudentViewEnrollmentComponent } from './student-pages/student-enrollme
 
     StudentViewScheduleComponent,
 
-    StudentInstitutesComponent,
+    StudentMeetingComponent,
 
-    StudentForumCommentComponent,
-
-    StudentViewEnrollmentComponent,
+    StudentMentoringComponent,
   ],
 })
 export class StudentModule {}
