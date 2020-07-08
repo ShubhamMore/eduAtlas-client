@@ -1,3 +1,42 @@
-<p>
-  student-enrollment-details works!
-</p>
+<nb-card>
+  <nb-card-header>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4 class="font-weight-bolder">Courses</h4>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <table class="table table-borderless" *ngIf="courses.length > 0; else noCourses">
+      <thead>
+        <tr>
+          <th>Course Name</th>
+          <th>Roll No.</th>
+          <th>Status</th>
+          <!-- <th>Course Name</th> -->
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let course of courses; let i = index">
+          <td>{{ course.courseDetails.name }}</td>
+          <td>{{ course.instituteDetails.rollNumber }}</td>
+          <td>{{ course.instituteDetails.active ? 'Active' : 'Pending' }}</td>
+          <td>
+            <button
+              class="mr-2 mb-2"
+              nbButton
+              status="primary"
+              (click)="view(course.instituteDetails.courseId)"
+            >
+              View
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noCourses>
+      <p class="text-center pt-5">No Courses Found</p>
+    </ng-template>
+  </nb-card-body>
+</nb-card>

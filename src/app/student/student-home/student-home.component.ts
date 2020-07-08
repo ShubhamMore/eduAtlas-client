@@ -1,3 +1,4 @@
+import { StudentService } from './../../services/student.service';
 import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../student-menu';
@@ -8,11 +9,11 @@ import { MENU_ITEMS } from '../student-menu';
   styleUrls: ['./student-home.component.scss'],
 })
 export class StudentHomeComponent implements OnInit {
-  meetings: any[] = [];
-
-  constructor(private api: ApiService) {}
+  display: boolean = false;
+  constructor(private studentService: StudentService) {}
   ngOnInit() {
     this.hideOtherMenus();
+    this.display = true;
   }
   hideOtherMenus() {
     MENU_ITEMS[2].hidden = true;

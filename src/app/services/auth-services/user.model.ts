@@ -6,6 +6,7 @@ export class User {
     public email: string,
     public phone: string,
     public role: string,
+    public eduAtlasId: string,
     // tslint:disable-next-line: variable-name
     private _token: string,
     // tslint:disable-next-line: variable-name

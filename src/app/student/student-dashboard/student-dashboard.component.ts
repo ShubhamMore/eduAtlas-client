@@ -1,3 +1,5 @@
+import { ApiService } from './../../services/api.service';
+import { InstituteService } from './../../services/institute.service';
 import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -10,32 +12,49 @@ import { MENU_ITEMS } from '../student-menu';
 })
 export class StudentDashboardComponent implements OnInit {
   instituteId: string;
-  studentId: string;
-  constructor(private active: ActivatedRoute, private studentService: StudentService) {}
+  institute: any;
+  display: boolean;
+  constructor(
+    private active: ActivatedRoute,
+    private instituteService: InstituteService,
+    private api: ApiService,
+    private studentService: StudentService,
+  ) {}
   ngOnInit() {
+    this.display = false;
     this.instituteId = this.active.snapshot.paramMap.get('id');
-    this.studentId = this.studentService.getStudent()._id;
     this.setInstituteIdForMenus();
     this.showDashboardMenus();
+    this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe((res: any) => {});
+    this.api.getInstitute(this.instituteId).subscribe((res: any) => {
+      this.institute = res.institute;
+      this.instituteService.setInstitute(this.institute);
+      this.display = true;
+    });
+  }
+
+  getDashboardData(id: string) {
+    this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {});
   }
 
   setInstituteIdForMenus() {
-    MENU_ITEMS.map((menu) => {
-      const link = menu.link.substring(0, menu.link.lastIndexOf('/'));
-      menu.link = link + '/' + this.instituteId;
+    MENU_ITEMS.map((menu, i) => {
+      if (i !== 0 && i !== 1) {
+        const link = menu.link.substring(0, menu.link.lastIndexOf('/'));
+        menu.link = link + '/' + this.instituteId;
 
-      if (menu.children) {
-        menu.children.map((menuChildren) => {
-          const childrenLink = menuChildren.link.substring(0, menuChildren.link.lastIndexOf('/'));
-          menuChildren.link = childrenLink + '/' + this.instituteId;
-          return menuChildren;
-        });
+        if (menu.children) {
+          menu.children.map((menuChildren) => {
+            const childrenLink = menuChildren.link.substring(0, menuChildren.link.lastIndexOf('/'));
+            menuChildren.link = childrenLink + '/' + this.instituteId;
+            return menuChildren;
+          });
+        }
+        return menu;
       }
-      return menu;
     });
   }
   showDashboardMenus() {
-    MENU_ITEMS[1].hidden = true;
     MENU_ITEMS[2].hidden = false;
     MENU_ITEMS[3].hidden = false;
     MENU_ITEMS[4].hidden = false;

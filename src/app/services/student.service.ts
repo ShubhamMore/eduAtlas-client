@@ -26,10 +26,33 @@ export class StudentService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  getInstitutesDashboardDataForStudent(instituteId: string) {
+    return this.http
+      .post(environment.server + '/institute/student/getInstitutesDashboardDataForStudent', {
+        _id: this.student._id,
+        instituteId,
+      })
+      .pipe(tap(), catchError(this.handleError));
+  }
+
   getStudyMaterialForStudent(data: any) {
     return this.http
       .post(environment.server + '/institute/studyMaterial/getStudyMaterialForStudent', data)
       .pipe(tap(), catchError(this.handleError));
+  }
+
+  getStudentAllCoursesByInstitute(instituteId: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentAllCoursesByInstitute', {
+        _id: this.student._id,
+        instituteId,
+      })
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError(this.handleError),
+      );
   }
 
   getStudentCoursesByInstitutes(instituteId: string) {

@@ -8,8 +8,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
-    title: 'Institute', //  1
-    link: '/student/manage-institute/',
+    title: 'My Institutes', //  1
+    link: '/student/my-institutes/',
     home: true,
   },
   {

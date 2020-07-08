@@ -1,3 +1,5 @@
+import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
+import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
 import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
 import { StudentHomeComponent } from './student-home/student-home.component';
 import { StudentComponent } from './student.component';
@@ -12,6 +14,7 @@ import { StudentStudyMaterialComponent } from './student-pages/student-study-mat
 import { StudentForumsChatsComponent } from './student-pages/student-forums-chats/student-forums-chats.component';
 import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrollment-details/student-enrollment-details.component';
 import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
+import { StudentForumCommentComponent } from './student-pages/student-forums-chats/student-forum-comment/student-forum-comment.component';
 
 const routes: Routes = [
   {
@@ -26,6 +29,11 @@ const routes: Routes = [
       {
         path: 'home',
         component: StudentHomeComponent,
+      },
+
+      {
+        path: 'my-institutes',
+        component: StudentInstitutesComponent,
       },
 
       {
@@ -65,8 +73,16 @@ const routes: Routes = [
         component: StudentForumsChatsComponent,
       },
       {
+        path: 'forumsAndChats/comments/:id',
+        component: StudentForumCommentComponent,
+      },
+      {
         path: 'enrollmentDetails/:id',
         component: StudentEnrollmentDetailsComponent,
+      },
+      {
+        path: 'viewEnrollment/:id',
+        component: StudentViewEnrollmentComponent,
       },
 
       {

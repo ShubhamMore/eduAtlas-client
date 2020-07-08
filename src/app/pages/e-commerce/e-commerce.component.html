@@ -235,7 +235,7 @@
       </nb-card>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="role === 'institute' || role === 'Manager'">
       <!-- <nb-card>
         <nb-card-header>
           REVENUE AND STUDENT GRAPH

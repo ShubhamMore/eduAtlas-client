@@ -1,3 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { StudentForumCommentComponent } from './student-pages/student-forums-chats/student-forum-comment/student-forum-comment.component';
 import { SafeHtmlPipe } from './../pipe/safe-html.pipe';
 import { StudentComponent } from './student.component';
 import { NgModule } from '@angular/core';
@@ -12,6 +15,7 @@ import {
   NbButtonModule,
   NbDatepickerModule,
   NbAccordionModule,
+  NbInputModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -31,12 +35,18 @@ import { StudentForumsChatsComponent } from './student-pages/student-forums-chat
 import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrollment-details/student-enrollment-details.component';
 import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
 import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
+import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
+import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     StudentRoutingModule,
     ThemeModule,
     NbMenuModule,
+    NbInputModule,
+    FormsModule,
+    ReactiveFormsModule,
     ButtonModule,
     NbLayoutModule,
     NbCardModule,
@@ -64,6 +74,12 @@ import { StudentViewScheduleComponent } from './student-pages/student-schedule/s
     SafeHtmlPipe,
 
     StudentViewScheduleComponent,
+
+    StudentInstitutesComponent,
+
+    StudentForumCommentComponent,
+
+    StudentViewEnrollmentComponent,
   ],
 })
 export class StudentModule {}

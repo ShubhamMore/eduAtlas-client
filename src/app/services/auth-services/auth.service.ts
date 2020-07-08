@@ -13,6 +13,7 @@ export interface AuthResponseData {
   email: string;
   phone: string;
   role: string;
+  eduAtlasId: string;
   token: string;
   expiresIn: string;
 }
@@ -28,6 +29,7 @@ export class UserData {
   email: string;
   phone: string;
   role: string;
+  eduAtlasId: string;
   // tslint:disable-next-line: variable-name
   _token: string;
   // tslint:disable-next-line: variable-name
@@ -100,6 +102,7 @@ export class AuthService {
               resData.email,
               resData.phone,
               resData.role,
+              resData.eduAtlasId,
               resData.token,
               +resData.expiresIn,
             );
@@ -115,6 +118,7 @@ export class AuthService {
       user.email,
       user.phone,
       user.role,
+      user.eduAtlasId,
       user.token,
       +user.expiresIn,
     );
@@ -127,6 +131,7 @@ export class AuthService {
       userData.email,
       userData.phone,
       userData.role,
+      userData.eduAtlasId,
       userData._token,
       new Date(userData._tokenExpirationDate),
     );
@@ -242,11 +247,12 @@ export class AuthService {
     email: string,
     phone: string,
     role: string,
+    eduAtlasId: string,
     token: string,
     expiresIn: number,
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-    const user = new User(userId, name, email, phone, role, token, expirationDate);
+    const user = new User(userId, name, email, phone, role, eduAtlasId, token, expirationDate);
     this.user.next(user);
     this.autoLogout(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
