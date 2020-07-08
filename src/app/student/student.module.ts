@@ -12,6 +12,8 @@ import {
   NbButtonModule,
   NbDatepickerModule,
   NbAccordionModule,
+  NbCheckboxModule,
+  NbInputModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -31,6 +33,8 @@ import { StudentForumsChatsComponent } from './student-pages/student-forums-chat
 import { StudentEnrollmentDetailsComponent } from './student-pages/student-enrollment-details/student-enrollment-details.component';
 import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
 import { StudentViewScheduleComponent } from './student-pages/student-schedule/student-view-schedule/student-view-schedule.component';
+import { ChartsModule } from 'ng2-charts';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -47,6 +51,8 @@ import { StudentViewScheduleComponent } from './student-pages/student-schedule/s
     NbDatepickerModule,
     NbAccordionModule,
     NbButtonModule,
+    ChartsModule,
+    NbCheckboxModule,
   ],
   declarations: [
     StudentComponent,
