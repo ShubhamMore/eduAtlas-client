@@ -27,6 +27,7 @@ export class StudentPerformanceReportComponent implements OnInit {
   batchId: string;
   showRemarksOption: boolean;
   courseId: string;
+  noData: string = 'Select Course To View Data';
   @ViewChild('escClose', { read: TemplateRef, static: false }) escCloseTemplate: TemplateRef<
     HTMLElement
   >;
@@ -130,7 +131,9 @@ export class StudentPerformanceReportComponent implements OnInit {
           if (res) {
             this.test = res;
           }
-
+          if (this.test && this.test.length == 0) {
+            this.noData = 'No Data Found';
+          }
           this.display = true;
           res.sort((test1, test2) => {
             const test1Date = new Date(test1.date);
