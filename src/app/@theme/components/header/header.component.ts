@@ -183,7 +183,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   deleteNotification(notificationId, index, seen) {
     this.api.deleteNotification({ notificationId: notificationId }).subscribe((res) => {
       if (!seen) {
-        this.notificationCount--;
+        if (this.notificationCount > 0) {
+          this.notificationCount--;
+        }
       }
       this.notifications.splice(index, 1);
     });
@@ -267,7 +269,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.api.seenNotification({ notification: notification._id }).subscribe((res) => {
       this.notifications.map((singleNotification) => {
         if (singleNotification._id === notification._id && !notification.seen) {
-          this.notificationCount--;
+          if (this.notificationCount > 0) {
+            this.notificationCount--;
+          }
           return (singleNotification.seen = true);
         } else {
           return singleNotification;

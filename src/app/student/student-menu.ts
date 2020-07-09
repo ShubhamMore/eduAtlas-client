@@ -49,7 +49,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
     hidden: true,
   },
   {
-    title: 'Forums & Chats', //  8
+    title: 'Forums', //  8
     link: '/student/forumsAndChats/',
     home: true,
     hidden: true,
