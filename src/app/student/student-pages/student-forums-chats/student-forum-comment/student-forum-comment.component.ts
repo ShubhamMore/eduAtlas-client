@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 import { Location } from '@angular/common';
@@ -18,7 +18,6 @@ export class StudentForumCommentComponent implements OnInit {
   userComment: string;
   constructor(
     private api: ApiService,
-    private router: Router,
     private location: Location,
     private route: ActivatedRoute,
     private toasterService: NbToastrService,

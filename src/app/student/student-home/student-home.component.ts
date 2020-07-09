@@ -1,3 +1,4 @@
+import { InstituteService } from './../../services/institute.service';
 import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../student-menu';
@@ -13,8 +14,10 @@ export class StudentHomeComponent implements OnInit {
   tests: any[] = [];
 
   display: boolean = false;
-  constructor(private studentService: StudentService) {}
+  constructor(private instituteService: InstituteService, private studentService: StudentService) {}
   ngOnInit() {
+    this.instituteService.publishData('');
+
     this.hideOtherMenus();
     this.getDashboardData();
   }
@@ -36,7 +39,6 @@ export class StudentHomeComponent implements OnInit {
   getDashboardData() {
     this.studentService.getStudentDashboard().subscribe((res: any) => {
       this.announcements = res.announcements;
-      console.log(this.announcements);
       this.tests = res.test;
       this.schedules = res.schedule;
       this.display = true;

@@ -23,6 +23,7 @@ export class StudentInstitutesComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.display = false;
+    this.instituteService.publishData('');
     this.hideOtherMenus();
     this.user = this.authService.getUser();
     this.studentService.getInstitutesOfStudent(this.user._id).subscribe((inst: any) => {

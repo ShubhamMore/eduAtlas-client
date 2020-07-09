@@ -1,6 +1,5 @@
 import { StudentService } from './../../../services/student.service';
 import { NbToastrService } from '@nebular/theme';
-import { ApiService } from './../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ScheduleService } from '../../../services/schedule/schedule.service';

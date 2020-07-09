@@ -46,7 +46,16 @@
                   <td>{{ i + 1 }}</td>
                   <td>{{ announcement.announcements.title }}</td>
                   <td>{{ announcement.announcements.date }}</td>
-                  <td>{{ announcement.announcements.attachment.secure_url }}</td>
+                  <td>
+                    <a
+                      [href]="announcement.announcements.attachment.secure_url"
+                      *ngIf="announcement.announcements.attachment.secure_url; else noFile"
+                    >
+                      {{ announcement.announcements.attachment.file_name }} </a
+                    ><ng-template #noFile>
+                      <span>--</span>
+                    </ng-template>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -68,8 +77,7 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Institute</th>
-                  <th>Course</th>
+                  <th>Batch</th>
                   <th>Date</th>
                   <th>Topic</th>
                 </tr>
@@ -77,8 +85,7 @@
               <tbody>
                 <tr *ngFor="let schedule of schedules; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ schedule.instituteName }}</td>
-                  <td>{{ schedule.courseName + ' (' + schedule.batchCode + ')' }}</td>
+                  <td>{{ schedule.batchCode }}</td>
                   <td>{{ schedule.lecture.date }}</td>
                   <td>{{ schedule.lecture.topic }}</td>
                 </tr>

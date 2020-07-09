@@ -1,7 +1,7 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({

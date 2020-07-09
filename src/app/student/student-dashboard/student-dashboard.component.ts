@@ -45,7 +45,6 @@ export class StudentDashboardComponent implements OnInit {
 
   getDashboardData(id: string) {
     this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {
-      console.log(res);
       this.announcements = res.announcements;
       this.schedules = res.schedule;
       this.display = true;
