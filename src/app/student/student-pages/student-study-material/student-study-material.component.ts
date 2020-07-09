@@ -1,7 +1,6 @@
 import { StudentService } from './../../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from './../../../services/api.service';
 import { NbToastrService } from '@nebular/theme';
 
 @Component({
@@ -15,9 +14,9 @@ export class StudentStudyMaterialComponent implements OnInit {
   courses: any[] = [];
   instituteId: any;
   institute: any;
+  batchCode: any = '';
   constructor(
     private toastrService: NbToastrService,
-    private api: ApiService,
     private studentService: StudentService,
     private route: ActivatedRoute,
   ) {}
@@ -33,6 +32,10 @@ export class StudentStudyMaterialComponent implements OnInit {
     this.studentService.getStudentCoursesByInstitutes(instituteId).subscribe(
       (res: any[]) => {
         this.courses = res;
+        if (this.courses.length > 0) {
+          this.batchCode = this.courses[0].batchCode;
+          this.onSelectCourse(this.batchCode);
+        }
         this.display = true;
       },
       (err: any) => {},

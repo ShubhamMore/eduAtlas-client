@@ -42,6 +42,7 @@ import { StudentMeetingComponent } from './student-pages/student-meeting/student
 import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
 import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
 import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
+import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-class.component';
 
 @NgModule({
   imports: [
@@ -89,6 +90,8 @@ import { StudentViewEnrollmentComponent } from './student-pages/student-enrollme
     StudentMeetingComponent,
 
     StudentMentoringComponent,
+
+    OnlineeClassComponent,
   ],
 })
 export class StudentModule {}

@@ -1,5 +1,4 @@
 import { StudentService } from './../../services/student.service';
-import { ApiService } from './../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../student-menu';
 
@@ -31,11 +30,13 @@ export class StudentHomeComponent implements OnInit {
     MENU_ITEMS[9].hidden = true;
     MENU_ITEMS[10].hidden = true;
     MENU_ITEMS[11].hidden = true;
+    MENU_ITEMS[12].hidden = true;
   }
 
   getDashboardData() {
     this.studentService.getStudentDashboard().subscribe((res: any) => {
       this.announcements = res.announcements;
+      console.log(this.announcements);
       this.tests = res.test;
       this.schedules = res.schedule;
       this.display = true;

@@ -9,6 +9,15 @@ import { environment } from '../../environments/environment';
 })
 export class StudentService {
   private student: any;
+  private institute: any;
+
+  setInstitute(institute: any) {
+    this.institute = institute;
+  }
+
+  getInstitute() {
+    return this.institute;
+  }
 
   setStudent(student: any) {
     this.student = student;
@@ -28,7 +37,7 @@ export class StudentService {
 
   getInstitutesDashboardDataForStudent(instituteId: string) {
     return this.http
-      .post(environment.server + '/institute/student/getInstitutesDashboardDataForStudent', {
+      .post(environment.server + '/institute/student/studentInstituteDashboard', {
         _id: this.student._id,
         instituteId,
       })
@@ -44,6 +53,18 @@ export class StudentService {
   getStudyMaterialForStudent(data: any) {
     return this.http
       .post(environment.server + '/institute/studyMaterial/getStudyMaterialForStudent', data)
+      .pipe(tap(), catchError(this.handleError));
+  }
+
+  getMentoringForStudent(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentMentoringByInstitute', data)
+      .pipe(tap(), catchError(this.handleError));
+  }
+
+  getPTMForStudent(data: any) {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentPTMByInstitutes', data)
       .pipe(tap(), catchError(this.handleError));
   }
 

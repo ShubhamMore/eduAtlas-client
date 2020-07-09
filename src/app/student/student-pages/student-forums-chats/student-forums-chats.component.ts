@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class StudentForumsChatsComponent implements OnInit {
   instituteId: string;
-  selectedCourseId: string;
+  courseId: string = '';
   courses: any[] = [];
   allForums: any[] = [];
   display: boolean;
@@ -23,29 +23,33 @@ export class StudentForumsChatsComponent implements OnInit {
   ngOnInit(): void {
     this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    this.getCourses();
+    this.getCourses(this.instituteId);
   }
 
-  getCourses() {
-    this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe(
-      (data: any) => {
-        this.courses = data;
+  getCourses(instituteId) {
+    this.studentService.getStudentCoursesByInstitutes(instituteId).subscribe(
+      (res: any[]) => {
+        this.courses = res;
+        if (this.courses.length > 0) {
+          this.courseId = this.courses[0]._id;
+          this.onSelectCourse(this.courseId);
+        }
         this.display = true;
       },
-      (err: any) => console.error(err),
+      (err: any) => {},
     );
   }
 
   onSelectCourse(courseId: any) {
     if (courseId !== '') {
-      this.selectedCourseId = courseId;
+      this.courseId = courseId;
       this.getForums();
     }
   }
 
   getForums() {
     this.api
-      .getForumsByInstitute({ instituteId: this.instituteId, courseId: this.selectedCourseId })
+      .getForumsByInstitute({ instituteId: this.instituteId, courseId: this.courseId })
       .subscribe((res: any) => {
         this.allForums = res;
         this.allForums.map((myForum) => {

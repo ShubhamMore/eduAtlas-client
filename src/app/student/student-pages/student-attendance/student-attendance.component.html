@@ -12,6 +12,7 @@
             status="basic"
             fullWidth
             (selectedChange)="onSelectCourse($event)"
+            [(selected)]="courseId"
           >
             <nb-option value="">Select Course</nb-option>
             <nb-option *ngFor="let course of courses" [value]="course._id">{{

@@ -172,6 +172,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.roleService.assignRoles(role);
         this.router.navigate(['/pages/dashboard/', event], { relativeTo: this.route.parent });
       } else if (this.user.role === 'student') {
+        const institute = this.institutes.find((inst: any) => inst._id === event);
+        this.studentService.setInstitute(institute);
         this.router.navigate(['/student/dashboard/', event], {
           relativeTo: this.route.parent,
         });
@@ -207,11 +209,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   openChatBox(user: any, listType: string) {
-    if (listType && listType == 'instituteList') {
+    if (listType && listType === 'instituteList') {
       user.basicDetails = {};
       user.basicDetails.name = user.instituteUsers.name;
       user.eduAtlasId = user.instituteUsers.eduAtlasId;
-    } else if (listType && listType == 'teacherDetails') {
+    } else if (listType && listType === 'teacherDetails') {
       user.basicDetails = {};
       user.basicDetails.name = user.teachers.name;
       user.eduAtlasId = user.teachers.eduAtlasId;

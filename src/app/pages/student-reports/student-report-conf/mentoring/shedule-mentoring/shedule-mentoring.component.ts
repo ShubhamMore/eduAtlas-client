@@ -33,6 +33,7 @@ export class SheduleMentoringComponent implements OnInit {
     this.display = false;
     this.mentorings = [];
     this.teachers = [];
+    this.editMentoringId = null;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.route.queryParams.subscribe((data) => {
       this.studentId = data.student;
@@ -115,7 +116,7 @@ export class SheduleMentoringComponent implements OnInit {
           (res: any) => {
             this.getMentoring();
             this.showToast('top right', 'success', 'Mentoring Session Added Successfully');
-            this.mentoringForm.reset();
+            this.ngOnInit();
           },
           (err: any) => {
             this.showToast('top right', 'danger', err.error.message);
@@ -127,8 +128,7 @@ export class SheduleMentoringComponent implements OnInit {
         this.api.updateMentoring(mentoring).subscribe(
           (res) => {
             this.showToast('top right', 'success', 'Mentoring Session Updated Successfully');
-            this.getMentoring();
-            this.cancelEdit();
+            this.ngOnInit();
           },
           (err) => {
             this.showToast('top right', 'danger', err.error.message);

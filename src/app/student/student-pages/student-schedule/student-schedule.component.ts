@@ -50,6 +50,10 @@ export class StudentScheduleComponent implements OnInit {
     this.studentService.getStudentCoursesByInstitutes(instituteId).subscribe(
       (res: any[]) => {
         this.courses = res;
+        if (this.courses.length > 0) {
+          this.courseId = this.courses[0]._id;
+          this.onSelectCourse(this.courseId);
+        }
         this.display = true;
       },
       (err: any) => {},

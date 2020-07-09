@@ -19,6 +19,7 @@ export class StudentAttendanceComponent implements OnInit {
   courses: any[];
   studentId: any;
   studentName: any;
+  courseId: any = '';
   noAttendanceData: any;
   constructor(
     private api: ApiService,
@@ -42,6 +43,10 @@ export class StudentAttendanceComponent implements OnInit {
     this.studentService.getStudentCoursesByInstitutes(instituteId).subscribe(
       (res: any[]) => {
         this.courses = res;
+        if (this.courses.length > 0) {
+          this.courseId = this.courses[0]._id;
+          this.onSelectCourse(this.courseId);
+        }
         this.display = true;
       },
       (err: any) => {},

@@ -5,8 +5,13 @@
         <h4>STUDY MATERIAL</h4>
       </div>
       <div class="col-md-3">
-        <nb-select placeholder="Select Course" fullWidth (selectedChange)="onSelectCourse($event)">
-          <nb-option value="all">Select Course</nb-option>
+        <nb-select
+          placeholder="Select Course"
+          fullWidth
+          (selectedChange)="onSelectCourse($event)"
+          [(selected)]="batchCode"
+        >
+          <nb-option value="">Select Course</nb-option>
           <nb-option *ngFor="let course of courses" [value]="course.batchCode">{{
             course.courseName + ' (' + course.batchCode + ')'
           }}</nb-option>

@@ -21,22 +21,31 @@ export class StudentDashboardComponent implements OnInit {
     private instituteService: InstituteService,
     private api: ApiService,
     private studentService: StudentService,
-  ) {}
+  ) {
+    active.params.subscribe((val) => {
+      // put the code from `ngOnInit` here
+      this.ngOnInit();
+    });
+  }
   ngOnInit() {
     this.display = false;
     this.instituteId = this.active.snapshot.paramMap.get('id');
+    this.institute = this.studentService.getInstitute();
     this.setInstituteIdForMenus();
     this.showDashboardMenus();
+    this.getDashboardData(this.institute);
     this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe((res: any) => {});
     this.api.getInstitute(this.instituteId).subscribe((res: any) => {
       this.institute = res.institute;
       this.instituteService.setInstitute(this.institute);
+      this.showDashboardMenus();
       this.display = true;
     });
   }
 
   getDashboardData(id: string) {
     this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {
+      console.log(res);
       this.announcements = res.announcements;
       this.schedules = res.schedule;
       this.display = true;
@@ -72,5 +81,10 @@ export class StudentDashboardComponent implements OnInit {
     MENU_ITEMS[9].hidden = false;
     MENU_ITEMS[10].hidden = false;
     MENU_ITEMS[11].hidden = false;
+    if (this.institute.currentPlan !== 'Lite') {
+      MENU_ITEMS[12].hidden = false;
+    } else {
+      MENU_ITEMS[12].hidden = true;
+    }
   }
 }

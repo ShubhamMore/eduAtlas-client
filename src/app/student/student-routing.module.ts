@@ -1,3 +1,4 @@
+import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-class.component';
 import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
 import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
 import { StudentViewAnnouncementComponent } from './student-pages/student-announcements/student-view-announcement/student-view-announcement.component';
@@ -17,6 +18,7 @@ import { StudentViewScheduleComponent } from './student-pages/student-schedule/s
 import { StudentMeetingComponent } from './student-pages/student-meeting/student-meeting.component';
 import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
 import { StudentForumCommentComponent } from './student-pages/student-forums-chats/student-forum-comment/student-forum-comment.component';
+import { StudentEaLiveGuard } from '../services/auth-services/auth-guards/student-ealive-auth.guard';
 
 const routes: Routes = [
   {
@@ -93,6 +95,11 @@ const routes: Routes = [
       {
         path: 'mentoring/:id',
         component: StudentMentoringComponent,
+      },
+      {
+        path: 'onlineClasses/:id',
+        component: OnlineeClassComponent,
+        canActivate: [StudentEaLiveGuard],
       },
 
       {

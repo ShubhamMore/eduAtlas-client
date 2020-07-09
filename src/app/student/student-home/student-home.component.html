@@ -9,6 +9,8 @@
                 <thead>
                   <tr>
                     <th>#</th>
+                    <th>Institute</th>
+                    <th>Batch</th>
                     <th>Title</th>
                     <th>Date</th>
                     <th>Attachment</th>
@@ -17,9 +19,20 @@
                 <tbody>
                   <tr *ngFor="let announcement of announcements; let i = index">
                     <td>{{ i + 1 }}</td>
+                    <td>{{ announcement.instituteName }}</td>
+                    <td>{{ announcement.batchCode }}</td>
                     <td>{{ announcement.announcements.title }}</td>
                     <td>{{ announcement.announcements.date }}</td>
-                    <td>{{ announcement.announcements.attachment.secure_url }}</td>
+                    <td>
+                      <a
+                        [href]="announcement.announcements.attachment.secure_url"
+                        *ngIf="announcement.announcements.attachment.secure_url; else noFile"
+                      >
+                        {{ announcement.announcements.attachment.file_name }} </a
+                      ><ng-template #noFile>
+                        <span>--</span>
+                      </ng-template>
+                    </td>
                   </tr>
                 </tbody>
               </table>

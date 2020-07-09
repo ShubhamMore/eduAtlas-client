@@ -42,9 +42,13 @@ export class StudentInstitutesComponent implements OnInit {
     MENU_ITEMS[9].hidden = true;
     MENU_ITEMS[10].hidden = true;
     MENU_ITEMS[11].hidden = true;
+    MENU_ITEMS[12].hidden = true;
   }
 
   viewInstitute(id: string) {
+    this.instituteService.publishData(id);
+    const institute = this.institutes.find((inst: any) => inst._id === id);
+    this.studentService.setInstitute(institute);
     this.router.navigate(['/student/dashboard', id], { relativeTo: this.route });
   }
 }

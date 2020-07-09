@@ -72,4 +72,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
     hidden: true,
   },
+  {
+    title: 'EA Live', //  12
+    link: '/student/onlineClasses/',
+    home: true,
+    hidden: true,
+  },
 ];

@@ -14,6 +14,7 @@ export class StudentAnnouncementsComponent implements OnInit {
   courses = [];
   instituteId: string;
   studentId: string;
+  batchCode: any = '';
   display = false;
   constructor(
     private toastrService: NbToastrService,
@@ -27,12 +28,16 @@ export class StudentAnnouncementsComponent implements OnInit {
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.studentId = this.studentService.getStudent()._id;
     this.getCourses();
-    // this.getAnnouncements(this.instituteId);
   }
 
   getCourses() {
     this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe((res: any) => {
       this.courses = res;
+
+      if (this.courses.length > 0) {
+        this.batchCode = this.courses[0].batchCode;
+        this.onSelectCourse(this.batchCode);
+      }
       this.display = true;
     });
   }

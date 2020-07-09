@@ -1,11 +1,8 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { Location } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { RoleAssignService } from '../../../services/role/role-assign.service';
-import { AuthService } from '../../../services/auth-services/auth.service';
 import { StudentService } from '../../../services/student.service';
 
 @Component({
@@ -17,8 +14,7 @@ export class StudentPerformanceReportComponent implements OnInit {
   studentId: string;
   instituteId: string;
   students: any[];
-  file: File;
-  invalidFile: boolean;
+  course: any;
   test: any;
   remarks: any;
   display: boolean;
@@ -37,7 +33,6 @@ export class StudentPerformanceReportComponent implements OnInit {
   constructor(
     private api: ApiService,
     private route: ActivatedRoute,
-    private location: Location,
     private toasterService: NbToastrService,
     private roleService: RoleAssignService,
     private studentService: StudentService,
@@ -82,7 +77,6 @@ export class StudentPerformanceReportComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-    this.invalidFile = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.studentId = this.studentService.getStudent()._id;
 
@@ -112,6 +106,10 @@ export class StudentPerformanceReportComponent implements OnInit {
   getCourses() {
     this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe((res: any) => {
       this.courses = res;
+      if (this.courses.length > 0) {
+        this.course = this.courses[0];
+        this.onSelectCourse(this.course);
+      }
       this.display = true;
     });
   }
@@ -131,10 +129,9 @@ export class StudentPerformanceReportComponent implements OnInit {
           if (res) {
             this.test = res;
           }
-          if (this.test && this.test.length == 0) {
+          if (this.test && this.test.length === 0) {
             this.noData = 'No Data Found';
           }
-          this.display = true;
           res.sort((test1, test2) => {
             const test1Date = new Date(test1.date);
             const test2Date = new Date(test2.date);
@@ -145,6 +142,7 @@ export class StudentPerformanceReportComponent implements OnInit {
             }
           });
           this.generateGraph();
+          this.display = true;
         },
         (err) => {},
       );
