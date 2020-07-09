@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     this.analytics.trackPageViews();
     this.seoService.trackCanonicalChanges();
     const userData: UserData = JSON.parse(localStorage.getItem('userData'));
-    // console.log(userData);
+
     if (!userData) {
       return;
     }

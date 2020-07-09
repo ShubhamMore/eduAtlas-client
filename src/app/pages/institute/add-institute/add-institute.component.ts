@@ -112,7 +112,6 @@ export class AddInstituteComponent implements OnInit {
         // tslint:disable-next-line: max-line-length
         order_id: '', // This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
         handler: (response: any) => {
-          // console.log(response);
           this.verifyPayment(response);
         },
         modal: {
@@ -173,11 +172,8 @@ export class AddInstituteComponent implements OnInit {
     this.paymentService.deleteOrder(this.placedOrderReceipt._id).subscribe(
       (res: any) => {
         this.placedOrderReceipt = null;
-        // console.log(res);
       },
-      (err) => {
-        // console.log(err);
-      },
+      (err) => {},
     );
   }
 
@@ -193,7 +189,6 @@ export class AddInstituteComponent implements OnInit {
   generateOrder(order: any) {
     this.paymentService.generateOrder(order).subscribe(
       (res: any) => {
-        // console.log(res);
         this.placedOrderReceipt = res.receipt;
         // this.options.amount = res.order.amount;
         this.options.amount = '1';
@@ -206,7 +201,6 @@ export class AddInstituteComponent implements OnInit {
         this.pay();
       },
       (err) => {
-        // console.log(err);
         this.showToast('top-right', 'danger', err.error.message || 'Order Generation Failed');
       },
     );
@@ -215,7 +209,6 @@ export class AddInstituteComponent implements OnInit {
   verifyPayment(payment: any) {
     this.paymentService.verifyPayment(payment, this.placedOrderReceipt).subscribe(
       (res: any) => {
-        // console.log(res);
         this.showToast('top-right', 'success', 'Payment Verified Successfully');
         setTimeout(() => {
           // this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
@@ -223,7 +216,6 @@ export class AddInstituteComponent implements OnInit {
         }, 1000);
       },
       (err: any) => {
-        // console.log(err);
         this.showToast('top-right', 'danger', err.error.message || 'Payment Verification Failed');
       },
     );

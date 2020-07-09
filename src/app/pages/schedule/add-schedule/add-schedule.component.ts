@@ -431,7 +431,7 @@ export class AddScheduleComponent implements OnInit {
         days.push(day.value);
       });
       schedule.days = days;
-      // console.log(schedule);
+
       this.scheduleService.updateSchedule(schedule, this.schedule._id).subscribe(
         (res: any) => {
           this.showToast('top-right', 'success', 'Schedule Updated Successfully');
