@@ -202,7 +202,6 @@ export class ApiService {
   verifyUserOtp(data: any) {
     return this.http.post<any>(environment.server + '/users/verifyOTP', data).pipe(
       tap((res: any) => {
-        // console.log(res);
         return res;
       }),
       catchError(this.handleError),
@@ -513,9 +512,7 @@ export class ApiService {
 
     return this.http.post(environment.server + '/institute/employee/addEmployee', data).pipe(
       // tslint:disable-next-line: no-shadowed-variable
-      tap((res: any) => {
-        // console.log(data);
-      }),
+      tap((res: any) => {}),
       catchError(this.handleError),
     );
   }
@@ -527,9 +524,7 @@ export class ApiService {
         eduAtlasId: data,
       })
       .pipe(
-        tap((res) => {
-          // console.log(res);
-        }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -540,9 +535,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getOneEmployeeByInstitute', data)
       .pipe(
-        tap((res) => {
-          // console.log(dres);
-        }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );
@@ -553,9 +546,7 @@ export class ApiService {
     return this.http
       .post(environment.server + '/institute/employee/getEmployeeInstitutes', data)
       .pipe(
-        tap((res) => {
-          // console.log(dres);
-        }),
+        tap((res) => {}),
         map((res) => res),
         catchError(this.handleError),
       );

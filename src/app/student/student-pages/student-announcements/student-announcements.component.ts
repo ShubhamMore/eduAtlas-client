@@ -56,7 +56,6 @@ export class StudentAnnouncementsComponent implements OnInit {
     this.announceService.getStudentAnnouncements(id, batch).subscribe((data: any) => {
       this.announcements = data;
       this.display = true;
-      // console.log('announce =>', this.announcement);
     });
   }
 

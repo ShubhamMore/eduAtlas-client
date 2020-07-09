@@ -159,9 +159,8 @@ export class AnnouncementsComponent implements OnInit {
   onDelete(id: any) {
     this.announceService.deleteAnnouncement(id).subscribe(
       (res) => {
-        // console.log(res);
         const i = this.announcements.findIndex((e: any) => e._id === id);
-        // console.log(i);
+
         if (i !== -1) {
           this.announcements.splice(i, 1);
           this.showToast('top-right', 'success', 'Announcement Deleted Successfully');

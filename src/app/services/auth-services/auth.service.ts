@@ -199,9 +199,7 @@ export class AuthService {
         }
         this.tokenExpirationTimer = null;
       },
-      (errorMessage) => {
-        // console.log(errorMessage);
-      },
+      (errorMessage) => {},
     );
   }
 
@@ -229,9 +227,7 @@ export class AuthService {
         }
         this.tokenExpirationTimer = null;
       },
-      (errorMessage) => {
-        // console.log(errorMessage);
-      },
+      (errorMessage) => {},
     );
   }
 

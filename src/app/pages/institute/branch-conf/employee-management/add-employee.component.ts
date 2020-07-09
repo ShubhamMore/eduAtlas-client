@@ -177,7 +177,7 @@ export class AddEmployeeComponent implements OnInit {
       })
       .subscribe((data: any) => {
         this.employee = data[0];
-        // console.log(this.employee);
+
         const eduAtlId = this.employeeEduId;
 
         this.eduAtlasEmployeeForm.patchValue({

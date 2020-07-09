@@ -46,7 +46,6 @@ export class ManageAnnouncementsComponent implements OnInit {
     this.announceService.getAnnouncements(id).subscribe((data: any) => {
       this.announcements = data;
       this.display = true;
-      // console.log('announce =>', this.announcement);
     });
   }
 
