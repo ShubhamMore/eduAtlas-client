@@ -1,3 +1,4 @@
+import { SharedModule } from './../../../services/shared.module';
 // import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { ViewAnnouncementsComponent } from './../announcements/view-announcements/view-announcements.component';
 
@@ -17,7 +18,6 @@ import {
 } from '@nebular/theme';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SafeHtmlPipe } from '../../../pipe/safe-html.pipe';
 import { ForumComponent } from '../forum/forum.component';
 import { AddForumComponent } from '../forum/add-forum/add-forum.component';
 import { MyForumComponent } from '../forum/my-forum/my-forum.component';
@@ -29,7 +29,6 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
     AnnouncementsComponent,
     ManageAnnouncementsComponent,
     ViewAnnouncementsComponent,
-    SafeHtmlPipe,
     ForumComponent,
     AddForumComponent,
     MyForumComponent,
@@ -42,6 +41,7 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
     FormsModule,
     ReactiveFormsModule,
     NbCardModule,
+    SharedModule,
     NbInputModule,
     NbSelectModule,
     NbCheckboxModule,

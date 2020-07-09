@@ -1,7 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StudentForumCommentComponent } from './student-pages/student-forums-chats/student-forum-comment/student-forum-comment.component';
-import { SafeHtmlPipe } from './../pipe/safe-html.pipe';
+
 import { StudentComponent } from './student.component';
 import { NgModule } from '@angular/core';
 
@@ -43,10 +43,12 @@ import { StudentMentoringComponent } from './student-pages/student-mentoring/stu
 import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
 import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
 import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-class.component';
+import { SharedModule } from '../services/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
+    SharedModule,
     StudentRoutingModule,
     ThemeModule,
     NbMenuModule,
@@ -82,8 +84,6 @@ import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-cla
     StudentInstitutesComponent,
     StudentForumCommentComponent,
     StudentViewEnrollmentComponent,
-
-    SafeHtmlPipe,
 
     StudentViewScheduleComponent,
 
