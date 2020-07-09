@@ -9,12 +9,17 @@ import { MENU_ITEMS } from '../student-menu';
   styleUrls: ['./student-home.component.scss'],
 })
 export class StudentHomeComponent implements OnInit {
+  announcements: any[] = [];
+  schedules: any[] = [];
+  tests: any[] = [];
+
   display: boolean = false;
   constructor(private studentService: StudentService) {}
   ngOnInit() {
     this.hideOtherMenus();
-    this.display = true;
+    this.getDashboardData();
   }
+
   hideOtherMenus() {
     MENU_ITEMS[2].hidden = true;
     MENU_ITEMS[3].hidden = true;
@@ -26,5 +31,14 @@ export class StudentHomeComponent implements OnInit {
     MENU_ITEMS[9].hidden = true;
     MENU_ITEMS[10].hidden = true;
     MENU_ITEMS[11].hidden = true;
+  }
+
+  getDashboardData() {
+    this.studentService.getStudentDashboard().subscribe((res: any) => {
+      this.announcements = res.announcements;
+      this.tests = res.test;
+      this.schedules = res.schedule;
+      this.display = true;
+    });
   }
 }

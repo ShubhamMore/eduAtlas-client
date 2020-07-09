@@ -35,6 +35,12 @@ export class StudentService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  getStudentDashboard() {
+    return this.http
+      .post(environment.server + '/institute/student/getStudentDashboard', {})
+      .pipe(tap(), catchError(this.handleError));
+  }
+
   getStudyMaterialForStudent(data: any) {
     return this.http
       .post(environment.server + '/institute/studyMaterial/getStudyMaterialForStudent', data)

@@ -17,6 +17,7 @@ import {
   NbAccordionModule,
   NbInputModule,
   NbCheckboxModule,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -58,6 +59,7 @@ import { StudentViewEnrollmentComponent } from './student-pages/student-enrollme
     NbIconModule,
     NbListModule,
     NbSelectModule,
+    NbTabsetModule,
     NbDatepickerModule,
     NbAccordionModule,
     NbButtonModule,

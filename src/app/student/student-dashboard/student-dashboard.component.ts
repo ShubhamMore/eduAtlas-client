@@ -14,6 +14,8 @@ export class StudentDashboardComponent implements OnInit {
   instituteId: string;
   institute: any;
   display: boolean;
+  announcements: any[] = [];
+  schedules: any[] = [];
   constructor(
     private active: ActivatedRoute,
     private instituteService: InstituteService,
@@ -34,7 +36,11 @@ export class StudentDashboardComponent implements OnInit {
   }
 
   getDashboardData(id: string) {
-    this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {});
+    this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {
+      this.announcements = res.announcements;
+      this.schedules = res.schedule;
+      this.display = true;
+    });
   }
 
   setInstituteIdForMenus() {
@@ -54,6 +60,7 @@ export class StudentDashboardComponent implements OnInit {
       }
     });
   }
+
   showDashboardMenus() {
     MENU_ITEMS[2].hidden = false;
     MENU_ITEMS[3].hidden = false;

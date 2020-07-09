@@ -23,4 +23,73 @@
       </nb-card>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <nb-card class="card-height-1">
+        <nb-card-header>
+          <h5>ANNOUNCEMENTS</h5>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="table-responsive" *ngIf="announcements.length > 0; else noAnnouncements">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Attachment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let announcement of announcements; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ announcement.announcements.title }}</td>
+                  <td>{{ announcement.announcements.date }}</td>
+                  <td>{{ announcement.announcements.attachment.secure_url }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noAnnouncements>
+            <p class="text-center pt-5">No Announcements</p>
+          </ng-template>
+        </nb-card-body>
+      </nb-card>
+    </div>
+    <div class="col-md-6">
+      <nb-card class="card-height-1">
+        <nb-card-header>
+          <h5>CLASS SCHEDULE</h5>
+        </nb-card-header>
+        <nb-card-body>
+          <div class="table-responsive" *ngIf="schedules.length > 0; else noSchedules">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Institute</th>
+                  <th>Course</th>
+                  <th>Date</th>
+                  <th>Topic</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let schedule of schedules; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ schedule.instituteName }}</td>
+                  <td>{{ schedule.courseName + ' (' + schedule.batchCode + ')' }}</td>
+                  <td>{{ schedule.lecture.date }}</td>
+                  <td>{{ schedule.lecture.topic }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noSchedules>
+            <p class="text-center pt-5">No Upcoming Classes</p>
+          </ng-template>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
 </ng-container>
