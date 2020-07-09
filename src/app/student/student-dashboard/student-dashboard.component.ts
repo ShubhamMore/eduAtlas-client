@@ -33,7 +33,7 @@ export class StudentDashboardComponent implements OnInit {
     this.institute = this.studentService.getInstitute();
     this.setInstituteIdForMenus();
     this.showDashboardMenus();
-    this.getDashboardData(this.institute);
+    this.getDashboardData(this.instituteId);
     this.studentService.getStudentCoursesByInstitutes(this.instituteId).subscribe((res: any) => {});
     this.api.getInstitute(this.instituteId).subscribe((res: any) => {
       this.institute = res.institute;
