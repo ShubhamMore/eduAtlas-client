@@ -39,8 +39,16 @@ export class StudentDashboardComponent implements OnInit {
       this.institute = res.institute;
       this.instituteService.setInstitute(this.institute);
       this.showDashboardMenus();
+      this.setHeaderDetails();
       this.display = true;
     });
+  }
+  setHeaderDetails() {
+    const instituteHeaderDetails = {
+      secure_url: this.institute.basicInfo.logo.secure_url,
+      name: this.institute.basicInfo.name,
+    };
+    this.instituteService.setInstituteHeaderDetails(instituteHeaderDetails);
   }
 
   getDashboardData(id: string) {
