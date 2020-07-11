@@ -21,8 +21,8 @@ export class AdminInstituteComponent implements OnInit, OnDestroy {
     this.display = true;
   }
 
-  getExpiryDate(date: string) {
-    return date.substring(0, 10).trim().split('-').reverse().join('-');
+  getDate(date: string) {
+    return date ? date.substring(0, 10).trim().split('-').reverse().join('-') : '';
   }
 
   ngOnDestroy() {

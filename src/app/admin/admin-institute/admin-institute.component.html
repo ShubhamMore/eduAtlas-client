@@ -62,8 +62,12 @@
             <td>{{ institute.currentPlan }}</td>
           </tr>
           <tr>
+            <td><strong>Stated On</strong></td>
+            <td>{{ getDate(institute.startDate) }}</td>
+          </tr>
+          <tr>
             <td><strong>Expire On</strong></td>
-            <td>{{ getExpiryDate(institute.expiryDate) }}</td>
+            <td>{{ getDate(institute.expiryDate) }}</td>
           </tr>
         </tbody>
       </table>
