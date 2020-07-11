@@ -75,7 +75,12 @@ export class ManageOnlineClassComponent implements OnInit {
     );
   }
 
-  notify(i: number) {}
+  notify(id: any) {
+    this.api.notifyMeeting({ _id: id }).subscribe(
+      (res: any) => {},
+      (err) => {},
+    );
+  }
 
   edit(id: string) {
     this.router.navigate(

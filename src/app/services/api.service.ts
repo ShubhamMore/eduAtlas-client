@@ -928,6 +928,14 @@ export class ApiService {
     );
   }
 
+  notifyMeeting(data) {
+    const url = `${environment.server}/institute/zoom/notifyMeeting`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   deleteMeeting(data) {
     const url = `${environment.server}/institute/zoom/deleteMeeting`;
     return this.http.post(url, data).pipe(
