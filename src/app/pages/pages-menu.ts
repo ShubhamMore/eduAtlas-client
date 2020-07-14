@@ -88,7 +88,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Communications', // 6
-    // icon: 'fa fa-comments-o',
+    icon: 'message-circle-outline',
     hidden: true,
     children: [
       {
@@ -104,7 +104,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Tests',
-    // icon: 'fa fa-pencil-square-o',
+    icon: 'edit-2-outline',
     hidden: true,
     children: [
       {
@@ -118,7 +118,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Student Reports',
-    // icon: 'fa fa-bar-chart',
+    icon: 'activity-outline',
     hidden: true,
     children: [
       {
@@ -164,21 +164,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Class Schedules', // 11
-    // icon: 'fa fa-calendar',
+    icon: 'calendar-outline',
     link: '/pages/institute/add-schedule/1',
     hidden: true,
   },
 
   {
     title: 'Attendance',
-    icon: '',
+    icon: 'checkmark-square-outline',
     link: '',
     hidden: true, // 12
   },
 
   {
     title: 'EA Live',
-    // icon: 'fa fa-globe',
+    icon: 'globe-outline',
     link: '',
     hidden: true, // 13
     children: [
@@ -199,21 +199,21 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'EA Live',
-    // icon: 'fa fa-bullhorn',
+    icon: 'globe-outline',
     link: '',
     hidden: true, // 14
   },
 
   {
     title: 'Leads Manager',
-    // icon: 'fa fa-bullhorn',
+    icon: 'bulb-outline',
     link: '',
     hidden: true, // 15
   },
 
   {
     title: 'Study Material',
-    // icon: 'fa fa-bullhorn',
+    icon: 'book-open-outline',
     link: '',
     hidden: true, // 16
   },

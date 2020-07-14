@@ -2,80 +2,82 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Home',
-    icon: 'home-outline', //  0
+    title: 'Home', //  0
     link: '/student/home/',
+    icon: 'home-outline',
     home: true,
+    hidden: false,
   },
   {
     title: 'My Institutes', //  1
     link: '/student/my-institutes/',
-    home: true,
+    icon: 'layers-outline',
+    hidden: false,
   },
   {
     title: 'Dashboard', //  2
     link: '/student/dashboard/',
-    home: true,
+    icon: 'layout-outline',
     hidden: true,
   },
   {
     title: 'Announcements', //  3
     link: '/student/announcements/',
-    home: true,
+    icon: 'message-square-outline',
     hidden: true,
   },
   {
     title: 'Schedule', //  4
     link: '/student/schedule/',
-    home: true,
+    icon: 'calendar-outline',
     hidden: true,
   },
   {
     title: 'Attendance', //  5
     link: '/student/attendance/',
-    home: true,
+    icon: 'checkmark-square-outline',
     hidden: true,
   },
   {
     title: 'Performance Report', //  6
     link: '/student/performanceReport/',
-    home: true,
+    icon: 'activity-outline',
     hidden: true,
   },
   {
     title: 'Study Materials', //  7
     link: '/student/studentMaterial/',
-    home: true,
+    icon: 'book-open-outline',
     hidden: true,
   },
   {
     title: 'Forums', //  8
     link: '/student/forumsAndChats/',
-    home: true,
+    icon: 'book-outline',
     hidden: true,
   },
   {
     title: 'Enrollment Details', //  9
     link: '/student/enrollmentDetails/',
-    home: true,
+    icon: 'bookmark-outline',
     hidden: true,
   },
   {
     title: 'Meetings', //  10
     link: '/student/meeting/',
-    home: true,
+    icon: 'people-outline',
     hidden: true,
   },
   {
     title: 'Mentoring', //  11
     link: '/student/mentoring/',
-    home: true,
+    icon: 'person-outline',
     hidden: true,
   },
   {
     title: 'EA Live', //  12
     link: '/student/onlineClasses/',
-    home: true,
+    icon: 'globe-outline',
     hidden: true,
   },
 ];
