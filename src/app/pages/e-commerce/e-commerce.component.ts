@@ -155,6 +155,10 @@ export class ECommerceComponent implements OnInit {
     );
   }
 
+  getDate(date: string) {
+    return date.split('-').reverse().join('-');
+  }
+
   getInstitutes() {
     const user = this.authService.getUser();
     if (user && user.role === 'institute') {
