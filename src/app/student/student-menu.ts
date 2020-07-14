@@ -41,7 +41,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Upcoming Tests', //  6
     link: '/student/tests/',
-    home: true,
+    icon: 'edit-2-outline',
     hidden: true,
   },
   {

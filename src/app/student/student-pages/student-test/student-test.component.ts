@@ -12,8 +12,7 @@ import { Location } from '@angular/common';
 export class StudentTestComponent implements OnInit {
   display: boolean;
   instituteId: any;
-  attendance: any[];
-  tests: any;
+  tests: any[];
   courses: any[];
   studentId: any;
   studentName: any;
@@ -46,11 +45,11 @@ export class StudentTestComponent implements OnInit {
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.studentId = this.studentService.getStudent()._id;
     this.studentName = this.studentService.getStudent().name;
-    this.attendance = [];
-    this.getAttendance();
+    this.tests = [];
+    this.getTests();
   }
 
-  getAttendance() {
+  getTests() {
     this.api
       .getStudentTestScheduleByInstitute({
         instituteId: this.instituteId,
@@ -58,7 +57,7 @@ export class StudentTestComponent implements OnInit {
       .subscribe(
         (res: any[]) => {
           this.display = true;
-          this.attendance = [];
+          this.tests = [];
           if (res.length === 0) {
             this.noTestsData = 'No Upcoming Tests';
           } else {

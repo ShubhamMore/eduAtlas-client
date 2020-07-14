@@ -10,34 +10,37 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <div class="row" *ngFor="let singleTest of tests; let i = index">
-      <div class="col-md-1">
-        <div class="date-block">
-          <span class="day">{{ getDay(singleTest.test.date) }}</span>
-          <span class="month">{{ getMonth(singleTest.test.date) }}</span>
+    <div *ngIf="tests.length > 0; else noTests">
+      <div class="row" *ngFor="let singleTest of tests; let i = index">
+        <div class="col-md-1">
+          <div class="date-block">
+            <span class="day">{{ getDay(singleTest.test.date) }}</span>
+            <span class="month">{{ getMonth(singleTest.test.date) }}</span>
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div>
-          <span class="boldText">{{ singleTest.test.testName }}</span>
+        <div class="col-md-3">
+          <div>
+            <span class="boldText">{{ singleTest.test.testName }}</span>
+          </div>
+          <div>
+            <label>Max Marks : </label
+            ><span class="boldText">{{ singleTest.test.totalMarks }}</span>
+          </div>
         </div>
-        <div>
-          <label>Max Marks : </label><span class="boldText">{{ singleTest.test.totalMarks }}</span>
+        <div class="col-md-3">
+          <div><label></label><span class="boldText"></span></div>
+          <div>
+            <label>Time : </label
+            ><span class="boldText"
+              >{{ singleTest.test.startTime }} - {{ singleTest.test.toTime }}</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="col-md-3">
-        <div><label></label><span class="boldText"></span></div>
-        <div>
-          <label>Time : </label
-          ><span class="boldText"
-            >{{ singleTest.test.startTime }} - {{ singleTest.test.toTime }}</span
-          >
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div><label></label><span class="boldText"></span></div>
-        <div>
-          <label>Batch : </label><span class="boldText">{{ singleTest.batchCode }}</span>
+        <div class="col-md-3">
+          <div><label></label><span class="boldText"></span></div>
+          <div>
+            <label>Batch : </label><span class="boldText">{{ singleTest.batchCode }}</span>
+          </div>
         </div>
       </div>
     </div>
