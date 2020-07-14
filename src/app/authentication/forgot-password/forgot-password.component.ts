@@ -12,8 +12,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
-  phone: string;
+  email: string;
   otpSend: boolean = false;
+  phone: string;
   otpVerified: boolean = false;
   otp: string;
 
@@ -26,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.forgotPasswordForm = new FormGroup({
-      phone: new FormControl(null, { validators: [Validators.required] }),
+      email: new FormControl(null, { validators: [Validators.required, Validators.email] }),
       otp: new FormControl(null, { validators: [Validators.required] }),
       password: new FormControl(null, { validators: [Validators.required] }),
     });
@@ -39,18 +40,19 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   getOtp() {
-    if (this.forgotPasswordForm.controls.phone.valid) {
-      this.phone = this.forgotPasswordForm.value.phone;
+    if (this.forgotPasswordForm.controls.email.valid) {
+      this.email = this.forgotPasswordForm.value.email;
 
       let param = new HttpParams();
       param = param.append('register', '0');
-      this.otpService.getOtpForRegisteredUser(this.phone, param).subscribe(
+      this.otpService.getOtpForRegisteredUser(this.email, param).subscribe(
         (data) => {
+          this.phone = data.phone;
           this.otpSend = true;
           this.showToast('top-right', 'success', 'OTP Send');
         },
         (error) => {
-          this.showToast('top-right', 'danger', 'This Phone Number is not valid');
+          this.showToast('top-right', 'danger', 'This email is not valid');
         },
       );
     }
@@ -59,7 +61,8 @@ export class ForgotPasswordComponent implements OnInit {
   verifyOtp() {
     if (
       this.otpSend &&
-      this.forgotPasswordForm.controls.phone.valid &&
+      this.forgotPasswordForm.controls.email.valid &&
+      this.phone &&
       this.forgotPasswordForm.controls.otp.valid
     ) {
       const verificationData = {
@@ -82,11 +85,12 @@ export class ForgotPasswordComponent implements OnInit {
   resetPassword() {
     if (
       this.otpVerified &&
-      this.forgotPasswordForm.controls.phone.valid &&
+      this.forgotPasswordForm.controls.email.valid &&
+      this.phone &&
       this.forgotPasswordForm.controls.password.valid
     ) {
       const data = {
-        phone: this.forgotPasswordForm.value.phone,
+        email: this.forgotPasswordForm.value.email,
         password: this.forgotPasswordForm.value.password,
       };
 

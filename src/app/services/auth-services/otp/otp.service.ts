@@ -16,9 +16,9 @@ export class OtpService {
     );
   }
 
-  getOtpForRegisteredUser(phone: any, param: any) {
+  getOtpForRegisteredUser(email: any, param: any) {
     return this.http
-      .get<any>(`${environment.server}/users/sendOtpForRegisteredUser/${phone}`, { params: param })
+      .get<any>(`${environment.server}/users/sendOtpForRegisteredUser/${email}`, { params: param })
       .pipe(
         tap((res: any) => {}),
         catchError(this.handleError),

@@ -36,11 +36,11 @@
             <!-- Login Form -->
             <form class="mt-3" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <input
-                type="text"
+                type="email"
                 maxlength="100"
                 class="fadeIn second"
                 formControlName="userId"
-                placeholder="Enter Email or Phone Number"
+                placeholder="Enter Email"
               />
               <div
                 *ngIf="

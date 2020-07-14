@@ -36,7 +36,10 @@
       <nb-card class="card-height-1">
         <nb-card-body>
           <nb-tabset fullWidth>
-            <nb-tab tabTitle="UPCOMING CLASSES" *ngIf="role === 'institute' || role === 'Manager'">
+            <nb-tab
+              tabTitle="UPCOMING CLASSES"
+              *ngIf="role === 'institute' || role === 'Manager' || role === 'Teacher'"
+            >
               <div class="table-responsive" *ngIf="classes.length > 0; else noClasses">
                 <table class="table table-borderless">
                   <thead>
@@ -226,14 +229,14 @@
       </div>
     </div>
 
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
       <nb-card>
         <nb-card-header style="background-color: #31bc9b;">
           <span style="font-size: 16px; color: #fff;">MESSAGE BOARD</span>
         </nb-card-header>
         <nb-card-body class="body-height-1"></nb-card-body>
       </nb-card>
-    </div>
+    </div> -->
 
     <div class="col-md-6" *ngIf="role === 'institute' || role === 'Manager'">
       <!-- <nb-card>
