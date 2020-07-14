@@ -36,6 +36,7 @@ export class ECommerceComponent implements OnInit {
   newLeads: any[] = [];
   classes: any[] = [];
   pendingFees: any[] = [];
+  announcements: any[] = [];
 
   totalStudents: any = 0;
   totalBatches: any = 0;
@@ -104,6 +105,7 @@ export class ECommerceComponent implements OnInit {
       this.classes = res.upcomingClass;
       this.pendingFees = res.pendingFees;
       this.newLeads = res.leads;
+      this.announcements = res.announcements;
       // this.studentReq = res.studentRequests;
       this.totalStudents = res.studentCount;
       this.totalBatches = res.batchCount;
@@ -121,8 +123,7 @@ export class ECommerceComponent implements OnInit {
   }
 
   createTime(time: string) {
-    const dateTime = time.split('T');
-    return dateTime[0] + ' ' + dateTime[1].substring(0, 5);
+    return time;
   }
 
   getInstitute(id: string) {

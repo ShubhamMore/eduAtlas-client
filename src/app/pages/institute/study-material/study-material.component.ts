@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudyMaterialComponent implements OnInit {
   display: boolean;
-  materials: any[] = [];
+  materials: any[];
   material: any;
   instituteId: any;
   institute: any;
@@ -21,10 +21,10 @@ export class StudyMaterialComponent implements OnInit {
   file: File;
 
   materialForm: FormGroup;
-  courses: any[] = [];
+  courses: any[];
   courseError: boolean;
   batchError: boolean;
-  batches: any[] = [];
+  batches: any[];
 
   videoUrl: boolean;
 
@@ -37,7 +37,18 @@ export class StudyMaterialComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
+    this.materials = [];
+    this.courses = [];
+    this.batches = [];
     this.videoUrl = false;
+    this.material = null;
+    this.institute = null;
+    this.edit = null;
+    this.studyMaterialId = null;
+    this.file = null;
+    this.courseError = false;
+    this.batchError = false;
+
     this.instituteId = this.active.snapshot.paramMap.get('id');
     this.materialForm = this.fb.group({
       title: ['', Validators.required],
@@ -222,6 +233,7 @@ export class StudyMaterialComponent implements OnInit {
         (res) => {
           this.showToast('top-right', 'success', 'Study Material Edited Successfully');
           this.cancelEdit();
+          this.ngOnInit();
         },
         (err: any) => {
           this.showToast('top-right', 'danger', err.err.message);
@@ -232,6 +244,7 @@ export class StudyMaterialComponent implements OnInit {
         (res) => {
           this.showToast('top-right', 'success', 'Study Material Added Successfully');
           this.cancelEdit();
+          this.ngOnInit();
         },
         (err: any) => {
           this.showToast('top-right', 'danger', err.err.message);

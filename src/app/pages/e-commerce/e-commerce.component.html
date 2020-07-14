@@ -47,16 +47,20 @@
                       <th>#</th>
                       <th>Topic</th>
                       <th>Start Time</th>
-                      <th>Host</th>
+                      <th>End Time</th>
+                      <!-- <th>Teacher</th> -->
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let course of classes; let i = index">
-                      <td>{{ i + 1 }}</td>
-                      <td>{{ course.topic }}</td>
-                      <td>{{ createTime(course.startTime) }}</td>
-                      <td>{{ course.hostName }}</td>
-                    </tr>
+                    <ng-container *ngFor="let class of classes; let i = index">
+                      <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ class.days.topic }}</td>
+                        <td>{{ createTime(class.days.startTime) }}</td>
+                        <td>{{ createTime(class.days.endTime) }}</td>
+                        <!-- <td>{{ class.days.teacher }}</td> -->
+                      </tr>
+                    </ng-container>
                   </tbody>
                 </table>
               </div>
@@ -229,14 +233,47 @@
       </div>
     </div>
 
-    <!-- <div class="col-md-6">
+    <div class="col-md-6">
       <nb-card>
         <nb-card-header style="background-color: #31bc9b;">
-          <span style="font-size: 16px; color: #fff;">MESSAGE BOARD</span>
+          <span style="font-size: 16px; color: #fff;">ANNOUNCEMENTS</span>
         </nb-card-header>
-        <nb-card-body class="body-height-1"></nb-card-body>
+        <nb-card-body class="body-height-1">
+          <div class="table-responsive" *ngIf="announcements.length > 0; else noAnnouncements">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Date</th>
+                  <th>Attachment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let announcement of announcements; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ announcement.title }}</td>
+                  <td>{{ announcement.date }}</td>
+                  <td>
+                    <a
+                      [href]="announcement.attachment.secure_url"
+                      *ngIf="announcement.attachment.secure_url; else noFile"
+                    >
+                      {{ announcement.attachment.file_name }} </a
+                    ><ng-template #noFile>
+                      <span>--</span>
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ng-template #noAnnouncements>
+            <p class="text-center pt-5">No Announcements</p>
+          </ng-template>
+        </nb-card-body>
       </nb-card>
-    </div> -->
+    </div>
 
     <div class="col-md-6" *ngIf="role === 'institute' || role === 'Manager'">
       <!-- <nb-card>
