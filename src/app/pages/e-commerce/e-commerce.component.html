@@ -45,20 +45,22 @@
                   <thead>
                     <tr>
                       <th>#</th>
+                      <th>Course</th>
+                      <th>Batch</th>
                       <th>Topic</th>
                       <th>Start Time</th>
-                      <th>End Time</th>
-                      <!-- <th>Teacher</th> -->
+                      <th>Teacher</th>
                     </tr>
                   </thead>
                   <tbody>
                     <ng-container *ngFor="let class of classes; let i = index">
                       <tr>
                         <td>{{ i + 1 }}</td>
+                        <td>{{ class.courseName }}</td>
+                        <td>{{ class.batchCode }}</td>
                         <td>{{ class.days.topic }}</td>
                         <td>{{ createTime(class.days.startTime) }}</td>
-                        <td>{{ createTime(class.days.endTime) }}</td>
-                        <!-- <td>{{ class.days.teacher }}</td> -->
+                        <td>{{ class.teacherName | uppercase }}</td>
                       </tr>
                     </ng-container>
                   </tbody>
