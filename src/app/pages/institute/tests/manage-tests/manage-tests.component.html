@@ -37,7 +37,14 @@
               </div>
             </div>
             <div class="col-md-5">
-              <button nbButton status="success" (click)="markTest(unmarkedTest._id)">MARK</button>
+              <button
+                nbButton
+                status="success"
+                (click)="markTest(unmarkedTest._id)"
+                [disabled]="isMarkAllowed(unmarkedTest.date)"
+              >
+                MARK
+              </button>
               <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">
                 EDIT
               </button>

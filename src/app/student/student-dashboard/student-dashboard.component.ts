@@ -88,10 +88,11 @@ export class StudentDashboardComponent implements OnInit {
     MENU_ITEMS[9].hidden = false;
     MENU_ITEMS[10].hidden = false;
     MENU_ITEMS[11].hidden = false;
+    MENU_ITEMS[12].hidden = false;
     if (this.institute.currentPlan !== 'Lite') {
-      MENU_ITEMS[12].hidden = false;
+      MENU_ITEMS[13].hidden = false;
     } else {
-      MENU_ITEMS[12].hidden = true;
+      MENU_ITEMS[13].hidden = true;
     }
   }
 }

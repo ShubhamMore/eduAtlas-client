@@ -136,6 +136,13 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+  getStudentTestScheduleByInstitute(data: any) {
+    const url = `${environment.server}/institute/student/getStudentTestScheduleByInstitute`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
 
   //  ADD NEW STUDENT
   addStudent(student: any, instituteId: string) {

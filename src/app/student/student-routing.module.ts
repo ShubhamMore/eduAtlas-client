@@ -19,6 +19,7 @@ import { StudentMeetingComponent } from './student-pages/student-meeting/student
 import { StudentMentoringComponent } from './student-pages/student-mentoring/student-mentoring.component';
 import { StudentForumCommentComponent } from './student-pages/student-forums-chats/student-forum-comment/student-forum-comment.component';
 import { StudentEaLiveGuard } from '../services/auth-services/auth-guards/student-ealive-auth.guard';
+import { StudentTestComponent } from './student-pages/student-test/student-test.component';
 
 const routes: Routes = [
   {
@@ -95,6 +96,10 @@ const routes: Routes = [
       {
         path: 'mentoring/:id',
         component: StudentMentoringComponent,
+      },
+      {
+        path: 'tests/:id',
+        component: StudentTestComponent,
       },
       {
         path: 'onlineClasses/:id',

@@ -45,6 +45,7 @@ import { StudentViewEnrollmentComponent } from './student-pages/student-enrollme
 import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-class.component';
 import { SharedModule } from '../services/shared.module';
 import { StudentInstituteHeaderComponent } from './student-dashboard/student-institute-header/student-institute-header.component';
+import { StudentTestComponent } from './student-pages/student-test/student-test.component';
 
 @NgModule({
   imports: [
@@ -95,6 +96,8 @@ import { StudentInstituteHeaderComponent } from './student-dashboard/student-ins
     OnlineeClassComponent,
 
     StudentInstituteHeaderComponent,
+
+    StudentTestComponent,
   ],
 })
 export class StudentModule {}

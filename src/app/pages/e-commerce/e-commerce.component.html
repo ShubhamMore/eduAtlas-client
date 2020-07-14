@@ -239,7 +239,10 @@
           <span style="font-size: 16px; color: #fff;">ANNOUNCEMENTS</span>
         </nb-card-header>
         <nb-card-body class="body-height-1">
-          <div class="table-responsive" *ngIf="announcements.length > 0; else noAnnouncements">
+          <div
+            class="table-responsive"
+            *ngIf="announcements && announcements.length > 0; else noAnnouncements"
+          >
             <table class="table table-borderless">
               <thead>
                 <tr>

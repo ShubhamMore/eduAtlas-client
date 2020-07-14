@@ -66,6 +66,14 @@ export class ManageTestsComponent implements OnInit {
     });
   }
 
+  isMarkAllowed(date: string) {
+    if (date && new Date(date).getTime() < Date.now()) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   deleteTest(id: string, i: number) {
     const confirm = window.confirm('Are u sure, You want to delete this Test?');
     if (confirm) {

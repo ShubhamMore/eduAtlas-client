@@ -34,6 +34,7 @@ export class StudentHomeComponent implements OnInit {
     MENU_ITEMS[10].hidden = true;
     MENU_ITEMS[11].hidden = true;
     MENU_ITEMS[12].hidden = true;
+    MENU_ITEMS[13].hidden = true;
   }
 
   getDashboardData() {
