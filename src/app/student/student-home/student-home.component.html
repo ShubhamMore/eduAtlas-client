@@ -50,6 +50,7 @@
                     <th>Institute</th>
                     <th>Course</th>
                     <th>Date</th>
+                    <th>Start Time</th>
                     <th>Topic</th>
                   </tr>
                 </thead>
@@ -59,6 +60,7 @@
                     <td>{{ schedule.instituteName }}</td>
                     <td>{{ schedule.courseName + ' (' + schedule.batchCode + ')' }}</td>
                     <td>{{ schedule.lecture.date }}</td>
+                    <td>{{ schedule.lecture.startTime }}</td>
                     <td>{{ schedule.lecture.topic }}</td>
                   </tr>
                 </tbody>
