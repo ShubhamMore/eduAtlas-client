@@ -1,3 +1,4 @@
+import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../../../../services/api.service';
@@ -32,7 +33,12 @@ export class ManageOnlineClassComponent implements OnInit {
     'DEC',
   ];
 
-  constructor(private route: ActivatedRoute, private api: ApiService, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private api: ApiService,
+    private router: Router,
+    private toasterService: NbToastrService,
+  ) {}
 
   ngOnInit(): void {
     this.display = false;
@@ -93,7 +99,10 @@ export class ManageOnlineClassComponent implements OnInit {
 
   deleteMeeting(id: string, meetingId: string) {
     this.api.deleteMeeting({ _id: id, meetingId: meetingId }).subscribe(
-      (res: any) => {},
+      (res: any) => {
+        const i = this.meetings.findIndex((meeting: any) => meeting._id === id);
+        this.meetings.splice(i, 1);
+      },
       (err) => {},
     );
   }
@@ -109,8 +118,15 @@ export class ManageOnlineClassComponent implements OnInit {
       .subscribe(
         (res: any) => {
           this.meetings = res;
+          this.showToast('top right', 'success', 'Meeting Deleted Successfully');
         },
-        (err) => {},
+        (err) => {
+          this.showToast('top right', 'danger', err.err.message);
+        },
       );
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
   }
 }
