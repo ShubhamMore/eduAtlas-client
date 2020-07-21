@@ -14,7 +14,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">Description : {{ forumCommentData.description }}</div>
+      <div
+        class="col-md-12"
+        [innerHTML]="'Description :' + forumCommentData.description | safeHtml"
+      ></div>
     </div>
     <hr />
     <div class="row">
@@ -40,8 +43,7 @@
           <label>Comment At : </label><span>{{ getFormattedDateTime(comment.commentDate) }}</span>
         </div>
       </div>
-      <div class="my-4">
-        {{ comment.comment }}
+      <div class="my-4" [innerHTML]="comment.comment | safeHtml">
         <div
           class="deleteComment"
           (click)="deleteComment(comment._id)"
@@ -58,16 +60,11 @@
     <div class="row">
       <div class="col-md-12">
         <label>Your Comment :</label>
-        <textarea
-          type="text"
-          nbInput
-          fullWidth
-          status="basic"
+        <angular-editor
+          rows="2"
+          placeholder="Enter text here..."
           [(ngModel)]="userComment"
-          rows="5"
-          placeholder="Comment"
-        >
-        </textarea>
+        ></angular-editor>
       </div>
     </div>
     <hr />
