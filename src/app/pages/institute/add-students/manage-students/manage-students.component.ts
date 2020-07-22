@@ -59,7 +59,7 @@ export class ManageStudentsComponent implements OnInit {
       this.getStudents(this.instituteId, null, null);
     } else if (id !== '') {
       this.course = id;
-      this.getStudents(this.instituteId, id, id);
+      this.getStudents(this.instituteId, id, null);
     }
   }
 

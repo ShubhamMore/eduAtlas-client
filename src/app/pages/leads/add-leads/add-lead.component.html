@@ -87,7 +87,7 @@
         </div>
 
         <div class="col-sm-3">
-          <label for="status">Status</label>
+          <label for="status">*Status</label>
           <nb-select
             placeholder="Status"
             id="status"
@@ -184,7 +184,22 @@
           <small *ngIf="f.followUpDate.errors && submitted">*Next Follow Up Date is Required</small>
         </div>
 
-        <div class="col-sm-4 mt-5">
+        <div class="col-sm-4">
+          <label for="followUpDate">*Next Follow Up Time</label>
+          <input
+            type="time"
+            nbInput
+            [status]="f.followUpTime.errors && submitted ? 'danger' : 'basic'"
+            formControlName="followUpTime"
+            fullWidth
+            placeholder="Pick Time"
+          />
+          <small *ngIf="f.followUpTime.errors && submitted">*Next Follow Up Time is Required</small>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-sm-12">
           <button type="submit" class="btn btn-yellow-black float-right">
             {{ edit ? 'Update' : 'Add' }} Lead
           </button>

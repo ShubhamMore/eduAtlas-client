@@ -126,6 +126,10 @@ export class ECommerceComponent implements OnInit {
     return time;
   }
 
+  createDate(date: string) {
+    return date.split('-').reverse().join('-');
+  }
+
   getInstitute(id: string) {
     this.api.getInstitute(id).subscribe((res: any) => {
       this.myInstitute = res;

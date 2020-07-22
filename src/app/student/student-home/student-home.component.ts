@@ -45,4 +45,12 @@ export class StudentHomeComponent implements OnInit {
       this.display = true;
     });
   }
+
+  createTime(time: string) {
+    return time;
+  }
+
+  createDate(date: string) {
+    return date.split('-').reverse().join('-');
+  }
 }

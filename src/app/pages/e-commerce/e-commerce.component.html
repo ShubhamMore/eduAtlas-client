@@ -59,7 +59,9 @@
                         <td>{{ class.courseName }}</td>
                         <td>{{ class.batchCode }}</td>
                         <td>{{ class.days.topic }}</td>
-                        <td>{{ createTime(class.days.startTime) }}</td>
+                        <td>
+                          {{ createDate(class.days.date) }} {{ createTime(class.days.startTime) }}
+                        </td>
                         <td>{{ class.teacherName | uppercase }}</td>
                       </tr>
                     </ng-container>

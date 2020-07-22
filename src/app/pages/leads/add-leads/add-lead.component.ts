@@ -44,6 +44,7 @@ export class AddLeadComponent implements OnInit {
       address: [''],
       date: ['', Validators.required],
       followUpDate: ['', Validators.required],
+      followUpTime: ['', Validators.required],
       instituteId: [this.instituteId],
       courseId: ['', Validators.required],
       status: ['', Validators.required],
@@ -83,6 +84,7 @@ export class AddLeadComponent implements OnInit {
           mode: data.mode,
           source: data.source,
           comment: data.comment,
+          followUpTime: data.followUpTime,
         });
       },
       (err) => console.error(err),
