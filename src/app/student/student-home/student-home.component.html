@@ -59,12 +59,12 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ schedule.instituteName }}</td>
                     <td>{{ schedule.courseName + ' (' + schedule.batchCode + ')' }}</td>
-
+                    <td>{{ schedule.lecture.topic }}</td>
                     <td>
                       {{ createDate(schedule.lecture.date) }}&nbsp;
                       {{ createTime(schedule.lecture.startTime) }}
                     </td>
-                    <td>{{ schedule?.teacherName | uppercase }}</td>
+                    <td>{{ schedule.lecture?.teacherName | uppercase }}</td>
                   </tr>
                 </tbody>
               </table>

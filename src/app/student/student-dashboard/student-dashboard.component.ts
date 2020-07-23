@@ -95,4 +95,12 @@ export class StudentDashboardComponent implements OnInit {
       MENU_ITEMS[13].hidden = true;
     }
   }
+
+  createTime(time: string) {
+    return time;
+  }
+
+  createDate(date: string) {
+    return date.split('-').reverse().join('-');
+  }
 }

@@ -78,16 +78,21 @@
                 <tr>
                   <th>#</th>
                   <th>Batch</th>
-                  <th>Date</th>
                   <th>Topic</th>
+                  <th>Time</th>
+                  <th>Teacher</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let schedule of schedules; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ schedule.batchCode }}</td>
-                  <td>{{ schedule.lecture.date }}</td>
                   <td>{{ schedule.lecture.topic }}</td>
+                  <td>
+                    {{ createDate(schedule.lecture.date) }}&nbsp;
+                    {{ createTime(schedule.lecture.startTime) }}
+                  </td>
+                  <td>{{ schedule.lecture?.teacherName | uppercase }}</td>
                 </tr>
               </tbody>
             </table>
