@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.institutes = [];
     this.institute = '';
     this.user = this.authService.getUser();
-    this.name = `Welcome ${this.user.name}
+    this.name = `${this.user.name}
       (${this.user.role})`;
 
     this.getInstitutes();

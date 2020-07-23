@@ -31,16 +31,16 @@
   max-height: 50vh;
   text-align: center;
 }
-.verticalCenter{
+.verticalCenter {
   display: inline-block;
   padding-bottom: 15px;
 }
-.instituteBox{
+.instituteBox {
   width: 100%;
   height: 100%;
-   display: inline-block
+  display: inline-block;
 }
-.planDiv{
+.planDiv {
   margin-top: 0px;
   font-size: 10px;
   font-weight: normal;
@@ -50,4 +50,10 @@
   border-radius: 10px;
   position: absolute;
   line-height: 17px;
+}
+
+@media only screen and (max-width: 600px) {
+  nb-card {
+    margin-bottom: 1.875rem !important;
+  }
 }

@@ -35,39 +35,65 @@
 }
 
 .btn-yellow {
-  background-color: #ffd500!important;
-  text-transform: uppercase!important;
-  color: #fff!important;
-  font-weight: bold!important;
-  transition: all 0.2s!important;
+  background-color: #ffd500 !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  font-weight: bold !important;
+  transition: all 0.2s !important;
 }
 
 .btn-yellow:hover {
-  background-color: #ffd50099!important;
-  color: #ffffff99!important;
+  background-color: #ffd50099 !important;
+  color: #ffffff99 !important;
 }
 
 .btn-yellow-black {
-  background-color: #ffd500!important;
-  text-transform: uppercase!important;
-  color: #000!important;
-  font-weight: bold!important;
-  transition: all 0.2s!important;
+  background-color: #ffd500 !important;
+  text-transform: uppercase !important;
+  color: #000 !important;
+  font-weight: bold !important;
+  transition: all 0.2s !important;
 }
 
 .btn-yellow-black:hover {
-  background-color: #ffd50099!important;
-  color: #00000099!important;
+  background-color: #ffd50099 !important;
+  color: #00000099 !important;
 }
 .nb-theme-default nb-layout .layout {
   min-height: 0vh;
-
 }
-.chatWindow nb-card nb-card-body{
+.chatWindow nb-card nb-card-body {
   padding: 0;
 }
-.chatWindow nb-card-body nb-chat .header{
+.chatWindow nb-card-body nb-chat .header {
   padding: 0;
   border-top: 0;
   border-bottom: 0;
+}
+@media only screen and (max-width: 600px) {
+  nb-layout-column {
+    padding: 0px !important;
+  }
+  nb-card {
+    margin-bottom: 0px !important;
+  }
+  nb-card-body {
+    padding: 1rem 0rem;
+  }
+  table {
+    height: 80vh;
+  }
+
+  .nb-theme-default nb-layout .scrollable-container::-webkit-scrollbar {
+    width: 0rem !important;
+    height: 0rem !important;
+  }
+  // .cdk-overlay-pane {
+  //   background-color: rgba($color: #000000, $alpha: 0.2) !important;
+  // }
+}
+@media only screen and (max-width: 400px) {
+  .header-container .user-name {
+    display: none !important;
+  }
 }

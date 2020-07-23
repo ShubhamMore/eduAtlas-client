@@ -50,12 +50,15 @@
       white-space: nowrap;
       text-decoration: none;
     }
+    .mobileLogo {
+      font-size: 1.75rem;
+      white-space: nowrap;
+      text-decoration: none;
+      display: none;
+    }
   }
 
   @include media-breakpoint-down(sm) {
-    .control-item {
-      display: none;
-    }
     .user-action {
       border: none;
       padding: 0;
@@ -65,6 +68,15 @@
   @include media-breakpoint-down(is) {
     nb-select {
       display: none;
+    }
+    .logo {
+      display: none;
+    }
+    .logo-container {
+      width: 100%;
+    }
+    .logo-container .mobileLogo {
+      display: unset;
     }
   }
 }
