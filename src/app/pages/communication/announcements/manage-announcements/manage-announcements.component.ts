@@ -65,6 +65,10 @@ export class ManageAnnouncementsComponent implements OnInit {
     );
   }
 
+  formatDate(date: string) {
+    return date.split('-').reverse().join('-');
+  }
+
   showToast(position: any, status: any, message: any) {
     this.toastrService.show(status, message, {
       position,

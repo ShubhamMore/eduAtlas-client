@@ -20,6 +20,7 @@
                 <tr>
                   <th>ID</th>
                   <th>Title</th>
+                  <th>Date</th>
                   <th>Attachment</th>
                   <th></th>
                 </tr>
@@ -30,7 +31,10 @@
                     <span> {{ i + 1 }}</span>
                   </td>
                   <td>
-                    <span> {{ item.title }}</span>
+                    <span> {{ formatDate(item.title) }}</span>
+                  </td>
+                  <td>
+                    <span> {{ item.date }}</span>
                   </td>
                   <td>
                     <a
