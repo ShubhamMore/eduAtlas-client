@@ -70,6 +70,9 @@
   border-top: 0;
   border-bottom: 0;
 }
+.btnIcon {
+  display: none;
+}
 @media only screen and (max-width: 600px) {
   nb-layout-column {
     padding: 0px !important;
@@ -88,6 +91,32 @@
     width: 0rem !important;
     height: 0rem !important;
   }
+
+  .btnText {
+    display: none;
+  }
+
+  .btnIcon {
+    display: inline;
+    font-size: 21px;
+  }
+  button {
+    display: inline;
+  }
+
+  .btn-yellow {
+    padding: 0.6875rem 1.125rem;
+    border-style: solid;
+    border-width: 0.0625rem;
+    text-transform: uppercase;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    line-height: 1rem;
+  }
+  table tr td:last-child {
+    white-space: nowrap;
+  }
+
   // .cdk-overlay-pane {
   //   background-color: rgba($color: #000000, $alpha: 0.2) !important;
   // }

@@ -60,14 +60,24 @@
               status="primary"
               (click)="view(student.eduAtlasId, student.instituteDetails.courseId)"
             >
-              View
+              <span class="btnText">
+                View
+              </span>
+              <span class="btnIcon">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </span>
             </button>
             <button
               type="button"
               class="btn btn-yellow mr-2 mb-2"
               (click)="edit(student.eduAtlasId, student.instituteDetails.courseId)"
             >
-              Edit
+              <span class="btnIcon">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+              </span>
+              <span class="btnText">
+                Edit
+              </span>
             </button>
             <button
               class="mr-2 mb-2"
@@ -82,7 +92,13 @@
                 )
               "
             >
-              Delete
+              <span class="btnText">
+                Delete
+              </span>
+
+              <span class="btnIcon">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </span>
             </button>
           </td>
         </tr>

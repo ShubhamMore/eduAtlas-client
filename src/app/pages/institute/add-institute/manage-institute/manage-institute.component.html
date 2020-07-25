@@ -17,12 +17,27 @@
             <td>{{ i.basicInfo.instituteContact }}</td>
             <td>
               <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">
-                Manage
+                <span class="btnText">
+                  Manage
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-tasks" aria-hidden="true"></i>
+                </span>
               </button>
-              <button class="mr-3 btn btn-yellow" (click)="updateInstitute(i._id)">
-                Edit
+              <button class="mr-3 mt-1 btn btn-yellow" (click)="updateInstitute(i._id)">
+                <span class="btnText">
+                  Edit
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </span>
               </button>
-              <button class="mr-3" nbButton status="danger" (click)="delete(i._id)">Delete</button>
+              <button class="mr-3 mt-1" nbButton status="danger" (click)="delete(i._id)">
+                <span class="btnText">Delete </span>
+                <span class="btnIcon">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
+              </button>
             </td>
           </tr>
         </tbody>
