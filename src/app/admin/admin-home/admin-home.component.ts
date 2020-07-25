@@ -8,8 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./admin-home.component.scss'],
 })
 export class AdminHomeComponent implements OnInit {
-  activeInst: any[];
-  inactiveInst: any[];
+  institutes: any[];
 
   display: boolean;
   constructor(
@@ -20,19 +19,16 @@ export class AdminHomeComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-    this.adminService.getAllInstitutes().subscribe((res: any) => {
-      this.activeInst = res.activeInstitutes;
-      this.inactiveInst = res.inactiveInstitutes;
+    this.adminService.getInstitutes().subscribe((res: any) => {
+      this.institutes = res;
       this.display = true;
     });
   }
 
-  viewInstitute(active: boolean, i: any) {
-    if (active) {
-      this.adminService.setInstitute(this.activeInst[i]);
-    } else {
-      this.adminService.setInstitute(this.inactiveInst[i]);
-    }
-    this.router.navigate(['/admin/institute'], { relativeTo: this.route });
+  viewInstitutes(parentInstitute: string, name: string) {
+    this.router.navigate(['/admin/institutes'], {
+      relativeTo: this.route,
+      queryParams: { parentInstitute, name },
+    });
   }
 }

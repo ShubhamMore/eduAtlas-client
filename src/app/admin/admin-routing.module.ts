@@ -1,3 +1,4 @@
+import { AdminInstitutesComponent } from './admin-institutes/admin-institutes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
@@ -21,6 +22,14 @@ const routes: Routes = [
         component: AdminHomeComponent,
       },
       {
+        path: 'institutes',
+        component: AdminInstitutesComponent,
+      },
+      {
+        path: 'institute',
+        component: AdminInstituteComponent,
+      },
+      {
         path: 'plans',
         component: AdminPlansComponent,
       },
@@ -32,10 +41,7 @@ const routes: Routes = [
         path: 'plans/edit',
         component: AdminSavePlanComponent,
       },
-      {
-        path: 'institute',
-        component: AdminInstituteComponent,
-      },
+
       {
         path: '**',
         redirectTo: 'home',
