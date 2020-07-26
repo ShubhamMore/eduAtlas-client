@@ -13,7 +13,9 @@
     </div>
     <div>
       <p><strong>Date: </strong>{{ announcement.date }}</p>
-      <p><strong>Batches: </strong>{{ announcement.batchCodes.join(',') }}</p>
+      <p>
+        <strong announcement.batchCodes>Batches: </strong>{{ announcement.batchCodes.join(',') }}
+      </p>
       <p><strong>Categories: </strong>{{ announcement.categories.join(',') }}</p>
     </div>
   </nb-card-header>

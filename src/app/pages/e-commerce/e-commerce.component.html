@@ -261,10 +261,9 @@
                   <td>{{ i + 1 }}</td>
                   <td>
                     <a
-                      routerLink="/pages/communication/view-announcements/{{
-                        instituteId
-                      }}?announcement={{ announcement._id }}"
-                      >{{ announcement.title }}</a
+                      class="pointer announcement-title"
+                      (click)="goToAnnouncement(announcement._id)"
+                      ><u>{{ announcement.title }}</u></a
                     >
                   </td>
                   <td>{{ getDate(announcement.date) }}</td>
