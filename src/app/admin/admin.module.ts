@@ -8,6 +8,7 @@ import {
   NbListModule,
   NbSelectModule,
   NbTabsetModule,
+  NbUserModule,
   NbButtonModule,
   NbDatepickerModule,
   NbInputModule,
@@ -24,6 +25,7 @@ import { AdminPlansComponent } from './admin-plans/admin-plans.component';
 import { AdminInstituteComponent } from './admin-institute/admin-institute.component';
 import { AdminSavePlanComponent } from './admin-plans/admin-save-plan/admin-save-plan.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AdminInstitutesComponent } from './admin-institutes/admin-institutes.component';
 
 @NgModule({
   imports: [
@@ -36,6 +38,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbEvaIconsModule,
     NbIconModule,
     NbTabsetModule,
+    NbUserModule,
     NbListModule,
     ReactiveFormsModule,
     NbSelectModule,
@@ -49,6 +52,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminPlansComponent,
     AdminInstituteComponent,
     AdminSavePlanComponent,
+    AdminInstitutesComponent,
   ],
 })
 export class AdminModule {}

@@ -20,9 +20,17 @@ export class AdminService {
 
   constructor(private http: HttpClient) {}
 
-  getAllInstitutes() {
-    const url = `${environment.server}/admin/getAllInstitutes`;
+  getInstitutes() {
+    const url = `${environment.server}/admin/getInstitutes`;
     return this.http.post(url, {}).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  getAllInstitutes(parentUser: string) {
+    const url = `${environment.server}/admin/getAllInstitutes`;
+    return this.http.post(url, { parentUser }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
     );
