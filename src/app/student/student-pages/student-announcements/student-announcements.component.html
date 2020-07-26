@@ -55,7 +55,14 @@
                     <span *ngIf="!item.attachment">--</span>
                   </td>
                   <div>
-                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">View</button>
+                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">
+                      <span class="btnText">
+                        View
+                      </span>
+                      <span class="btnIcon">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </span>
+                    </button>
                   </div>
                 </tr>
               </tbody>

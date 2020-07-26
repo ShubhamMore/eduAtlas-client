@@ -33,7 +33,12 @@
                 status="primary"
                 (click)="viewSchedule(schedule._id)"
               >
-                View
+                <span class="btnText">
+                  View
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </span>
               </button>
               <p class="">
                 <strong>Schedule From</strong> {{ getScheduleDate(schedule.scheduleStart) }}
