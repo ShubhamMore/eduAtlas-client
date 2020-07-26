@@ -6,7 +6,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table *ngIf="discounts.length > 0; else noDiscounts">
+    <table class="table table-borderless" *ngIf="discounts.length > 0; else noDiscounts">
       <thead>
         <tr>
           <th>Code</th>

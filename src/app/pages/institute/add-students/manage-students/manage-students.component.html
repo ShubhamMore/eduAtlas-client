@@ -37,7 +37,10 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table *ngIf="students.length > 0 && !hideHeaders; else noStudents">
+    <table
+      class="table table-borderless"
+      *ngIf="students.length > 0 && !hideHeaders; else noStudents"
+    >
       <thead>
         <tr>
           <th>Name</th>

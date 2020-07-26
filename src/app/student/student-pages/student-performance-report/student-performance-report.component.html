@@ -23,7 +23,7 @@
   </nb-card-header>
   <nb-card-body *ngIf="test; else noCourseSelected">
     <div class="text-center py-2">
-      <div style="display: inline-block; width: 1000px;">
+      <div class="chartContainer">
         <canvas
           baseChart
           [datasets]="barChartData"
@@ -38,7 +38,7 @@
     </div>
     <br />
     <h6>TEST PERFORMANCE SUMMARY</h6>
-    <div class="table-responsive">
+    <div>
       <table class="table table-borderless text-center">
         <thead>
           <tr>

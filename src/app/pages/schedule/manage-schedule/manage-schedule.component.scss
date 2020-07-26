@@ -36,3 +36,8 @@
   font-weight: bold;
   color: #a3a2a2;
 }
+@media only screen and (max-width: 600px) {
+  nb-card-body {
+    padding: 0px !important;
+  }
+}

@@ -114,39 +114,40 @@
     </form>
 
     <hr />
-
-    <table class="table table-borderless" *ngIf="mentorings.length > 0; else noMentoring">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date/Time</th>
-          <th>Note</th>
-          <th>Teacher</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let mentoring of mentorings; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ mentoring.date }} - {{ mentoring.time }}</td>
-          <td>{{ mentoring.note }}</td>
-          <td>{{ mentoring.teacherName }}</td>
-          <td>
-            <button class="mr-3 mb-2 btn btn-yellow" (click)="editMentoring(i)">
-              Edit
-            </button>
-            <button
-              class="mr-3 mb-2"
-              nbButton
-              status="danger"
-              (click)="deleteMentoring(mentoring._id, i)"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="overflow: auto;">
+      <table class="table table-borderless" *ngIf="mentorings.length > 0; else noMentoring">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date/Time</th>
+            <th>Note</th>
+            <th>Teacher</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mentoring of mentorings; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ mentoring.date }} - {{ mentoring.time }}</td>
+            <td>{{ mentoring.note }}</td>
+            <td>{{ mentoring.teacherName }}</td>
+            <td>
+              <button class="mr-3 mb-2 btn btn-yellow" (click)="editMentoring(i)">
+                Edit
+              </button>
+              <button
+                class="mr-3 mb-2"
+                nbButton
+                status="danger"
+                (click)="deleteMentoring(mentoring._id, i)"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <ng-template #noMentoring>
       <p class="text-center mt-3">No Mentoring Sessions Found</p>
     </ng-template>

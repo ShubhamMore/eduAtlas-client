@@ -100,9 +100,9 @@
     display: inline;
     font-size: 21px;
   }
-  button {
-    display: inline;
-  }
+  // button {
+  //   display: inline;
+  // }
 
   .btn-yellow {
     padding: 0.6875rem 1.125rem;
@@ -113,8 +113,9 @@
     font-size: 0.875rem;
     line-height: 1rem;
   }
-  table tr td:last-child {
-    white-space: nowrap;
+  table tr td:last-child button {
+    display: block !important;
+    // white-space: nowrap;
   }
 
   // .cdk-overlay-pane {

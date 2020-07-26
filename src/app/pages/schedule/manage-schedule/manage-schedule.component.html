@@ -30,7 +30,7 @@
         </nb-select>
       </div>
 
-      <div class="col-sm-3">
+      <div class="col-sm-3 pt-3">
         <nb-select
           placeholder="Select Batch"
           fullWidth
@@ -51,31 +51,33 @@
       <nb-accordion-item *ngFor="let schedule of schedules; let i = index">
         <nb-accordion-item-header style="width: 100%;">
           <div class="row" style="width: 100%;">
-            <div class="col-12 pt-2">
-              <button
-                class="float-right"
-                nbButton
-                status="danger"
-                (click)="deleteSchedule(schedule._id)"
-              >
-                Delete
-              </button>
-              <button
-                class="mr-3 btn-yellow float-right"
-                nbButton
-                status=""
-                (click)="editSchedule(schedule._id)"
-              >
-                Edit
-              </button>
-              <button
-                class="mr-3 float-right"
-                nbButton
-                status="primary"
-                (click)="viewSchedule(schedule._id)"
-              >
-                View
-              </button>
+            <div class="col-12 py-2">
+              <div class="float-right pb-3">
+                <button
+                  class="float-right"
+                  nbButton
+                  status="danger"
+                  (click)="deleteSchedule(schedule._id)"
+                >
+                  Delete
+                </button>
+                <button
+                  class="mr-3 btn-yellow float-right"
+                  nbButton
+                  status=""
+                  (click)="editSchedule(schedule._id)"
+                >
+                  Edit
+                </button>
+                <button
+                  class="mr-3 float-right"
+                  nbButton
+                  status="primary"
+                  (click)="viewSchedule(schedule._id)"
+                >
+                  View
+                </button>
+              </div>
               <p class="">
                 <strong>Schedule From</strong> {{ getScheduleDate(schedule.scheduleStart) }}
                 <strong>to</strong>

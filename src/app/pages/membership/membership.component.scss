@@ -92,33 +92,12 @@ nb-card-header {
   font-weight: bold;
   font-family: 'Poppins';
 }
-
-@include media-breakpoint-down(sm) {
+td {
+  white-space: nowrap;
+}
+@include media-breakpoint-down(xl) {
   .pricingDiv {
-    padding: 0;
-    .priceTable th {
-      height: 139px;
-      width: auto;
-      padding: 0px;
-    }
-  }
-  .featuresHeader {
-    font-weight: 400;
-    font-size: auto;
-    line-height:unset;
-    text-transform: none;
-    color: rgb(98, 98, 98);
-    padding-bottom: 15px;
-  }
-  .headerValue {
-    font-size: auto;
-    font-weight: 400;
-    padding-top: 13px;
-  }
-  .priceTable th {
-    height: auto;
-    width: auto;
-    padding: 0px;
+    padding: 50px 20px;
   }
 }
 
@@ -129,7 +108,47 @@ nb-card-header {
   .featuresHeader {
     font-weight: 400;
     font-size: auto;
-    line-height:unset;
+    line-height: unset;
+    text-transform: none;
+    color: rgb(98, 98, 98);
+    padding-bottom: 15px;
+
+    span {
+      display: block;
+      padding-bottom: 15px;
+    }
+    p {
+      display: block;
+    }
+  }
+  .headerValue {
+    font-size: auto;
+    font-weight: 400;
+    padding-top: 13px;
+  }
+  .priceTable th {
+    height: 139px;
+    width: auto;
+    padding: 0px;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .pricingDiv {
+    padding: 0px;
+    .pricingTitle {
+      padding-left: 20px;
+    }
+    .priceTable th {
+      height: 139px;
+      width: auto;
+      padding: 0px;
+    }
+  }
+  .featuresHeader {
+    font-weight: 400;
+    font-size: auto;
+    line-height: unset;
     text-transform: none;
     color: rgb(98, 98, 98);
     padding-bottom: 15px;
@@ -143,10 +162,5 @@ nb-card-header {
     height: auto;
     width: auto;
     padding: 0px;
-  }
-}
-@include media-breakpoint-down(xl) {
-  .pricingDiv {
-    padding: 50px 20px;
   }
 }
