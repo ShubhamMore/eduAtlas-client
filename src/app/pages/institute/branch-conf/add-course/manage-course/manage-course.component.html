@@ -30,10 +30,20 @@
             <td>INR&nbsp;{{ item.totalFee }}</td>
             <td style="text-align: right;">
               <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">
-                Edit
+                <span class="btnText">
+                  Edit
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </span>
               </button>
               <button class="mr-3 mb-2" nbButton status="danger" (click)="delete(item._id)">
-                Del
+                <span class="btnText">
+                  Del
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
               </button>
             </td>
           </tr>

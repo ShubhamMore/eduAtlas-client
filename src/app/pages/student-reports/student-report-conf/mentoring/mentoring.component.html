@@ -49,7 +49,14 @@
           <td>{{ i + 1 }}</td>
           <td>{{ student.basicDetails.name }}</td>
           <td>
-            <button class="btn btn-yellow" (click)="schedule(student._id)">Schedule</button>
+            <button class="btn btn-yellow" (click)="schedule(student._id)">
+              <span class="btnText">
+                Schedule
+              </span>
+              <span class="btnIcon">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+            </button>
           </td>
         </tr>
       </tbody>

@@ -29,16 +29,33 @@
               status="primary"
               (click)="view(employee.eduAtlasId, employee._id)"
             >
-              MANAGE
+              <span class="btnText">
+                MANAGE
+              </span>
+
+              <span class="btnIcon">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
             </button>
             <button
               class="mr-2 mb-2 btn btn-yellow"
               (click)="edit(employee.eduAtlasId, employee._id)"
             >
-              Edit
+              <span class="btnText">
+                Edit
+              </span>
+
+              <span class="btnIcon">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+              </span>
             </button>
             <button class="mr-2 mb-2" nbButton status="danger" (click)="delete(employee._id)">
-              Delete
+              <span class="btnText">
+                Delete
+              </span>
+              <span class="btnIcon">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </span>
             </button>
           </td>
         </tr>

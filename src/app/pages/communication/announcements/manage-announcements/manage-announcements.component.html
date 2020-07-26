@@ -45,16 +45,40 @@
                     >
                     <span *ngIf="!item.attachment">--</span>
                   </td>
-                  <div>
-                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">View</button>
+                  <div class="text-nowrap">
+                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">
+                      <span class="btnText">
+                        View
+                      </span>
+
+                      <span class="btnIcon">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                      </span>
+                    </button>
                     <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">
-                      Edit
+                      <span class="btnText">
+                        Edit
+                      </span>
+
+                      <span class="btnIcon">
+                        <i class="fa fa-edit" aria-hidden="true"></i>
+                      </span>
                     </button>
                     <button class="mr-3 mb-2" nbButton status="success" (click)="repeat(item._id)">
-                      Repeat
+                      <span class="btnText">
+                        Repeat
+                      </span>
+                      <span class="btnIcon">
+                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                      </span>
                     </button>
                     <button class="mb-2" nbButton status="danger" (click)="onDelete(item._id)">
-                      Delete
+                      <span class="btnText">
+                        Delete
+                      </span>
+                      <span class="btnIcon">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </span>
                     </button>
                   </div>
                 </tr>

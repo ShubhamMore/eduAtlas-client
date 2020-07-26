@@ -43,13 +43,28 @@
                 (click)="markTest(unmarkedTest._id)"
                 [disabled]="isMarkAllowed(unmarkedTest.date)"
               >
-                MARK
+                <span class="btnText">
+                  MARK
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
               </button>
               <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">
-                EDIT
+                <span class="btnText">
+                  EDIT
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </span>
               </button>
               <button nbButton status="danger" (click)="deleteTest(unmarkedTest._id, i)">
-                DELETE
+                <span class="btnText">
+                  DELETE
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
               </button>
             </div>
           </div>
@@ -90,9 +105,14 @@
                 <label>Batch : </label><span class="boldText">{{ markedTest.batchCode }}</span>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="testBtns">
               <button class="btn btn-yellow-black" (click)="editMarks(markedTest._id)">
-                EDIT MARKS
+                <span class="btnText">
+                  EDIT MARKS
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </span>
               </button>
             </div>
           </div>

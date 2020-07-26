@@ -100,10 +100,9 @@
     display: inline;
     font-size: 21px;
   }
-  // button {
-  //   display: inline;
-  // }
-
+  .hideMobile {
+    display: none;
+  }
   .btn-yellow {
     padding: 0.6875rem 1.125rem;
     border-style: solid;
@@ -113,9 +112,12 @@
     font-size: 0.875rem;
     line-height: 1rem;
   }
-  table tr td:last-child button {
-    display: block !important;
-    // white-space: nowrap;
+  table tr td:last-child {
+    white-space: nowrap;
+    button {
+      display: inline !important;
+      padding: 8px !important;
+    }
   }
 
   // .cdk-overlay-pane {

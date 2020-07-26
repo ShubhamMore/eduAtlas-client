@@ -45,7 +45,7 @@
         <tr>
           <th>Name</th>
           <th>Roll No.</th>
-          <th>Contact</th>
+          <th class="hideMobile">Contact</th>
           <!-- <th>Course Name</th> -->
         </tr>
       </thead>
@@ -54,7 +54,7 @@
         <tr *ngFor="let student of students; let i = index" [hidden]="student.filterOut">
           <td>{{ student.basicDetails.name }}</td>
           <td>{{ student.instituteDetails.rollNumber }}</td>
-          <td>{{ student.basicDetails.studentContact }}</td>
+          <td class="hideMobile">{{ student.basicDetails.studentContact }}</td>
           <!-- <td>{{ student.courseDetails.course }}</td> -->
           <td>
             <button

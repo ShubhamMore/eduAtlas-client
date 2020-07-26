@@ -34,6 +34,12 @@
 .testBtns {
   position: absolute;
   right: 50px;
+  white-space: nowrap;
+
+  button {
+    display: inline !important;
+    margin-right: 10px !important;
+  }
 }
 @media only screen and (max-width: 600px) {
   .testBtns button {

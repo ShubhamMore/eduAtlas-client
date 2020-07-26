@@ -26,8 +26,22 @@
           <td>{{ item.time }}</td>
           <!-- <td>{{ item.topic }}</td> -->
           <td class="text-right">
-            <button class="mr-3 btn btn-yellow" (click)="edit(item._id)">Edit</button>
-            <button nbButton status="danger" (click)="delete(item._id, i)">Del</button>
+            <button class="mr-3 btn btn-yellow" (click)="edit(item._id)">
+              <span class="btnText">
+                Edit
+              </span>
+              <span class="btnIcon">
+                <i class="fa fa-edit" aria-hidden="true"></i>
+              </span>
+            </button>
+            <button nbButton status="danger" (click)="delete(item._id, i)">
+              <span class="btnText">
+                Del
+              </span>
+              <span class="btnIcon">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </span>
+            </button>
           </td>
         </tr>
       </tbody>
