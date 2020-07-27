@@ -14,9 +14,13 @@
     <div>
       <p><strong>Date: </strong>{{ announcement.date }}</p>
       <p>
-        <strong announcement.batchCodes>Batches: </strong>{{ announcement.batchCodes.join(',') }}
+        <strong>Batches: </strong
+        ><span *ngIf="announcement.batchCodes">{{ announcement.batchCodes.join(',') }}</span>
       </p>
-      <p><strong>Categories: </strong>{{ announcement.categories.join(',') }}</p>
+      <p>
+        <strong>Categories: </strong>
+        <span *ngIf="announcement.categories">{{ announcement.categories.join(',') }}</span>
+      </p>
     </div>
   </nb-card-header>
   <nb-card-body>
