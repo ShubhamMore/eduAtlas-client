@@ -133,7 +133,13 @@
             <td>{{ mentoring.teacherName }}</td>
             <td>
               <button class="mr-3 mb-2 btn btn-yellow" (click)="editMentoring(i)">
-                Edit
+                <span class="btnText">
+                  Edit
+                </span>
+
+                <span class="btnIcon">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </span>
               </button>
               <button
                 class="mr-3 mb-2"
@@ -141,7 +147,12 @@
                 status="danger"
                 (click)="deleteMentoring(mentoring._id, i)"
               >
-                Delete
+                <span class="btnText">
+                  Delete
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </span>
               </button>
             </td>
           </tr>

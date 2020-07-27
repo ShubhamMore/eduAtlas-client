@@ -1,27 +1,25 @@
 <ng-container *ngIf="display">
-  <div class="row">
-    <div class="col-12">
-      <nb-card>
-        <nb-card-header>
-          <div class="instituteBox">
-            <span
-              ><img
-                class="my-auto float-left"
-                [src]="institute.basicInfo.logo.secure_url"
-                width="40px"
-                height="40px"
-                style="border-radius: 100%; border: 1px solid #000;"
-            /></span>
-            <span
-              class="ml-3 my-auto verticalCenter"
-              style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;"
-            >
-              {{ institute.basicInfo.name | uppercase }}
-            </span>
-          </div>
-        </nb-card-header>
-      </nb-card>
-    </div>
+  <div style="width: 100%;">
+    <nb-card>
+      <nb-card-header>
+        <div class="instituteBox">
+          <span
+            ><img
+              class="my-auto float-left"
+              [src]="institute.basicInfo.logo.secure_url"
+              width="40px"
+              height="40px"
+              style="border-radius: 100%; border: 1px solid #000;"
+          /></span>
+          <span
+            class="ml-3 my-auto verticalCenter"
+            style="color: #ffd500; font-size: 30px; padding-top: 10px; font-weight: bold;"
+          >
+            {{ institute.basicInfo.name | uppercase }}
+          </span>
+        </div>
+      </nb-card-header>
+    </nb-card>
   </div>
 
   <div class="row">

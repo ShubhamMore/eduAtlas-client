@@ -92,6 +92,13 @@
     height: 0rem !important;
   }
 
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollable-container {
+    overflow: unset !important;
+    overflow-y: scroll !important;
+  }
   .btnText {
     display: none;
   }
