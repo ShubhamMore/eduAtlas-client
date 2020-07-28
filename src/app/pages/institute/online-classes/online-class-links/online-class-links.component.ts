@@ -74,7 +74,7 @@ export class OnlineClassLinksComponent implements OnInit {
 
   onSelectBatch(batchId: string) {
     this.batch = batchId;
-    this.getUpcomingClasses(this.instituteId, batchId);
+    this.getClasses(this.instituteId, this.courseId, batchId);
   }
 
   start(link: string) {
@@ -94,7 +94,7 @@ export class OnlineClassLinksComponent implements OnInit {
     );
   }
 
-  deleteMeeting(id: string, type: string) {
+  deleteMeeting(id: string) {
     this.meetingService.deleteMeetingLink({ _id: id }).subscribe(
       (res: any) => {
         const i = this.upcomingMeetings.findIndex((meeting: any) => meeting._id === id);
@@ -104,16 +104,22 @@ export class OnlineClassLinksComponent implements OnInit {
     );
   }
 
-  uploadRecording(id: string) {}
+  uploadRecording(id: string) {
+    const recording = new FormData();
+    recording.append('_id', id);
+    recording.append('recording', '');
+
+    this.meetingService.addRecording(recording).subscribe(
+      (res: any) => {},
+      (err) => {},
+    );
+  }
 
   viewRecording(id: string, recording: string) {}
 
-  deleteRecording(id: string) {
-    this.meetingService.deleteMeetingLink({ _id: id }).subscribe(
-      (res: any) => {
-        const i = this.previousMeetings.findIndex((meeting: any) => meeting._id === id);
-        this.previousMeetings[i].recording = '';
-      },
+  deleteRecording(meetingId: string, recordingId: string) {
+    this.meetingService.deleteRecording(meetingId, recordingId).subscribe(
+      (res: any) => {},
       (err) => {},
     );
   }
@@ -126,9 +132,9 @@ export class OnlineClassLinksComponent implements OnInit {
     return date.split('-').reverse().join('-');
   }
 
-  getUpcomingClasses(instituteId: any, batchId: any) {
-    this.api
-      .getMeetingByBatch({ instituteId: instituteId, batchId: batchId, type: 'upcoming' })
+  getClasses(instituteId: any, courseId: any, batchId: any) {
+    this.meetingService
+      .getMeetingLinkByBatch({ instituteId: instituteId, courseId: courseId, batchId: batchId })
       .subscribe(
         (res: any) => {
           this.upcomingMeetings = res.upcomingMeetings;

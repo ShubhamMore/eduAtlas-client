@@ -10,9 +10,9 @@ import { environment } from '../../environments/environment';
 export class MeetingService {
   constructor(private http: HttpClient) {}
 
-  getAllMeetingLinks() {
+  getAllMeetingLinks(instituteId: string) {
     const url = `${environment.server}/institute/zoom/getAllMeetingLinks`;
-    return this.http.post(url, {}).pipe(
+    return this.http.post(url, { instituteId }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
     );
@@ -53,6 +53,22 @@ export class MeetingService {
   getMeetingLinkByBatch(data: any) {
     const url = `${environment.server}/institute/zoom/getMeetingLinks`;
     return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  addRecording(data: any) {
+    const url = `${environment.server}/institute/zoom/addRecording`;
+    return this.http.post(url, data).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
+  deleteRecording(meetingId: string, recordingId: string) {
+    const url = `${environment.server}/institute/zoom/getMeetingLinks`;
+    return this.http.post(url, { meetingId, recordingId }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
     );
