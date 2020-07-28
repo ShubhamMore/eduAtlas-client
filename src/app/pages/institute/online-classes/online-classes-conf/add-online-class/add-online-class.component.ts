@@ -126,11 +126,11 @@ export class AddOnlineClassComponent implements OnInit {
         };
         this.api.createMeeting(onlineClass).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Meeting Added Successfully');
+            this.showToast('top-right', 'success', 'Meeting Added Successfully');
             this.location.back();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       } else {
@@ -150,11 +150,11 @@ export class AddOnlineClassComponent implements OnInit {
 
         this.api.updateMeeting(onlineClass).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Meeting Updated Successfully');
+            this.showToast('top-right', 'success', 'Meeting Updated Successfully');
             this.location.back();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       }

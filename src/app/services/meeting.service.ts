@@ -66,9 +66,9 @@ export class MeetingService {
     );
   }
 
-  deleteRecording(meetingId: string, recordingId: string) {
+  deleteRecording(_id: string, recordingId: string) {
     const url = `${environment.server}/institute/meeting/deleteRecording`;
-    return this.http.post(url, { meetingId, recordingId }).pipe(
+    return this.http.post(url, { _id, recordingId }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
     );

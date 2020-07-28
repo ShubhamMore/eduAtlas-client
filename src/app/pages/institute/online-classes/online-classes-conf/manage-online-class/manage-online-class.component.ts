@@ -120,7 +120,7 @@ export class ManageOnlineClassComponent implements OnInit {
           this.meetings = res;
         },
         (err) => {
-          this.showToast('top right', 'danger', err.err.message);
+          this.showToast('top-right', 'danger', err.err.message);
         },
       );
   }

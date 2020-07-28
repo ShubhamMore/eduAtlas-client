@@ -40,6 +40,7 @@
           <label for="fees">Course Fees</label>
           <input
             type="text"
+            pattern="\d*"
             nbInput
             fullWidth
             [status]="f.fees.errors && submitted ? 'danger' : 'basic'"

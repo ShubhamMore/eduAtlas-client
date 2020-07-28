@@ -29,6 +29,7 @@ import { AddOnlineClassLinkComponent } from './online-class-links/add-online-cla
 import { UploadClassRecordingComponent } from './upload-class-recording/upload-class-recording.component';
 import { UtilitiesComponent } from './utilities/utilities.component';
 import { ViewClassRecordingComponent } from './upload-class-recording/view-class-recording/view-class-recording.component';
+import { PlayVideoRecordingComponent } from './upload-class-recording/view-class-recording/play-video-recording/play-video-recording.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ViewClassRecordingComponent } from './upload-class-recording/view-class
     ViewClassRecordingComponent,
     UploadClassRecordingComponent,
     UtilitiesComponent,
+    PlayVideoRecordingComponent,
     // InstituteHeaderComponent,
   ],
   imports: [

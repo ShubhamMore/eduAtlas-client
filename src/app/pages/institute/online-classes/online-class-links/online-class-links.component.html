@@ -1,4 +1,17 @@
 <!-- <ngx-institute-header></ngx-institute-header> -->
+<ngx-upload-class-recording
+  *ngIf="uploadClassRecording"
+  [meeting]="meetingDetails"
+  (close)="closeUploadRecording()"
+  (deleteClassRecording)="deleteClassRecording($event)"
+></ngx-upload-class-recording>
+
+<ngx-view-class-recording
+  *ngIf="viewClassRecording"
+  [meeting]="meetingDetails"
+  (close)="closeViewRecording()"
+  (deleteClassRecording)="deleteClassRecording($event)"
+></ngx-view-class-recording>
 
 <nb-card status="info" *ngIf="display">
   <nb-card-header>
@@ -13,7 +26,7 @@
           fullWidth
           (selectedChange)="onSelectCourse($event)"
         >
-          <nb-option value="">Select Course</nb-option>
+          <nb-option value="">All Courses</nb-option>
           <nb-option *ngFor="let course of institute.course" [value]="course._id">{{
             course.name
           }}</nb-option>
@@ -26,7 +39,7 @@
           status="basic"
           (selectedChange)="onSelectBatch($event)"
         >
-          <nb-option value="">Select Batch</nb-option>
+          <nb-option value="">All Batches</nb-option>
           <nb-option *ngFor="let batch of batches" [value]="batch._id">{{
             batch.batchCode
           }}</nb-option>
@@ -118,14 +131,11 @@
                           class="mr-3 mb-1"
                           nbButton
                           status="success"
-                          (click)="uploadRecording(meeting._id)"
+                          (click)="uploadRecording(meeting)"
                         >
                           Upload Recording
                         </button>
-                        <button
-                          class="mr-3 mb-1 btn btn-yellow"
-                          (click)="viewRecording(meeting._id, meeting.recording)"
-                        >
+                        <button class="mr-3 mb-1 btn btn-yellow" (click)="viewRecording(meeting)">
                           View
                         </button>
 
@@ -133,7 +143,7 @@
                           class="mr-3 mb-1"
                           nbButton
                           status="danger"
-                          (click)="deleteRecording(meeting._id)"
+                          (click)="deleteMeeting(meeting._id)"
                         >
                           Delete
                         </button>

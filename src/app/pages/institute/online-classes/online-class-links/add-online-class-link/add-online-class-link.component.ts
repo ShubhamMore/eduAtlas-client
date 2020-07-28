@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NbToastrService } from '@nebular/theme';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ApiService } from './../../../../../services/api.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MeetingService } from '../../../../../services/meeting.service';
@@ -33,16 +33,19 @@ export class AddOnlineClassLinkComponent implements OnInit {
     private meetingService: MeetingService,
     private location: Location,
     private route: ActivatedRoute,
+    private router: Router,
     private toasterService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
     this.display = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
-    this.route.queryParams.subscribe((param) => {
+
+    this.route.queryParams.subscribe((param: Params) => {
       this.meetingId = param.meeting;
       this.edit = param.edit;
     });
+
     this.getCourses(this.instituteId);
 
     this.onlineClassForm = this.fb.group({
@@ -57,8 +60,20 @@ export class AddOnlineClassLinkComponent implements OnInit {
     });
   }
 
+  getCourses(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) => {
+      this.institute = data;
+      this.courses = this.institute.course;
+      if (this.edit) {
+        this.getMeeting(this.meetingId);
+      } else {
+        this.display = true;
+      }
+    });
+  }
+
   getMeeting(id: string) {
-    this.meetingService.getOneMeetingLink({ id }).subscribe(
+    this.meetingService.getOneMeetingLink({ _id: id }).subscribe(
       (data: any) => {
         this.meeting = data;
         this.onlineClassForm.patchValue({
@@ -73,20 +88,18 @@ export class AddOnlineClassLinkComponent implements OnInit {
 
         this.onSelectCourse(this.meeting.courseId);
 
-        this.onlineClassForm.patchValue({
-          batchId: this.meeting.batchId,
-        });
+        setTimeout(() => {
+          this.onlineClassForm.patchValue({
+            batchId: this.meeting.batchId,
+          });
+        }, 200);
         this.display = true;
       },
-      (err: any) => {},
+      (err: any) => {
+        this.showToast('top-right', 'success', err.err.message);
+        this.location.back();
+      },
     );
-  }
-
-  getCourses(id: string) {
-    this.api.getCourseTD(id).subscribe((data: any) => {
-      this.institute = data;
-      this.courses = this.institute.course;
-    });
   }
 
   onSelectCourse(id: string) {
@@ -100,7 +113,7 @@ export class AddOnlineClassLinkComponent implements OnInit {
         courseId: this.onlineClassForm.value.courseId,
         batchId: this.onlineClassForm.value.batchId,
         topic: this.onlineClassForm.value.topic,
-        link: this.onlineClassForm.value.agenda,
+        link: this.onlineClassForm.value.link,
         date: this.onlineClassForm.value.date,
         fromTime: this.onlineClassForm.value.fromTime,
         toTime: this.onlineClassForm.value.toTime,
@@ -108,22 +121,25 @@ export class AddOnlineClassLinkComponent implements OnInit {
       if (!this.edit) {
         this.meetingService.createMeetingLink(onlineClass).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Meeting Added Successfully');
-            this.location.back();
+            this.showToast('top-right', 'success', 'Meeting Added Successfully');
+            this.router.navigate(
+              ['/pages/institute/online-classes/manage-class-link/', this.instituteId],
+              { relativeTo: this.route },
+            );
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       } else {
         onlineClass._id = this.meetingId;
         this.meetingService.updateMeetingLink(onlineClass).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Meeting Updated Successfully');
+            this.showToast('top-right', 'success', 'Meeting Updated Successfully');
             this.location.back();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.err.message);
+            this.showToast('top-right', 'danger', err.err.message);
           },
         );
       }

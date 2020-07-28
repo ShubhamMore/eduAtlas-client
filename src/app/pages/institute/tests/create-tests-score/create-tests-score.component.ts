@@ -99,7 +99,7 @@ export class CreateTestsScoreComponent implements OnInit {
         this.location.back();
       },
       (err) => {
-        this.showToast('top right', 'danger', err.err.message);
+        this.showToast('top-right', 'danger', err.err.message);
       },
     );
   }
@@ -162,11 +162,11 @@ export class CreateTestsScoreComponent implements OnInit {
       .addTestScore({ _id: this.test._id, batchName: this.batch, scores: this.studentScore })
       .subscribe(
         (res) => {
-          this.showToast('top right', 'success', 'Score Updated Successfully');
+          this.showToast('top-right', 'success', 'Score Updated Successfully');
           this.location.back();
         },
         (err) => {
-          this.showToast('top right', 'danger', err.err.message);
+          this.showToast('top-right', 'danger', err.err.message);
         },
       );
   }

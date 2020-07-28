@@ -17,6 +17,10 @@ export class OnlineClassLinksComponent implements OnInit {
   courseId: string;
   batch: string;
 
+  meetingDetails: any;
+  uploadClassRecording: boolean;
+  viewClassRecording: boolean;
+
   upcomingMeetings: any[];
   previousMeetings: any[];
 
@@ -47,8 +51,11 @@ export class OnlineClassLinksComponent implements OnInit {
     this.display = false;
     this.upcomingMeetings = [];
     this.previousMeetings = [];
+    this.uploadClassRecording = false;
+    this.viewClassRecording = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
+    this.getClasses(this.instituteId, null, null);
   }
 
   getCourses(id: string) {
@@ -69,12 +76,20 @@ export class OnlineClassLinksComponent implements OnInit {
 
   onSelectCourse(id: string) {
     this.courseId = id;
-    this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    if (this.courseId !== '') {
+      this.batches = this.institute.batch.filter((b: any) => b.course === id);
+    } else {
+      this.getClasses(this.instituteId, null, null);
+    }
   }
 
   onSelectBatch(batchId: string) {
     this.batch = batchId;
-    this.getClasses(this.instituteId, this.courseId, batchId);
+    if (batchId !== '') {
+      this.getClasses(this.instituteId, this.courseId, batchId);
+    } else {
+      this.getClasses(this.instituteId, this.courseId, null);
+    }
   }
 
   start(link: string) {
@@ -104,18 +119,27 @@ export class OnlineClassLinksComponent implements OnInit {
     );
   }
 
-  uploadRecording(id: string) {
-    const recording = new FormData();
-    recording.append('_id', id);
-    recording.append('recording', '');
-
-    this.meetingService.addRecording(recording).subscribe(
-      (res: any) => {},
-      (err) => {},
-    );
+  deleteClassRecording(data: any) {
+    const i = this.previousMeetings.findIndex((meeting: any) => meeting._id === data._id);
+    if (i >= 0) {
+      const ri = this.previousMeetings[i].findIndex(
+        (recording: any) => recording._id === data.recordingId,
+      );
+      if (ri >= 0) {
+        this.previousMeetings[i].recordings.splice(ri, 1);
+      }
+    }
   }
 
-  viewRecording(id: string, recording: string) {}
+  viewRecording(meeting: any) {
+    this.meetingDetails = meeting;
+    this.viewClassRecording = true;
+  }
+
+  uploadRecording(meeting: any) {
+    this.meetingDetails = meeting;
+    this.uploadClassRecording = true;
+  }
 
   deleteRecording(meetingId: string, recordingId: string) {
     this.meetingService.deleteRecording(meetingId, recordingId).subscribe(
@@ -124,8 +148,31 @@ export class OnlineClassLinksComponent implements OnInit {
     );
   }
 
-  createTime(time: string) {
-    return time;
+  closeUploadRecording() {
+    this.uploadClassRecording = false;
+    this.meetingDetails = null;
+  }
+
+  closeViewRecording() {
+    this.viewClassRecording = false;
+    this.meetingDetails = null;
+  }
+
+  createTime(time: any) {
+    if (!time) {
+      return '--';
+    }
+    time = time.split(':');
+    let hours = +time[0];
+    const minute = time[1];
+    const meridiem = hours >= 12 ? 'PM' : 'AM';
+    if (hours === 0) {
+      hours = 12;
+    } else if (hours >= 12) {
+      hours -= 12;
+    }
+
+    return hours.toString().padStart(2, '0') + ':' + minute + ' ' + meridiem;
   }
 
   createDate(date: string) {
@@ -141,7 +188,7 @@ export class OnlineClassLinksComponent implements OnInit {
           this.previousMeetings = res.previousMeetings;
         },
         (err) => {
-          this.showToast('top right', 'danger', err.err.message);
+          this.showToast('top-right', 'danger', err.err.message);
         },
       );
   }

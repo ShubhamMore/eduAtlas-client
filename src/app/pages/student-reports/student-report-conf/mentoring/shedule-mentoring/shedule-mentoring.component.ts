@@ -48,7 +48,7 @@ export class SheduleMentoringComponent implements OnInit {
     });
 
     if (!this.studentId) {
-      this.showToast('top right', 'danger', 'No Student Found');
+      this.showToast('top-right', 'danger', 'No Student Found');
       this.location.back();
     } else {
       this.getEmployees(this.instituteId);
@@ -62,7 +62,7 @@ export class SheduleMentoringComponent implements OnInit {
         this.mentorings = res;
       },
       (err: any) => {
-        this.showToast('top right', 'danger', err.err.message);
+        this.showToast('top-right', 'danger', err.err.message);
       },
     );
   }
@@ -95,10 +95,10 @@ export class SheduleMentoringComponent implements OnInit {
     this.api.deleteMentoring({ _id: id }).subscribe(
       (res) => {
         this.mentorings.splice(i, 1);
-        this.showToast('top right', 'success', 'Mentoring Session Deleted Successfully');
+        this.showToast('top-right', 'success', 'Mentoring Session Deleted Successfully');
       },
       (err) => {
-        this.showToast('top right', 'danger', err.error.message);
+        this.showToast('top-right', 'danger', err.error.message);
       },
     );
   }
@@ -115,11 +115,11 @@ export class SheduleMentoringComponent implements OnInit {
         this.api.addMentoring(this.mentoringForm.value).subscribe(
           (res: any) => {
             this.getMentoring();
-            this.showToast('top right', 'success', 'Mentoring Session Added Successfully');
+            this.showToast('top-right', 'success', 'Mentoring Session Added Successfully');
             this.ngOnInit();
           },
           (err: any) => {
-            this.showToast('top right', 'danger', err.error.message);
+            this.showToast('top-right', 'danger', err.error.message);
           },
         );
       } else {
@@ -127,11 +127,11 @@ export class SheduleMentoringComponent implements OnInit {
         mentoring._id = this.editMentoringId;
         this.api.updateMentoring(mentoring).subscribe(
           (res) => {
-            this.showToast('top right', 'success', 'Mentoring Session Updated Successfully');
+            this.showToast('top-right', 'success', 'Mentoring Session Updated Successfully');
             this.ngOnInit();
           },
           (err) => {
-            this.showToast('top right', 'danger', err.error.message);
+            this.showToast('top-right', 'danger', err.error.message);
           },
         );
       }
