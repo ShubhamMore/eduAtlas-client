@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     MENU_ITEMS[14].hidden = true;
     MENU_ITEMS[15].hidden = true;
     MENU_ITEMS[16].hidden = true;
+    MENU_ITEMS[17].hidden = true;
     this.menuService.setMenuSeqList();
   }
 

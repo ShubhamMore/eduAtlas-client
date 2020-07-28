@@ -86,15 +86,21 @@ export class ECommerceComponent implements OnInit {
 
     MENU_ITEMS[13].children[0].link =
       '/pages/institute/online-classes/settings/' + this.instituteId;
+
     MENU_ITEMS[13].children[1].link =
       '/pages/institute/online-classes/create-class/' + this.instituteId;
     MENU_ITEMS[13].children[2].link =
       '/pages/institute/online-classes/manage-class/' + this.instituteId;
 
-    MENU_ITEMS[14].link = '/pages/institute/online-classes/' + this.instituteId;
+    MENU_ITEMS[14].children[0].link =
+      '/pages/institute/online-classes/create-class-link/' + this.instituteId;
+    MENU_ITEMS[14].children[1].link =
+      '/pages/institute/online-classes/manage-class-link/' + this.instituteId;
 
-    MENU_ITEMS[15].link = '/pages/institute/manage-leads/' + this.instituteId;
-    MENU_ITEMS[16].link = '/pages/institute/study-material/' + this.instituteId;
+    MENU_ITEMS[15].link = '/pages/institute/online-classes/' + this.instituteId;
+
+    MENU_ITEMS[16].link = '/pages/institute/manage-leads/' + this.instituteId;
+    MENU_ITEMS[17].link = '/pages/institute/study-material/' + this.instituteId;
     this.menuService.setMenuSeqList();
     // this.getStudents(this.instituteId);
     this.getInstitute(this.instituteId);

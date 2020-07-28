@@ -202,19 +202,36 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'globe-outline',
     link: '',
     hidden: true, // 14
+    children: [
+      {
+        title: 'Create Class',
+        hidden: true,
+      },
+      {
+        title: 'Manage Class',
+        hidden: true,
+      },
+    ],
+  },
+
+  {
+    title: 'EA Live',
+    icon: 'globe-outline',
+    link: '',
+    hidden: true, // 15
   },
 
   {
     title: 'Leads Manager',
     icon: 'bulb-outline',
     link: '',
-    hidden: true, // 15
+    hidden: true, // 16
   },
 
   {
     title: 'Study Material',
     icon: 'book-open-outline',
     link: '',
-    hidden: true, // 16
+    hidden: true, // 17
   },
 ];

@@ -966,6 +966,7 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
   getOneMeeting(data) {
     const url = `${environment.server}/institute/zoom/getOneMeeting`;
     return this.http.post(url, data).pipe(
@@ -973,6 +974,7 @@ export class ApiService {
       catchError(this.handleError),
     );
   }
+
   getMeetingByBatch(data: any) {
     const url = `${environment.server}/institute/zoom/getMeetingsFromZoom`;
     return this.http.post(url, data).pipe(

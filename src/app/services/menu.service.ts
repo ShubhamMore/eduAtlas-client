@@ -16,11 +16,12 @@ export class MenuService {
     this.menuInSeq.push(MENU_ITEMS[12]);
     this.menuInSeq.push(MENU_ITEMS[6]);
     this.menuInSeq.push(MENU_ITEMS[4]);
-    this.menuInSeq.push(MENU_ITEMS[15]);
+    this.menuInSeq.push(MENU_ITEMS[16]);
     this.menuInSeq.push(MENU_ITEMS[13]);
     this.menuInSeq.push(MENU_ITEMS[14]);
+    this.menuInSeq.push(MENU_ITEMS[15]);
     this.menuInSeq.push(MENU_ITEMS[7]);
-    this.menuInSeq.push(MENU_ITEMS[16]);
+    this.menuInSeq.push(MENU_ITEMS[17]);
     this.menuInSeq.push(MENU_ITEMS[8]);
   }
 }

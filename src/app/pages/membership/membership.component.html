@@ -26,6 +26,15 @@
                 </div>
               </th>
               <th>
+                <div class="lite-plus">
+                  <div class="lite-plusHeader">
+                    <span>{{ lite.planType }}</span>
+                  </div>
+                  <div class="headerValue">RS. {{ litePlus.amount }}/-</div>
+                  <div class="headerSubValue">+18% GST ANNUALY</div>
+                </div>
+              </th>
+              <th>
                 <div class="value">
                   <div class="valueHeader">
                     <span>{{ value.planType }}</span>
@@ -57,9 +66,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>STUDENT MANAGEMENT</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -81,9 +96,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>STUDY MATERIAL STORAGE & SHARING</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -105,9 +126,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>SMART COMMUNICATION MODULE</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -129,9 +156,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>ROLE MANAGEMENT</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -153,9 +186,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>REAL TIME NOTIFICATIONS</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -177,9 +216,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
-              <td>MULTI PLATFOR ACCESS (MOBILE + WEB)</td>
+              <td>MULTI PLATFORM ACCESS (MOBILE + WEB)</td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
@@ -201,6 +246,9 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>EA LIVE (LIVE CLASSES)</td>
@@ -213,9 +261,15 @@
               <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
+              <td>
+                <nb-icon icon="checkmark-outline" status="success"></nb-icon>
+              </td>
             </tr>
             <tr>
               <td>ONLINE COURSE CREATION (LMS)</td>
+              <td>
+                <nb-icon icon="close-outline" status="danger"></nb-icon>
+              </td>
               <td>
                 <nb-icon icon="close-outline" status="danger"></nb-icon>
               </td>
@@ -235,6 +289,9 @@
                 <nb-icon icon="close-outline" status="danger"></nb-icon>
               </td>
               <td>
+                <nb-icon icon="close-outline" status="danger"></nb-icon>
+              </td>
+              <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
             </tr>
@@ -244,7 +301,10 @@
                 100MB
               </td>
               <td>
-                1GB
+                2GB
+              </td>
+              <td>
+                2GB
               </td>
               <td>
                 10GB
@@ -254,6 +314,9 @@
               <td>SMS GATEWAY INTEGRATION</td>
               <td>
                 NO SMS BALANCE
+              </td>
+              <td>
+                5000 SMS BALANCE
               </td>
               <td>
                 5000 SMS BALANCE
@@ -271,6 +334,9 @@
                 <nb-icon icon="close-outline" status="danger"></nb-icon>
               </td>
               <td>
+                <nb-icon icon="close-outline" status="danger"></nb-icon>
+              </td>
+              <td>
                 <nb-icon icon="checkmark-outline" status="success"></nb-icon>
               </td>
             </tr>
@@ -281,6 +347,15 @@
                   nbButton
                   style="color: white; background-color: #ffd500;"
                   (click)="activate(lite)"
+                >
+                  Activate
+                </button>
+              </td>
+              <td>
+                <button
+                  nbButton
+                  style="color: white; background-color: #ff3d71;"
+                  (click)="activate(litePlus)"
                 >
                   Activate
                 </button>

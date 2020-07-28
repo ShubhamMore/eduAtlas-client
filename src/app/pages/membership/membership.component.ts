@@ -20,6 +20,7 @@ export class MembershipComponent implements OnInit {
   display: boolean;
   plans: any[];
   lite: any;
+  litePlus: any;
   value: any;
   power: any;
 
@@ -31,7 +32,7 @@ export class MembershipComponent implements OnInit {
   user: any;
 
   type: any;
-  memberShipTypes: string[] = ['new', 'renew', 'upgrade'];
+  memberShipTypes: string[] = ['new', 'renew'];
 
   constructor(
     private route: ActivatedRoute,
@@ -115,6 +116,7 @@ export class MembershipComponent implements OnInit {
     this.paymentService.getAllPlans().subscribe((res: any) => {
       this.plans = res;
       this.lite = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'LITE');
+      this.litePlus = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'LITE PLUS');
       this.value = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'VALUE');
       this.power = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'POWER');
       if (this.type !== 'new' && this.instituteId) {
@@ -206,15 +208,6 @@ export class MembershipComponent implements OnInit {
     );
   }
 
-  deleteInstitute() {
-    this.api.deleteInstitute(this.instituteId).subscribe(
-      (res: any) => {
-        this.instituteId = null;
-      },
-      (err: any) => {},
-    );
-  }
-
   activate(plan: any) {
     const amount = plan.amount;
     const planType = plan.planType;
@@ -232,10 +225,11 @@ export class MembershipComponent implements OnInit {
         userEmail: this.user.email,
         amount: this.paymentDetails.amount,
         planType: this.paymentDetails.planType,
+        amountType: 'new',
       };
       this.generateOrder(orderDetails);
-    } else if (this.type === 'upgrade' && this.instituteId) {
     } else {
+      this.showToast('top-right', 'danger', 'Invalid Payment Type or Institute');
     }
   }
 

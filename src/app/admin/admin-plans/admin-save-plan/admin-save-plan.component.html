@@ -12,7 +12,7 @@
   <nb-card-body>
     <form [formGroup]="form" (ngSubmit)="savePlan()">
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <label for="planType">*Plan Type</label>
           <input
             type="text"
@@ -29,7 +29,7 @@
             >*Plan Type is required</small
           >
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <label for="planCode">*Plan Code</label>
           <input
             type="text"
@@ -46,7 +46,7 @@
             >*Plan code is required</small
           >
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
           <label for="amount">*Plan Amount</label>
           <input
             type="text"
@@ -60,6 +60,26 @@
           />
           <small *ngIf="form.get('amount').invalid && form.get('amount').touched"
             >*Plan amount is required</small
+          >
+        </div>
+        <div class="col-sm-6">
+          <label for="amount">*Plan Upgrade Amount</label>
+          <input
+            type="text"
+            nbInput
+            fullWidth
+            [status]="
+              form.get('upgradeAmount').invalid && form.get('upgradeAmount').touched
+                ? 'danger'
+                : 'basic'
+            "
+            #amount
+            id="upgradeAmount"
+            formControlName="upgradeAmount"
+            placeholder="Plan Upgrade Amount"
+          />
+          <small *ngIf="form.get('upgradeAmount').invalid && form.get('upgradeAmount').touched"
+            >*Plan Upgrade amount is required</small
           >
         </div>
       </div>

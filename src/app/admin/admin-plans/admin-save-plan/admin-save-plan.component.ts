@@ -34,6 +34,7 @@ export class AdminSavePlanComponent implements OnInit {
       planType: ['', Validators.required],
       planCode: ['', Validators.required],
       amount: ['', Validators.required],
+      upgradeAmount: ['', Validators.required],
     });
     if (this.edit) {
       this.getPLan(this.id);
@@ -49,6 +50,7 @@ export class AdminSavePlanComponent implements OnInit {
         planType: this.plan.planType,
         planCode: this.plan.planCode,
         amount: this.plan.amount,
+        upgradeAmount: this.plan.upgradeAmount,
       });
       this.display = true;
     });

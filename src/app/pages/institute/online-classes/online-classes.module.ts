@@ -18,10 +18,16 @@ import {
   NbMenuModule,
   NbAccordionModule,
   NbListModule,
+  NbTabsetModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OnlineClassesConfComponent } from './online-classes-conf/online-classes-conf.component';
 import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-classes-upgrade.component';
+import { OnlineClassLinksComponent } from './online-class-links/online-class-links.component';
+// tslint:disable-next-line: max-line-length
+import { AddOnlineClassLinkComponent } from './online-class-links/add-online-class-link/add-online-class-link.component';
+import { ViewClassRecordingComponent } from './view-class-recording/view-class-recording.component';
+import { UploadClassRecordingComponent } from './upload-class-recording/upload-class-recording.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +36,10 @@ import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-c
     ManageOnlineClassComponent,
     AddOnlineClassComponent,
     OnlineClassesUpgradeComponent,
+    OnlineClassLinksComponent,
+    AddOnlineClassLinkComponent,
+    ViewClassRecordingComponent,
+    UploadClassRecordingComponent,
     // InstituteHeaderComponent,
   ],
   imports: [
@@ -37,6 +47,7 @@ import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-c
     OnlineClassesRoutingModule,
     ReactiveFormsModule,
     NbCardModule,
+    NbTabsetModule,
     NbLayoutModule,
     FormsModule,
     NbInputModule,

@@ -75,18 +75,29 @@ export class RoleAssignService {
       // MENU_ITEMS[10].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
-      if (this.instituteService.getInstitute().currentPlan !== 'Lite') {
+      if (
+        this.instituteService.getInstitute().currentPlan === 'Value' ||
+        this.instituteService.getInstitute().currentPlan === 'Power'
+      ) {
         MENU_ITEMS[13].hidden = false;
         MENU_ITEMS[13].children[0].hidden = false;
         MENU_ITEMS[13].children[1].hidden = false;
         MENU_ITEMS[13].children[2].hidden = false;
         MENU_ITEMS[14].hidden = true;
-      } else {
+        MENU_ITEMS[15].hidden = true;
+      } else if (this.instituteService.getInstitute().currentPlan === 'Lite Plus') {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = false;
+        MENU_ITEMS[14].children[0].hidden = false;
+        MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[15].hidden = true;
+      } else {
+        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = true;
+        MENU_ITEMS[15].hidden = false;
       }
-      MENU_ITEMS[15].hidden = false;
       MENU_ITEMS[16].hidden = false;
+      MENU_ITEMS[17].hidden = false;
     } else if (role && role === 'Counselor') {
       this.role = role;
       MENU_ITEMS[1].hidden = true;
@@ -101,18 +112,29 @@ export class RoleAssignService {
       MENU_ITEMS[8].children[4].hidden = true;
       MENU_ITEMS[11].hidden = true;
       MENU_ITEMS[12].hidden = true;
-      if (this.instituteService.getInstitute().currentPlan !== 'Lite') {
-        MENU_ITEMS[13].hidden = true;
+      if (
+        this.instituteService.getInstitute().currentPlan === 'Value' ||
+        this.instituteService.getInstitute().currentPlan === 'Power'
+      ) {
+        MENU_ITEMS[13].hidden = false;
         MENU_ITEMS[13].children[0].hidden = true;
         MENU_ITEMS[13].children[1].hidden = false;
         MENU_ITEMS[13].children[2].hidden = false;
         MENU_ITEMS[14].hidden = true;
+        MENU_ITEMS[15].hidden = true;
+      } else if (this.instituteService.getInstitute().currentPlan === 'Lite Plus') {
+        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = false;
+        MENU_ITEMS[14].children[0].hidden = false;
+        MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[15].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = true;
+        MENU_ITEMS[15].hidden = false;
       }
-      MENU_ITEMS[15].hidden = false;
-      MENU_ITEMS[16].hidden = true;
+      MENU_ITEMS[16].hidden = false;
+      MENU_ITEMS[17].hidden = true;
     } else if (role && role === 'Teacher') {
       this.role = role;
       MENU_ITEMS[1].hidden = true;
@@ -127,18 +149,29 @@ export class RoleAssignService {
       MENU_ITEMS[8].children[4].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
-      if (this.instituteService.getInstitute().currentPlan !== 'Lite') {
+      if (
+        this.instituteService.getInstitute().currentPlan === 'Value' ||
+        this.instituteService.getInstitute().currentPlan === 'Power'
+      ) {
         MENU_ITEMS[13].hidden = false;
         MENU_ITEMS[13].children[0].hidden = true;
         MENU_ITEMS[13].children[1].hidden = false;
         MENU_ITEMS[13].children[2].hidden = false;
         MENU_ITEMS[14].hidden = true;
-      } else {
+        MENU_ITEMS[15].hidden = true;
+      } else if (this.instituteService.getInstitute().currentPlan === 'Lite Plus') {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = false;
+        MENU_ITEMS[14].children[0].hidden = false;
+        MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[15].hidden = true;
+      } else {
+        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = true;
+        MENU_ITEMS[15].hidden = false;
       }
-      MENU_ITEMS[15].hidden = true;
-      MENU_ITEMS[16].hidden = false;
+      MENU_ITEMS[16].hidden = true;
+      MENU_ITEMS[17].hidden = false;
     } else if (role && role === 'Manager') {
       this.role = role;
       MENU_ITEMS[1].hidden = true;
@@ -153,18 +186,29 @@ export class RoleAssignService {
       MENU_ITEMS[8].children[4].hidden = false;
       MENU_ITEMS[11].hidden = false;
       MENU_ITEMS[12].hidden = false;
-      if (this.instituteService.getInstitute().currentPlan !== 'Lite') {
+      if (
+        this.instituteService.getInstitute().currentPlan === 'Value' ||
+        this.instituteService.getInstitute().currentPlan === 'Power'
+      ) {
         MENU_ITEMS[13].hidden = false;
         MENU_ITEMS[13].children[0].hidden = true;
         MENU_ITEMS[13].children[1].hidden = false;
         MENU_ITEMS[13].children[2].hidden = false;
         MENU_ITEMS[14].hidden = true;
-      } else {
+        MENU_ITEMS[15].hidden = true;
+      } else if (this.instituteService.getInstitute().currentPlan === 'Lite Plus') {
         MENU_ITEMS[13].hidden = true;
         MENU_ITEMS[14].hidden = false;
+        MENU_ITEMS[14].children[0].hidden = false;
+        MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[15].hidden = true;
+      } else {
+        MENU_ITEMS[13].hidden = true;
+        MENU_ITEMS[14].hidden = true;
+        MENU_ITEMS[15].hidden = false;
       }
-      MENU_ITEMS[15].hidden = false;
       MENU_ITEMS[16].hidden = false;
+      MENU_ITEMS[17].hidden = false;
     }
     this.menuService.setMenuSeqList();
   }

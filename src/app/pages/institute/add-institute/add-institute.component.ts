@@ -256,6 +256,7 @@ export class AddInstituteComponent implements OnInit {
             userEmail: this.user.email,
             amount: this.paymentDetails.amount,
             planType: this.paymentDetails.planType,
+            amountType: 'new',
           };
           this.generateOrder(orderDetails);
           // setTimeout(() => {

@@ -45,6 +45,14 @@ export class PaymentService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  getUpgradePlanCost() {
+    const url = `${environment.server}/institute/payment/getUpgradePlanCost`;
+    return this.http.post(url, {}).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   getAllPlans() {
     const url = `${environment.server}/institute/payment/getAllPlans`;
     return this.http.post(url, {}).pipe(

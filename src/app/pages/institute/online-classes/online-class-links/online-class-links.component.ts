@@ -1,14 +1,15 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../../../../services/api.service';
+import { ApiService } from '../../../../services/api.service';
+import { MeetingService } from '../../../../services/meeting.service';
 
 @Component({
-  selector: 'ngx-manage-online-class',
-  templateUrl: './manage-online-class.component.html',
-  styleUrls: ['./manage-online-class.component.scss'],
+  selector: 'ngx-online-class-links',
+  templateUrl: './online-class-links.component.html',
+  styleUrls: ['./online-class-links.component.scss'],
 })
-export class ManageOnlineClassComponent implements OnInit {
+export class OnlineClassLinksComponent implements OnInit {
   institute: any;
   instituteId: string;
   batches: any[] = [];
@@ -16,7 +17,8 @@ export class ManageOnlineClassComponent implements OnInit {
   courseId: string;
   batch: string;
 
-  meetings: any[];
+  upcomingMeetings: any[];
+  previousMeetings: any[];
 
   months: string[] = [
     'JAN',
@@ -36,13 +38,15 @@ export class ManageOnlineClassComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
+    private meetingService: MeetingService,
     private router: Router,
     private toasterService: NbToastrService,
   ) {}
 
   ngOnInit(): void {
     this.display = false;
-    this.meetings = [];
+    this.upcomingMeetings = [];
+    this.previousMeetings = [];
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getCourses(this.instituteId);
   }
@@ -54,13 +58,13 @@ export class ManageOnlineClassComponent implements OnInit {
     });
   }
 
-  month(time: string) {
-    const month = time.split('T')[0].split('-')[1];
+  month(date: string) {
+    const month = date.split('-')[1];
     return this.months[+month - 1];
   }
 
-  day(time: string) {
-    return time.split('T')[0].split('-')[2];
+  day(date: string) {
+    return date.split('-')[2];
   }
 
   onSelectCourse(id: string) {
@@ -73,43 +77,53 @@ export class ManageOnlineClassComponent implements OnInit {
     this.getUpcomingClasses(this.instituteId, batchId);
   }
 
-  goLive(startUrl: string) {
+  start(link: string) {
     window.open(
-      startUrl,
-      'Zoom',
+      link,
+      'EA Live',
       'scrollbars=yes,resizable=yes,status=no,location=no,toolbar=no,menubar=no',
-    );
-  }
-
-  notify(id: any) {
-    this.api.notifyMeeting({ _id: id }).subscribe(
-      (res: any) => {},
-      (err) => {},
     );
   }
 
   edit(id: string) {
     this.router.navigate(
-      [`/pages/institute/online-classes/create-class/${this.instituteId}/edit`],
+      [`/pages/institute/online-classes/create-class-link/${this.instituteId}/edit`],
       {
         queryParams: { meeting: id, edit: 'true' },
       },
     );
   }
 
-  deleteMeeting(id: string, meetingId: string) {
-    this.api.deleteMeeting({ _id: id, meetingId: meetingId }).subscribe(
+  deleteMeeting(id: string, type: string) {
+    this.meetingService.deleteMeetingLink({ _id: id }).subscribe(
       (res: any) => {
-        const i = this.meetings.findIndex((meeting: any) => meeting._id === id);
-        this.meetings.splice(i, 1);
+        const i = this.upcomingMeetings.findIndex((meeting: any) => meeting._id === id);
+        this.upcomingMeetings.splice(i, 1);
+      },
+      (err) => {},
+    );
+  }
+
+  uploadRecording(id: string) {}
+
+  viewRecording(id: string, recording: string) {}
+
+  deleteRecording(id: string) {
+    this.meetingService.deleteMeetingLink({ _id: id }).subscribe(
+      (res: any) => {
+        const i = this.previousMeetings.findIndex((meeting: any) => meeting._id === id);
+        this.previousMeetings[i].recording = '';
       },
       (err) => {},
     );
   }
 
   createTime(time: string) {
-    const dateTime = time.split('T');
-    return dateTime[0] + ' ' + dateTime[1].substring(0, 5);
+    return time;
+  }
+
+  createDate(date: string) {
+    return date.split('-').reverse().join('-');
   }
 
   getUpcomingClasses(instituteId: any, batchId: any) {
@@ -117,7 +131,8 @@ export class ManageOnlineClassComponent implements OnInit {
       .getMeetingByBatch({ instituteId: instituteId, batchId: batchId, type: 'upcoming' })
       .subscribe(
         (res: any) => {
-          this.meetings = res;
+          this.upcomingMeetings = res.upcomingMeetings;
+          this.previousMeetings = res.previousMeetings;
         },
         (err) => {
           this.showToast('top right', 'danger', err.err.message);

@@ -73,6 +73,31 @@
 .btnIcon {
   display: none;
 }
+
+/*--SCROLL BAR--*/
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: transparent;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c1c1c1;
+}
+
 @media only screen and (max-width: 600px) {
   nb-layout-column {
     padding: 0px !important;
