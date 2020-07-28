@@ -11,7 +11,7 @@ export class MeetingService {
   constructor(private http: HttpClient) {}
 
   getAllMeetingLinks(instituteId: string) {
-    const url = `${environment.server}/institute/zoom/getAllMeetingLinks`;
+    const url = `${environment.server}/institute/meeting/getAllMeetingLinks`;
     return this.http.post(url, { instituteId }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -19,7 +19,7 @@ export class MeetingService {
   }
 
   deleteMeetingLink(data) {
-    const url = `${environment.server}/institute/zoom/deleteMeetingLink`;
+    const url = `${environment.server}/institute/meeting/deleteMeetingLink`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -27,7 +27,7 @@ export class MeetingService {
   }
 
   updateMeetingLink(data) {
-    const url = `${environment.server}/institute/zoom/updateMeetingLink`;
+    const url = `${environment.server}/institute/meeting/updateMeetingLink`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -35,7 +35,7 @@ export class MeetingService {
   }
 
   createMeetingLink(data) {
-    const url = `${environment.server}/institute/zoom/createMeetingLink`;
+    const url = `${environment.server}/institute/meeting/createMeetingLink`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -43,7 +43,7 @@ export class MeetingService {
   }
 
   getOneMeetingLink(data) {
-    const url = `${environment.server}/institute/zoom/getOneMeetingLink`;
+    const url = `${environment.server}/institute/meeting/getOneMeetingLink`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -51,7 +51,7 @@ export class MeetingService {
   }
 
   getMeetingLinkByBatch(data: any) {
-    const url = `${environment.server}/institute/zoom/getMeetingLinks`;
+    const url = `${environment.server}/institute/meeting/getMeetingLinks`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -59,7 +59,7 @@ export class MeetingService {
   }
 
   addRecording(data: any) {
-    const url = `${environment.server}/institute/zoom/addRecording`;
+    const url = `${environment.server}/institute/meeting/addRecording`;
     return this.http.post(url, data).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),
@@ -67,7 +67,7 @@ export class MeetingService {
   }
 
   deleteRecording(meetingId: string, recordingId: string) {
-    const url = `${environment.server}/institute/zoom/getMeetingLinks`;
+    const url = `${environment.server}/institute/meeting/deleteRecording`;
     return this.http.post(url, { meetingId, recordingId }).pipe(
       tap((res: any) => {}),
       catchError(this.handleError),

@@ -1,5 +1,6 @@
+import { editorConfig } from './../../../config/editor.config';
 import { NbToastrService } from '@nebular/theme';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +24,12 @@ export class AnnouncementsComponent implements OnInit {
   institute: any;
   display = false;
   routerId: string;
+
+  editorConfig = editorConfig;
+
+  categoryError: boolean;
+  batchError: boolean;
+
   constructor(
     private fb: FormBuilder,
     private toastrService: NbToastrService,
@@ -40,9 +47,11 @@ export class AnnouncementsComponent implements OnInit {
       this.repeat = data.repeat;
     });
     this.batches = [];
+    this.categoryError = false;
+    this.batchError = false;
     this.announcementForm = this.fb.group({
-      title: [''],
-      date: [''],
+      title: ['', Validators.required],
+      date: ['', Validators.required],
       text: [''],
       instituteId: [this.routerId],
       batchCodes: [],
@@ -111,6 +120,17 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   onSubmit() {
+    this.announcementForm.markAllAsTouched();
+    if (this.announcementForm.invalid) {
+      this.showToast('top-right', 'danger', 'Fill announcement fields Correctly');
+      return;
+    } else if (this.announcementForm.value.batchCodes.length < 1) {
+      this.showToast('top-right', 'danger', 'Select at least One Batch');
+      return;
+    } else if (this.announcementForm.value.categories.length < 1) {
+      this.showToast('top-right', 'danger', 'Select at least One Category');
+      return;
+    }
     const announce = new FormData();
     announce.append('title', this.announcementForm.value.title);
     announce.append('date', this.announcementForm.value.date);
@@ -153,6 +173,22 @@ export class AnnouncementsComponent implements OnInit {
           this.showToast('top-right', 'danger', err.err.message);
         },
       );
+    }
+  }
+
+  onSelectBatch(batches: any[]) {
+    if (batches.length === 0) {
+      this.batchError = true;
+    } else {
+      this.batchError = false;
+    }
+  }
+
+  onSelectCategory(categories: any[]) {
+    if (categories.length === 0) {
+      this.categoryError = true;
+    } else {
+      this.categoryError = false;
     }
   }
 

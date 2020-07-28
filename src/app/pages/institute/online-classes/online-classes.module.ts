@@ -26,8 +26,9 @@ import { OnlineClassesUpgradeComponent } from './online-classes-upgrade/online-c
 import { OnlineClassLinksComponent } from './online-class-links/online-class-links.component';
 // tslint:disable-next-line: max-line-length
 import { AddOnlineClassLinkComponent } from './online-class-links/add-online-class-link/add-online-class-link.component';
-import { ViewClassRecordingComponent } from './view-class-recording/view-class-recording.component';
 import { UploadClassRecordingComponent } from './upload-class-recording/upload-class-recording.component';
+import { UtilitiesComponent } from './utilities/utilities.component';
+import { ViewClassRecordingComponent } from './upload-class-recording/view-class-recording/view-class-recording.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UploadClassRecordingComponent } from './upload-class-recording/upload-c
     AddOnlineClassLinkComponent,
     ViewClassRecordingComponent,
     UploadClassRecordingComponent,
+    UtilitiesComponent,
     // InstituteHeaderComponent,
   ],
   imports: [

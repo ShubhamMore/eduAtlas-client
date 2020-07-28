@@ -8,18 +8,32 @@
     <form [formGroup]="announcementForm" (submit)="onSubmit()">
       <div class="form-group-inline">
         <label for="title">TITLE</label>
-        <input nbInput type="text" id="title" formControlName="title" fullWidth />
-        <!-- <div *ngIf="announcementForm.get('title').invalid && announcementForm.get('title').touched">
+        <input
+          nbInput
+          type="text"
+          id="title"
+          formControlName="title"
+          fullWidth
+          [status]="
+            announcementForm.get('title').touched && announcementForm.get('title').invalid
+              ? 'danger'
+              : 'basic'
+          "
+        />
+        <span
+          class="input-error"
+          *ngIf="announcementForm.get('title').invalid && announcementForm.get('title').touched"
+        >
           <small class="error">*Title is required</small>
-        </div> -->
+        </span>
       </div>
 
       <br />
 
       <angular-editor
-        rows="2"
         placeholder="Enter text here..."
         formControlName="text"
+        [config]="editorConfig"
       ></angular-editor>
 
       <br />
@@ -40,22 +54,26 @@
       <div class="row">
         <div class="col-sm-10">
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 pb-3">
               <nb-select
                 placeholder="Select Batches"
                 fullWidth
                 formControlName="batchCodes"
                 multiple
-                status="warning"
+                [status]="batchError ? 'danger' : 'basic'"
+                (selectedChange)="onSelectBatch($event)"
               >
                 <nb-option [value]="undefined">--Select Batch--</nb-option>
                 <nb-option *ngFor="let i of batches" value="{{ i.batchCode }}">{{
                   i.batchCode
                 }}</nb-option>
               </nb-select>
+              <span class="input-error" *ngIf="batchError">
+                <small class="error">*Batch Code is required</small>
+              </span>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-6 pb-3">
               <nb-checkbox status="warning" (checkedChange)="check($event)">SELECT ALL</nb-checkbox>
             </div>
           </div>
@@ -63,25 +81,42 @@
           <hr />
 
           <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-6 pb-3">
               <nb-select
                 placeholder="Select Category Tags"
                 multiple
                 formControlName="categories"
                 fullWidth
                 status="warning"
+                (selectedChange)="onSelectCategory($event)"
+                [status]="categoryError ? 'danger' : 'basic'"
               >
                 <nb-option [value]="undefined">--Select Category--</nb-option>
                 <nb-option *ngFor="let i of institute.category" value="{{ i }}">{{ i }}</nb-option>
               </nb-select>
+              <span class="input-error" *ngIf="categoryError">
+                <small class="error">*Category is required</small>
+              </span>
             </div>
-            <div class="col-sm-6">
-              <input type="date" nbInput fullWidth formControlName="date" placeholder="Date" />
-              <!-- <div
+            <div class="col-sm-6 pb-3">
+              <input
+                type="date"
+                nbInput
+                fullWidth
+                formControlName="date"
+                placeholder="Select Date"
+                [status]="
+                  announcementForm.get('date').touched && announcementForm.get('date').invalid
+                    ? 'danger'
+                    : 'basic'
+                "
+              />
+              <span
+                class="input-error"
                 *ngIf="announcementForm.get('date').invalid && announcementForm.get('date').touched"
               >
                 <small class="error">*Date is required</small>
-              </div> -->
+              </span>
             </div>
           </div>
         </div>
@@ -99,6 +134,8 @@
     </form>
   </nb-card-body>
 </nb-card>
+
+<br />
 
 <nb-card>
   <nb-card-header style="background: #ffd500;">DISCUSSION THREADS</nb-card-header>
