@@ -93,7 +93,7 @@
                           class="mr-3 mb-1"
                           nbButton
                           status="danger"
-                          (click)="deleteMeeting(meeting._id)"
+                          (click)="deleteMeeting(meeting._id, 'upcoming')"
                         >
                           Cancel
                         </button>
@@ -143,7 +143,7 @@
                           class="mr-3 mb-1"
                           nbButton
                           status="danger"
-                          (click)="deleteMeeting(meeting._id)"
+                          (click)="deleteMeeting(meeting._id, 'previous')"
                         >
                           Delete
                         </button>

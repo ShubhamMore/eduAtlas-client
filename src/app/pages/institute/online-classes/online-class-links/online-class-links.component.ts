@@ -109,11 +109,20 @@ export class OnlineClassLinksComponent implements OnInit {
     );
   }
 
-  deleteMeeting(id: string) {
+  deleteMeeting(id: string, type: string) {
     this.meetingService.deleteMeetingLink({ _id: id }).subscribe(
       (res: any) => {
-        const i = this.upcomingMeetings.findIndex((meeting: any) => meeting._id === id);
-        this.upcomingMeetings.splice(i, 1);
+        if (type === 'upcoming') {
+          const i = this.upcomingMeetings.findIndex((meeting: any) => meeting._id === id);
+          if (i >= 0) {
+            this.upcomingMeetings.splice(i, 1);
+          }
+        } else {
+          const i = this.previousMeetings.findIndex((meeting: any) => meeting._id === id);
+          if (i >= 0) {
+            this.previousMeetings.splice(i, 1);
+          }
+        }
       },
       (err) => {},
     );
@@ -139,13 +148,6 @@ export class OnlineClassLinksComponent implements OnInit {
   uploadRecording(meeting: any) {
     this.meetingDetails = meeting;
     this.uploadClassRecording = true;
-  }
-
-  deleteRecording(meetingId: string, recordingId: string) {
-    this.meetingService.deleteRecording(meetingId, recordingId).subscribe(
-      (res: any) => {},
-      (err) => {},
-    );
   }
 
   closeUploadRecording() {
