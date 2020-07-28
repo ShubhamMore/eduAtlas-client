@@ -21,6 +21,7 @@
 
 @media only screen and (max-width: 1200px) {
   .play-recording-box {
+    top: 15vh;
     left: 15vw;
     width: 75vw;
   }
@@ -28,6 +29,7 @@
 
 @media only screen and (max-width: 840px) {
   .play-recording-box {
+    top: 12vh;
     left: 10vw;
     width: 80vw;
   }
@@ -35,6 +37,7 @@
 
 @media only screen and (max-width: 420px) {
   .play-recording-box {
+    top: 10vh;
     left: 5vw;
     width: 90vw;
   }
