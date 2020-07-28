@@ -1,11 +1,11 @@
 <!-- <ngx-institute-header></ngx-institute-header> -->
-
-<div>
-  <button (click)="back()" class="btn btn-yellow-black float-right">Forum Page</button>
-  <p style="font-weight: bold;">Forum</p>
-</div>
-<br /><br />
 <nb-card>
+  <nb-card-header>
+    <div>
+      <button (click)="back()" class="btn btn-yellow-black float-right">Forum Page</button>
+      <p style="font-weight: bold;">Forum</p>
+    </div>
+  </nb-card-header>
   <nb-card-body>
     <form [formGroup]="forumForm" (ngSubmit)="onSubmit()">
       <div class="row">
