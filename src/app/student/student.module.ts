@@ -46,6 +46,9 @@ import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-cla
 import { SharedModule } from '../services/shared.module';
 import { StudentInstituteHeaderComponent } from './student-dashboard/student-institute-header/student-institute-header.component';
 import { StudentTestComponent } from './student-pages/student-test/student-test.component';
+import { OnlineClassLinkComponent } from './student-pages/online-class-link/online-class-link.component';
+import { ViewLinksComponent } from './student-pages/online-class-link/view-links/view-links.component';
+import { PlayLinksComponent } from './student-pages/online-class-link/play-links/play-links.component';
 
 @NgModule({
   imports: [
@@ -98,6 +101,12 @@ import { StudentTestComponent } from './student-pages/student-test/student-test.
     StudentInstituteHeaderComponent,
 
     StudentTestComponent,
+
+    OnlineClassLinkComponent,
+
+    ViewLinksComponent,
+
+    PlayLinksComponent,
   ],
 })
 export class StudentModule {}

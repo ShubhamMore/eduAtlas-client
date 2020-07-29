@@ -1,10 +1,10 @@
 <div class="backdrop" (click)="onClose()"></div>
 
-<ngx-play-video-recording
+<ngx-play-links
   *ngIf="playVideoRecording"
   [recording]="recording"
   (close)="closePlayingVideo()"
-></ngx-play-video-recording>
+></ngx-play-links>
 
 <div class="view-recording-box">
   <nb-card>
@@ -40,27 +40,6 @@
           </div>
         </div>
 
-        <div class="row storage-size">
-          <div class="col-sm-4">
-            <p>
-              <strong>Total Allowed: </strong>
-              <span></span>
-            </p>
-          </div>
-          <div class="col-sm-4">
-            <p>
-              <strong>Total Used: </strong>
-              <span></span>
-            </p>
-          </div>
-          <div class="col-sm-4">
-            <p>
-              <strong>Total Free: </strong>
-              <span></span>
-            </p>
-          </div>
-        </div>
-
         <div class="row file-list">
           <div class="col-12">
             <div class="table-responsive" *ngIf="meeting.recordings.length > 0; else noRecordings">
@@ -75,15 +54,6 @@
                         (click)="viewRecording(recording)"
                       >
                         View
-                      </button>
-
-                      <button
-                        nbButton
-                        size="small"
-                        status="danger"
-                        (click)="deleteRecording(meeting._id, recording._id)"
-                      >
-                        Delete
                       </button>
                     </td>
                   </tr>

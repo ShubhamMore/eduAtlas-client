@@ -1,3 +1,4 @@
+import { OnlineClassLinkComponent } from './student-pages/online-class-link/online-class-link.component';
 import { OnlineeClassComponent } from './student-pages/onlinee-class/onlinee-class.component';
 import { StudentViewEnrollmentComponent } from './student-pages/student-enrollment-details/student-view-enrollment/student-view-enrollment.component';
 import { StudentInstitutesComponent } from './student-institutes/student-institutes.component';
@@ -104,6 +105,11 @@ const routes: Routes = [
       {
         path: 'onlineClasses/:id',
         component: OnlineeClassComponent,
+        canActivate: [StudentEaLiveGuard],
+      },
+      {
+        path: 'onlineClassLinks/:id',
+        component: OnlineClassLinkComponent,
         canActivate: [StudentEaLiveGuard],
       },
 
