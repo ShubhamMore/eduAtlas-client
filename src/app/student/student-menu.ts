@@ -86,4 +86,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'globe-outline',
     hidden: true,
   },
+  {
+    title: 'EA Live', //  14
+    link: '/student/onlineClassLinks/',
+    icon: 'globe-outline',
+    hidden: true,
+  },
 ];
