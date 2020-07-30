@@ -4,13 +4,13 @@
       <table class="table table-borderless">
         <thead>
           <th>Institute/Branch Name</th>
-          <th>Institute Address</th>
+          <th class="hideMobile">Institute Address</th>
           <th>Institute Contact</th>
         </thead>
         <tbody>
           <tr *ngFor="let i of institutes">
             <td>{{ i.basicInfo.name }}</td>
-            <td>
+            <td class="hideMobile">
               {{ i.address.addressLine }} {{ i.address.locality }} {{ i.address.city }}
               {{ i.address.pincode }}
             </td>
