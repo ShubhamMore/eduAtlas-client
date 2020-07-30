@@ -33,23 +33,25 @@
           </div>
         </div>
 
-        <div class="row storage-size">
+        <div class="row storage-size" *ngIf="instituteStorage">
           <div class="col-sm-4">
             <p>
               <strong>Total Allowed: </strong>
-              <span></span>
+              <span>{{ convertBytes(instituteStorage.totalStorage) }}</span>
             </p>
           </div>
           <div class="col-sm-4">
             <p>
               <strong>Total Used: </strong>
-              <span></span>
+              <span>{{ convertBytes(instituteStorage.storageUsed) }}</span>
             </p>
           </div>
           <div class="col-sm-4">
             <p>
               <strong>Total Free: </strong>
-              <span></span>
+              <span>{{
+                convertBytes(+instituteStorage.totalStorage - +instituteStorage.storageUsed)
+              }}</span>
             </p>
           </div>
         </div>

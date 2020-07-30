@@ -1,6 +1,7 @@
 import { MeetingService } from './../../../../services/meeting.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
+import { ApiService } from '../../../../services/api.service';
 
 @Component({
   selector: 'ngx-upload-class-recording',
@@ -9,6 +10,8 @@ import { NbToastrService } from '@nebular/theme';
 })
 export class UploadClassRecordingComponent implements OnInit {
   @Input() meeting: any;
+  @Input() instituteId: any;
+  instituteStorage: any;
   @Output() close = new EventEmitter<void>();
   @Output() deleteClassRecording = new EventEmitter<{ _id: string; recordingId: string }>();
 
@@ -30,14 +33,19 @@ export class UploadClassRecordingComponent implements OnInit {
     'DEC',
   ];
 
-  constructor(private meetingService: MeetingService, private toasterService: NbToastrService) {}
+  constructor(
+    private meetingService: MeetingService,
+    private api: ApiService,
+    private toasterService: NbToastrService,
+  ) {}
 
   ngOnInit() {
     this.fileError = false;
+    this.getInstituteStorage();
   }
 
   deleteRecording(_id: string, recordingId: string) {
-    this.meetingService.deleteRecording(_id, recordingId).subscribe(
+    this.meetingService.deleteRecording(_id, recordingId, this.meeting.instituteId).subscribe(
       (res: any) => {
         const i = this.meeting.recordings.findIndex(
           (recording: any) => recording._id === recordingId,
@@ -81,6 +89,7 @@ export class UploadClassRecordingComponent implements OnInit {
     this.meetingService.addRecording(recording).subscribe(
       (res: any) => {
         this.meeting.recordings.push(res);
+        this.getInstituteStorage();
         this.showToast('top-right', 'success', 'Recording Added Successfully');
       },
       (err) => {
@@ -119,6 +128,17 @@ export class UploadClassRecordingComponent implements OnInit {
     return hours.toString().padStart(2, '0') + ':' + minute + ' ' + meridiem;
   }
 
+  getInstituteStorage() {
+    this.api.getInstituteStorage(this.instituteId).subscribe(
+      (res: any) => {
+        this.instituteStorage = res;
+      },
+      (err: any) => {
+        this.showToast('top-right', 'danger', err.err.message);
+      },
+    );
+  }
+
   convertBytes(bytes: any) {
     const kb = 1024;
     const mb = 1024 * 1024;
@@ -128,11 +148,11 @@ export class UploadClassRecordingComponent implements OnInit {
     if (bytes < kb) {
       return bytes + ' Bytes';
     } else if (bytes >= kb && bytes < mb) {
-      return (bytes / kb).toFixed(2) + ' KB';
+      return (bytes / kb).toFixed(1) + ' KB';
     } else if (bytes >= mb && bytes < gb) {
-      return (bytes / mb).toFixed(2) + ' MB';
+      return (bytes / mb).toFixed(1) + ' MB';
     } else if (bytes >= gb) {
-      return (bytes / gb).toFixed(2) + ' GB';
+      return (bytes / gb).toFixed(1) + ' GB';
     }
   }
 

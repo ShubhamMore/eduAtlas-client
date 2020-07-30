@@ -2,6 +2,7 @@
 <ngx-upload-class-recording
   *ngIf="uploadClassRecording"
   [meeting]="meetingDetails"
+  [instituteId]="instituteId"
   (close)="closeUploadRecording()"
   (deleteClassRecording)="deleteClassRecording($event)"
 ></ngx-upload-class-recording>

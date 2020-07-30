@@ -131,7 +131,7 @@ export class OnlineClassLinksComponent implements OnInit {
   deleteClassRecording(data: any) {
     const i = this.previousMeetings.findIndex((meeting: any) => meeting._id === data._id);
     if (i >= 0) {
-      const ri = this.previousMeetings[i].findIndex(
+      const ri = this.previousMeetings[i].recordings.findIndex(
         (recording: any) => recording._id === data.recordingId,
       );
       if (ri >= 0) {

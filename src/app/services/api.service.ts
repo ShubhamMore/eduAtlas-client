@@ -1357,9 +1357,12 @@ export class ApiService {
       );
   }
 
-  deleteStudyMaterial(id: any) {
+  deleteStudyMaterial(id: any, instituteId: string) {
     return this.http
-      .post<any>(`${environment.server}/institute/studyMaterial/deleteStudyMaterial`, { _id: id })
+      .post<any>(`${environment.server}/institute/studyMaterial/deleteStudyMaterial`, {
+        _id: id,
+        instituteId,
+      })
       .pipe(
         tap((res) => {}),
         catchError((err) => this.handleError(err)),

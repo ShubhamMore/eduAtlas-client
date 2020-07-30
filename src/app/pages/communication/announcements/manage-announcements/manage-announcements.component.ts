@@ -50,7 +50,7 @@ export class ManageAnnouncementsComponent implements OnInit {
   }
 
   onDelete(id: any) {
-    this.announceService.deleteAnnouncement(id).subscribe(
+    this.announceService.deleteAnnouncement(id, this.instituteId).subscribe(
       (res) => {
         const i = this.announcements.findIndex((e) => e._id === id);
 

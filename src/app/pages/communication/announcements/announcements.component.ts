@@ -23,7 +23,7 @@ export class AnnouncementsComponent implements OnInit {
   batches: any[];
   institute: any;
   display = false;
-  routerId: string;
+  InstituteId: string;
 
   editorConfig = editorConfig;
 
@@ -40,7 +40,7 @@ export class AnnouncementsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.routerId = this.active.snapshot.paramMap.get('id');
+    this.InstituteId = this.active.snapshot.paramMap.get('id');
     this.active.queryParams.subscribe((data) => {
       this.announcementId = data.announcement;
       this.edit = data.edit;
@@ -53,12 +53,12 @@ export class AnnouncementsComponent implements OnInit {
       title: ['', Validators.required],
       date: ['', Validators.required],
       text: [''],
-      instituteId: [this.routerId],
+      instituteId: [this.InstituteId],
       batchCodes: [],
       categories: [],
     });
-    this.getInstitute(this.routerId);
-    this.getAnnouncements(this.routerId);
+    this.getInstitute(this.InstituteId);
+    this.getAnnouncements(this.InstituteId);
   }
 
   getBatches(id: any) {
@@ -105,7 +105,7 @@ export class AnnouncementsComponent implements OnInit {
   getInstitute(id: any) {
     this.api.getInstitute(id).subscribe((data: any) => {
       this.institute = data.institute;
-      this.getBatches(this.routerId);
+      this.getBatches(this.InstituteId);
     });
   }
 
@@ -193,7 +193,7 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   onDelete(id: any) {
-    this.announceService.deleteAnnouncement(id).subscribe(
+    this.announceService.deleteAnnouncement(id, this.InstituteId).subscribe(
       (res) => {
         const i = this.announcements.findIndex((e: any) => e._id === id);
 
@@ -201,7 +201,7 @@ export class AnnouncementsComponent implements OnInit {
           this.announcements.splice(i, 1);
           this.showToast('top-right', 'success', 'Announcement Deleted Successfully');
         }
-        this.getAnnouncements(this.routerId);
+        this.getAnnouncements(this.InstituteId);
       },
       (err) => {
         this.showToast('top-right', 'danger', 'Announcement Deletion Failed');

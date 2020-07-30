@@ -59,9 +59,12 @@ export class AnnouncementService {
       );
   }
 
-  deleteAnnouncement(id: any): Observable<any> {
+  deleteAnnouncement(id: any, instituteId: string): Observable<any> {
     return this.http
-      .post<any>(`${environment.server}/institute/announcement/deleteAnnouncement`, { _id: id })
+      .post<any>(`${environment.server}/institute/announcement/deleteAnnouncement`, {
+        _id: id,
+        instituteId,
+      })
       .pipe(
         tap((res) => {}),
         catchError((err) => this.handleError(err)),

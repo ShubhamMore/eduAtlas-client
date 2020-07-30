@@ -37,7 +37,7 @@ export class ViewClassRecordingComponent implements OnInit {
   }
 
   deleteRecording(_id: string, recordingId: string) {
-    this.meetingService.deleteRecording(_id, recordingId).subscribe(
+    this.meetingService.deleteRecording(_id, recordingId, this.meeting.instituteId).subscribe(
       (res: any) => {
         const i = this.meeting.recordings.findIndex(
           (recording: any) => recording._id === recordingId,

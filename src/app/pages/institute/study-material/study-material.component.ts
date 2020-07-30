@@ -173,7 +173,7 @@ export class StudyMaterialComponent implements OnInit {
   }
 
   deleteMaterial(id: any) {
-    this.api.deleteStudyMaterial(id).subscribe(
+    this.api.deleteStudyMaterial(id, this.instituteId).subscribe(
       (res: any) => {
         const i = this.materials.findIndex((e: any) => e._id === id);
         if (i !== -1) {
