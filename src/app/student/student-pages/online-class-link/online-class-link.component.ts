@@ -55,7 +55,6 @@ export class OnlineClassLinkComponent implements OnInit {
     this.viewClassRecording = false;
     this.instituteId = this.route.snapshot.paramMap.get('id');
     this.getBatchesOfCourses(this.instituteId);
-    this.getClasses(this.instituteId, null, null);
   }
 
   getBatchesOfCourses(instituteId: any) {
@@ -84,12 +83,9 @@ export class OnlineClassLinkComponent implements OnInit {
   onSelectCourse(id: string) {
     if (id !== '') {
       this.courseId = id;
-
       const course = this.courses.find((curCourse: any) => curCourse._id === id);
       this.batchId = course.batchId;
       this.getClasses(this.instituteId, this.courseId, this.batchId);
-    } else {
-      this.getClasses(this.instituteId, null, null);
     }
   }
 

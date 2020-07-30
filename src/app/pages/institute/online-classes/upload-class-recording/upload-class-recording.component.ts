@@ -119,6 +119,23 @@ export class UploadClassRecordingComponent implements OnInit {
     return hours.toString().padStart(2, '0') + ':' + minute + ' ' + meridiem;
   }
 
+  convertBytes(bytes: any) {
+    const kb = 1024;
+    const mb = 1024 * 1024;
+    const gb = 1024 * 1024 * 1024;
+
+    bytes = +bytes;
+    if (bytes < kb) {
+      return bytes + ' Bytes';
+    } else if (bytes >= kb && bytes < mb) {
+      return (bytes / kb).toFixed(2) + ' KB';
+    } else if (bytes >= mb && bytes < gb) {
+      return (bytes / mb).toFixed(2) + ' MB';
+    } else if (bytes >= gb) {
+      return (bytes / gb).toFixed(2) + ' GB';
+    }
+  }
+
   showToast(position: any, status: any, message: any) {
     this.toasterService.show(status, message, { position, status });
   }

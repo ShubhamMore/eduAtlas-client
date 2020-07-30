@@ -44,6 +44,14 @@ export class ApiService {
     );
   }
 
+  getInstituteStorage(id: string) {
+    const url = `${environment.server}/institute/getInstituteStorage`;
+    return this.http.post(url, { id }).pipe(
+      tap((res: any) => {}),
+      catchError(this.handleError),
+    );
+  }
+
   addInstitute(institute: any) {
     const postData = new FormData();
     const data = {
