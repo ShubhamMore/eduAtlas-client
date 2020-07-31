@@ -2,6 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from './../../../../services/api.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { NbToastrService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-view-attendance',
@@ -19,7 +20,13 @@ export class ViewAttendanceComponent implements OnInit {
   courses: any[];
   noAttendanceData: any;
   studentName: any;
-  constructor(private api: ApiService, private route: ActivatedRoute, private location: Location) { }
+  courseId: any;
+  constructor(
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+    private location: Location,
+  ) {}
 
   ngOnInit() {
     this.display = false;
@@ -47,12 +54,13 @@ export class ViewAttendanceComponent implements OnInit {
         });
         this.display = true;
       },
-      (err: any) => { },
+      (err: any) => {},
     );
   }
 
   onSelectCourse(id: any) {
     if (id !== '') {
+      this.courseId = id;
       this.getAttendance(id);
     }
   }
@@ -95,8 +103,33 @@ export class ViewAttendanceComponent implements OnInit {
             });
           }
         },
-        (err: any) => { },
+        (err: any) => {},
       );
+  }
+
+  sendSms() {
+    const course = this.courses.find((curCourse: any) => curCourse._id === this.courseId);
+
+    const smsData = {
+      instituteId: this.instituteId,
+      courseId: this.courseId,
+      courseName: course.name,
+      studentId: this.studentId,
+      totalLectures: this.total,
+      totalPresent: this.present,
+      totalAbsent: this.absent,
+      percentage: ((+this.present * 100) / +this.total).toFixed(2),
+      studentName: this.studentName,
+    };
+
+    this.api.sendAttendanceSms(smsData).subscribe(
+      (res: any) => {
+        this.showToaster('top-right', 'success', 'SMS Send successfully');
+      },
+      (err: any) => {
+        this.showToaster('top-right', 'danger', err.error.message);
+      },
+    );
   }
 
   getScheduleDate(date: any) {
@@ -106,5 +139,13 @@ export class ViewAttendanceComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  // Show Toaster
+  showToaster(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
   }
 }
