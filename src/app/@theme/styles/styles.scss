@@ -116,13 +116,9 @@
   nb-card-body {
     padding: 1rem 0rem;
   }
-  table {
-    height: 80vh !important;
-    tr:last-child td {
-      height: fit-content !important;
-    }
+  .table-responsive {
+    height: 82vh !important;
   }
-
   .nb-theme-default nb-layout .scrollable-container::-webkit-scrollbar {
     width: 0rem !important;
     height: 0rem !important;
@@ -154,6 +150,9 @@
     border-radius: 0.25rem;
     font-size: 0.875rem;
     line-height: 1rem;
+  }
+  .mobileFullHeight {
+    height: 85vh;
   }
   table tr td:last-child {
     white-space: nowrap;

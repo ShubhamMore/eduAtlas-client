@@ -1,6 +1,6 @@
 <!-- <ngx-institute-header></ngx-institute-header> -->
 
-<nb-card>
+<nb-card class="mobileFullHeight">
   <nb-card-body>
     <nb-tabset fullWidth>
       <nb-tab tabTitle="UPCOMING/PENDING TESTS">
@@ -47,7 +47,7 @@
                   MARK
                 </span>
                 <span class="btnIcon">
-                  <i class="fa fa-check" aria-hidden="true"></i>
+                  <nb-icon icon="checkmark-outline"></nb-icon>
                 </span>
               </button>
               <button class="btn btn-yellow-black middleBtn" (click)="editTest(unmarkedTest._id)">

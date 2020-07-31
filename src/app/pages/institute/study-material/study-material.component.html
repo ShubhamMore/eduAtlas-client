@@ -154,7 +154,7 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <div class="table-responsive" *ngIf="materials.length > 0; else noMaterial">
+    <div *ngIf="materials.length > 0; else noMaterial">
       <table class="table table-borderless">
         <thead>
           <tr>
