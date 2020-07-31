@@ -140,9 +140,9 @@
                 <td>
                   <a
                     class="receipt"
-                    [href]="installment.receiptLink"
+                    [href]="installment.receipt.secureUrl"
                     target="_blank"
-                    *ngIf="installment.paidStatus === 'true' && installment.receiptLink"
+                    *ngIf="installment.paidStatus === 'true' && installment.receipt.secureUrl"
                     >Receipt</a
                   >
                 </td>
