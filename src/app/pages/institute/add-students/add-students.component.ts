@@ -551,7 +551,13 @@ export class AddStudentsComponent implements OnInit {
         transDetails: '',
         paymentDate: '',
         amountPending: '',
-        receiptLink: '',
+        receipt: {
+          fileName: null,
+          fileSize: null,
+          secureUrl: null,
+          publicId: null,
+          createdAt: null,
+        },
       };
       this.addInstallment(installmentData);
       this.disableFeeInstallmentDetails(i);
@@ -632,7 +638,13 @@ export class AddStudentsComponent implements OnInit {
       transDetails: [installmentData.transDetails ? installmentData.transDetails : ''],
       paymentDate: [installmentData.paymentDate ? installmentData.paymentDate : ''],
       amountPending: [installmentData.amountPending ? installmentData.amountPending : ''],
-      receiptLink: [installmentData.receiptLink ? installmentData.receiptLink : ''],
+      receipt: this.fb.group({
+        fileName: [installmentData.receipt.fileName ? installmentData.receipt.fileName : null],
+        fileSize: [installmentData.receipt.fileSize ? installmentData.receipt.fileSize : null],
+        secureUrl: [installmentData.receipt.secureUrl ? installmentData.receipt.secureUrl : null],
+        publicId: [installmentData.receipt.publicId ? installmentData.receipt.publicId : null],
+        createdAt: [installmentData.receipt.createdAt ? installmentData.receipt.createdAt : null],
+      }),
     });
   }
 
@@ -752,7 +764,7 @@ export class AddStudentsComponent implements OnInit {
             bankDetails: curInstallment.bankDetails,
             transDetails: curInstallment.transDetails,
             amountPending: curInstallment.amountPending,
-            receiptLink: curInstallment.receiptLink,
+            receipt: curInstallment.receipt,
           };
           this.addInstallment(installmentData);
 

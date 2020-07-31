@@ -468,7 +468,7 @@ export class ApiService {
         transDetails: curInstallment.transDetails,
         paymentDate: curInstallment.paymentDate,
         amountPending: curInstallment.amountPending,
-        receiptLink: curInstallment.receiptLink,
+        receipt: curInstallment.receipt,
       };
       data.installments.push(installment);
     });
