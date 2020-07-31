@@ -205,25 +205,26 @@
                           />
                         </td>
                         <td>
-                          <button
-                            type="button"
-                            class="btn btn-light mr-3"
-                            (click)="addMetaTag(i)"
-                            nbButton
-                          >
-                            <span>+</span>
-                          </button>
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            class="btn btn-light mr-3"
-                            (click)="removeMetaTag(i)"
-                            [hidden]="instituteMetaTag.length == 1"
-                            nbButton
-                          >
-                            <span>-</span>
-                          </button>
+                          <div class="btn-group">
+                            <button
+                              type="button"
+                              class="btn btn-light"
+                              (click)="addMetaTag(i)"
+                              nbButton
+                            >
+                              <nb-icon icon="plus-outline"></nb-icon>
+                            </button>
+
+                            <button
+                              type="button"
+                              class="btn btn-light"
+                              (click)="removeMetaTag(i)"
+                              [hidden]="instituteMetaTag.length == 1"
+                              nbButton
+                            >
+                              <nb-icon icon="minus-outline"></nb-icon>
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

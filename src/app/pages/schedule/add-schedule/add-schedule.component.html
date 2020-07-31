@@ -186,7 +186,6 @@
                   <th>TOPIC</th>
                   <th>TEACHER</th>
                   <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody formArrayName="days">
@@ -256,10 +255,15 @@
                       </nb-select>
                     </td>
                     <td>
-                      <button type="button" nbButton (click)="addAnotherClass(i)">+</button>
-                    </td>
-                    <td>
-                      <button type="button" nbButton (click)="removeClass(i)">-</button>
+                      <div class="btn-group">
+                        <button type="button" nbButton (click)="addAnotherClass(i)">
+                          <nb-icon icon="plus-outline"></nb-icon>
+                        </button>
+
+                        <button type="button" nbButton (click)="removeClass(i)">
+                          <nb-icon icon="minus-outline"></nb-icon>
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 </ng-container>
