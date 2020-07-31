@@ -1,47 +1,51 @@
 <nb-card *ngIf="institutes.length > 0; else no_institute">
   <nb-card-body>
-    <div class="table-responsive">
-      <table class="table table-borderless">
-        <thead>
-          <th>Institute/Branch Name</th>
-          <th class="hideMobile">Institute Address</th>
-          <th>Institute Contact</th>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of institutes">
-            <td>{{ i.basicInfo.name }}</td>
-            <td class="hideMobile">
-              {{ i.address.addressLine }} {{ i.address.locality }} {{ i.address.city }}
-              {{ i.address.pincode }}
-            </td>
-            <td>{{ i.basicInfo.instituteContact }}</td>
-            <td>
-              <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">
-                <span class="btnText">
-                  Manage
-                </span>
-                <span class="btnIcon">
-                  <i class="fa fa-gear" aria-hidden="true"></i>
-                </span>
-              </button>
-              <button class="mr-3 mt-1 btn btn-yellow" (click)="updateInstitute(i._id)">
-                <span class="btnText">
-                  Edit
-                </span>
-                <span class="btnIcon">
-                  <i class="fa fa-edit" aria-hidden="true"></i>
-                </span>
-              </button>
-              <button class="mr-3 mt-1" nbButton status="danger" (click)="delete(i._id)">
-                <span class="btnText">Delete </span>
-                <span class="btnIcon">
-                  <i class="fa fa-trash" aria-hidden="true"></i>
-                </span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="mobileFullHeight">
+      <div class="table-responsive">
+        <table class="table table-borderless">
+          <thead>
+            <th>Institute/Branch Name</th>
+            <th class="hideMobile">Institute Address</th>
+            <th>Institute Contact</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let i of institutes">
+              <td>{{ i.basicInfo.name }}</td>
+              <td class="hideMobile">
+                {{ i.address.addressLine }} {{ i.address.locality }} {{ i.address.city }}
+                {{ i.address.pincode }}
+              </td>
+              <td>{{ i.basicInfo.instituteContact }}</td>
+              <td>
+                <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">
+                  <span class="btnText">
+                    Manage
+                  </span>
+                  <span class="btnIcon">
+                    <nb-icon icon="settings-outline"></nb-icon>
+                    <!-- <i class="fa fa-gear" aria-hidden="true"></i> -->
+                  </span>
+                </button>
+                <button class="mr-3 mt-1 btn btn-yellow" (click)="updateInstitute(i._id)">
+                  <span class="btnText">
+                    Edit
+                  </span>
+                  <span class="btnIcon">
+                    <!-- <nb-icon icon="edit-outline"></nb-icon> -->
+                    <nb-icon icon="edit-outline"></nb-icon>
+                  </span>
+                </button>
+                <button class="mr-3 mt-1" nbButton status="danger" (click)="delete(i._id)">
+                  <span class="btnText">Delete </span>
+                  <span class="btnIcon">
+                    <nb-icon icon="trash-2-outline"></nb-icon>
+                  </span>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </nb-card-body>
 </nb-card>

@@ -20,6 +20,7 @@ import {
   NbCheckboxModule,
   NbStepperModule,
   NbTabsetModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { AddInstituteComponent } from '../add-institute/add-institute.component';
 import { InstituteComponent } from '../institute.component';
@@ -80,6 +81,7 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     NbButtonModule,
     NbAccordionModule,
     NbStepperModule,
+    NbIconModule,
     NbToastrModule.forRoot(),
     FormsModule,
   ],

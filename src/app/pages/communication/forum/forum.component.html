@@ -50,7 +50,12 @@
           <td>{{ myforum.createdByName }}</td>
           <td class="text-right">
             <button class="mr-3 mb-2 btn btn-yellow-black" (click)="comment(myforum._id)">
-              Comment
+              <span class="btnText">
+                Comment
+              </span>
+              <span class="btnIcon">
+                <nb-icon icon="message-square-outline"></nb-icon>
+              </span>
             </button>
           </td>
         </tr>

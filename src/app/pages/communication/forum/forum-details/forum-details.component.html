@@ -49,7 +49,7 @@
           (click)="deleteComment(comment._id)"
           *ngIf="comment.userId == authService.getUser()._id"
         >
-          <i class="fa fa-trash" aria-hidden="true"></i>
+          <nb-icon icon="trash-2-outline"></nb-icon>
         </div>
       </div>
     </div>

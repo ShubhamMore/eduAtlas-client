@@ -18,6 +18,7 @@ import {
   NbAccordionModule,
   NbListModule,
   NbTabsetModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -54,6 +55,7 @@ import { ChartsModule } from 'ng2-charts';
     NbListModule,
     ChartsModule,
     NbTabsetModule,
+    NbIconModule,
   ],
 })
 export class TestsModule {}

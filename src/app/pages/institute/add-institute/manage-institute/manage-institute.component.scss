@@ -1,0 +1,11 @@
+@media only screen and (max-width: 600px) {
+  nb-card {
+    height: 95vh;
+  }
+  table {
+    height: 0vh !important;
+  }
+  .table-responsive {
+    overflow-x: unset !important;
+  }
+}

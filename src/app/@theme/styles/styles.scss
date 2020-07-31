@@ -117,7 +117,10 @@
     padding: 1rem 0rem;
   }
   table {
-    height: 80vh;
+    height: 80vh !important;
+    tr:last-child td {
+      height: fit-content !important;
+    }
   }
 
   .nb-theme-default nb-layout .scrollable-container::-webkit-scrollbar {

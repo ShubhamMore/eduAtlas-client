@@ -19,6 +19,7 @@ import {
   NbAccordionModule,
   NbCheckboxModule,
   NbDatepickerModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { DiscountComponent } from '../discount/discount.component';
 import { ReceiptConfComponent } from '../receipt-conf/receipt-conf.component';
@@ -63,6 +64,7 @@ import { ViewEmployeeComponent } from '../employee-management/view-employee/view
     NbMenuModule,
     NbAccordionModule,
     NbEvaIconsModule,
+    NbIconModule,
   ],
 })
 export class BranchModule {}

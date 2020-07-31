@@ -11,6 +11,7 @@ import {
   NbCheckboxModule,
   NbInputModule,
   NbAccordionModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
@@ -40,6 +41,7 @@ import { SheduleMentoringComponent } from './student-report-conf/mentoring/shedu
     NbMenuModule,
     NbAccordionModule,
     NbEvaIconsModule,
+    NbIconModule,
   ],
   declarations: [
     StudentReportConfComponent,

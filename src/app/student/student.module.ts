@@ -73,6 +73,7 @@ import { PlayLinksComponent } from './student-pages/online-class-link/play-links
     NbButtonModule,
     ChartsModule,
     NbCheckboxModule,
+    NbIconModule,
   ],
   declarations: [
     StudentComponent,

@@ -32,6 +32,7 @@ import {
   NbInputModule,
   NbPopoverModule,
   NbStepperModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
@@ -68,6 +69,7 @@ import { TermsAndConditionsComponent } from './authentication/terms-and-conditio
     NbStepperModule,
     NbInputModule,
     NbEvaIconsModule,
+    NbIconModule,
     NbToastrModule.forRoot(),
     ReactiveFormsModule,
     ThemeModule.forRoot(),

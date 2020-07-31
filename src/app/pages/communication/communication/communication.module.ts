@@ -15,6 +15,7 @@ import {
   NbCheckboxModule,
   NbLayoutModule,
   NbButtonModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,6 +51,7 @@ import { ForumDetailsComponent } from '../forum/forum-details/forum-details.comp
     ReactiveFormsModule,
     NbButtonModule,
     NbCardModule,
+    NbIconModule,
   ],
 })
 export class CommunicationModule {}

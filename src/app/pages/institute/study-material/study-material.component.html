@@ -182,7 +182,13 @@
                 nbButton
                 (click)="editMaterial(i)"
               >
-                EDIT
+                <span class="btnText">
+                  Edit
+                </span>
+
+                <span class="btnIcon">
+                  <nb-icon icon="edit-outline"></nb-icon>
+                </span>
               </button>
               <button
                 type="button"
@@ -191,7 +197,12 @@
                 status="danger"
                 (click)="deleteMaterial(material._id)"
               >
-                DELETE
+                <span class="btnText">
+                  Delete
+                </span>
+                <span class="btnIcon">
+                  <nb-icon icon="trash-2-outline"></nb-icon>
+                </span>
               </button>
             </td>
           </tr>
