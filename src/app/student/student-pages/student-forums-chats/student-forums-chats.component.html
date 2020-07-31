@@ -24,34 +24,36 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table class="table table-borderless text-center" *ngIf="allForums.length > 0; else noForums">
-      <thead>
-        <tr>
-          <th>Topic</th>
-          <th>Course</th>
-          <th>Date</th>
-          <th>Created By</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let myforum of allForums; let i = index">
-          <td>{{ myforum.title }}</td>
-          <td>{{ myforum.courseId }}</td>
-          <td>{{ myforum.date }}</td>
-          <td>{{ myforum.createdByName }}</td>
-          <td class="text-right">
-            <button class="mr-3 mb-2 btn btn-yellow-black" (click)="comment(myforum._id)">
-              <span class="btnText">
-                Comment
-              </span>
-              <span class="btnIcon">
-                <i class="fa fa-comments-o" aria-hidden="true"></i>
-              </span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-borderless text-center" *ngIf="allForums.length > 0; else noForums">
+        <thead>
+          <tr>
+            <th>Topic</th>
+            <th>Course</th>
+            <th>Date</th>
+            <th>Created By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let myforum of allForums; let i = index">
+            <td>{{ myforum.title }}</td>
+            <td>{{ myforum.courseId }}</td>
+            <td>{{ myforum.date }}</td>
+            <td>{{ myforum.createdByName }}</td>
+            <td class="text-right">
+              <button class="mr-3 mb-2 btn btn-yellow-black" (click)="comment(myforum._id)">
+                <span class="btnText">
+                  Comment
+                </span>
+                <span class="btnIcon">
+                  <i class="fa fa-comments-o" aria-hidden="true"></i>
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <ng-template #noForums>
       <p class="mt-5 mb-5 text-center">No Record Found</p>
     </ng-template>
