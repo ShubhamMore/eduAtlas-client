@@ -324,7 +324,7 @@ export class ApiService {
 
   //  SEND ATTENDANCE
   sendAttendanceSms(data: any) {
-    return this.http.post(environment.server + '/institute/student/sendAttendanceSms', data).pipe(
+    return this.http.post(environment.server + '/institute/student/sendAttendanceSMS', data).pipe(
       tap((res) => {}),
       map((res) => res),
       catchError(this.handleError),
