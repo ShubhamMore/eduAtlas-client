@@ -168,7 +168,14 @@
               }}</a>
             </td>
             <div>
-              <button nbButton status="danger" (click)="onDelete(item._id)">Delete</button>
+              <button nbButton status="danger" (click)="onDelete(item._id)">
+                <span class="btnText">
+                  Delete
+                </span>
+                <span class="btnIcon">
+                  <nb-icon icon="trash-2-outline"></nb-icon>
+                </span>
+              </button>
             </div>
           </tr>
         </tbody>

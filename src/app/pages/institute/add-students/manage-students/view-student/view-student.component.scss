@@ -11,3 +11,9 @@
   color: #ffd500;
   font-weight: bold;
 }
+
+@media only screen and (max-width: 600px) {
+  .table-responsive {
+    height: unset !important;
+  }
+}
