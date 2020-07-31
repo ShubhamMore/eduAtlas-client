@@ -90,13 +90,13 @@
   </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card *ngIf="test">
   <nb-card-header>
     <div class="boldText">
       MARK TEST
     </div>
     <hr />
-    <div class="row" *ngIf="test">
+    <div class="row">
       <div class="col-md-1">
         <div class="date-block">
           <span class="day">{{ getDay(test.date) }}</span>
@@ -149,6 +149,8 @@
                 nbInput
                 pattern="\d*"
                 maxlength="3"
+                [max]="test.totalMarks"
+                min="0"
                 [id]="student.studentId"
                 style="width: 80px;"
                 [value]="student.marks"
