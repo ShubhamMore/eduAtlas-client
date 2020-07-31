@@ -1,5 +1,4 @@
 <ngx-institute-header></ngx-institute-header>
-
 <nb-card>
   <nb-card-header>
     <div class="row">
@@ -37,77 +36,79 @@
     </div>
   </nb-card-header>
   <nb-card-body>
-    <table
-      class="table table-borderless"
-      *ngIf="students.length > 0 && !hideHeaders; else noStudents"
-    >
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Roll No.</th>
-          <th class="hideMobile">Contact</th>
-          <!-- <th>Course Name</th> -->
-        </tr>
-      </thead>
+    <div class="table-responsive">
+      <table
+        class="table table-borderless"
+        *ngIf="students.length > 0 && !hideHeaders; else noStudents"
+      >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Roll No.</th>
+            <th class="hideMobile">Contact</th>
+            <!-- <th>Course Name</th> -->
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let student of students; let i = index" [hidden]="student.filterOut">
-          <td>{{ student.basicDetails.name }}</td>
-          <td>{{ student.instituteDetails.rollNumber }}</td>
-          <td class="hideMobile">{{ student.basicDetails.studentContact }}</td>
-          <!-- <td>{{ student.courseDetails.course }}</td> -->
-          <td>
-            <button
-              class="mr-2 mb-2"
-              nbButton
-              status="primary"
-              (click)="view(student.eduAtlasId, student.instituteDetails.courseId)"
-            >
-              <span class="btnText">
-                View
-              </span>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index" [hidden]="student.filterOut">
+            <td>{{ student.basicDetails.name }}</td>
+            <td>{{ student.instituteDetails.rollNumber }}</td>
+            <td class="hideMobile">{{ student.basicDetails.studentContact }}</td>
+            <!-- <td>{{ student.courseDetails.course }}</td> -->
+            <td>
+              <button
+                class="mr-2 mb-2"
+                nbButton
+                status="primary"
+                (click)="view(student.eduAtlasId, student.instituteDetails.courseId)"
+              >
+                <span class="btnText">
+                  View
+                </span>
 
-              <span class="btnIcon">
-                <nb-icon icon="eye-outline"></nb-icon>
-              </span>
-            </button>
-            <button
-              type="button"
-              class="btn btn-yellow mb-2 mr-2"
-              (click)="edit(student.eduAtlasId, student.instituteDetails.courseId)"
-            >
-              <span class="btnText">
-                Edit
-              </span>
-              <span class="btnIcon">
-                <nb-icon icon="edit-outline"></nb-icon>
-              </span>
-            </button>
-            <button
-              class="mr-2 mb-2"
-              nbButton
-              status="danger"
-              (click)="
-                delete(
-                  student.eduAtlasId,
-                  student.instituteDetails._id,
-                  student.instituteDetails.courseId,
-                  student._id
-                )
-              "
-            >
-              <span class="btnText">
-                Delete
-              </span>
+                <span class="btnIcon">
+                  <nb-icon icon="eye-outline"></nb-icon>
+                </span>
+              </button>
+              <button
+                type="button"
+                class="btn btn-yellow mb-2 mr-2"
+                (click)="edit(student.eduAtlasId, student.instituteDetails.courseId)"
+              >
+                <span class="btnText">
+                  Edit
+                </span>
+                <span class="btnIcon">
+                  <nb-icon icon="edit-outline"></nb-icon>
+                </span>
+              </button>
+              <button
+                class="mr-2 mb-2"
+                nbButton
+                status="danger"
+                (click)="
+                  delete(
+                    student.eduAtlasId,
+                    student.instituteDetails._id,
+                    student.instituteDetails.courseId,
+                    student._id
+                  )
+                "
+              >
+                <span class="btnText">
+                  Delete
+                </span>
 
-              <span class="btnIcon">
-                <nb-icon icon="trash-2-outline"></nb-icon>
-              </span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+                <span class="btnIcon">
+                  <nb-icon icon="trash-2-outline"></nb-icon>
+                </span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <ng-template #noStudents>
       <p class="text-center pt-5">No Students Found</p>
     </ng-template>

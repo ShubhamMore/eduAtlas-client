@@ -1,4 +1,4 @@
-<nb-card>
+<nb-card class="mobileFullHeight">
   <nb-card-header>
     <p style="color: black; font-weight: bold;">{{ edit ? 'Edit' : 'Add' }} Role Form Here</p>
   </nb-card-header>
@@ -34,7 +34,7 @@
             placeholder="Enter EduId or Email"
           />
         </div>
-        <div style="text-align: right;">
+        <div class="col-sm-6 fetchBtn">
           <button class="btn btn-yellow-black" type="submit" *ngIf="!edit && !dataFetched">
             Fetch
           </button>
