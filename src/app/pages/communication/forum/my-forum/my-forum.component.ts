@@ -14,7 +14,7 @@ export class MyForumComponent implements OnInit {
   instituteId: string;
   selectedCourseId: string;
   courses: any;
-  myForums: any;
+  myForums: any[] = [];
   display: boolean;
   constructor(
     private api: ApiService,
