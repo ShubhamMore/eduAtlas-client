@@ -324,11 +324,13 @@ export class ApiService {
 
   //  SEND ATTENDANCE
   sendAttendanceSms(data: any) {
-    return this.http.post(environment.server + '/institute/student/sendAttendanceSMS', data).pipe(
-      tap((res) => {}),
-      map((res) => res),
-      catchError(this.handleError),
-    );
+    return this.http
+      .post(environment.server + '/institute/attendance/sendAttendanceSMS', data)
+      .pipe(
+        tap((res) => {}),
+        map((res) => res),
+        catchError(this.handleError),
+      );
   }
 
   //  UPDATE STUDENT PERSONAL DETAILS
