@@ -90,6 +90,7 @@ export class RoleAssignService {
         MENU_ITEMS[14].hidden = false;
         MENU_ITEMS[14].children[0].hidden = false;
         MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[14].children[2].hidden = false;
         MENU_ITEMS[15].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;
@@ -127,6 +128,7 @@ export class RoleAssignService {
         MENU_ITEMS[14].hidden = false;
         MENU_ITEMS[14].children[0].hidden = false;
         MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[14].children[2].hidden = false;
         MENU_ITEMS[15].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;
@@ -164,6 +166,7 @@ export class RoleAssignService {
         MENU_ITEMS[14].hidden = false;
         MENU_ITEMS[14].children[0].hidden = false;
         MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[14].children[2].hidden = false;
         MENU_ITEMS[15].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;
@@ -201,6 +204,7 @@ export class RoleAssignService {
         MENU_ITEMS[14].hidden = false;
         MENU_ITEMS[14].children[0].hidden = false;
         MENU_ITEMS[14].children[1].hidden = false;
+        MENU_ITEMS[14].children[2].hidden = false;
         MENU_ITEMS[15].hidden = true;
       } else {
         MENU_ITEMS[13].hidden = true;

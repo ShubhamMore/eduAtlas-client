@@ -96,6 +96,8 @@ export class ECommerceComponent implements OnInit {
       '/pages/institute/online-classes/create-class-link/' + this.instituteId;
     MENU_ITEMS[14].children[1].link =
       '/pages/institute/online-classes/manage-class-link/' + this.instituteId;
+    MENU_ITEMS[14].children[2].link =
+      '/pages/institute/online-classes/utilities/' + this.instituteId;
 
     MENU_ITEMS[15].link = '/pages/institute/online-classes/' + this.instituteId;
 

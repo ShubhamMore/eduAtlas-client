@@ -211,6 +211,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Manage Class',
         hidden: true,
       },
+      {
+        title: 'Utilities',
+        hidden: true,
+      },
     ],
   },
 
