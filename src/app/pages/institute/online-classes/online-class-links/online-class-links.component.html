@@ -20,7 +20,7 @@
       <div class="col-sm-6">
         ONLINE CLASSES
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-3 mt-2">
         <nb-select
           placeholder="Select Course"
           status="basic"
@@ -33,7 +33,7 @@
           }}</nb-option>
         </nb-select>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-3 mt-2">
         <nb-select
           placeholder="Select Batch"
           fullWidth
@@ -64,13 +64,13 @@
                           <span class="day">{{ day(meeting.date) }}</span>
                         </div>
                       </td>
-                      <td>
+                      <td class="text-nowrap">
                         <div class="meeting-details">
                           <div class="detail1">Topic: {{ meeting.topic }}</div>
                           <!-- <div class="detail1">Batch: {{ meeting.batch }}</div> -->
                         </div>
                       </td>
-                      <td>
+                      <td class="text-nowrap">
                         <div class="meeting-details">
                           <div class="detail1">From Time: {{ createTime(meeting.fromTime) }}</div>
                           <div class="detail1">To Time: {{ createTime(meeting.toTime) }}</div>
@@ -83,11 +83,21 @@
                           status="success"
                           (click)="start(meeting.link)"
                         >
-                          Start
+                          <span class="btnIcon">
+                            <nb-icon icon="play-circle-outline"></nb-icon>
+                          </span>
+                          <span class="btnText">
+                            Start
+                          </span>
                         </button>
 
                         <button class="mr-3 mb-1 btn btn-yellow" (click)="edit(meeting._id)">
-                          Edit
+                          <span class="btnIcon">
+                            <nb-icon icon="edit-outline"></nb-icon>
+                          </span>
+                          <span class="btnText">
+                            Edit
+                          </span>
                         </button>
 
                         <button
@@ -96,7 +106,12 @@
                           status="danger"
                           (click)="deleteMeeting(meeting._id, 'upcoming')"
                         >
-                          Cancel
+                          <span class="btnIcon">
+                            <nb-icon icon="close-circle-outline"></nb-icon>
+                          </span>
+                          <span class="btnText">
+                            Cancel
+                          </span>
                         </button>
                       </td>
                     </tr>
@@ -115,13 +130,13 @@
                           <span class="day">{{ day(meeting.date) }}</span>
                         </div>
                       </td>
-                      <td>
+                      <td class="text-nowrap">
                         <div class="meeting-details">
                           <div class="detail1">Topic: {{ meeting.topic }}</div>
                           <!-- <div class="detail1">Batch: {{ meeting.batch }}</div> -->
                         </div>
                       </td>
-                      <td>
+                      <td class="text-nowrap">
                         <div class="meeting-details">
                           <div class="detail1">From Time: {{ createTime(meeting.fromTime) }}</div>
                           <div class="detail1">To Time: {{ createTime(meeting.toTime) }}</div>
@@ -134,10 +149,22 @@
                           status="success"
                           (click)="uploadRecording(meeting)"
                         >
-                          Upload Recording
+                          <span class="btnText">
+                            Upload Recording
+                          </span>
+
+                          <span class="btnIcon">
+                            <nb-icon icon="upload-outline"></nb-icon>
+                          </span>
                         </button>
                         <button class="mr-3 mb-1 btn btn-yellow" (click)="viewRecording(meeting)">
-                          View
+                          <span class="btnText">
+                            View
+                          </span>
+
+                          <span class="btnIcon">
+                            <nb-icon icon="eye-outline"></nb-icon>
+                          </span>
                         </button>
 
                         <button
@@ -146,7 +173,13 @@
                           status="danger"
                           (click)="deleteMeeting(meeting._id, 'previous')"
                         >
-                          Delete
+                          <span class="btnText">
+                            Delete
+                          </span>
+
+                          <span class="btnIcon">
+                            <nb-icon icon="trash-2-outline"></nb-icon>
+                          </span>
                         </button>
                       </td>
                     </tr>

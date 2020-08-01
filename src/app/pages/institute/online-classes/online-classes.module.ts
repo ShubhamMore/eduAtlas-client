@@ -19,6 +19,7 @@ import {
   NbAccordionModule,
   NbListModule,
   NbTabsetModule,
+  NbIconModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { OnlineClassesConfComponent } from './online-classes-conf/online-classes-conf.component';
@@ -63,6 +64,7 @@ import { PlayVideoRecordingComponent } from './upload-class-recording/view-class
     NbAccordionModule,
     NbEvaIconsModule,
     NbListModule,
+    NbIconModule,
   ],
 })
 export class OnlineClassesModule {}
