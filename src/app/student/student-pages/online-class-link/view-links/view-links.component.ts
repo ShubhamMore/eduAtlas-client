@@ -1,4 +1,4 @@
-import { MeetingService } from './../../../../services/meeting.service';
+// import { MeetingService } from './../../../../services/meeting.service';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 @Component({
@@ -29,7 +29,10 @@ export class ViewLinksComponent implements OnInit {
     'DEC',
   ];
 
-  constructor(private meetingService: MeetingService, private toasterService: NbToastrService) {}
+  constructor(
+    // private meetingService: MeetingService,
+    private toasterService: NbToastrService,
+  ) {}
 
   ngOnInit() {
     this.playVideoRecording = false;

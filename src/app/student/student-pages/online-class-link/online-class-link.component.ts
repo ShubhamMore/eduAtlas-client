@@ -1,7 +1,7 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../../services/api.service';
+import { ActivatedRoute } from '@angular/router';
+// import { ApiService } from '../../../services/api.service';
 import { MeetingService } from '../../../services/meeting.service';
 import { StudentService } from '../../../services/student.service';
 
@@ -41,10 +41,9 @@ export class OnlineClassLinkComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService,
+    // private api: ApiService,
     private meetingService: MeetingService,
     private studentService: StudentService,
-    private router: Router,
     private toasterService: NbToastrService,
   ) {}
 
