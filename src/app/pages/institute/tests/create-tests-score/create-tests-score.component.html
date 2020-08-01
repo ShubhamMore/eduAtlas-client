@@ -147,13 +147,13 @@
               <input
                 type="number"
                 nbInput
-                pattern="\d*"
                 maxlength="3"
                 [max]="test.totalMarks"
                 min="0"
                 [id]="student.studentId"
                 style="width: 80px;"
                 [value]="student.marks"
+                [status]="marksError[i] ? 'danger' : 'basic'"
                 (input)="addMarks($event, i)"
               />/{{ test.totalMarks }}
             </td>

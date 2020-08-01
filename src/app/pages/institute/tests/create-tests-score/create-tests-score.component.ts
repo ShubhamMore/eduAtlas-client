@@ -21,6 +21,7 @@ export class CreateTestsScoreComponent implements OnInit {
   test: any = null;
   course: string;
   batch: string;
+  marksError: boolean[] = [];
   display: boolean;
   studentScore: any[];
   sampleExcel: any;
@@ -147,6 +148,8 @@ export class CreateTestsScoreComponent implements OnInit {
           marks: '',
         };
 
+        this.marksError.push(false);
+
         this.studentScore.push(scoreData);
       });
     });
@@ -154,10 +157,24 @@ export class CreateTestsScoreComponent implements OnInit {
 
   addMarks(event: any, i: number) {
     const mark = event.target.value;
+    if (mark > this.test.totalMarks) {
+      this.marksError[i] = true;
+      return;
+    }
+    this.marksError[i] = false;
     this.studentScore[i].marks = mark;
   }
 
   saveMarks() {
+    if (this.marksError.includes(true)) {
+      this.showToast(
+        'top-right',
+        'danger',
+        `Student test marks should be less than Total Marks ${this.test.totalMarks}`,
+      );
+      return;
+    }
+
     this.api
       .addTestScore({ _id: this.test._id, batchName: this.batch, scores: this.studentScore })
       .subscribe(

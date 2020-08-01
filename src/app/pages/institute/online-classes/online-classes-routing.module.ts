@@ -12,6 +12,7 @@ import { AddOnlineClassComponent } from './online-classes-conf/add-online-class/
 // tslint:disable-next-line: max-line-length
 import { OnlineClassSettingsComponent } from './online-classes-conf/online-class-settings/online-class-settings.component';
 import { ManageOnlineClassComponent } from './online-classes-conf/manage-online-class/manage-online-class.component';
+import { UtilitiesComponent } from './utilities/utilities.component';
 
 const routes = [
   {
@@ -53,7 +54,10 @@ const routes = [
         component: OnlineClassLinksComponent,
         canActivate: [EaLiveGuard, EaLiveLitePlusGuard],
       },
+
       { path: ':id', component: OnlineClassesUpgradeComponent },
+
+      { path: 'utilities/:id', component: UtilitiesComponent },
     ],
   },
 ];
