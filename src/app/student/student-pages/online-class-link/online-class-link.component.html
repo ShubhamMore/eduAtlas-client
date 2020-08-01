@@ -41,13 +41,13 @@
                         <span class="day">{{ day(meeting.date) }}</span>
                       </div>
                     </td>
-                    <td>
+                    <td class="text-nowrap">
                       <div class="meeting-details">
                         <div class="detail1">Topic: {{ meeting.topic }}</div>
                         <!-- <div class="detail1">Batch: {{ meeting.batch }}</div> -->
                       </div>
                     </td>
-                    <td>
+                    <td class="text-nowrap">
                       <div class="meeting-details">
                         <div class="detail1">From Time: {{ createTime(meeting.fromTime) }}</div>
                         <div class="detail1">To Time: {{ createTime(meeting.toTime) }}</div>
@@ -79,13 +79,13 @@
                         <span class="day">{{ day(meeting.date) }}</span>
                       </div>
                     </td>
-                    <td>
+                    <td class="text-nowrap">
                       <div class="meeting-details">
                         <div class="detail1">Topic: {{ meeting.topic }}</div>
                         <!-- <div class="detail1">Batch: {{ meeting.batch }}</div> -->
                       </div>
                     </td>
-                    <td>
+                    <td class="text-nowrap">
                       <div class="meeting-details">
                         <div class="detail1">From Time: {{ createTime(meeting.fromTime) }}</div>
                         <div class="detail1">To Time: {{ createTime(meeting.toTime) }}</div>
@@ -93,7 +93,12 @@
                     </td>
                     <td>
                       <button class="mr-3 mb-1 btn btn-yellow" (click)="viewRecording(meeting)">
-                        View
+                        <span class="btnText">
+                          View
+                        </span>
+                        <span class="btnIcon">
+                          <nb-icon icon="eye-outline"></nb-icon>
+                        </span>
                       </button>
                     </td>
                   </tr>
