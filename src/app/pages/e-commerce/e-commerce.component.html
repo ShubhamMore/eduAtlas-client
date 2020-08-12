@@ -99,7 +99,7 @@
               </ng-template>
             </nb-tab>
             <nb-tab
-              tabTitle="STUDENT REQUESTS"
+              tabTitle="Online Classes"
               *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
             >
               <div class="table-responsive" *ngIf="studentRequest.length > 0; else noStudents">
@@ -121,7 +121,7 @@
                 </table>
               </div>
               <ng-template #noStudents>
-                <p class="text-center pt-5">No Student Requests</p>
+                <p class="text-center pt-5">No Online Classes</p>
               </ng-template>
             </nb-tab>
             <nb-tab
