@@ -109,6 +109,7 @@
                       <th>#</th>
                       <th>Topic</th>
                       <th>Date</th>
+                      <th>Time</th>
                       <th>Batch</th>
                       <th>Course</th>
                     </tr>
@@ -118,8 +119,9 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ onlineClass.onlineclass.topic }}</td>
                       <td>
-                        {{ onlineClass.onlineclass.date + ' ' + onlineClass.onlineclass.startTime }}
+                        {{ onlineClass.onlineclass.date }}
                       </td>
+                      <td>{{ onlineClass.onlineclass.startTime }}</td>
                       <td>{{ onlineClass.batchCode }}</td>
                       <td>{{ onlineClass.course }}</td>
                     </tr>
