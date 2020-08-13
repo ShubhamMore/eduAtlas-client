@@ -93,3 +93,9 @@
 .notificationModal {
   display: block;
 }
+.notificationText {
+  overflow: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  width: 250px;
+}
