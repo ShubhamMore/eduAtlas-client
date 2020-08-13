@@ -100,7 +100,36 @@
               <p class="text-center pt-5">No Upcoming Tests</p>
             </ng-template>
           </nb-tab>
-          <nb-tab tabTitle="Online Classes"> </nb-tab>
+          <nb-tab tabTitle="Online Classes">
+            <div
+              class="table-responsive"
+              *ngIf="onlineClass && onlineClass.length > 0; else noOnlineClass"
+            >
+              <table class="table table-borderless">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Institute</th>
+                    <th>Course</th>
+                    <th>Date</th>
+                    <th>Test Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let test of tests; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ test.instituteName }}</td>
+                    <td>{{ test.courseName + ' (' + test.batchCode + ')' }}</td>
+                    <td>{{ test.test.date }}</td>
+                    <td>{{ test.test.testName }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <ng-template #noOnlineClass>
+              <p class="text-center pt-5">No Upcoming Online Class</p>
+            </ng-template>
+          </nb-tab>
         </nb-tabset>
       </nb-card-body>
     </nb-card>

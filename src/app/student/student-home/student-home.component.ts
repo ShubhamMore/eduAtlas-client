@@ -11,6 +11,7 @@ import { MENU_ITEMS } from '../student-menu';
 export class StudentHomeComponent implements OnInit {
   announcements: any[] = [];
   schedules: any[] = [];
+  onlineClass: any[] = [];
   tests: any[] = [];
 
   display: boolean = false;
@@ -42,6 +43,7 @@ export class StudentHomeComponent implements OnInit {
       this.announcements = res.announcements;
       this.tests = res.test;
       this.schedules = res.schedule;
+      this.onlineClass = res.upcomingOnlineClasses;
       this.display = true;
     });
   }

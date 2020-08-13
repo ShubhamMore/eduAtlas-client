@@ -100,27 +100,38 @@
             </nb-tab>
             <nb-tab
               tabTitle="Online Classes"
-              *ngIf="role === 'institute' || role === 'Manager' || role === 'Counselor'"
+              *ngIf="
+                ((role === 'institute' || role === 'Manager' || role === 'Counselor') &&
+                  instituteService.getInstitute().currentPlan === 'Value') ||
+                instituteService.getInstitute().currentPlan === 'Lite Plus'
+              "
             >
-              <div class="table-responsive" *ngIf="studentRequest.length > 0; else noStudents">
+              <div
+                class="table-responsive"
+                *ngIf="onlineClasses && onlineClasses.length > 0; else noOnlineClass"
+              >
                 <table class="table table-borderless">
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Contact</th>
+                      <th>Topic</th>
+                      <th>Date</th>
+                      <th>Batch</th>
+                      <th>Course</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let req of studentRequest; let i = index">
+                    <tr *ngFor="let req of onlineClasses; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ req.studentName }}</td>
-                      <td>{{ req.contact }}</td>
+                      <td>{{ req.topic }}</td>
+                      <td>{{ req.date + ' ' + req.startTime }}</td>
+                      <td>{{ req.batchName }}</td>
+                      <td>{{ req.courseName }}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <ng-template #noStudents>
+              <ng-template #noOnlineClass>
                 <p class="text-center pt-5">No Online Classes</p>
               </ng-template>
             </nb-tab>

@@ -16,6 +16,7 @@ export class StudentDashboardComponent implements OnInit {
   display: boolean;
   announcements: any[] = [];
   schedules: any[] = [];
+  onlineClasses: any[] = [];
   constructor(
     private active: ActivatedRoute,
     private instituteService: InstituteService,
@@ -55,6 +56,7 @@ export class StudentDashboardComponent implements OnInit {
     this.studentService.getInstitutesDashboardDataForStudent(id).subscribe((res: any) => {
       this.announcements = res.announcements;
       this.schedules = res.schedule;
+      this.onlineClasses = res.onlineClass;
       this.display = true;
     });
   }

@@ -37,6 +37,7 @@ export class ECommerceComponent implements OnInit {
   classes: any[] = [];
   pendingFees: any[] = [];
   announcements: any[] = [];
+  onlineClasses: any[] = [];
 
   totalStudents: any = 0;
   totalBatches: any = 0;
@@ -115,6 +116,7 @@ export class ECommerceComponent implements OnInit {
       this.pendingFees = res.pendingFees;
       this.newLeads = res.leads;
       this.announcements = res.announcements;
+      this.onlineClasses = res.upcomingOnlineClasses;
       // this.studentReq = res.studentRequests;
       this.totalStudents = res.studentCount;
       this.totalBatches = res.batchCount;

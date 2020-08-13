@@ -66,38 +66,71 @@
     </div>
     <div class="col-md-6">
       <nb-card class="card-height-1">
-        <nb-card-header>
-          <h5>CLASS SCHEDULE</h5>
-        </nb-card-header>
         <nb-card-body>
-          <div class="table-responsive" *ngIf="schedules.length > 0; else noSchedules">
-            <table class="table table-borderless">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Batch</th>
-                  <th>Topic</th>
-                  <th>Time</th>
-                  <th>Teacher</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let schedule of schedules; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ schedule.batchCode }}</td>
-                  <td>{{ schedule.lecture.topic }}</td>
-                  <td>
-                    {{ createDate(schedule.lecture.date) }}&nbsp;
-                    {{ createTime(schedule.lecture.startTime) }}
-                  </td>
-                  <td>{{ schedule.lecture?.teacherName | uppercase }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ng-template #noSchedules>
-            <p class="text-center pt-5">No Upcoming Classes</p>
-          </ng-template>
+          <nb-tabset>
+            <nb-tab tabTitle="CLASS SCHEDULE">
+              <div class="table-responsive" *ngIf="schedules.length > 0; else noSchedules">
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Batch</th>
+                      <th>Topic</th>
+                      <th>Time</th>
+                      <th>Teacher</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let schedule of schedules; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ schedule.batchCode }}</td>
+                      <td>{{ schedule.lecture.topic }}</td>
+                      <td>
+                        {{ createDate(schedule.lecture.date) }}&nbsp;
+                        {{ createTime(schedule.lecture.startTime) }}
+                      </td>
+                      <td>{{ schedule.lecture?.teacherName | uppercase }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noSchedules>
+                <p class="text-center pt-5">No Upcoming Classes</p>
+              </ng-template>
+            </nb-tab>
+            <nb-tab tabTitle="Online Classes">
+              <div
+                class="table-responsive"
+                *ngIf="onlineClasses && onlineClasses.length > 0; else noOnlineClass"
+              >
+                <table class="table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Topic</th>
+                      <th>Date</th>
+                      <th>Batch</th>
+                      <th>Course</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let onlineClass of onlineClasses; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ onlineClass.onlineclass.topic }}</td>
+                      <td>
+                        {{ onlineClass.onlineclass.date + ' ' + onlineClass.onlineclass.startTime }}
+                      </td>
+                      <td>{{ onlineClass.batchCode }}</td>
+                      <td>{{ onlineClass.course }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <ng-template #noOnlineClass>
+                <p class="text-center pt-5">No Upcoming Online Classes</p>
+              </ng-template>
+            </nb-tab>
+          </nb-tabset>
         </nb-card-body>
       </nb-card>
     </div>
