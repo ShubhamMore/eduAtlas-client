@@ -324,9 +324,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   constructDate(dateInMillisecond: number) {
     const date = new Date(dateInMillisecond);
-    return `${date.getFullYear()}-${this.appendZero(date.getMonth() + 1)}-${this.appendZero(
+    return `${this.appendZero(date.getMonth() + 1)}-${this.appendZero(
       date.getDate(),
-    )}`;
+    )}-${date.getFullYear()}`;
   }
   appendZero(n: number): string {
     if (n < 10) {

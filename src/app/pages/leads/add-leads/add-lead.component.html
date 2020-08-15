@@ -152,7 +152,15 @@
 
         <div class="col-sm-8">
           <label for="comment">*Comment</label>
-          <input type="text" nbInput formControlName="comment" fullWidth placeholder="Comment" />
+          <input
+            type="text"
+            [status]="f.comment.errors && submitted ? 'danger' : 'basic'"
+            nbInput
+            formControlName="comment"
+            fullWidth
+            placeholder="Comment"
+          />
+          <small *ngIf="f.comment.errors && submitted">*Comment is Required</small>
         </div>
       </div>
       <br />

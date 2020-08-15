@@ -2,7 +2,7 @@ import { ApiService } from './../../services/api.service';
 import { InstituteService } from './../../services/institute.service';
 import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MENU_ITEMS } from '../student-menu';
 
 @Component({
@@ -22,6 +22,7 @@ export class StudentDashboardComponent implements OnInit {
     private instituteService: InstituteService,
     private api: ApiService,
     private studentService: StudentService,
+    private router: Router,
   ) {
     active.params.subscribe((val) => {
       // put the code from `ngOnInit` here
@@ -60,7 +61,12 @@ export class StudentDashboardComponent implements OnInit {
       this.display = true;
     });
   }
-
+  goToAnnouncement(announcement: string) {
+    this.router.navigate(['/student/view-announcement/', this.instituteId], {
+      relativeTo: this.active,
+      queryParams: { announcement },
+    });
+  }
   setInstituteIdForMenus() {
     MENU_ITEMS.map((menu, i) => {
       if (i !== 0 && i !== 1) {

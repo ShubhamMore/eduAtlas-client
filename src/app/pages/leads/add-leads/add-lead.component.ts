@@ -51,7 +51,7 @@ export class AddLeadComponent implements OnInit {
       strength: ['', Validators.required],
       mode: ['', Validators.required],
       source: ['', Validators.required],
-      comment: [''],
+      comment: ['', Validators.required],
     });
     this.getCourses();
   }

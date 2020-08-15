@@ -60,7 +60,12 @@
                 fullWidth
                 formControlName="batchCodes"
                 multiple
-                [status]="batchError ? 'danger' : 'basic'"
+                [status]="
+                  announcementForm.get('batchCodes').touched &&
+                  announcementForm.get('batchCodes').invalid
+                    ? 'danger'
+                    : 'basic'
+                "
                 (selectedChange)="onSelectBatch($event)"
               >
                 <nb-option [value]="undefined">--Select Batch--</nb-option>
@@ -68,7 +73,13 @@
                   i.batchCode
                 }}</nb-option>
               </nb-select>
-              <span class="input-error" *ngIf="batchError">
+              <span
+                class="input-error"
+                *ngIf="
+                  announcementForm.get('batchCodes').invalid &&
+                  announcementForm.get('batchCodes').touched
+                "
+              >
                 <small class="error">*Batch Code is required</small>
               </span>
             </div>
@@ -89,12 +100,23 @@
                 fullWidth
                 status="warning"
                 (selectedChange)="onSelectCategory($event)"
-                [status]="categoryError ? 'danger' : 'basic'"
+                [status]="
+                  announcementForm.get('categories').touched &&
+                  announcementForm.get('categories').invalid
+                    ? 'danger'
+                    : 'basic'
+                "
               >
                 <nb-option [value]="undefined">--Select Category--</nb-option>
                 <nb-option *ngFor="let i of institute.category" value="{{ i }}">{{ i }}</nb-option>
               </nb-select>
-              <span class="input-error" *ngIf="categoryError">
+              <span
+                class="input-error"
+                *ngIf="
+                  announcementForm.get('categories').invalid &&
+                  announcementForm.get('categories').touched
+                "
+              >
                 <small class="error">*Category is required</small>
               </span>
             </div>
@@ -167,7 +189,7 @@
                 item.attachment.file_name
               }}</a>
             </td>
-            <div>
+            <td>
               <button nbButton status="danger" (click)="onDelete(item._id)">
                 <span class="btnText">
                   Delete
@@ -176,7 +198,7 @@
                   <nb-icon icon="trash-2-outline"></nb-icon>
                 </span>
               </button>
-            </div>
+            </td>
           </tr>
         </tbody>
       </table>

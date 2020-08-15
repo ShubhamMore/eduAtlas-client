@@ -42,7 +42,13 @@
               <tbody>
                 <tr *ngFor="let announcement of announcements; let i = index">
                   <td>{{ i + 1 }}</td>
-                  <td>{{ announcement.announcements.title }}</td>
+                  <td>
+                    <a
+                      class="pointer announcement-title"
+                      (click)="goToAnnouncement(announcement.announcements._id)"
+                      ><u>{{ announcement.announcements.title }}</u></a
+                    >
+                  </td>
                   <td>{{ announcement.announcements.date }}</td>
                   <td>
                     <a

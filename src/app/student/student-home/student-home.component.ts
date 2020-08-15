@@ -2,6 +2,7 @@ import { InstituteService } from './../../services/institute.service';
 import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { MENU_ITEMS } from '../student-menu';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'ngx-student-home',
@@ -11,11 +12,16 @@ import { MENU_ITEMS } from '../student-menu';
 export class StudentHomeComponent implements OnInit {
   announcements: any[] = [];
   schedules: any[] = [];
-  onlineClass: any[] = [];
+  onlineClasses: any[] = [];
   tests: any[] = [];
 
   display: boolean = false;
-  constructor(private instituteService: InstituteService, private studentService: StudentService) {}
+  constructor(
+    private instituteService: InstituteService,
+    private studentService: StudentService,
+    private router: Router,
+    private active: ActivatedRoute,
+  ) {}
   ngOnInit() {
     this.instituteService.publishData('');
 
@@ -37,13 +43,18 @@ export class StudentHomeComponent implements OnInit {
     MENU_ITEMS[12].hidden = true;
     MENU_ITEMS[13].hidden = true;
   }
-
+  goToAnnouncement(announcement: string, instituteId: string) {
+    this.router.navigate(['/student/view-announcement/', instituteId], {
+      relativeTo: this.active,
+      queryParams: { announcement },
+    });
+  }
   getDashboardData() {
     this.studentService.getStudentDashboard().subscribe((res: any) => {
       this.announcements = res.announcements;
       this.tests = res.test;
       this.schedules = res.schedule;
-      this.onlineClass = res.upcomingOnlineClasses;
+      this.onlineClasses = res.onlineClass;
       this.display = true;
     });
   }

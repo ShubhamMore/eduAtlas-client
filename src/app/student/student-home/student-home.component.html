@@ -21,7 +21,18 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ announcement.instituteName }}</td>
                     <td>{{ announcement.batchCode }}</td>
-                    <td>{{ announcement.announcements.title }}</td>
+                    <td>
+                      <a
+                        class="pointer announcement-title"
+                        (click)="
+                          goToAnnouncement(
+                            announcement.announcements._id,
+                            announcement.announcements.instituteId
+                          )
+                        "
+                        ><u>{{ announcement.announcements.title }}</u></a
+                      >
+                    </td>
                     <td>{{ announcement.announcements.date }}</td>
                     <td>
                       <a
@@ -103,25 +114,29 @@
           <nb-tab tabTitle="Online Classes">
             <div
               class="table-responsive"
-              *ngIf="onlineClass && onlineClass.length > 0; else noOnlineClass"
+              *ngIf="onlineClasses && onlineClasses.length > 0; else noOnlineClass"
             >
               <table class="table table-borderless">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Institute</th>
-                    <th>Course</th>
+                    <th>Topic</th>
                     <th>Date</th>
-                    <th>Test Name</th>
+                    <th>Time</th>
+                    <th>Batch</th>
+                    <th>Course</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let test of tests; let i = index">
+                  <tr *ngFor="let onlineClass of onlineClasses; let i = index">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ test.instituteName }}</td>
-                    <td>{{ test.courseName + ' (' + test.batchCode + ')' }}</td>
-                    <td>{{ test.test.date }}</td>
-                    <td>{{ test.test.testName }}</td>
+                    <td>{{ onlineClass.onlineclass.topic }}</td>
+                    <td>
+                      {{ onlineClass.onlineclass.date }}
+                    </td>
+                    <td>{{ onlineClass.onlineclass.startTime }}</td>
+                    <td>{{ onlineClass.batchCode }}</td>
+                    <td>{{ onlineClass.courseName }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -136,15 +151,18 @@
   </div>
 
   <div class="col-md-4">
-    <nb-card class="card-height-2">
+    <nb-card>
       <nb-card-body>
-        <div class="image-container">
+        <!-- <div class="image-container">
           <img class="inst-logo" src="../../../assets/img/home-yellow.png" alt="Institute" />
         </div>
         <br />
         <button class="btn btn-yellow">
           Join Institute
-        </button>
+        </button> -->
+
+        <div class="eduAtlasId-Header">EduAtlas ID</div>
+        <div class="eduAtlasId">{{ studentService.getStudent().eduAtlasId }}</div>
       </nb-card-body>
     </nb-card>
   </div>

@@ -54,8 +54,8 @@ export class AnnouncementsComponent implements OnInit {
       date: ['', Validators.required],
       text: [''],
       instituteId: [this.InstituteId],
-      batchCodes: [],
-      categories: [],
+      batchCodes: ['', Validators.required],
+      categories: ['', Validators.required],
     });
     this.getInstitute(this.InstituteId);
     this.getAnnouncements(this.InstituteId);
