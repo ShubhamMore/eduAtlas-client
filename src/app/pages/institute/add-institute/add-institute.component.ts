@@ -106,8 +106,8 @@ export class AddInstituteComponent implements OnInit {
         key: environment.razorpayKeyId, // Enter the Key ID generated from the Dashboard
         amount: '', // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency: 'INR',
-        name: 'eduatlas',
-        description: 'Test Transaction',
+        name: 'Eduatlas',
+        description: 'Institute Transaction',
         image: '../../../../assets/img/EA FAVI.png',
         // tslint:disable-next-line: max-line-length
         order_id: '', // This is a sample Order ID. Pass the `id` obtained in the response of Step 1 order_9A33XWu170gUtm
