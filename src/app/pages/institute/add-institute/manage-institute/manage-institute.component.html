@@ -17,7 +17,12 @@
             </td>
             <td>{{ i.basicInfo.instituteContact }}</td>
             <td>
-              <button class="mr-3" nbButton status="primary" (click)="getInstitute(i._id)">
+              <button
+                class="mr-3"
+                nbButton
+                status="primary"
+                (click)="getInstitute(i._id, i.active)"
+              >
                 <span class="btnText">
                   Manage
                 </span>

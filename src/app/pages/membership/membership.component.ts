@@ -227,7 +227,11 @@ export class MembershipComponent implements OnInit {
         planType: this.paymentDetails.planType,
         amountType: 'new',
       };
-      this.generateOrder(orderDetails);
+      if (this.paymentDetails.amount === '0' && this.paymentDetails.planType === 'Lite') {
+        this.activateInstitute(this.instituteId, null, null);
+      } else {
+        this.generateOrder(orderDetails);
+      }
     } else {
       this.showToast('top-right', 'danger', 'Invalid Payment Type or Institute');
     }

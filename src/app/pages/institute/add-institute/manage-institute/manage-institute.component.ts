@@ -1,7 +1,7 @@
 import { NbToastrService } from '@nebular/theme';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../../services/api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MENU_ITEMS } from '../../../pages-menu';
 import { AuthService } from '../../../../services/auth-services/auth.service';
 import { InstituteService } from '../../../../services/institute.service';
@@ -27,6 +27,7 @@ export class ManageInstituteComponent implements OnInit {
     private authService: AuthService,
     private instituteService: InstituteService,
     private menuService: MenuService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
@@ -52,9 +53,16 @@ export class ManageInstituteComponent implements OnInit {
     }
   }
 
-  getInstitute(id: string) {
-    this.instituteService.publishData(id);
-    this.router.navigate(['/pages/dashboard', id]);
+  getInstitute(id: string, active: boolean) {
+    if (active) {
+      this.instituteService.publishData(id);
+      this.router.navigate(['/pages/dashboard', id]);
+    } else {
+      this.router.navigate(['/pages/membership'], {
+        relativeTo: this.route,
+        queryParams: { type: 'renew', id: id },
+      });
+    }
   }
 
   updateInstitute(id: string) {
