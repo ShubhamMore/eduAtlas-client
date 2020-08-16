@@ -10,6 +10,7 @@ import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MenuService } from '../../../services/menu.service';
 import { Location } from '@angular/common';
+import { InstituteService } from '../../../services/institute.service';
 
 declare var Razorpay: any;
 @Component({
@@ -81,6 +82,7 @@ export class AddInstituteComponent implements OnInit {
     private authService: AuthService,
     private menuService: MenuService,
     private location: Location,
+    private instituteService: InstituteService,
   ) {}
 
   ngOnInit() {
@@ -260,7 +262,12 @@ export class AddInstituteComponent implements OnInit {
             planType: this.paymentDetails.planType,
             amountType: 'new',
           };
-          this.generateOrder(orderDetails);
+          if (this.paymentDetails.amount === '0' && this.paymentDetails.planType === 'Lite') {
+            this.activateInstitute(this.instituteId, null, null);
+          } else {
+            this.generateOrder(orderDetails);
+          }
+
           // setTimeout(() => {
           //   this.router.navigate(['/pages/home']);
           // }, 1000);
