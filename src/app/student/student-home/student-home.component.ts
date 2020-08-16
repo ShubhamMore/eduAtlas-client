@@ -42,6 +42,7 @@ export class StudentHomeComponent implements OnInit {
     MENU_ITEMS[11].hidden = true;
     MENU_ITEMS[12].hidden = true;
     MENU_ITEMS[13].hidden = true;
+    MENU_ITEMS[14].hidden = true;
   }
   goToAnnouncement(announcement: string, instituteId: string) {
     this.router.navigate(['/student/view-announcement/', instituteId], {

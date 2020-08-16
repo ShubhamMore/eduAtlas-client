@@ -24,6 +24,7 @@ nb-card-header {
   background-color: #ffd500;
   height: 100%;
   color: #000;
+  text-align: center;
 }
 .liteHeader {
   background-color: #cda300;
@@ -40,6 +41,7 @@ nb-card-header {
   background-color: #ff3d71;
   height: 100%;
   color: #000;
+  text-align: center;
 }
 .lite-plusHeader {
   background-color: #db3662;
@@ -57,6 +59,7 @@ nb-card-header {
   background-color: #4c34fb;
   height: 100%;
   color: #fff;
+  text-align: center;
 }
 .valueHeader {
   background-color: #1a02c9;
@@ -87,6 +90,7 @@ nb-card-header {
   font-size: 30px;
   font-weight: 400;
   padding-top: 13px;
+  white-space: nowrap;
 }
 .headerSubValue {
   font-size: 16px;
@@ -110,6 +114,10 @@ nb-card-header {
 }
 td {
   white-space: nowrap;
+}
+
+.hide {
+  display: none;
 }
 @include media-breakpoint-down(xl) {
   .pricingDiv {
