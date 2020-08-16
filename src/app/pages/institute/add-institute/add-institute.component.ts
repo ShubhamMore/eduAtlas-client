@@ -10,7 +10,6 @@ import { NbToastrService, NbStepperComponent } from '@nebular/theme';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MenuService } from '../../../services/menu.service';
 import { Location } from '@angular/common';
-import { InstituteService } from '../../../services/institute.service';
 
 declare var Razorpay: any;
 @Component({
@@ -82,7 +81,6 @@ export class AddInstituteComponent implements OnInit {
     private authService: AuthService,
     private menuService: MenuService,
     private location: Location,
-    private instituteService: InstituteService,
   ) {}
 
   ngOnInit() {
