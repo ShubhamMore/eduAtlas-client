@@ -13,6 +13,11 @@ nb-card-header {
 .priceTable {
   padding: 0 40px;
   background-color: #fff;
+  text-align: center;
+  th,
+  td {
+    text-align: center;
+  }
 }
 
 .priceTable th {
