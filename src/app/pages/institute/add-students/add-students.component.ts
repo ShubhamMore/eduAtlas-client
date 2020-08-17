@@ -879,8 +879,30 @@ export class AddStudentsComponent implements OnInit {
     installments.controls[i].get('transDetails').disable();
   }
 
+  checkPaymentMode() {
+    let valid = true;
+    const installments = this.feeDetailsForm.value.installments;
+
+    installments.forEach((installment: any) => {
+      if (installment.paidStatus) {
+        if (!installment.paymentMode) {
+          valid = false;
+        }
+      }
+    });
+
+    return valid;
+  }
+
   // Submit form From DOM
   onSubmit() {
+    const validInstallment = this.checkPaymentMode();
+
+    if (!validInstallment) {
+      this.showToaster('top-right', 'warning', 'Please Enter valid Fee Details');
+      return;
+    }
+
     this.studentForm.markAllAsTouched();
     if (this.studentForm.invalid) {
       // If Form is invalid then return
