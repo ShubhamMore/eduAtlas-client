@@ -155,12 +155,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setInstitutes() {
     this.institutes = [];
-    var tempInstitutes = this.instituteService.getInstitutes().forEach((institute) => {
+    const tempInstitutes = this.instituteService.getInstitutes().forEach((institute) => {
       if (institute.active) {
         this.institutes.push(institute);
       }
     });
+    return tempInstitutes;
   }
+
   getMembers() {
     this.chatMembers = this.chatService.getMembers();
   }
