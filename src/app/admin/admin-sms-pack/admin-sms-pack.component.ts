@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminSmsPackComponent implements OnInit {
   smsPacks: any[];
-
   display: boolean;
 
   constructor(
@@ -20,7 +19,6 @@ export class AdminSmsPackComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
-
     this.smsPacks = [];
     this.smsPackService.getSmsPacks().subscribe((res: any) => {
       this.smsPacks = res;
@@ -29,7 +27,7 @@ export class AdminSmsPackComponent implements OnInit {
   }
 
   editSmsPack(id: any) {
-    this.router.navigate(['/admin/smsPacks/edit'], {
+    this.router.navigate(['edit'], {
       relativeTo: this.route,
       queryParams: { smsPack: id, edit: true },
     });

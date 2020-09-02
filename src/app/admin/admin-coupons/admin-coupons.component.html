@@ -20,9 +20,9 @@
         <tbody>
           <tr *ngFor="let coupon of coupons">
             <td>{{ coupon.code }}</td>
-            <td>{{ coupon.amountType }}</td>
-            <td>{{ coupon.amount }}</td>
-            <td>{{ coupon.expiryDate }}</td>
+            <td>{{ coupon.amountType | uppercase }}</td>
+            <td>{{ coupon.amount }} {{ coupon.amountType === 'amount' ? '/-' : '%' }}</td>
+            <td>{{ coupon.expiryDate.split('-').reverse().join('-') }}</td>
             <td>
               <button class="btn mr-2" nbButton status="basic" (click)="editCoupon(coupon._id)">
                 Edit
