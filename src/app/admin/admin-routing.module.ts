@@ -1,3 +1,7 @@
+import { SaveAdminSmsPackComponent } from './admin-sms-pack/save-admin-sms-pack/save-admin-sms-pack.component';
+import { AdminSmsPackComponent } from './admin-sms-pack/admin-sms-pack.component';
+import { SaveAdminCouponsComponent } from './admin-coupons/save-admin-coupons/save-admin-coupons.component';
+import { AdminCouponsComponent } from './admin-coupons/admin-coupons.component';
 import { AdminInstitutesComponent } from './admin-institutes/admin-institutes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -40,6 +44,30 @@ const routes: Routes = [
       {
         path: 'plans/edit',
         component: AdminSavePlanComponent,
+      },
+      {
+        path: 'coupons',
+        component: AdminCouponsComponent,
+      },
+      {
+        path: 'coupons/add',
+        component: SaveAdminCouponsComponent,
+      },
+      {
+        path: 'coupons/edit',
+        component: SaveAdminCouponsComponent,
+      },
+      {
+        path: 'smspack',
+        component: AdminSmsPackComponent,
+      },
+      {
+        path: 'smspack/add',
+        component: SaveAdminSmsPackComponent,
+      },
+      {
+        path: 'smspack/edit',
+        component: SaveAdminSmsPackComponent,
       },
 
       {

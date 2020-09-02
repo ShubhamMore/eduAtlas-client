@@ -26,6 +26,10 @@ import { AdminInstituteComponent } from './admin-institute/admin-institute.compo
 import { AdminSavePlanComponent } from './admin-plans/admin-save-plan/admin-save-plan.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminInstitutesComponent } from './admin-institutes/admin-institutes.component';
+import { AdminCouponsComponent } from './admin-coupons/admin-coupons.component';
+import { SaveAdminCouponsComponent } from './admin-coupons/save-admin-coupons/save-admin-coupons.component';
+import { AdminSmsPackComponent } from './admin-sms-pack/admin-sms-pack.component';
+import { SaveAdminSmsPackComponent } from './admin-sms-pack/save-admin-sms-pack/save-admin-sms-pack.component';
 
 @NgModule({
   imports: [
@@ -53,6 +57,10 @@ import { AdminInstitutesComponent } from './admin-institutes/admin-institutes.co
     AdminInstituteComponent,
     AdminSavePlanComponent,
     AdminInstitutesComponent,
+    AdminCouponsComponent,
+    SaveAdminCouponsComponent,
+    AdminSmsPackComponent,
+    SaveAdminSmsPackComponent,
   ],
 })
 export class AdminModule {}

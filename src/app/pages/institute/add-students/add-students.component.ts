@@ -258,9 +258,9 @@ export class AddStudentsComponent implements OnInit {
           this.studentForm.get('name').disable();
           this.studentForm.get('studentEmail').disable();
           this.studentForm.get('contact').disable();
-          this.studentForm.get('parentName').disable();
-          this.studentForm.get('parentEmail').disable();
-          this.studentForm.get('parentContact').disable();
+          // this.studentForm.get('parentName').disable();
+          // this.studentForm.get('parentEmail').disable();
+          // this.studentForm.get('parentContact').disable();
           this.studentForm.get('address').disable();
 
           // Set Class Level Eduatlas Id
@@ -714,9 +714,9 @@ export class AddStudentsComponent implements OnInit {
         this.studentForm.get('name').disable();
         this.studentForm.get('studentEmail').disable();
         this.studentForm.get('contact').disable();
-        this.studentForm.get('parentName').disable();
-        this.studentForm.get('parentEmail').disable();
-        this.studentForm.get('parentContact').disable();
+        // this.studentForm.get('parentName').disable();
+        // this.studentForm.get('parentEmail').disable();
+        // this.studentForm.get('parentContact').disable();
         this.studentForm.get('address').disable();
 
         // Disable Course Details in editing Mode
