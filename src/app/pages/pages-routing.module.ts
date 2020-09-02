@@ -1,3 +1,4 @@
+import { SmsRechargeComponent } from './e-commerce/sms-recharge/sms-recharge.component';
 import { ManageInstituteAuthGuard } from './../services/auth-services/auth-guards/manage-institute-auth.guard';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'dashboard/:id',
         component: ECommerceComponent,
+      },
+      {
+        path: 'sms-recharge/:id',
+        component: SmsRechargeComponent,
       },
       {
         path: 'change-password',

@@ -52,17 +52,24 @@
         <div class="col-sm-6">
           <label for="amount">*Coupon Amount</label>
           <input
-            type="text"
+            type="number"
             nbInput
+            min="0"
+            [max]="form.get('amountType').value === 'amount' ? '99999999' : '100'"
             fullWidth
-            [status]="form.get('amount').invalid && form.get('amount').touched ? 'danger' : 'basic'"
+            [status]="
+              (form.get('amount').invalid && form.get('amount').touched) || !validateAmount()
+                ? 'danger'
+                : 'basic'
+            "
             #amount
             id="amount"
             formControlName="amount"
             placeholder="Coupon amount"
           />
-          <small *ngIf="form.get('amount').invalid && form.get('amount').touched"
-            >*Coupon amount is required</small
+          <small
+            *ngIf="(form.get('amount').invalid && form.get('amount').touched) || !validateAmount()"
+            >*Valid Coupon amount is required</small
           >
         </div>
         <div class="col-sm-6">

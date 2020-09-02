@@ -1,7 +1,7 @@
 import { PaymentService } from './../../../services/payment.service';
 import { AuthService } from './../../../services/auth-services/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ApiService } from '../../../services/api.service';
 import { CountryService } from '../../../services/country.service';
 import { MENU_ITEMS } from '../../pages-menu';
@@ -29,6 +29,9 @@ export class AddInstituteComponent implements OnInit {
   paymentDetails: any;
 
   imageRequired: boolean;
+
+  couponCode: string;
+  checkout: boolean;
 
   user: any;
 
@@ -87,6 +90,7 @@ export class AddInstituteComponent implements OnInit {
     this.display = true;
     this.invalidImage = false;
     this.imageRequired = false;
+    this.checkout = false;
     this.user = this.authService.getUser();
     this.paymentDetails = this.paymentService.getPaymentDetails();
 
@@ -258,9 +262,10 @@ export class AddInstituteComponent implements OnInit {
             userEmail: this.user.email,
             amount: this.paymentDetails.amount,
             planType: this.paymentDetails.planType,
+            couponCode: this.couponCode,
             amountType: 'new',
           };
-          if (this.paymentDetails.amount === '0' && this.paymentDetails.planType === 'Lite') {
+          if (this.paymentDetails.amount === '0') {
             this.activateInstitute(this.instituteId, null, null);
           } else {
             this.generateOrder(orderDetails);
@@ -413,6 +418,20 @@ export class AddInstituteComponent implements OnInit {
     this.stepper.next();
   }
 
+  onCheckout() {
+    this.checkout = true;
+  }
+
+  submitCheckout(event: any) {
+    this.couponCode = event;
+    this.cancelCheckout();
+    this.addInstitute(this.institute);
+  }
+
+  cancelCheckout() {
+    this.checkout = false;
+  }
+
   thirdFormSubmit() {
     this.thirdForm.markAsDirty();
     this.institute.category = this.thirdForm.value.category;
@@ -434,7 +453,7 @@ export class AddInstituteComponent implements OnInit {
 
     if (!this.edit) {
       // this.addInstituteAfterPayment(this.institute, '1233', '1234');
-      this.addInstitute(this.institute);
+      this.onCheckout();
     }
   }
 

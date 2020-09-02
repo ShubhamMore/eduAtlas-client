@@ -1,3 +1,10 @@
+<ngx-checkout
+  [paymentDetails]="paymentDetails"
+  (close)="cancelCheckout()"
+  (submit)="submitCheckout($event)"
+  *ngIf="checkout"
+></ngx-checkout>
+
 <nb-card>
   <nb-card-header>
     <p style="color: black; font-weight: bold;">
@@ -233,6 +240,7 @@
               </div>
             </div>
           </div>
+
           <button class="float-right mt-3 btn btn-yellow" type="submit">
             Submit
           </button>

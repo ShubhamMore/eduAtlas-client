@@ -40,6 +40,12 @@ export class SmsPackService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  rechargeSms(id: string, packId: string) {
+    return this.http
+      .post(environment.server + '/sms/rechargeSms/', { id, packId })
+      .pipe(tap(), catchError(this.handleError));
+  }
+
   private handleError(error: any) {
     return throwError(error);
   }

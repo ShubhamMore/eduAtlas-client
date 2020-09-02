@@ -22,6 +22,12 @@ export class CouponService {
       .pipe(tap(), catchError(this.handleError));
   }
 
+  validateCoupon(code: string) {
+    return this.http
+      .post(environment.server + '/coupon/validateCoupon/', { code })
+      .pipe(tap(), catchError(this.handleError));
+  }
+
   deleteCoupon(id: string) {
     return this.http
       .post(environment.server + '/coupon/deleteCoupon/', { id })

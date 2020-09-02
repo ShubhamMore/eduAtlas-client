@@ -1,3 +1,10 @@
+<ngx-checkout
+  [paymentDetails]="paymentDetails"
+  (close)="cancelCheckout()"
+  (submit)="submitCheckout($event)"
+  *ngIf="checkout"
+></ngx-checkout>
+
 <!-- <nb-layout-column> -->
 <div class="row" *ngIf="display">
   <div class="col-12">

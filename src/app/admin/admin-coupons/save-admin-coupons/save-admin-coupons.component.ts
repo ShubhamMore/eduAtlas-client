@@ -56,11 +56,23 @@ export class SaveAdminCouponsComponent implements OnInit {
     });
   }
 
+  validateAmount() {
+    if (this.form.value.amountType !== 'amount' && +this.form.value.amount > 100) {
+      return false;
+    }
+    return true;
+  }
+
   saveCoupon() {
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       return;
     }
+
+    if (!this.validateAmount()) {
+      return;
+    }
+
     const coupon: any = this.form.value;
     if (this.edit === 'true') {
       coupon._id = this.id;

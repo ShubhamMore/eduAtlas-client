@@ -1,3 +1,4 @@
+import { CheckoutModule } from './../../checkout/checkout.module';
 import { InstituteHeaderComponent } from './../../institute-header/institute-header.component';
 import { StudyMaterialComponent } from './../study-material/study-material.component';
 import { ViewLeadComponent } from './../../leads/view-lead/view-lead.component';
@@ -84,6 +85,7 @@ import { ManageLeadComponent } from '../../leads/manage-leads/manage-lead.compon
     NbIconModule,
     NbToastrModule.forRoot(),
     FormsModule,
+    CheckoutModule,
   ],
 })
 export class InstituteModule {}

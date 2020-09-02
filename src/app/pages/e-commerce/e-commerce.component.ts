@@ -222,6 +222,10 @@ export class ECommerceComponent implements OnInit {
     }
   }
 
+  recharge() {
+    this.router.navigate(['/pages/sms-recharge', this.instituteId], { relativeTo: this.route });
+  }
+
   showToast(position: any, status: any, message: any) {
     this.toastrService.show(status, message, {
       position,

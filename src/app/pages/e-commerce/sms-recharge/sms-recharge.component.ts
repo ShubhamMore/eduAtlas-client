@@ -1,45 +1,38 @@
-import { PaymentService } from './../../services/payment.service';
+import { environment } from './../../../../environments/environment';
+import { PaymentService } from './../../../services/payment.service';
+import { AuthService } from './../../../services/auth-services/auth.service';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { SmsPackService } from './../../../services/smspack.service';
 import { Component, OnInit } from '@angular/core';
-import { MENU_ITEMS } from '../pages-menu';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MenuService } from '../../services/menu.service';
 import { Location } from '@angular/common';
-import { AuthService } from './../../services/auth-services/auth.service';
-import { ApiService } from './../../services/api.service';
-import { environment } from './../../../environments/environment';
 import { NbToastrService } from '@nebular/theme';
+import { ApiService } from '../../../services/api.service';
 
 declare var Razorpay: any;
 
 @Component({
-  selector: 'ngx-membership',
-  templateUrl: './membership.component.html',
-  styleUrls: ['./membership.component.scss'],
+  selector: 'ngx-sms-recharge',
+  templateUrl: './sms-recharge.component.html',
+  styleUrls: ['./sms-recharge.component.scss'],
 })
-export class MembershipComponent implements OnInit {
+export class SmsRechargeComponent implements OnInit {
   display: boolean;
-  plans: any[];
-  lite: any;
-  litePlus: any;
-  value: any;
-  power: any;
+  smsPacks: any[];
 
   options: any;
   razorPay: any;
   placedOrderReceipt: any;
   instituteId: string;
-  paymentDetails: any;
+  paymentDetails: { planType: string; amount: any };
   user: any;
 
-  couponCode: string;
-  checkout: boolean;
+  smsPack: any;
 
-  type: any;
-  memberShipTypes: string[] = ['new', 'renew'];
+  checkout: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private menuService: MenuService,
+    private smsRechargeService: SmsPackService,
     private api: ApiService,
     private authService: AuthService,
     private router: Router,
@@ -50,35 +43,24 @@ export class MembershipComponent implements OnInit {
 
   ngOnInit() {
     this.display = false;
+
     this.checkout = false;
-    this.route.queryParams.subscribe((param: Params) => {
-      this.type = param.type;
+
+    this.paymentDetails = {
+      planType: 'SMS Recharge',
+      amount: '0',
+    };
+
+    this.route.params.subscribe((param: Params) => {
       this.instituteId = param.id;
 
       this.user = this.authService.getUser();
 
-      if (!this.user || !this.memberShipTypes.includes(this.type)) {
+      if (!this.user) {
         this.location.back();
         return;
       }
     });
-    this.plans = [];
-    MENU_ITEMS[1].hidden = false;
-    MENU_ITEMS[2].hidden = true;
-    MENU_ITEMS[3].hidden = true;
-    MENU_ITEMS[4].hidden = true;
-    MENU_ITEMS[5].hidden = true;
-    MENU_ITEMS[6].hidden = true;
-    MENU_ITEMS[7].hidden = true;
-    MENU_ITEMS[8].hidden = true;
-    MENU_ITEMS[9].hidden = true;
-    MENU_ITEMS[10].hidden = true;
-    MENU_ITEMS[11].hidden = true;
-    MENU_ITEMS[12].hidden = true;
-    MENU_ITEMS[13].hidden = true;
-    MENU_ITEMS[14].hidden = true;
-    MENU_ITEMS[15].hidden = true;
-    MENU_ITEMS[16].hidden = true;
 
     this.options = {
       key: environment.razorpayKeyId, // Enter the Key ID generated from the Dashboard
@@ -112,22 +94,10 @@ export class MembershipComponent implements OnInit {
 
     this.razorPay = new Razorpay(this.options);
 
-    this.menuService.setMenuSeqList();
-    this.getPlans();
-  }
-
-  getPlans() {
-    this.paymentService.getAllPlans().subscribe((res: any) => {
-      this.plans = res;
-      this.lite = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'LITE');
-      this.litePlus = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'LITE PLUS');
-      this.value = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'VALUE');
-      this.power = this.plans.find((plan: any) => plan.planType.toUpperCase() === 'POWER');
-      if (this.type !== 'new' && this.instituteId) {
-        this.getInstitute(this.instituteId);
-      } else {
-        this.display = true;
-      }
+    this.smsPacks = [];
+    this.smsRechargeService.getSmsPacks().subscribe((res: any) => {
+      this.smsPacks = res;
+      this.getInstitute(this.instituteId);
     });
   }
 
@@ -137,8 +107,8 @@ export class MembershipComponent implements OnInit {
         this.display = true;
       },
       (err: any) => {
-        this.showToast('top-right', 'danger', 'Invalid Institute');
-        this.back();
+        // this.showToast('top-right', 'danger', 'Invalid Institute');
+        // this.back();
       },
     );
   }
@@ -173,7 +143,7 @@ export class MembershipComponent implements OnInit {
         this.showToast('top-right', 'success', 'Payment Verified Successfully');
         setTimeout(() => {
           // this.addInstituteAfterPayment(this.institute, res.orderId, res.receiptId);
-          this.activateInstitute(this.instituteId, res.orderId, res.receiptId);
+          this.addSms();
         }, 1000);
       },
       (err: any) => {
@@ -182,19 +152,13 @@ export class MembershipComponent implements OnInit {
     );
   }
 
-  activateInstitute(id: string, orderId: string, ReceiptId: string) {
-    const paymentDetails = {
-      amount: this.paymentDetails.amount,
-      planType: this.paymentDetails.planType,
-      orderId: orderId,
-      receiptId: ReceiptId,
-    };
-    this.api.activateInstitute(id, paymentDetails).subscribe(
+  addSms() {
+    this.smsRechargeService.rechargeSms(this.instituteId, this.smsPack._id).subscribe(
       (data) => {
         // this.user = data;
-        this.showToast('top-right', 'success', 'Institute Activated Successfully');
+        this.showToast('top-right', 'success', 'SMS Recharge Successful');
         setTimeout(() => {
-          this.router.navigate(['/pages/home'], { relativeTo: this.route });
+          this.router.navigate(['/pages/dashboard/', this.instituteId], { relativeTo: this.route });
         }, 1000);
       },
       (error) => {
@@ -216,44 +180,33 @@ export class MembershipComponent implements OnInit {
     this.checkout = true;
   }
 
+  getAmount(amount: any) {
+    return (+amount * 1).toFixed(2);
+  }
+
   submitCheckout(event: any) {
-    this.couponCode = event;
     this.cancelCheckout();
     const orderDetails = {
+      packId: this.smsPack._id,
       userId: this.user._id,
       userPhone: this.user.phone,
       userName: this.user.name,
       userEmail: this.user.email,
       amount: this.paymentDetails.amount,
       planType: this.paymentDetails.planType,
-      couponCode: this.couponCode,
       amountType: 'new',
     };
-    if (this.paymentDetails.amount === '0') {
-      this.activateInstitute(this.instituteId, null, null);
-    } else {
-      this.generateOrder(orderDetails);
-    }
+    this.generateOrder(orderDetails);
   }
 
   cancelCheckout() {
     this.checkout = false;
   }
 
-  activate(plan: any) {
-    const amount = plan.amount;
-    const planType = plan.planType;
-
-    this.paymentService.setPaymentDetails(amount, planType);
-    this.paymentDetails = this.paymentService.getPaymentDetails();
-
-    if (this.type === 'new') {
-      this.router.navigate(['/pages/institute/add-institute'], { relativeTo: this.route });
-    } else if (this.type === 'renew' && this.instituteId) {
-      this.onCheckout();
-    } else {
-      this.showToast('top-right', 'danger', 'Invalid Payment Type or Institute');
-    }
+  onRecharge(smsPack: any) {
+    this.smsPack = smsPack;
+    this.paymentDetails.amount = smsPack.totalAmount;
+    this.onCheckout();
   }
 
   showToast(position: any, status: any, message: any) {

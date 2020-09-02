@@ -1,4 +1,5 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { CheckoutModule } from './checkout/checkout.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import {
   NbMenuModule,
@@ -27,8 +28,7 @@ import { ECommerceComponent } from './e-commerce/e-commerce.component';
 import { MembershipComponent } from './membership/membership.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ProfileComponent } from './profile/profile.component';
-
-// import { InstAddDialogComponent } from './institute/add-institute/inst-add-dialog/inst-add-dialog.component';
+import { SmsRechargeComponent } from './e-commerce/sms-recharge/sms-recharge.component';
 
 @NgModule({
   imports: [
@@ -41,6 +41,7 @@ import { ProfileComponent } from './profile/profile.component';
     NbLayoutModule,
     NbTabsetModule,
     NbCardModule,
+    NbInputModule,
     NbUserModule,
     NbEvaIconsModule,
     NbIconModule,
@@ -49,6 +50,8 @@ import { ProfileComponent } from './profile/profile.component';
     NbDatepickerModule,
     NbInputModule,
     NbButtonModule,
+
+    CheckoutModule,
   ],
   declarations: [
     PagesComponent,
@@ -57,13 +60,7 @@ import { ProfileComponent } from './profile/profile.component';
     MembershipComponent,
     ChangePasswordComponent,
     ProfileComponent,
-
-    // ClassifiedComponent,
-    // CreateClassifiedComponent,
-    // ManageClassifiedComponent,
-    // BusinessComponent,
-    // CreateBusinessComponent,
-    // ManageBusinessComponent,
+    SmsRechargeComponent,
   ],
 })
 export class PagesModule {}
