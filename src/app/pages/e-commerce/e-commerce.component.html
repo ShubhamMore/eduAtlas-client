@@ -87,7 +87,13 @@
                   <tbody>
                     <tr *ngFor="let fees of pendingFees; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <td>{{ fees.studentName }}</td>
+                      <td>
+                        <span
+                          class="pointer"
+                          (click)="viewStudent(fees.eduAtlasId, fees.courseId)"
+                          >{{ fees.studentName }}</span
+                        >
+                      </td>
                       <td>{{ fees.courseName }}</td>
                       <td>{{ fees.pendingAmount }}</td>
                     </tr>
