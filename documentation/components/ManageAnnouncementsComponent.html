@@ -1,0 +1,1221 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ManageAnnouncementsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-manage-announcements</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./manage-announcements.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./manage-announcements.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#announcements">announcements</a>
+                            </li>
+                            <li>
+                                <a href="#display">display</a>
+                            </li>
+                            <li>
+                                <a href="#instituteId">instituteId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate">formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#getAnnouncement">getAnnouncement</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onDelete">onDelete</a>
+                            </li>
+                            <li>
+                                <a href="#onView">onView</a>
+                            </li>
+                            <li>
+                                <a href="#repeat">repeat</a>
+                            </li>
+                            <li>
+                                <a href="#showToast">showToast</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(toastrService: NbToastrService, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, announceService: <a href="../injectables/AnnouncementService.html">AnnouncementService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>toastrService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NbToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>announceService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AnnouncementService.html" target="_self" >AnnouncementService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="edit"></a>
+                    <span class="name">
+                        <b>
+                            edit
+                        </b>
+                        <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>edit(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <b>
+                            formatDate
+                        </b>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:68</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>date</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAnnouncement"></a>
+                    <span class="name">
+                        <b>
+                            getAnnouncement
+                        </b>
+                        <a href="#getAnnouncement"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAnnouncement(id: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:45</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDelete"></a>
+                    <span class="name">
+                        <b>
+                            onDelete
+                        </b>
+                        <a href="#onDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onDelete(id: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="52"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:52</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onView"></a>
+                    <span class="name">
+                        <b>
+                            onView
+                        </b>
+                        <a href="#onView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onView(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:27</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="repeat"></a>
+                    <span class="name">
+                        <b>
+                            repeat
+                        </b>
+                        <a href="#repeat"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>repeat(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showToast"></a>
+                    <span class="name">
+                        <b>
+                            showToast
+                        </b>
+                        <a href="#showToast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showToast(position: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, status: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, message: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:72</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>position</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="announcements"></a>
+                        <span class="name">
+                            <b>
+                            announcements</b>
+                            <a href="#announcements"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="display"></a>
+                        <span class="name">
+                            <b>
+                            display</b>
+                            <a href="#display"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="instituteId"></a>
+                        <span class="name">
+                            <b>
+                            instituteId</b>
+                            <a href="#instituteId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/pages/communication/announcements/manage-announcements/manage-announcements.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NbToastrService } from &#x27;@nebular/theme&#x27;;
+import { AnnouncementService } from &#x27;./../../../../services/communication/announcement.service&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+
+@Component({
+  selector: &#x27;ngx-manage-announcements&#x27;,
+  templateUrl: &#x27;./manage-announcements.component.html&#x27;,
+  styleUrls: [&#x27;./manage-announcements.component.scss&#x27;],
+})
+export class ManageAnnouncementsComponent implements OnInit {
+  announcements &#x3D; [];
+  instituteId: string;
+  display &#x3D; false;
+  constructor(
+    private toastrService: NbToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private announceService: AnnouncementService,
+  ) {}
+
+  ngOnInit() {
+    this.instituteId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+    this.getAnnouncement(this.instituteId);
+  }
+
+  onView(id: string) {
+    this.router.navigate([&#x27;/pages/communication/view-announcements/&#x27;, this.instituteId], {
+      queryParams: { announcement: id },
+    });
+  }
+
+  repeat(id: string) {
+    this.router.navigate([&#x27;/pages/communication/add-announcements/&#x27;, this.instituteId], {
+      queryParams: { announcement: id, repeat: true },
+    });
+  }
+
+  edit(id: string) {
+    this.router.navigate([&#x27;/pages/communication/add-announcements/&#x27;, this.instituteId], {
+      queryParams: { announcement: id, edit: true },
+    });
+  }
+
+  getAnnouncement(id: any) {
+    this.announceService.getAnnouncements(id).subscribe((data: any) &#x3D;&gt; {
+      this.announcements &#x3D; data;
+      this.display &#x3D; true;
+    });
+  }
+
+  onDelete(id: any) {
+    this.announceService.deleteAnnouncement(id, this.instituteId).subscribe(
+      (res) &#x3D;&gt; {
+        const i &#x3D; this.announcements.findIndex((e) &#x3D;&gt; e._id &#x3D;&#x3D;&#x3D; id);
+
+        if (i !&#x3D;&#x3D; -1) {
+          this.announcements.splice(i, 1);
+        }
+        this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Announcement Deleted Successfully&#x27;);
+      },
+      (err) &#x3D;&gt; {
+        this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, &#x27;Announcement Deletion Failed&#x27;);
+      },
+    );
+  }
+
+  formatDate(date: string) {
+    return date.split(&#x27;-&#x27;).reverse().join(&#x27;-&#x27;);
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toastrService.show(status, message, {
+      position,
+      status,
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;ngx-institute-header&gt;&lt;/ngx-institute-header&gt; --&gt;
+
+&lt;nb-card *ngIf&#x3D;&quot;display&quot; class&#x3D;&quot;mobileFullHeight&quot;&gt;
+  &lt;nb-card-header&gt;
+    Announcements
+    &lt;button
+      class&#x3D;&quot;btn btn-yellow-black float-right&quot;
+      [routerLink]&#x3D;&quot;&#x27;/pages/communication/add-announcements/&#x27; + this.instituteId&quot;
+    &gt;
+      ADD ANNOUNCEMENT
+    &lt;/button&gt;
+  &lt;/nb-card-header&gt;
+  &lt;nb-card-body&gt;
+    &lt;ng-container *ngIf&#x3D;&quot;announcements.length &gt; 0; else noAnnouncements&quot;&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;div class&#x3D;&quot;table-responsive&quot;&gt;
+            &lt;table class&#x3D;&quot;table table-borderless&quot;&gt;
+              &lt;thead&gt;
+                &lt;tr&gt;
+                  &lt;th&gt;ID&lt;/th&gt;
+                  &lt;th&gt;Title&lt;/th&gt;
+                  &lt;th&gt;Date&lt;/th&gt;
+                  &lt;th&gt;Attachment&lt;/th&gt;
+                  &lt;th&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/thead&gt;
+              &lt;tbody&gt;
+                &lt;tr *ngFor&#x3D;&quot;let item of announcements; let i &#x3D; index&quot;&gt;
+                  &lt;td&gt;
+                    &lt;span&gt; {{ i + 1 }}&lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td&gt;
+                    &lt;span&gt; {{ formatDate(item.title) }}&lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td&gt;
+                    &lt;span&gt; {{ item.date }}&lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td&gt;
+                    &lt;a
+                      [href]&#x3D;&quot;item.attachment.secure_url&quot;
+                      *ngIf&#x3D;&quot;item.attachment&quot;
+                      target&#x3D;&quot;_blank&quot;
+                      &gt;{{ item.attachment.file_name }}&lt;/a
+                    &gt;
+                    &lt;span *ngIf&#x3D;&quot;!item.attachment&quot;&gt;--&lt;/span&gt;
+                  &lt;/td&gt;
+                  &lt;td class&#x3D;&quot;text-nowrap&quot;&gt;
+                    &lt;button class&#x3D;&quot;mr-3 mb-2&quot; nbButton (click)&#x3D;&quot;onView(item._id)&quot;&gt;
+                      &lt;span class&#x3D;&quot;btnText&quot;&gt;
+                        View
+                      &lt;/span&gt;
+
+                      &lt;span class&#x3D;&quot;btnIcon&quot;&gt;
+                        &lt;nb-icon icon&#x3D;&quot;eye-outline&quot;&gt;&lt;/nb-icon&gt;
+                      &lt;/span&gt;
+                    &lt;/button&gt;
+                    &lt;button class&#x3D;&quot;mr-3 mb-2 btn btn-yellow&quot; (click)&#x3D;&quot;edit(item._id)&quot;&gt;
+                      &lt;span class&#x3D;&quot;btnText&quot;&gt;
+                        Edit
+                      &lt;/span&gt;
+
+                      &lt;span class&#x3D;&quot;btnIcon&quot;&gt;
+                        &lt;nb-icon icon&#x3D;&quot;edit-outline&quot;&gt;&lt;/nb-icon&gt;
+                      &lt;/span&gt;
+                    &lt;/button&gt;
+                    &lt;button class&#x3D;&quot;mr-3 mb-2&quot; nbButton status&#x3D;&quot;success&quot; (click)&#x3D;&quot;repeat(item._id)&quot;&gt;
+                      &lt;span class&#x3D;&quot;btnText&quot;&gt;
+                        Repeat
+                      &lt;/span&gt;
+                      &lt;span class&#x3D;&quot;btnIcon&quot;&gt;
+                        &lt;nb-icon icon&#x3D;&quot;refresh-outline&quot;&gt;&lt;/nb-icon&gt;
+                      &lt;/span&gt;
+                    &lt;/button&gt;
+                    &lt;button class&#x3D;&quot;mb-2&quot; nbButton status&#x3D;&quot;danger&quot; (click)&#x3D;&quot;onDelete(item._id)&quot;&gt;
+                      &lt;span class&#x3D;&quot;btnText&quot;&gt;
+                        Delete
+                      &lt;/span&gt;
+                      &lt;span class&#x3D;&quot;btnIcon&quot;&gt;
+                        &lt;nb-icon icon&#x3D;&quot;trash-2-outline&quot;&gt;&lt;/nb-icon&gt;
+                      &lt;/span&gt;
+                    &lt;/button&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/ng-container&gt;
+    &lt;ng-template #noAnnouncements&gt;
+      &lt;p class&#x3D;&quot;text-center pt-5&quot;&gt;No Announcements&lt;/p&gt;
+    &lt;/ng-template&gt;
+  &lt;/nb-card-body&gt;
+&lt;/nb-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./manage-announcements.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@media only screen and (max-width: 600px) {
+  button {
+    display: inline !important;
+    padding: 8px !important;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <ngx-institute-header></ngx-institute-header> --><nb-card *ngIf="display" class="mobileFullHeight">  <nb-card-header>    Announcements    <button      class="btn btn-yellow-black float-right"      [routerLink]="\'/pages/communication/add-announcements/\' + this.instituteId"    >      ADD ANNOUNCEMENT    </button>  </nb-card-header>  <nb-card-body>    <ng-container *ngIf="announcements.length > 0; else noAnnouncements">      <div class="row">        <div class="col-12">          <div class="table-responsive">            <table class="table table-borderless">              <thead>                <tr>                  <th>ID</th>                  <th>Title</th>                  <th>Date</th>                  <th>Attachment</th>                  <th></th>                </tr>              </thead>              <tbody>                <tr *ngFor="let item of announcements; let i = index">                  <td>                    <span> {{ i + 1 }}</span>                  </td>                  <td>                    <span> {{ formatDate(item.title) }}</span>                  </td>                  <td>                    <span> {{ item.date }}</span>                  </td>                  <td>                    <a                      [href]="item.attachment.secure_url"                      *ngIf="item.attachment"                      target="_blank"                      >{{ item.attachment.file_name }}</a                    >                    <span *ngIf="!item.attachment">--</span>                  </td>                  <td class="text-nowrap">                    <button class="mr-3 mb-2" nbButton (click)="onView(item._id)">                      <span class="btnText">                        View                      </span>                      <span class="btnIcon">                        <nb-icon icon="eye-outline"></nb-icon>                      </span>                    </button>                    <button class="mr-3 mb-2 btn btn-yellow" (click)="edit(item._id)">                      <span class="btnText">                        Edit                      </span>                      <span class="btnIcon">                        <nb-icon icon="edit-outline"></nb-icon>                      </span>                    </button>                    <button class="mr-3 mb-2" nbButton status="success" (click)="repeat(item._id)">                      <span class="btnText">                        Repeat                      </span>                      <span class="btnIcon">                        <nb-icon icon="refresh-outline"></nb-icon>                      </span>                    </button>                    <button class="mb-2" nbButton status="danger" (click)="onDelete(item._id)">                      <span class="btnText">                        Delete                      </span>                      <span class="btnIcon">                        <nb-icon icon="trash-2-outline"></nb-icon>                      </span>                    </button>                  </td>                </tr>              </tbody>            </table>          </div>        </div>      </div>    </ng-container>    <ng-template #noAnnouncements>      <p class="text-center pt-5">No Announcements</p>    </ng-template>  </nb-card-body></nb-card></div>'
+    var COMPONENTS = [{'name': 'AddAttendanceComponent', 'selector': 'ngx-add-attendance'},{'name': 'AddBatchesComponent', 'selector': 'ngx-add-batches'},{'name': 'AddCourseComponent', 'selector': 'ngx-add-course'},{'name': 'AddEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'AddForumComponent', 'selector': 'ngx-add-forum'},{'name': 'AddInstituteComponent', 'selector': 'ngx-add-institute'},{'name': 'AddLeadComponent', 'selector': 'ngx-add-lead'},{'name': 'AddOnlineClassComponent', 'selector': 'ngx-add-online-class'},{'name': 'AddOnlineClassLinkComponent', 'selector': 'ngx-add-online-class-link'},{'name': 'AddPTMsComponent', 'selector': 'ngx-add-ptms'},{'name': 'AddScheduleComponent', 'selector': 'ngx-add-schedule'},{'name': 'AddStudentsComponent', 'selector': 'ngx-add-students'},{'name': 'AdminComponent', 'selector': 'ngx-admin'},{'name': 'AdminCouponsComponent', 'selector': 'ngx-admin-coupons'},{'name': 'AdminHomeComponent', 'selector': 'ngx-admin-home'},{'name': 'AdminInstituteComponent', 'selector': 'ngx-admin-institute'},{'name': 'AdminInstitutesComponent', 'selector': 'ngx-admin-institutes'},{'name': 'AdminPlansComponent', 'selector': 'ngx-admin-plans'},{'name': 'AdminSavePlanComponent', 'selector': 'ngx-admin-save-plan'},{'name': 'AdminSmsPackComponent', 'selector': 'ngx-admin-sms-pack'},{'name': 'AnnouncementsComponent', 'selector': 'ngx-announcements'},{'name': 'AppComponent', 'selector': 'ngx-app'},{'name': 'AttandanceComponent', 'selector': 'ngx-attandance'},{'name': 'BranchConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'ChangePasswordComponent', 'selector': 'ngx-change-password'},{'name': 'CheckoutComponent', 'selector': 'ngx-checkout'},{'name': 'CommunicationComponent', 'selector': 'ngx-communication'},{'name': 'CreateTestComponent', 'selector': 'ngx-create-test'},{'name': 'CreateTestsScoreComponent', 'selector': 'ngx-create-tests-score'},{'name': 'DiscountComponent', 'selector': 'ngx-discount'},{'name': 'ECommerceComponent', 'selector': 'ngx-ecommerce'},{'name': 'FooterComponent', 'selector': 'ngx-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'ngx-forgot-password'},{'name': 'ForumComponent', 'selector': 'ngx-forum'},{'name': 'ForumDetailsComponent', 'selector': 'ngx-forum'},{'name': 'HeaderComponent', 'selector': 'ngx-header'},{'name': 'HomeComponent', 'selector': 'ngx-home'},{'name': 'InstituteComponent', 'selector': 'ngx-institute'},{'name': 'InstituteHeaderComponent', 'selector': 'ngx-institute-header'},{'name': 'LoginComponent', 'selector': 'ngx-login'},{'name': 'ManageAnnouncementsComponent', 'selector': 'ngx-manage-announcements'},{'name': 'ManageBatchComponent', 'selector': 'ngx-manage-batch'},{'name': 'ManageCourseComponent', 'selector': 'ngx-manage-course'},{'name': 'ManageDiscountComponent', 'selector': 'ngx-manage-discount'},{'name': 'ManageEmployeeComponent', 'selector': 'ngx-manage-employee'},{'name': 'ManageInstituteComponent', 'selector': 'ngx-manage-institute'},{'name': 'ManageLeadComponent', 'selector': 'ngx-manage-lead'},{'name': 'ManageOnlineClassComponent', 'selector': 'ngx-manage-online-class'},{'name': 'ManagePTMsComponent', 'selector': 'ngx-manage-ptms'},{'name': 'ManageReceiptComponent', 'selector': 'ngx-manage-receipt'},{'name': 'ManageScheduleComponent', 'selector': 'ngx-manage-schedule'},{'name': 'ManageStudentsComponent', 'selector': 'ngx-manage-students'},{'name': 'ManageTestsComponent', 'selector': 'ngx-manage-tests'},{'name': 'MembershipComponent', 'selector': 'ngx-membership'},{'name': 'MentoringComponent', 'selector': 'ngx-mentoring'},{'name': 'MiscellaneousComponent', 'selector': 'ngx-miscellaneous'},{'name': 'MyForumComponent', 'selector': 'ngx-my-forum'},{'name': 'NotFoundComponent', 'selector': 'ngx-not-found'},{'name': 'OneColumnLayoutComponent', 'selector': 'ngx-one-column-layout'},{'name': 'OnlineClassesConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'OnlineClassesUpgradeComponent', 'selector': 'ngx-online-classes-upgrade'},{'name': 'OnlineClassLinkComponent', 'selector': 'ngx-online-class-link'},{'name': 'OnlineClassLinksComponent', 'selector': 'ngx-online-class-links'},{'name': 'OnlineClassSettingsComponent', 'selector': 'ngx-online-class-settings'},{'name': 'OnlineeClassComponent', 'selector': 'ngx-onlinee-class'},{'name': 'OtpComponent', 'selector': 'ngx-otp'},{'name': 'PagesComponent', 'selector': 'ngx-pages'},{'name': 'PendingStudentComponent', 'selector': 'ngx-pending-student'},{'name': 'PlayLinksComponent', 'selector': 'ngx-play-links'},{'name': 'PlayVideoRecordingComponent', 'selector': 'ngx-play-video-recording'},{'name': 'ProfileComponent', 'selector': 'ngx-profile'},{'name': 'ReceiptConfComponent', 'selector': 'ngx-receipt-conf'},{'name': 'SaveAdminCouponsComponent', 'selector': 'ngx-save-admin-coupons'},{'name': 'SaveAdminSmsPackComponent', 'selector': 'ngx-save-admin-sms-pack'},{'name': 'SearchInputComponent', 'selector': 'ngx-search-input'},{'name': 'SheduleMentoringComponent', 'selector': 'ngx-shedule-mentoring'},{'name': 'SignUpComponent', 'selector': 'ngx-sign-up'},{'name': 'SmsRechargeComponent', 'selector': 'ngx-sms-recharge'},{'name': 'StudentAnnouncementsComponent', 'selector': 'ngx-student-announcements'},{'name': 'StudentAttendanceComponent', 'selector': 'ngx-student-attendance'},{'name': 'StudentComponent', 'selector': 'ngx-student'},{'name': 'StudentDashboardComponent', 'selector': 'ngx-student-dashboard'},{'name': 'StudentEnrollmentDetailsComponent', 'selector': 'ngx-student-enrollment-details'},{'name': 'StudentForumCommentComponent', 'selector': 'ngx-student-forum-comment'},{'name': 'StudentForumsChatsComponent', 'selector': 'ngx-student-forums-chats'},{'name': 'StudentHomeComponent', 'selector': 'ngx-student-home'},{'name': 'StudentInstituteHeaderComponent', 'selector': 'ngx-student-institute-header'},{'name': 'StudentInstitutesComponent', 'selector': 'ngx-student-institutes'},{'name': 'StudentMeetingComponent', 'selector': 'ngx-student-meeting'},{'name': 'StudentMentoringComponent', 'selector': 'ngx-student-mentoring'},{'name': 'StudentPerformanceReportComponent', 'selector': 'ngx-student-performance-report'},{'name': 'StudentReportConfComponent', 'selector': 'ngx-student-report-conf'},{'name': 'StudentScheduleComponent', 'selector': 'ngx-student-schedule'},{'name': 'StudentStudyMaterialComponent', 'selector': 'ngx-student-study-material'},{'name': 'StudentTestComponent', 'selector': 'ngx-student-test'},{'name': 'StudentViewAnnouncementComponent', 'selector': 'ngx-student-view-announcement'},{'name': 'StudentViewEnrollmentComponent', 'selector': 'ngx-student-view-enrollment'},{'name': 'StudentViewScheduleComponent', 'selector': 'ngx-student-view-schedule'},{'name': 'StudyMaterialComponent', 'selector': 'ngx-study-material'},{'name': 'TermsAndConditionsComponent', 'selector': 'ngx-terms-and-conditions'},{'name': 'TestReportComponent', 'selector': 'ngx-test-report'},{'name': 'TestsComponent', 'selector': 'ngx-tests'},{'name': 'ThreeColumnsLayoutComponent', 'selector': 'ngx-three-columns-layout'},{'name': 'TinyMCEComponent', 'selector': 'ngx-tiny-mce'},{'name': 'TwoColumnsLayoutComponent', 'selector': 'ngx-two-columns-layout'},{'name': 'UploadClassRecordingComponent', 'selector': 'ngx-upload-class-recording'},{'name': 'UtilitiesComponent', 'selector': 'ngx-utilities'},{'name': 'ViewAnnouncementsComponent', 'selector': 'ngx-view-announcements'},{'name': 'ViewAttendanceComponent', 'selector': 'ngx-view-attendance'},{'name': 'ViewClassRecordingComponent', 'selector': 'ngx-view-class-recording'},{'name': 'ViewCourseComponent', 'selector': 'ngx-view-course'},{'name': 'ViewEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'ViewInstituteComponent', 'selector': 'ngx-view-institute'},{'name': 'ViewLeadComponent', 'selector': 'ngx-view-lead'},{'name': 'ViewLinksComponent', 'selector': 'ngx-view-links'},{'name': 'ViewReportComponent', 'selector': 'ngx-view-report'},{'name': 'ViewScheduleComponent', 'selector': 'ngx-view-schedule'},{'name': 'ViewStudentComponent', 'selector': 'ngx-view-student'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ManageAnnouncementsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ManageAnnouncementsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

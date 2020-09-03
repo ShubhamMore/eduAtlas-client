@@ -1,0 +1,166 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p>installation process (this is only in developing mode)
+1.npm i
+2.don&#39;t run npm audit (it will break the application)
+3.ng serve</p>
+<p>Eduatlus dependency
+1.anglar/cli = ^8.0.2
+2.typescript = 3.4.1
+3.nebular/theme = 4.4.0
+4.angular-in-memory-web-api= ^0.8.0</p>
+<p>Folder Structure
+1.@core (Need to remove data from this folder)
+2.@theme -&gt; components -&gt; footer, header, search-input, tiny-mice, index.ts
+3.admin -&gt; forgot-password
+-&gt; login
+-&gt; otp
+-&gt; sign-up
+4.pages(project inner part start from here)
+-&gt; communication(Feature Module) -&gt; announcement(component)
+-&gt; communication(moduel, routing-module)
+-&gt; e-commerce(Institute Dashboard)
+-&gt; home (after Login landing page) shows multiple institutes<br> -&gt; institute (Feature Module)
+-&gt; add-institute (component) -&gt; manage-institute(component)
+-&gt; mime-type.validator.ts (Institute Logo Validation)
+-&gt; add-students(component) -&gt; manage-students(active Students)
+-&gt; pending-student
+-&gt; attandance(component)(only add attandance)
+-&gt; branch-conf(Feature Module)
+-&gt; add-batch -&gt; manage-batch
+-&gt; add-course -&gt; manage-course
+-&gt; view-course
+-&gt; branch(module, routing-module)
+-&gt; discount -&gt; manage-discount
+-&gt; receipt-conf -&gt; manage-receipt
+-&gt; role-management (only add role)
+-&gt; institute(module, routing-module)
+-&gt; membership (component)
+-&gt; miscellaneous (component) shows 404 error for undefined route
+-&gt; schedule -&gt; add-schedule
+-&gt; manage-schedule
+-&gt; view-schedule
+-&gt; page-menu.ts (shows sidebard menu)
+-&gt; pages-routing.module.ts
+-&gt; pages.component.scss
+-&gt; pages.component.ts
+-&gt; pages.module.ts</p>
+<hr>
+<p>SERVICES
+services -&gt; auth-interceptor(no use)
+-&gt; otp (service)
+-&gt; role (service)
+-&gt; schedule (service)
+-&gt; api.service (crud operation for INSTITUTE, STUDENT, BRANCH-CONF)
+-&gt; auth.service (LOGIN, SIGN-UP)
+-&gt; country.service (Third party api, to fetch country,state,city in add-Institute component)</p>
+<hr>
+<p>app-routing.module (Pages, login, sign-Up)
+app.component.ts
+app.module.ts</p>
+<hr>
+<p>GUARDS
+auth.guard.ts -&gt; login
+bManager.guard.ts -&gt; Branch Manger Guard
+counsellor.guard.ts
+institute.guard.ts
+teacher.guard.ts</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

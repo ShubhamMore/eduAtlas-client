@@ -1,0 +1,1524 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>SignUpComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/authentication/sign-up/sign-up.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-sign-up</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./sign-up.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sign-up.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService">authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#router">router</a>
+                            </li>
+                            <li>
+                                <a href="#signUpForm">signUpForm</a>
+                            </li>
+                            <li>
+                                <a href="#tnc">tnc</a>
+                            </li>
+                            <li>
+                                <a href="#tncDisplay">tncDisplay</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#acceptTermsAndConditions">acceptTermsAndConditions</a>
+                            </li>
+                            <li>
+                                <a href="#closeTnC">closeTnC</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSignUp">onSignUp</a>
+                            </li>
+                            <li>
+                                <a href="#openTnC">openTnC</a>
+                            </li>
+                            <li>
+                                <a href="#passwordValidator">passwordValidator</a>
+                            </li>
+                            <li>
+                                <a href="#showToast">showToast</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html">AuthService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, toasterService: NbToastrService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NbToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="acceptTermsAndConditions"></a>
+                    <span class="name">
+                        <b>
+                            acceptTermsAndConditions
+                        </b>
+                        <a href="#acceptTermsAndConditions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>acceptTermsAndConditions(tnc: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>tnc</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeTnC"></a>
+                    <span class="name">
+                        <b>
+                            closeTnC
+                        </b>
+                        <a href="#closeTnC"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeTnC()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:32</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSignUp"></a>
+                    <span class="name">
+                        <b>
+                            onSignUp
+                        </b>
+                        <a href="#onSignUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSignUp()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:61</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openTnC"></a>
+                    <span class="name">
+                        <b>
+                            openTnC
+                        </b>
+                        <a href="#openTnC"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openTnC()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordValidator"></a>
+                    <span class="name">
+                        <b>
+                            passwordValidator
+                        </b>
+                        <a href="#passwordValidator"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>passwordValidator(group: <a href="https://angular.io/api/forms/FormGroup" target="_blank">FormGroup</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>group</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>literal type</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showToast"></a>
+                    <span class="name">
+                        <b>
+                            showToast
+                        </b>
+                        <a href="#showToast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showToast(position: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, status: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, message: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>position</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="authService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            authService</b>
+                            <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="router"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            router</b>
+                            <a href="#router"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="signUpForm"></a>
+                        <span class="name">
+                            <b>
+                            signUpForm</b>
+                            <a href="#signUpForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tnc"></a>
+                        <span class="name">
+                            <b>
+                            tnc</b>
+                            <a href="#tnc"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tncDisplay"></a>
+                        <span class="name">
+                            <b>
+                            tncDisplay</b>
+                            <a href="#tncDisplay"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/authentication/sign-up/sign-up.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormGroup, Validators, FormControl } from &#x27;@angular/forms&#x27;;
+import { AuthService } from &#x27;../../services/auth-services/auth.service&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { NbToastrService } from &#x27;@nebular/theme&#x27;;
+
+@Component({
+  selector: &#x27;ngx-sign-up&#x27;,
+  templateUrl: &#x27;./sign-up.component.html&#x27;,
+  styleUrls: [&#x27;./sign-up.component.scss&#x27;],
+})
+export class SignUpComponent implements OnInit {
+  signUpForm: FormGroup;
+
+  tnc: boolean &#x3D; false;
+  tncDisplay: boolean &#x3D; false;
+
+  constructor(
+    public authService: AuthService,
+    public router: Router,
+    private toasterService: NbToastrService,
+  ) {}
+
+  openTnC() {
+    this.tncDisplay &#x3D; true;
+  }
+
+  closeTnC() {
+    this.tncDisplay &#x3D; false;
+  }
+
+  ngOnInit() {
+    this.signUpForm &#x3D; new FormGroup(
+      {
+        name: new FormControl(null, { validators: [Validators.required] }),
+        email: new FormControl(null, { validators: [Validators.required, Validators.email] }),
+        phone: new FormControl(null, {
+          validators: [Validators.required, Validators.minLength(10), Validators.maxLength(10)],
+        }),
+        password: new FormControl(null, { validators: [Validators.required] }),
+        confirmPassword: new FormControl(null, { validators: [Validators.required] }),
+        role: new FormControl(&#x27;institute&#x27;, { validators: [Validators.required] }),
+      },
+      {
+        validators: this.passwordValidator.bind(this),
+      },
+    );
+  }
+
+  passwordValidator(group: FormGroup): { [s: string]: boolean } {
+    if (group.value.password !&#x3D;&#x3D; group.value.confirmPassword) {
+      return { invalidPassword: true };
+    }
+    return null;
+  }
+
+  acceptTermsAndConditions(tnc: boolean) {
+    this.tnc &#x3D; tnc;
+  }
+
+  onSignUp() {
+    this.signUpForm.markAllAsTouched();
+    if (this.signUpForm.invalid) {
+      this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, &#x27;Insufficient Data, Please fill all Fields Correctly&#x27;);
+      return;
+    } else if (!this.tnc) {
+      this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, &#x27;Accept Terms and Conditions&#x27;);
+      return;
+    }
+
+    const user &#x3D; {
+      name: this.signUpForm.value.name,
+      email: this.signUpForm.value.email,
+      phone: this.signUpForm.value.phone,
+      password: this.signUpForm.value.password,
+      role: this.signUpForm.value.role,
+    };
+
+    this.authService.findUser(user.phone, user.email).subscribe(
+      (res: any) &#x3D;&gt; {
+        if (res.success) {
+          this.authService.signUp(user).subscribe(
+            (signUpRes: any) &#x3D;&gt; {
+              // this.router.navigate([&#x27;/otp&#x27;], {
+              //   queryParams: { phone: user.phone, email: user.email },
+              // });
+              this.router.navigate([&#x27;/login&#x27;], {});
+            },
+            (err: any) &#x3D;&gt; {
+              this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, &#x27;This Email or Phone already exist&#x27;);
+            },
+          );
+        }
+      },
+      (err: any) &#x3D;&gt; {
+        this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, err.error.message);
+      },
+    );
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ngx-terms-and-conditions *ngIf&#x3D;&quot;tncDisplay&quot; (close)&#x3D;&quot;closeTnC()&quot;&gt;&lt;/ngx-terms-and-conditions&gt;
+
+&lt;div class&#x3D;&quot;wrapper fadeInDown signupContainer&quot;&gt;
+  &lt;div id&#x3D;&quot;formContent&quot;&gt;
+    &lt;!-- Tabs Titles --&gt;
+
+    &lt;!-- &lt;h2 class&#x3D;&quot;inactive underlineHover&quot;&gt;Sign Up &lt;/h2&gt; --&gt;
+
+    &lt;!-- Login Form --&gt;
+    &lt;!-- &lt;form&gt; --&gt;
+
+    &lt;nb-layout style&#x3D;&quot;background-color: white;&quot;&gt;
+      &lt;nb-layout-column style&#x3D;&quot;background-color: white;&quot;&gt;
+        &lt;nb-card style&#x3D;&quot;box-shadow: none;&quot;&gt;
+          &lt;nb-card-body class&#x3D;&quot;text-center&quot;&gt;
+            &lt;div class&#x3D;&quot;fadeIn first&quot;&gt;
+              &lt;img src&#x3D;&quot;assets/img/EA FAVI.png&quot; id&#x3D;&quot;icon&quot; alt&#x3D;&quot;User Icon&quot; style&#x3D;&quot;width: 25%;&quot; /&gt;
+            &lt;/div&gt;
+
+            &lt;h2 class&#x3D;&quot;font-weight-bolder d-inline-block&quot; style&#x3D;&quot;font-size: 25px; color: black;&quot;&gt;
+              Create Your Account
+            &lt;/h2&gt;
+            &lt;form [formGroup]&#x3D;&quot;signUpForm&quot; (ngSubmit)&#x3D;&quot;onSignUp()&quot;&gt;
+              &lt;input
+                type&#x3D;&quot;text&quot;
+                id&#x3D;&quot;name&quot;
+                class&#x3D;&quot;fadeIn first&quot;
+                formControlName&#x3D;&quot;name&quot;
+                name&#x3D;&quot;name&quot;
+                placeholder&#x3D;&quot;Name *&quot;
+              /&gt;
+
+              &lt;div *ngIf&#x3D;&quot;!signUpForm.get(&#x27;name&#x27;).valid &amp;&amp; signUpForm.get(&#x27;name&#x27;).touched&quot;&gt;
+                &lt;small&gt;*This field is required&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;input
+                type&#x3D;&quot;email&quot;
+                id&#x3D;&quot;email&quot;
+                class&#x3D;&quot;fadeIn second&quot;
+                formControlName&#x3D;&quot;email&quot;
+                name&#x3D;&quot;email&quot;
+                placeholder&#x3D;&quot;Email *&quot;
+              /&gt;
+              &lt;div *ngIf&#x3D;&quot;!signUpForm.get(&#x27;email&#x27;).valid &amp;&amp; signUpForm.get(&#x27;email&#x27;).touched&quot;&gt;
+                &lt;small&gt;*Enter Valid Email&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;input
+                type&#x3D;&quot;text&quot;
+                id&#x3D;&quot;phone&quot;
+                class&#x3D;&quot;fadeIn third&quot;
+                pattern&#x3D;&quot;\d*&quot;
+                formControlName&#x3D;&quot;phone&quot;
+                name&#x3D;&quot;phone&quot;
+                placeholder&#x3D;&quot;Contact Number *&quot;
+                minlength&#x3D;&quot;10&quot;
+                maxlength&#x3D;&quot;10&quot;
+              /&gt;
+
+              &lt;div *ngIf&#x3D;&quot;!signUpForm.get(&#x27;phone&#x27;).valid &amp;&amp; signUpForm.get(&#x27;phone&#x27;).touched&quot;&gt;
+                &lt;small&gt;*Enter Correct Phone Number&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;input
+                type&#x3D;&quot;password&quot;
+                id&#x3D;&quot;password&quot;
+                minlength&#x3D;&quot;7&quot;
+                class&#x3D;&quot;fadeIn fourth&quot;
+                formControlName&#x3D;&quot;password&quot;
+                name&#x3D;&quot;password&quot;
+                placeholder&#x3D;&quot;Password *&quot;
+              /&gt;
+              &lt;div *ngIf&#x3D;&quot;!signUpForm.get(&#x27;password&#x27;).valid &amp;&amp; signUpForm.get(&#x27;password&#x27;).touched&quot;&gt;
+                &lt;small *ngIf&#x3D;&quot;signUpForm.get(&#x27;password&#x27;).errors?.required&quot;
+                  &gt;*This field is required&lt;/small
+                &gt;
+                &lt;small *ngIf&#x3D;&quot;signUpForm.get(&#x27;password&#x27;).errors?.minlength&quot;
+                  &gt;*Minimum length 7 is required&lt;/small
+                &gt;
+              &lt;/div&gt;
+
+              &lt;input
+                type&#x3D;&quot;password&quot;
+                id&#x3D;&quot;confirmPassword&quot;
+                class&#x3D;&quot;fadeIn fifth&quot;
+                formControlName&#x3D;&quot;confirmPassword&quot;
+                name&#x3D;&quot;confirmPassword&quot;
+                placeholder&#x3D;&quot;Confirm Password *&quot;
+              /&gt;
+
+              &lt;div
+                *ngIf&#x3D;&quot;
+                  !signUpForm.get(&#x27;confirmPassword&#x27;).valid &amp;&amp;
+                  signUpForm.get(&#x27;confirmPassword&#x27;).touched
+                &quot;
+              &gt;
+                &lt;small&gt;*This field is required&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;div
+                *ngIf&#x3D;&quot;
+                  signUpForm.hasError(&#x27;invalidPassword&#x27;) &amp;&amp;
+                  signUpForm.get(&#x27;confirmPassword&#x27;).touched
+                &quot;
+              &gt;
+                &lt;small&gt;*Password must match&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;nb-select
+                  class&#x3D;&quot;fadeIn eight&quot;
+                  formControlName&#x3D;&quot;role&quot;
+                  placeholder&#x3D;&quot;Select Role&quot;
+                  size&#x3D;&quot;giant&quot;
+                  fullWidth
+                &gt;
+                  &lt;nb-option value&#x3D;&quot;institute&quot;&gt;Institute&lt;/nb-option&gt;
+                  &lt;nb-option value&#x3D;&quot;student&quot;&gt;Student&lt;/nb-option&gt;
+                &lt;/nb-select&gt;
+              &lt;/div&gt;
+
+              &lt;div *ngIf&#x3D;&quot;!signUpForm.get(&#x27;role&#x27;).valid &amp;&amp; signUpForm.get(&#x27;role&#x27;).touched&quot;&gt;
+                &lt;small&gt;*Select Role&lt;/small&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;nb-checkbox
+                  status&#x3D;&quot;warning&quot;
+                  (change)&#x3D;&quot;acceptTermsAndConditions($event.target.checked)&quot;
+                &gt;
+                  I agree with the
+                  &lt;span class&#x3D;&quot;btn btn-link pointer&quot; (click)&#x3D;&quot;openTnC()&quot;&gt;TERMS AND CONDITIONS&lt;/span&gt;
+                &lt;/nb-checkbox&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;button type&#x3D;&quot;Submit&quot; class&#x3D;&quot;fadeIn seventh&quot;&gt;Create Account&lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/form&gt;
+
+            &lt;div&gt;
+              &lt;span&gt;Already Registered ? &lt;/span&gt;
+              &lt;a routerLink&#x3D;&quot;/login&quot;&gt;Sign In Here&lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/nb-card-body&gt;
+        &lt;/nb-card&gt;
+      &lt;/nb-layout-column&gt;
+    &lt;/nb-layout&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./sign-up.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">@import url(&#x27;https://fonts.googleapis.com/css?family&#x3D;Poppins&#x27;);
+
+/* BASIC */
+
+html {
+  background-color: #ffd500;
+}
+
+::ng-deep body {
+  font-family: &#x27;Poppins&#x27;, sans-serif;
+  // height: 100vh;
+  background-color: #ffd500;
+}
+
+a {
+  color: #92badd;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+::placeholder {
+  color: #ffd500;
+}
+h2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 40px 8px 10px 8px;
+  color: #cccccc;
+}
+
+/* STRUCTURE */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 20px;
+}
+
+#formContent {
+  -webkit-border-radius: 10px 10px 10px 10px;
+  border-radius: 10px 10px 10px 10px;
+  background: #fff;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+#formFooter {
+  background-color: #f6f6f6;
+  border-top: 1px solid #dce8f1;
+  padding: 25px;
+  text-align: center;
+  -webkit-border-radius: 0 0 10px 10px;
+  border-radius: 0 0 10px 10px;
+}
+
+/* TABS */
+
+h2.inactive {
+  color: #cccccc;
+}
+
+h2.active {
+  color: #0d0d0d;
+  border-bottom: 2px solid yellow;
+}
+
+/* FORM TYPOGRAPHY*/
+
+input[type&#x3D;&#x27;submit&#x27;],
+button,
+input[type&#x3D;&#x27;reset&#x27;] {
+  background-color: black;
+  border: none;
+  color: #ffd500;
+  font-weight: bold;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 50px;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type&#x3D;&#x27;button&#x27;]:active,
+input[type&#x3D;&#x27;submit&#x27;]:active,
+input[type&#x3D;&#x27;reset&#x27;]:active,
+nb-select {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+input[type&#x3D;&#x27;text&#x27;],
+input[type&#x3D;&#x27;email&#x27;],
+input[type&#x3D;&#x27;password&#x27;],
+input[type&#x3D;&#x27;number&#x27;] {
+  border: 2px solid #ffd500 !important;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 95%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
+input[type&#x3D;&#x27;text&#x27;]:focus,
+input[type&#x3D;&#x27;email&#x27;]:focus,
+input[type&#x3D;&#x27;password&#x27;]:focus,
+input[type&#x3D;&#x27;number&#x27;]:focus,
+nb-select:focus {
+  background-color: #fff;
+}
+
+input:placeholder {
+  color: #cccccc;
+}
+
+small {
+  color: red;
+}
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  opacity: 0;
+  -webkit-animation: fadeIn ease-in 1;
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode: forwards;
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+
+  -webkit-animation-duration: 1s;
+  -moz-animation-duration: 1s;
+  animation-duration: 1s;
+}
+
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.fadeIn.second {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.fadeIn.third {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+.fadeIn.fourth {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+.fadeIn.fifth {
+  -webkit-animation-delay: 1.4s;
+  -moz-animation-delay: 1.4s;
+  animation-delay: 1.4s;
+}
+.fadeIn.sixth {
+  -webkit-animation-delay: 1.6s;
+  -moz-animation-delay: 1.6s;
+  animation-delay: 1.6s;
+}
+.fadeIn.seventh {
+  -webkit-animation-delay: 1.8s;
+  -moz-animation-delay: 1.8s;
+  animation-delay: 1.8s;
+}
+.fadeIn.eight {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  animation-delay: 2s;
+}
+nb-select {
+  border: 2px solid #ffd500;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 16px;
+}
+
+/* Simple CSS3 Fade-in Animation */
+.underlineHover:after {
+  display: block;
+  left: 0;
+  bottom: -10px;
+  width: 0;
+  height: 2px;
+  background-color: #ffd500;
+  content: &#x27;&#x27;;
+  transition: width 0.2s;
+}
+
+.underlineHover:hover {
+  color: #0d0d0d;
+}
+
+.underlineHover:hover:after {
+  width: 100%;
+}
+
+/* OTHERS */
+
+*:focus {
+  outline: none;
+}
+
+#icon {
+  width: 60%;
+}
+
+* {
+  box-sizing: border-box;
+}
+.signupContainer {
+  background-color: #ffd500;
+}
+@media only screen and (max-width: 600px) {
+  .signupContainer {
+    padding: 0px;
+    display: inline-block;
+  }
+
+  #formContent {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ngx-terms-and-conditions *ngIf="tncDisplay" (close)="closeTnC()"></ngx-terms-and-conditions><div class="wrapper fadeInDown signupContainer">  <div id="formContent">    <!-- Tabs Titles -->    <!-- <h2 class="inactive underlineHover">Sign Up </h2> -->    <!-- Login Form -->    <!-- <form> -->    <nb-layout style="background-color: white;">      <nb-layout-column style="background-color: white;">        <nb-card style="box-shadow: none;">          <nb-card-body class="text-center">            <div class="fadeIn first">              <img src="assets/img/EA FAVI.png" id="icon" alt="User Icon" style="width: 25%;" />            </div>            <h2 class="font-weight-bolder d-inline-block" style="font-size: 25px; color: black;">              Create Your Account            </h2>            <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">              <input                type="text"                id="name"                class="fadeIn first"                formControlName="name"                name="name"                placeholder="Name *"              />              <div *ngIf="!signUpForm.get(\'name\').valid && signUpForm.get(\'name\').touched">                <small>*This field is required</small>              </div>              <input                type="email"                id="email"                class="fadeIn second"                formControlName="email"                name="email"                placeholder="Email *"              />              <div *ngIf="!signUpForm.get(\'email\').valid && signUpForm.get(\'email\').touched">                <small>*Enter Valid Email</small>              </div>              <input                type="text"                id="phone"                class="fadeIn third"                pattern="\d*"                formControlName="phone"                name="phone"                placeholder="Contact Number *"                minlength="10"                maxlength="10"              />              <div *ngIf="!signUpForm.get(\'phone\').valid && signUpForm.get(\'phone\').touched">                <small>*Enter Correct Phone Number</small>              </div>              <input                type="password"                id="password"                minlength="7"                class="fadeIn fourth"                formControlName="password"                name="password"                placeholder="Password *"              />              <div *ngIf="!signUpForm.get(\'password\').valid && signUpForm.get(\'password\').touched">                <small *ngIf="signUpForm.get(\'password\').errors?.required"                  >*This field is required</small                >                <small *ngIf="signUpForm.get(\'password\').errors?.minlength"                  >*Minimum length 7 is required</small                >              </div>              <input                type="password"                id="confirmPassword"                class="fadeIn fifth"                formControlName="confirmPassword"                name="confirmPassword"                placeholder="Confirm Password *"              />              <div                *ngIf="                  !signUpForm.get(\'confirmPassword\').valid &&                  signUpForm.get(\'confirmPassword\').touched                "              >                <small>*This field is required</small>              </div>              <div                *ngIf="                  signUpForm.hasError(\'invalidPassword\') &&                  signUpForm.get(\'confirmPassword\').touched                "              >                <small>*Password must match</small>              </div>              <div>                <nb-select                  class="fadeIn eight"                  formControlName="role"                  placeholder="Select Role"                  size="giant"                  fullWidth                >                  <nb-option value="institute">Institute</nb-option>                  <nb-option value="student">Student</nb-option>                </nb-select>              </div>              <div *ngIf="!signUpForm.get(\'role\').valid && signUpForm.get(\'role\').touched">                <small>*Select Role</small>              </div>              <div>                <nb-checkbox                  status="warning"                  (change)="acceptTermsAndConditions($event.target.checked)"                >                  I agree with the                  <span class="btn btn-link pointer" (click)="openTnC()">TERMS AND CONDITIONS</span>                </nb-checkbox>              </div>              <div>                <button type="Submit" class="fadeIn seventh">Create Account</button>              </div>            </form>            <div>              <span>Already Registered ? </span>              <a routerLink="/login">Sign In Here</a>            </div>          </nb-card-body>        </nb-card>      </nb-layout-column>    </nb-layout>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AddAttendanceComponent', 'selector': 'ngx-add-attendance'},{'name': 'AddBatchesComponent', 'selector': 'ngx-add-batches'},{'name': 'AddCourseComponent', 'selector': 'ngx-add-course'},{'name': 'AddEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'AddForumComponent', 'selector': 'ngx-add-forum'},{'name': 'AddInstituteComponent', 'selector': 'ngx-add-institute'},{'name': 'AddLeadComponent', 'selector': 'ngx-add-lead'},{'name': 'AddOnlineClassComponent', 'selector': 'ngx-add-online-class'},{'name': 'AddOnlineClassLinkComponent', 'selector': 'ngx-add-online-class-link'},{'name': 'AddPTMsComponent', 'selector': 'ngx-add-ptms'},{'name': 'AddScheduleComponent', 'selector': 'ngx-add-schedule'},{'name': 'AddStudentsComponent', 'selector': 'ngx-add-students'},{'name': 'AdminComponent', 'selector': 'ngx-admin'},{'name': 'AdminCouponsComponent', 'selector': 'ngx-admin-coupons'},{'name': 'AdminHomeComponent', 'selector': 'ngx-admin-home'},{'name': 'AdminInstituteComponent', 'selector': 'ngx-admin-institute'},{'name': 'AdminInstitutesComponent', 'selector': 'ngx-admin-institutes'},{'name': 'AdminPlansComponent', 'selector': 'ngx-admin-plans'},{'name': 'AdminSavePlanComponent', 'selector': 'ngx-admin-save-plan'},{'name': 'AdminSmsPackComponent', 'selector': 'ngx-admin-sms-pack'},{'name': 'AnnouncementsComponent', 'selector': 'ngx-announcements'},{'name': 'AppComponent', 'selector': 'ngx-app'},{'name': 'AttandanceComponent', 'selector': 'ngx-attandance'},{'name': 'BranchConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'ChangePasswordComponent', 'selector': 'ngx-change-password'},{'name': 'CheckoutComponent', 'selector': 'ngx-checkout'},{'name': 'CommunicationComponent', 'selector': 'ngx-communication'},{'name': 'CreateTestComponent', 'selector': 'ngx-create-test'},{'name': 'CreateTestsScoreComponent', 'selector': 'ngx-create-tests-score'},{'name': 'DiscountComponent', 'selector': 'ngx-discount'},{'name': 'ECommerceComponent', 'selector': 'ngx-ecommerce'},{'name': 'FooterComponent', 'selector': 'ngx-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'ngx-forgot-password'},{'name': 'ForumComponent', 'selector': 'ngx-forum'},{'name': 'ForumDetailsComponent', 'selector': 'ngx-forum'},{'name': 'HeaderComponent', 'selector': 'ngx-header'},{'name': 'HomeComponent', 'selector': 'ngx-home'},{'name': 'InstituteComponent', 'selector': 'ngx-institute'},{'name': 'InstituteHeaderComponent', 'selector': 'ngx-institute-header'},{'name': 'LoginComponent', 'selector': 'ngx-login'},{'name': 'ManageAnnouncementsComponent', 'selector': 'ngx-manage-announcements'},{'name': 'ManageBatchComponent', 'selector': 'ngx-manage-batch'},{'name': 'ManageCourseComponent', 'selector': 'ngx-manage-course'},{'name': 'ManageDiscountComponent', 'selector': 'ngx-manage-discount'},{'name': 'ManageEmployeeComponent', 'selector': 'ngx-manage-employee'},{'name': 'ManageInstituteComponent', 'selector': 'ngx-manage-institute'},{'name': 'ManageLeadComponent', 'selector': 'ngx-manage-lead'},{'name': 'ManageOnlineClassComponent', 'selector': 'ngx-manage-online-class'},{'name': 'ManagePTMsComponent', 'selector': 'ngx-manage-ptms'},{'name': 'ManageReceiptComponent', 'selector': 'ngx-manage-receipt'},{'name': 'ManageScheduleComponent', 'selector': 'ngx-manage-schedule'},{'name': 'ManageStudentsComponent', 'selector': 'ngx-manage-students'},{'name': 'ManageTestsComponent', 'selector': 'ngx-manage-tests'},{'name': 'MembershipComponent', 'selector': 'ngx-membership'},{'name': 'MentoringComponent', 'selector': 'ngx-mentoring'},{'name': 'MiscellaneousComponent', 'selector': 'ngx-miscellaneous'},{'name': 'MyForumComponent', 'selector': 'ngx-my-forum'},{'name': 'NotFoundComponent', 'selector': 'ngx-not-found'},{'name': 'OneColumnLayoutComponent', 'selector': 'ngx-one-column-layout'},{'name': 'OnlineClassesConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'OnlineClassesUpgradeComponent', 'selector': 'ngx-online-classes-upgrade'},{'name': 'OnlineClassLinkComponent', 'selector': 'ngx-online-class-link'},{'name': 'OnlineClassLinksComponent', 'selector': 'ngx-online-class-links'},{'name': 'OnlineClassSettingsComponent', 'selector': 'ngx-online-class-settings'},{'name': 'OnlineeClassComponent', 'selector': 'ngx-onlinee-class'},{'name': 'OtpComponent', 'selector': 'ngx-otp'},{'name': 'PagesComponent', 'selector': 'ngx-pages'},{'name': 'PendingStudentComponent', 'selector': 'ngx-pending-student'},{'name': 'PlayLinksComponent', 'selector': 'ngx-play-links'},{'name': 'PlayVideoRecordingComponent', 'selector': 'ngx-play-video-recording'},{'name': 'ProfileComponent', 'selector': 'ngx-profile'},{'name': 'ReceiptConfComponent', 'selector': 'ngx-receipt-conf'},{'name': 'SaveAdminCouponsComponent', 'selector': 'ngx-save-admin-coupons'},{'name': 'SaveAdminSmsPackComponent', 'selector': 'ngx-save-admin-sms-pack'},{'name': 'SearchInputComponent', 'selector': 'ngx-search-input'},{'name': 'SheduleMentoringComponent', 'selector': 'ngx-shedule-mentoring'},{'name': 'SignUpComponent', 'selector': 'ngx-sign-up'},{'name': 'SmsRechargeComponent', 'selector': 'ngx-sms-recharge'},{'name': 'StudentAnnouncementsComponent', 'selector': 'ngx-student-announcements'},{'name': 'StudentAttendanceComponent', 'selector': 'ngx-student-attendance'},{'name': 'StudentComponent', 'selector': 'ngx-student'},{'name': 'StudentDashboardComponent', 'selector': 'ngx-student-dashboard'},{'name': 'StudentEnrollmentDetailsComponent', 'selector': 'ngx-student-enrollment-details'},{'name': 'StudentForumCommentComponent', 'selector': 'ngx-student-forum-comment'},{'name': 'StudentForumsChatsComponent', 'selector': 'ngx-student-forums-chats'},{'name': 'StudentHomeComponent', 'selector': 'ngx-student-home'},{'name': 'StudentInstituteHeaderComponent', 'selector': 'ngx-student-institute-header'},{'name': 'StudentInstitutesComponent', 'selector': 'ngx-student-institutes'},{'name': 'StudentMeetingComponent', 'selector': 'ngx-student-meeting'},{'name': 'StudentMentoringComponent', 'selector': 'ngx-student-mentoring'},{'name': 'StudentPerformanceReportComponent', 'selector': 'ngx-student-performance-report'},{'name': 'StudentReportConfComponent', 'selector': 'ngx-student-report-conf'},{'name': 'StudentScheduleComponent', 'selector': 'ngx-student-schedule'},{'name': 'StudentStudyMaterialComponent', 'selector': 'ngx-student-study-material'},{'name': 'StudentTestComponent', 'selector': 'ngx-student-test'},{'name': 'StudentViewAnnouncementComponent', 'selector': 'ngx-student-view-announcement'},{'name': 'StudentViewEnrollmentComponent', 'selector': 'ngx-student-view-enrollment'},{'name': 'StudentViewScheduleComponent', 'selector': 'ngx-student-view-schedule'},{'name': 'StudyMaterialComponent', 'selector': 'ngx-study-material'},{'name': 'TermsAndConditionsComponent', 'selector': 'ngx-terms-and-conditions'},{'name': 'TestReportComponent', 'selector': 'ngx-test-report'},{'name': 'TestsComponent', 'selector': 'ngx-tests'},{'name': 'ThreeColumnsLayoutComponent', 'selector': 'ngx-three-columns-layout'},{'name': 'TinyMCEComponent', 'selector': 'ngx-tiny-mce'},{'name': 'TwoColumnsLayoutComponent', 'selector': 'ngx-two-columns-layout'},{'name': 'UploadClassRecordingComponent', 'selector': 'ngx-upload-class-recording'},{'name': 'UtilitiesComponent', 'selector': 'ngx-utilities'},{'name': 'ViewAnnouncementsComponent', 'selector': 'ngx-view-announcements'},{'name': 'ViewAttendanceComponent', 'selector': 'ngx-view-attendance'},{'name': 'ViewClassRecordingComponent', 'selector': 'ngx-view-class-recording'},{'name': 'ViewCourseComponent', 'selector': 'ngx-view-course'},{'name': 'ViewEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'ViewInstituteComponent', 'selector': 'ngx-view-institute'},{'name': 'ViewLeadComponent', 'selector': 'ngx-view-lead'},{'name': 'ViewLinksComponent', 'selector': 'ngx-view-links'},{'name': 'ViewReportComponent', 'selector': 'ngx-view-report'},{'name': 'ViewScheduleComponent', 'selector': 'ngx-view-schedule'},{'name': 'ViewStudentComponent', 'selector': 'ngx-view-student'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SignUpComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SignUpComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

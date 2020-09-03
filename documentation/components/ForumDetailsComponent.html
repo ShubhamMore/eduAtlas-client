@@ -1,0 +1,1237 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ForumDetailsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/communication/forum/forum-details/forum-details.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-forum</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./forum-details.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./forum-details.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#allForums">allForums</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#authService">authService</a>
+                            </li>
+                            <li>
+                                <a href="#forumCommentData">forumCommentData</a>
+                            </li>
+                            <li>
+                                <a href="#forumId">forumId</a>
+                            </li>
+                            <li>
+                                <a href="#instituteId">instituteId</a>
+                            </li>
+                            <li>
+                                <a href="#messages">messages</a>
+                            </li>
+                            <li>
+                                <a href="#userComment">userComment</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#back">back</a>
+                            </li>
+                            <li>
+                                <a href="#deleteComment">deleteComment</a>
+                            </li>
+                            <li>
+                                <a href="#getFormattedDateTime">getFormattedDateTime</a>
+                            </li>
+                            <li>
+                                <a href="#getForum">getForum</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#showToast">showToast</a>
+                            </li>
+                            <li>
+                                <a href="#submitComment">submitComment</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(api: <a href="../injectables/ApiService.html">ApiService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, toasterService: NbToastrService, authService: <a href="../injectables/AuthService.html">AuthService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NbToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="back"></a>
+                    <span class="name">
+                        <b>
+                            back
+                        </b>
+                        <a href="#back"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>back(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="78"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:78</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteComment"></a>
+                    <span class="name">
+                        <b>
+                            deleteComment
+                        </b>
+                        <a href="#deleteComment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteComment(commentId)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="83"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:83</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>commentId</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getFormattedDateTime"></a>
+                    <span class="name">
+                        <b>
+                            getFormattedDateTime
+                        </b>
+                        <a href="#getFormattedDateTime"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getFormattedDateTime(dateTime: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="63"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:63</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dateTime</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getForum"></a>
+                    <span class="name">
+                        <b>
+                            getForum
+                        </b>
+                        <a href="#getForum"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getForum()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:33</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showToast"></a>
+                    <span class="name">
+                        <b>
+                            showToast
+                        </b>
+                        <a href="#showToast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showToast(position: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, status: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, message: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:97</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>position</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitComment"></a>
+                    <span class="name">
+                        <b>
+                            submitComment
+                        </b>
+                        <a href="#submitComment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitComment()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="allForums"></a>
+                        <span class="name">
+                            <b>
+                            allForums</b>
+                            <a href="#allForums"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="authService"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            authService</b>
+                            <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="forumCommentData"></a>
+                        <span class="name">
+                            <b>
+                            forumCommentData</b>
+                            <a href="#forumCommentData"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="forumId"></a>
+                        <span class="name">
+                            <b>
+                            forumId</b>
+                            <a href="#forumId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="instituteId"></a>
+                        <span class="name">
+                            <b>
+                            instituteId</b>
+                            <a href="#instituteId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="messages"></a>
+                        <span class="name">
+                            <b>
+                            messages</b>
+                            <a href="#messages"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userComment"></a>
+                        <span class="name">
+                            <b>
+                            userComment</b>
+                            <a href="#userComment"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/communication/forum/forum-details/forum-details.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { ApiService } from &#x27;../../../../services/api.service&#x27;;
+import { Router, ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { NbToastrService } from &#x27;@nebular/theme&#x27;;
+import { AuthService } from &#x27;../../../../services/auth-services/auth.service&#x27;;
+
+@Component({
+  selector: &#x27;ngx-forum&#x27;,
+  templateUrl: &#x27;./forum-details.component.html&#x27;,
+  styleUrls: [&#x27;./forum-details.component.scss&#x27;],
+})
+export class ForumDetailsComponent implements OnInit {
+  instituteId: string;
+  forumId: string;
+  allForums: any;
+  forumCommentData: any;
+  userComment: string;
+  constructor(
+    private api: ApiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+    public authService: AuthService,
+  ) {}
+  ngOnInit(): void {
+    this.instituteId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+    this.route.queryParams.subscribe((data) &#x3D;&gt; {
+      this.forumId &#x3D; data.forumId;
+
+      this.getForum();
+    });
+  }
+  getForum() {
+    this.api.getSingleForum({ _id: this.forumId }).subscribe(
+      (data: any) &#x3D;&gt; {
+        this.forumCommentData &#x3D; data;
+      },
+      (err) &#x3D;&gt; console.error(err),
+    );
+  }
+
+  messages: any[] &#x3D; [];
+
+  submitComment() {
+    if (!this.userComment) {
+      return;
+    }
+    const comment &#x3D; {
+      userId: this.authService.getUser()._id,
+      userName: this.authService.getUser().name,
+      comment: this.userComment,
+    };
+    this.api.addComment({ _id: this.forumId, comment }).subscribe(
+      (data: any) &#x3D;&gt; {
+        this.userComment &#x3D; null;
+        this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Comment Added Succesfully&#x27;);
+        this.getForum();
+      },
+      (err) &#x3D;&gt; console.error(err),
+    );
+  }
+
+  getFormattedDateTime(dateTime: string) {
+    const date &#x3D; new Date(dateTime);
+
+    return (
+      date.getDate() +
+      &#x27;-&#x27; +
+      (date.getMonth() + 1) +
+      &#x27;-&#x27; +
+      date.getFullYear() +
+      &#x27; : &#x27; +
+      date.getHours() +
+      &#x27;:&#x27; +
+      date.getMinutes()
+    );
+  }
+  back(id: string) {
+    this.router.navigate([&#x60;/pages/communication/forum/${this.instituteId}&#x60;], {
+      queryParams: { forumId: id, edit: true },
+    });
+  }
+  deleteComment(commentId) {
+    if (window.confirm(&#x27;Do you want to delete your comment ?&#x27;)) {
+      this.api
+        .deleteComment({ _id: this.forumId, commentId, userId: this.authService.getUser()._id })
+        .subscribe(
+          (data: any) &#x3D;&gt; {
+            this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Comment Deleted Succesfully&#x27;);
+            this.getForum();
+          },
+          (err) &#x3D;&gt; this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, err.error.message),
+        );
+    }
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;ngx-institute-header&gt;&lt;/ngx-institute-header&gt; --&gt;
+
+&lt;div class&#x3D;&quot;py-4&quot;&gt;
+  &lt;button class&#x3D;&quot;btn btn-yellow-black float-right&quot; (click)&#x3D;&quot;back(instituteId)&quot;&gt;
+    Back
+  &lt;/button&gt;
+&lt;/div&gt;
+&lt;br /&gt;&lt;br /&gt;
+&lt;nb-card status&#x3D;&quot;info&quot; *ngIf&#x3D;&quot;forumCommentData&quot;&gt;
+  &lt;nb-card-header&gt;
+    &lt;div class&#x3D;&quot;row mb-2&quot;&gt;
+      &lt;div class&#x3D;&quot;col-sm-9&quot;&gt;
+        &lt;h3 class&#x3D;&quot;text-white&quot;&gt;{{ forumCommentData.title }}&lt;/h3&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div
+        class&#x3D;&quot;col-md-12&quot;
+        [innerHTML]&#x3D;&quot;&#x27;Description :&#x27; + forumCommentData.description | safeHtml&quot;
+      &gt;&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;hr /&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+        &lt;label&gt;Created By :&lt;/label&gt;&lt;span&gt; {{ forumCommentData.createdByName }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+        &lt;label&gt;Created at :&lt;/label&gt;&lt;span&gt; {{ getFormattedDateTime(forumCommentData.date) }}&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;col-md-3&quot; *ngIf&#x3D;&quot;forumCommentData.courseName&quot;&gt;
+        &lt;label&gt;Course Name : &lt;/label&gt;&lt;span&gt; {{ forumCommentData.courseName }}&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/nb-card-header&gt;
+  &lt;nb-card-body&gt;
+    &lt;hr /&gt;
+    &lt;div *ngFor&#x3D;&quot;let comment of forumCommentData.comments&quot; class&#x3D;&quot;commentBox&quot;&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-md-9&quot;&gt;
+          &lt;label&gt;Comment By : &lt;/label&gt;&lt;span&gt;{{ comment.userName }}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-md-3&quot;&gt;
+          &lt;label&gt;Comment At : &lt;/label&gt;&lt;span&gt;{{ getFormattedDateTime(comment.commentDate) }}&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;my-4&quot; [innerHTML]&#x3D;&quot;comment.comment | safeHtml&quot;&gt;
+        &lt;div
+          class&#x3D;&quot;deleteComment&quot;
+          (click)&#x3D;&quot;deleteComment(comment._id)&quot;
+          *ngIf&#x3D;&quot;comment.userId &#x3D;&#x3D; authService.getUser()._id&quot;
+        &gt;
+          &lt;nb-icon icon&#x3D;&quot;trash-2-outline&quot;&gt;&lt;/nb-icon&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div *ngIf&#x3D;&quot;forumCommentData.comments.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+      &lt;p class&#x3D;&quot;text-center&quot;&gt;You Are The First One To Comment&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;hr /&gt;
+    &lt;div class&#x3D;&quot;row&quot;&gt;
+      &lt;div class&#x3D;&quot;col-md-12&quot;&gt;
+        &lt;label&gt;Your Comment :&lt;/label&gt;
+        &lt;angular-editor
+          rows&#x3D;&quot;2&quot;
+          placeholder&#x3D;&quot;Enter text here...&quot;
+          [(ngModel)]&#x3D;&quot;userComment&quot;
+        &gt;&lt;/angular-editor&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;hr /&gt;
+
+    &lt;button class&#x3D;&quot;float-right mt-3 btn btn-yellow-black&quot; (click)&#x3D;&quot;submitComment()&quot; type&#x3D;&quot;submit&quot;&gt;
+      Submit
+    &lt;/button&gt;
+  &lt;/nb-card-body&gt;
+&lt;/nb-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./forum-details.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.commentBox {
+  background-color: #f1efef;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.commentBox label {
+  font-weight: bold;
+}
+.commentBox span {
+  font-weight: bold;
+}
+
+.deleteComment {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.deleteComment i {
+  color: red;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <ngx-institute-header></ngx-institute-header> --><div class="py-4">  <button class="btn btn-yellow-black float-right" (click)="back(instituteId)">    Back  </button></div><br /><br /><nb-card status="info" *ngIf="forumCommentData">  <nb-card-header>    <div class="row mb-2">      <div class="col-sm-9">        <h3 class="text-white">{{ forumCommentData.title }}</h3>      </div>    </div>    <div class="row">      <div        class="col-md-12"        [innerHTML]="\'Description :\' + forumCommentData.description | safeHtml"      ></div>    </div>    <hr />    <div class="row">      <div class="col-md-3">        <label>Created By :</label><span> {{ forumCommentData.createdByName }}</span>      </div>      <div class="col-md-3">        <label>Created at :</label><span> {{ getFormattedDateTime(forumCommentData.date) }}</span>      </div>      <div class="col-md-3" *ngIf="forumCommentData.courseName">        <label>Course Name : </label><span> {{ forumCommentData.courseName }}</span>      </div>    </div>  </nb-card-header>  <nb-card-body>    <hr />    <div *ngFor="let comment of forumCommentData.comments" class="commentBox">      <div class="row">        <div class="col-md-9">          <label>Comment By : </label><span>{{ comment.userName }}</span>        </div>        <div class="col-md-3">          <label>Comment At : </label><span>{{ getFormattedDateTime(comment.commentDate) }}</span>        </div>      </div>      <div class="my-4" [innerHTML]="comment.comment | safeHtml">        <div          class="deleteComment"          (click)="deleteComment(comment._id)"          *ngIf="comment.userId == authService.getUser()._id"        >          <nb-icon icon="trash-2-outline"></nb-icon>        </div>      </div>    </div>    <div *ngIf="forumCommentData.comments.length === 0">      <p class="text-center">You Are The First One To Comment</p>    </div>    <hr />    <div class="row">      <div class="col-md-12">        <label>Your Comment :</label>        <angular-editor          rows="2"          placeholder="Enter text here..."          [(ngModel)]="userComment"        ></angular-editor>      </div>    </div>    <hr />    <button class="float-right mt-3 btn btn-yellow-black" (click)="submitComment()" type="submit">      Submit    </button>  </nb-card-body></nb-card></div>'
+    var COMPONENTS = [{'name': 'AddAttendanceComponent', 'selector': 'ngx-add-attendance'},{'name': 'AddBatchesComponent', 'selector': 'ngx-add-batches'},{'name': 'AddCourseComponent', 'selector': 'ngx-add-course'},{'name': 'AddEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'AddForumComponent', 'selector': 'ngx-add-forum'},{'name': 'AddInstituteComponent', 'selector': 'ngx-add-institute'},{'name': 'AddLeadComponent', 'selector': 'ngx-add-lead'},{'name': 'AddOnlineClassComponent', 'selector': 'ngx-add-online-class'},{'name': 'AddOnlineClassLinkComponent', 'selector': 'ngx-add-online-class-link'},{'name': 'AddPTMsComponent', 'selector': 'ngx-add-ptms'},{'name': 'AddScheduleComponent', 'selector': 'ngx-add-schedule'},{'name': 'AddStudentsComponent', 'selector': 'ngx-add-students'},{'name': 'AdminComponent', 'selector': 'ngx-admin'},{'name': 'AdminCouponsComponent', 'selector': 'ngx-admin-coupons'},{'name': 'AdminHomeComponent', 'selector': 'ngx-admin-home'},{'name': 'AdminInstituteComponent', 'selector': 'ngx-admin-institute'},{'name': 'AdminInstitutesComponent', 'selector': 'ngx-admin-institutes'},{'name': 'AdminPlansComponent', 'selector': 'ngx-admin-plans'},{'name': 'AdminSavePlanComponent', 'selector': 'ngx-admin-save-plan'},{'name': 'AdminSmsPackComponent', 'selector': 'ngx-admin-sms-pack'},{'name': 'AnnouncementsComponent', 'selector': 'ngx-announcements'},{'name': 'AppComponent', 'selector': 'ngx-app'},{'name': 'AttandanceComponent', 'selector': 'ngx-attandance'},{'name': 'BranchConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'ChangePasswordComponent', 'selector': 'ngx-change-password'},{'name': 'CheckoutComponent', 'selector': 'ngx-checkout'},{'name': 'CommunicationComponent', 'selector': 'ngx-communication'},{'name': 'CreateTestComponent', 'selector': 'ngx-create-test'},{'name': 'CreateTestsScoreComponent', 'selector': 'ngx-create-tests-score'},{'name': 'DiscountComponent', 'selector': 'ngx-discount'},{'name': 'ECommerceComponent', 'selector': 'ngx-ecommerce'},{'name': 'FooterComponent', 'selector': 'ngx-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'ngx-forgot-password'},{'name': 'ForumComponent', 'selector': 'ngx-forum'},{'name': 'ForumDetailsComponent', 'selector': 'ngx-forum'},{'name': 'HeaderComponent', 'selector': 'ngx-header'},{'name': 'HomeComponent', 'selector': 'ngx-home'},{'name': 'InstituteComponent', 'selector': 'ngx-institute'},{'name': 'InstituteHeaderComponent', 'selector': 'ngx-institute-header'},{'name': 'LoginComponent', 'selector': 'ngx-login'},{'name': 'ManageAnnouncementsComponent', 'selector': 'ngx-manage-announcements'},{'name': 'ManageBatchComponent', 'selector': 'ngx-manage-batch'},{'name': 'ManageCourseComponent', 'selector': 'ngx-manage-course'},{'name': 'ManageDiscountComponent', 'selector': 'ngx-manage-discount'},{'name': 'ManageEmployeeComponent', 'selector': 'ngx-manage-employee'},{'name': 'ManageInstituteComponent', 'selector': 'ngx-manage-institute'},{'name': 'ManageLeadComponent', 'selector': 'ngx-manage-lead'},{'name': 'ManageOnlineClassComponent', 'selector': 'ngx-manage-online-class'},{'name': 'ManagePTMsComponent', 'selector': 'ngx-manage-ptms'},{'name': 'ManageReceiptComponent', 'selector': 'ngx-manage-receipt'},{'name': 'ManageScheduleComponent', 'selector': 'ngx-manage-schedule'},{'name': 'ManageStudentsComponent', 'selector': 'ngx-manage-students'},{'name': 'ManageTestsComponent', 'selector': 'ngx-manage-tests'},{'name': 'MembershipComponent', 'selector': 'ngx-membership'},{'name': 'MentoringComponent', 'selector': 'ngx-mentoring'},{'name': 'MiscellaneousComponent', 'selector': 'ngx-miscellaneous'},{'name': 'MyForumComponent', 'selector': 'ngx-my-forum'},{'name': 'NotFoundComponent', 'selector': 'ngx-not-found'},{'name': 'OneColumnLayoutComponent', 'selector': 'ngx-one-column-layout'},{'name': 'OnlineClassesConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'OnlineClassesUpgradeComponent', 'selector': 'ngx-online-classes-upgrade'},{'name': 'OnlineClassLinkComponent', 'selector': 'ngx-online-class-link'},{'name': 'OnlineClassLinksComponent', 'selector': 'ngx-online-class-links'},{'name': 'OnlineClassSettingsComponent', 'selector': 'ngx-online-class-settings'},{'name': 'OnlineeClassComponent', 'selector': 'ngx-onlinee-class'},{'name': 'OtpComponent', 'selector': 'ngx-otp'},{'name': 'PagesComponent', 'selector': 'ngx-pages'},{'name': 'PendingStudentComponent', 'selector': 'ngx-pending-student'},{'name': 'PlayLinksComponent', 'selector': 'ngx-play-links'},{'name': 'PlayVideoRecordingComponent', 'selector': 'ngx-play-video-recording'},{'name': 'ProfileComponent', 'selector': 'ngx-profile'},{'name': 'ReceiptConfComponent', 'selector': 'ngx-receipt-conf'},{'name': 'SaveAdminCouponsComponent', 'selector': 'ngx-save-admin-coupons'},{'name': 'SaveAdminSmsPackComponent', 'selector': 'ngx-save-admin-sms-pack'},{'name': 'SearchInputComponent', 'selector': 'ngx-search-input'},{'name': 'SheduleMentoringComponent', 'selector': 'ngx-shedule-mentoring'},{'name': 'SignUpComponent', 'selector': 'ngx-sign-up'},{'name': 'SmsRechargeComponent', 'selector': 'ngx-sms-recharge'},{'name': 'StudentAnnouncementsComponent', 'selector': 'ngx-student-announcements'},{'name': 'StudentAttendanceComponent', 'selector': 'ngx-student-attendance'},{'name': 'StudentComponent', 'selector': 'ngx-student'},{'name': 'StudentDashboardComponent', 'selector': 'ngx-student-dashboard'},{'name': 'StudentEnrollmentDetailsComponent', 'selector': 'ngx-student-enrollment-details'},{'name': 'StudentForumCommentComponent', 'selector': 'ngx-student-forum-comment'},{'name': 'StudentForumsChatsComponent', 'selector': 'ngx-student-forums-chats'},{'name': 'StudentHomeComponent', 'selector': 'ngx-student-home'},{'name': 'StudentInstituteHeaderComponent', 'selector': 'ngx-student-institute-header'},{'name': 'StudentInstitutesComponent', 'selector': 'ngx-student-institutes'},{'name': 'StudentMeetingComponent', 'selector': 'ngx-student-meeting'},{'name': 'StudentMentoringComponent', 'selector': 'ngx-student-mentoring'},{'name': 'StudentPerformanceReportComponent', 'selector': 'ngx-student-performance-report'},{'name': 'StudentReportConfComponent', 'selector': 'ngx-student-report-conf'},{'name': 'StudentScheduleComponent', 'selector': 'ngx-student-schedule'},{'name': 'StudentStudyMaterialComponent', 'selector': 'ngx-student-study-material'},{'name': 'StudentTestComponent', 'selector': 'ngx-student-test'},{'name': 'StudentViewAnnouncementComponent', 'selector': 'ngx-student-view-announcement'},{'name': 'StudentViewEnrollmentComponent', 'selector': 'ngx-student-view-enrollment'},{'name': 'StudentViewScheduleComponent', 'selector': 'ngx-student-view-schedule'},{'name': 'StudyMaterialComponent', 'selector': 'ngx-study-material'},{'name': 'TermsAndConditionsComponent', 'selector': 'ngx-terms-and-conditions'},{'name': 'TestReportComponent', 'selector': 'ngx-test-report'},{'name': 'TestsComponent', 'selector': 'ngx-tests'},{'name': 'ThreeColumnsLayoutComponent', 'selector': 'ngx-three-columns-layout'},{'name': 'TinyMCEComponent', 'selector': 'ngx-tiny-mce'},{'name': 'TwoColumnsLayoutComponent', 'selector': 'ngx-two-columns-layout'},{'name': 'UploadClassRecordingComponent', 'selector': 'ngx-upload-class-recording'},{'name': 'UtilitiesComponent', 'selector': 'ngx-utilities'},{'name': 'ViewAnnouncementsComponent', 'selector': 'ngx-view-announcements'},{'name': 'ViewAttendanceComponent', 'selector': 'ngx-view-attendance'},{'name': 'ViewClassRecordingComponent', 'selector': 'ngx-view-class-recording'},{'name': 'ViewCourseComponent', 'selector': 'ngx-view-course'},{'name': 'ViewEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'ViewInstituteComponent', 'selector': 'ngx-view-institute'},{'name': 'ViewLeadComponent', 'selector': 'ngx-view-lead'},{'name': 'ViewLinksComponent', 'selector': 'ngx-view-links'},{'name': 'ViewReportComponent', 'selector': 'ngx-view-report'},{'name': 'ViewScheduleComponent', 'selector': 'ngx-view-schedule'},{'name': 'ViewStudentComponent', 'selector': 'ngx-view-student'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ForumDetailsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ForumDetailsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

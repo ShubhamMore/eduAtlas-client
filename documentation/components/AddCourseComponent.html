@@ -1,0 +1,1761 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>AddCourseComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/institute/branch-conf/add-course/add-course.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-add-course</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./add-course.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./add-course.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#course">course</a>
+                            </li>
+                            <li>
+                                <a href="#courseId">courseId</a>
+                            </li>
+                            <li>
+                                <a href="#display">display</a>
+                            </li>
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#exclusiveGst">exclusiveGst</a>
+                            </li>
+                            <li>
+                                <a href="#fees">fees</a>
+                            </li>
+                            <li>
+                                <a href="#gstCheckBox">gstCheckBox</a>
+                            </li>
+                            <li>
+                                <a href="#instituteId">instituteId</a>
+                            </li>
+                            <li>
+                                <a href="#institutes">institutes</a>
+                            </li>
+                            <li>
+                                <a href="#submitted">submitted</a>
+                            </li>
+                            <li>
+                                <a href="#updateCourse">updateCourse</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#back">back</a>
+                            </li>
+                            <li>
+                                <a href="#calculateTotalFees">calculateTotalFees</a>
+                            </li>
+                            <li>
+                                <a href="#courseFee">courseFee</a>
+                            </li>
+                            <li>
+                                <a href="#exclusive">exclusive</a>
+                            </li>
+                            <li>
+                                <a href="#getCourse">getCourse</a>
+                            </li>
+                            <li>
+                                <a href="#getInstitutes">getInstitutes</a>
+                            </li>
+                            <li>
+                                <a href="#inclusiveGst">inclusiveGst</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit">onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#showToast">showToast</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#f">f</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, api: <a href="../injectables/ApiService.html">ApiService</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, location: <a href="https://angular.io/api/common/Location" target="_blank">Location</a>, toasterService: NbToastrService, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>location</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/Location" target="_blank" >Location</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NbToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="back"></a>
+                    <span class="name">
+                        <b>
+                            back
+                        </b>
+                        <a href="#back"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>back()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="102"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:102</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateTotalFees"></a>
+                    <span class="name">
+                        <b>
+                            calculateTotalFees
+                        </b>
+                        <a href="#calculateTotalFees"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateTotalFees()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="199"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:199</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="courseFee"></a>
+                    <span class="name">
+                        <b>
+                            courseFee
+                        </b>
+                        <a href="#courseFee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>courseFee(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="223"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:223</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exclusive"></a>
+                    <span class="name">
+                        <b>
+                            exclusive
+                        </b>
+                        <a href="#exclusive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exclusive(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="213"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:213</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCourse"></a>
+                    <span class="name">
+                        <b>
+                            getCourse
+                        </b>
+                        <a href="#getCourse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCourse(id)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:60</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getInstitutes"></a>
+                    <span class="name">
+                        <b>
+                            getInstitutes
+                        </b>
+                        <a href="#getInstitutes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getInstitutes()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="91"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:91</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="inclusiveGst"></a>
+                    <span class="name">
+                        <b>
+                            inclusiveGst
+                        </b>
+                        <a href="#inclusiveGst"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>inclusiveGst(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="183"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:183</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <b>
+                            onSubmit
+                        </b>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:112</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showToast"></a>
+                    <span class="name">
+                        <b>
+                            showToast
+                        </b>
+                        <a href="#showToast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showToast(position: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, status: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, message: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="228"
+                            class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:228</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>position</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="course"></a>
+                        <span class="name">
+                            <b>
+                            course</b>
+                            <a href="#course"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="courseId"></a>
+                        <span class="name">
+                            <b>
+                            courseId</b>
+                            <a href="#courseId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="display"></a>
+                        <span class="name">
+                            <b>
+                            display</b>
+                            <a href="#display"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="edit"></a>
+                        <span class="name">
+                            <b>
+                            edit</b>
+                            <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="exclusiveGst"></a>
+                        <span class="name">
+                            <b>
+                            exclusiveGst</b>
+                            <a href="#exclusiveGst"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>null</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="fees"></a>
+                        <span class="name">
+                            <b>
+                            fees</b>
+                            <a href="#fees"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>0</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="gstCheckBox"></a>
+                        <span class="name">
+                            <b>
+                            gstCheckBox</b>
+                            <a href="#gstCheckBox"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:25</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="instituteId"></a>
+                        <span class="name">
+                            <b>
+                            instituteId</b>
+                            <a href="#instituteId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="institutes"></a>
+                        <span class="name">
+                            <b>
+                            institutes</b>
+                            <a href="#institutes"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="submitted"></a>
+                        <span class="name">
+                            <b>
+                            submitted</b>
+                            <a href="#submitted"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>false</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="updateCourse"></a>
+                        <span class="name">
+                            <b>
+                            updateCourse</b>
+                            <a href="#updateCourse"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+    <section>
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="f"></a>
+                        <span class="name"><b>f</b><a href="#f"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>f()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/pages/institute/branch-conf/add-course/add-course.component.ts:98</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormGroup, FormBuilder, Validators } from &#x27;@angular/forms&#x27;;
+import { Location } from &#x27;@angular/common&#x27;;
+import { ApiService } from &#x27;../../../../services/api.service&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { NbToastrService } from &#x27;@nebular/theme&#x27;;
+import { HttpParams } from &#x27;@angular/common/http&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+
+@Component({
+  selector: &#x27;ngx-add-course&#x27;,
+  templateUrl: &#x27;./add-course.component.html&#x27;,
+  styleUrls: [&#x27;./add-course.component.scss&#x27;],
+})
+export class AddCourseComponent implements OnInit {
+  course: FormGroup;
+  submitted &#x3D; false;
+  institutes: any[] &#x3D; [];
+  display: boolean &#x3D; false;
+  instituteId: string;
+  edit: string;
+  courseId: string;
+  exclusiveGst: number &#x3D; null;
+  fees: number &#x3D; 0;
+  gstCheckBox: boolean;
+  updateCourse: any;
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private toasterService: NbToastrService,
+    private router: Router,
+  ) {}
+
+  ngOnInit() {
+    this.instituteId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+    this.route.queryParams.subscribe((param) &#x3D;&gt; {
+      this.courseId &#x3D; param.courseId;
+      this.edit &#x3D; param.edit;
+    });
+    this.course &#x3D; this.fb.group({
+      name: [&#x27;&#x27;, Validators.required],
+      courseCode: [&#x27;&#x27;, Validators.required],
+      fees: [&#x27;&#x27;, Validators.required],
+      duration: [&#x27;&#x27;, Validators.required],
+      gst: [&#x27;&#x27;],
+      gstValue: [&#x27;&#x27;],
+      discription: [&#x27;&#x27;],
+      totalFee: [&#x27;&#x27;],
+    });
+
+    if (this.edit &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+      this.getCourse(this.courseId);
+    } else {
+      this.inclusiveGst(false);
+    }
+  }
+
+  getCourse(id) {
+    let param &#x3D; new HttpParams();
+    param &#x3D; param.append(&#x27;instituteId&#x27;, this.instituteId);
+    param &#x3D; param.append(&#x27;courseId&#x27;, id);
+    this.api.getCourse(param).subscribe(
+      (res) &#x3D;&gt; {
+        this.updateCourse &#x3D; res[0];
+        this.course.patchValue({
+          name: this.updateCourse.name,
+          courseCode: this.updateCourse.courseCode,
+          fees: this.updateCourse.fees,
+          duration: this.updateCourse.duration,
+          gst: this.updateCourse.gst,
+          gstValue: this.updateCourse.gstValue,
+          discription: this.updateCourse.discription,
+          totalFee: this.updateCourse.totalFee,
+        });
+        this.exclusiveGst &#x3D; Number(this.updateCourse.gstValue);
+        this.fees &#x3D; Number(this.updateCourse.fees);
+        if (this.updateCourse.gst &#x3D;&#x3D;&#x3D; &#x27;Inclusive&#x27;) {
+          this.gstCheckBox &#x3D; true;
+          this.inclusiveGst(true);
+          this.course.get(&#x27;gstValue&#x27;).disable();
+        } else {
+          this.gstCheckBox &#x3D; false;
+          this.inclusiveGst(false);
+        }
+      },
+      (error) &#x3D;&gt; console.error(error),
+    );
+  }
+  getInstitutes() {
+    this.api.getInstitutes().subscribe((data: any) &#x3D;&gt; {
+      this.institutes &#x3D; data;
+    });
+    this.display &#x3D; true;
+  }
+
+  get f() {
+    return this.course.controls;
+  }
+
+  back() {
+    let confirm &#x3D; true;
+    if (this.course.touched) {
+      confirm &#x3D; window.confirm(&#x27;If you go back the data will be lost.&#x27;);
+    }
+    if (confirm) {
+      this.location.back();
+    }
+  }
+
+  onSubmit() {
+    this.submitted &#x3D; true;
+    this.course.markAllAsTouched();
+    if (this.course.invalid) {
+      return;
+    }
+    if (this.edit &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+      let param &#x3D; new HttpParams();
+      param &#x3D; param.append(&#x27;instituteId&#x27;, this.instituteId);
+      param &#x3D; param.append(&#x27;courseId&#x27;, this.courseId);
+
+      const course &#x3D; {
+        _id: this.courseId,
+        name: this.course.value.name,
+        courseCode: this.course.value.courseCode.trim(),
+        fees: this.course.value.fees,
+        duration: this.course.value.duration,
+        gst: this.course.value.gst,
+        gstValue: this.course.value.gstValue,
+        discription: this.course.value.discription,
+        totalFee: this.course.value.totalFee,
+      };
+      this.api.updateCourse(param, course).subscribe(
+        (res) &#x3D;&gt; {
+          this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Course Updated&#x27;);
+          setTimeout(() &#x3D;&gt; {
+            this.router.navigate([
+              &#x27;/pages/institute/branch-config/manage-course/&#x27;,
+              this.instituteId,
+            ]);
+          }, 1000);
+        },
+        (error) &#x3D;&gt; {
+          this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, &#x27;Course Updation Failed&#x27;);
+        },
+      );
+    }
+
+    if (!this.edit) {
+      const course &#x3D; {
+        name: this.course.value.name,
+        courseCode: this.course.value.courseCode.trim(),
+        fees: this.course.value.fees,
+        duration: this.course.value.duration,
+        gst: this.course.value.gst,
+        gstValue: this.course.value.gstValue,
+        discription: this.course.value.discription,
+        totalFee: this.course.value.totalFee,
+      };
+      this.api.addCourse(this.instituteId, course).subscribe(
+        (data) &#x3D;&gt; {
+          this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Course Added Successfully&#x27;);
+          setTimeout(() &#x3D;&gt; {
+            this.router.navigate([
+              &#x27;/pages/institute/branch-config/manage-course/&#x27;,
+              this.instituteId,
+            ]);
+          }, 1000);
+        },
+        (err) &#x3D;&gt; {
+          console.error(err);
+          this.showToast(
+            &#x27;top-right&#x27;,
+            &#x27;danger&#x27;,
+            err.error.message ? err.error.message : &#x27;This course id already added&#x27;,
+          );
+        },
+      );
+    }
+  }
+
+  inclusiveGst(event: any) {
+    const inclusive &#x3D; event;
+    if (inclusive) {
+      this.course.get(&#x27;gstValue&#x27;).disable();
+      this.course.patchValue({
+        gst: &#x27;Inclusive&#x27;,
+      });
+    } else if (!inclusive || null) {
+      this.course.get(&#x27;gstValue&#x27;).enable();
+      this.course.patchValue({
+        gst: &#x27;Exclusive&#x27;,
+      });
+    }
+    this.calculateTotalFees();
+  }
+
+  calculateTotalFees() {
+    let total &#x3D; 0;
+    if (this.course.get(&#x27;gst&#x27;).value &#x3D;&#x3D;&#x3D; &#x27;Inclusive&#x27;) {
+      total &#x3D; this.fees;
+    } else {
+      if (this.exclusiveGst &#x3D;&#x3D; null) {
+        total &#x3D; this.fees;
+      } else {
+        total &#x3D; this.fees + (this.exclusiveGst / 100) * this.fees;
+      }
+    }
+    this.course.get(&#x27;totalFee&#x27;).setValue(total.toString());
+  }
+
+  exclusive(event: any) {
+    this.exclusiveGst &#x3D; +event;
+    const total &#x3D; this.fees + (this.exclusiveGst / 100) * this.fees;
+    this.course.patchValue({
+      totalFee: total + &#x27;&#x27;,
+      gstValue: this.exclusiveGst &#x3D;&#x3D;&#x3D; 0 ? &#x27;&#x27; : this.exclusiveGst + &#x27;&#x27;,
+    });
+    this.calculateTotalFees();
+  }
+
+  courseFee(event: any) {
+    this.fees &#x3D; +event;
+    this.calculateTotalFees();
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, {
+      position,
+      status,
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nb-card&gt;
+  &lt;nb-card-header&gt;
+    &lt;div&gt;
+      &lt;button class&#x3D;&quot;btn btn-yellow-black float-right&quot; (click)&#x3D;&quot;back()&quot;&gt;
+        MANAGE COURSES
+      &lt;/button&gt;
+      &lt;p style&#x3D;&quot;color: black; font-weight: bold;&quot;&gt;Add Course Here&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/nb-card-header&gt;
+  &lt;nb-card-body&gt;
+    &lt;form [formGroup]&#x3D;&quot;course&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;name&quot;&gt;Course Name&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            nbInput
+            id&#x3D;&quot;name&quot;
+            fullWidth
+            [status]&#x3D;&quot;f.name.errors &amp;&amp; submitted ? &#x27;danger&#x27; : &#x27;basic&#x27;&quot;
+            formControlName&#x3D;&quot;name&quot;
+            placeholder&#x3D;&quot;Course Name&quot;
+          /&gt;
+          &lt;small *ngIf&#x3D;&quot;f.name.errors &amp;&amp; submitted&quot;&gt;*Course name is req.&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;code&quot;&gt;Course Code&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            nbInput
+            id&#x3D;&quot;code&quot;
+            fullWidth
+            [status]&#x3D;&quot;f.courseCode.errors &amp;&amp; submitted ? &#x27;danger&#x27; : &#x27;basic&#x27;&quot;
+            formControlName&#x3D;&quot;courseCode&quot;
+            placeholder&#x3D;&quot;Course Code&quot;
+          /&gt;
+          &lt;small *ngIf&#x3D;&quot;f.courseCode.errors &amp;&amp; submitted&quot;&gt;*Course code is required&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;fees&quot;&gt;Course Fees&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            pattern&#x3D;&quot;\d*&quot;
+            nbInput
+            fullWidth
+            [status]&#x3D;&quot;f.fees.errors &amp;&amp; submitted ? &#x27;danger&#x27; : &#x27;basic&#x27;&quot;
+            #fees
+            (keyup)&#x3D;&quot;courseFee(fees.value)&quot;
+            id&#x3D;&quot;fees&quot;
+            formControlName&#x3D;&quot;fees&quot;
+            placeholder&#x3D;&quot;Course Fees&quot;
+          /&gt;
+          &lt;small *ngIf&#x3D;&quot;f.fees.errors &amp;&amp; submitted&quot;&gt;*Course Fees is required&lt;/small&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;hr /&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;
+          &lt;label for&#x3D;&quot;gst&quot;&gt;Course Duration (in Months)&lt;/label&gt;
+          &lt;input
+            nbInput
+            type&#x3D;&quot;text&quot;
+            pattern&#x3D;&quot;\d*&quot;
+            fullWidth
+            [status]&#x3D;&quot;f.duration.errors &amp;&amp; submitted ? &#x27;danger&#x27; : &#x27;basic&#x27;&quot;
+            formControlName&#x3D;&quot;duration&quot;
+            maxlength&#x3D;&quot;2&quot;
+            minlength&#x3D;&quot;1&quot;
+            placeholder&#x3D;&quot;Duration in Months&quot;
+          /&gt;
+          &lt;small *ngIf&#x3D;&quot;f.duration.errors &amp;&amp; submitted&quot;&gt;*Course Duration is required&lt;/small&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;
+          &lt;label for&#x3D;&quot;gst&quot;&gt;GST&lt;/label&gt;
+          &lt;input
+            nbInput
+            type&#x3D;&quot;text&quot;
+            pattern&#x3D;&quot;\d*&quot;
+            fullWidth
+            formControlName&#x3D;&quot;gstValue&quot;
+            #ex
+            (keyup)&#x3D;&quot;exclusive(ex.value)&quot;
+            placeholder&#x3D;&quot;Exclusive GST in %&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-1&quot;&gt;&lt;br /&gt;&lt;br /&gt;Or&lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-2&quot;&gt;
+          &lt;br /&gt;
+          &lt;nb-checkbox
+            (checkedChange)&#x3D;&quot;inclusiveGst($event)&quot;
+            [(ngModel)]&#x3D;&quot;gstCheckBox&quot;
+            [ngModelOptions]&#x3D;&quot;{ standalone: true }&quot;
+            fullWidth
+            status&#x3D;&quot;warning&quot;
+            &gt;Inclusive GST&lt;/nb-checkbox
+          &gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-3&quot;&gt;
+          &lt;label&gt;Total Fees&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;text&quot;
+            nbInput
+            fullWidth
+            status&#x3D;&quot;basic&quot;
+            formControlName&#x3D;&quot;totalFee&quot;
+            disabled&#x3D;&quot;true&quot;
+            placeholder&#x3D;&quot;TotalFee&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;hr /&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-12&quot;&gt;
+          &lt;label for&#x3D;&quot;des&quot;&gt;Description&lt;/label&gt;
+          &lt;textarea
+            name&#x3D;&quot;discription&quot;
+            id&#x3D;&quot;des&quot;
+            status&#x3D;&quot;basic&quot;
+            nbInput
+            fullWidth
+            formControlName&#x3D;&quot;discription&quot;
+            placeholder&#x3D;&quot;Description&quot;
+            cols&#x3D;&quot;100&quot;
+            rows&#x3D;&quot;4&quot;
+            id&#x3D;&quot;dis&quot;
+          &gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div style&#x3D;&quot;display: block; margin-top: 1rem; text-align: right;&quot;&gt;
+        &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-yellow-black&quot;&gt;
+          {{ edit &#x3D;&#x3D;&#x3D; &#x27;true&#x27; ? &#x27;Update Course&#x27; : &#x27;Add Course&#x27; }}
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/nb-card-body&gt;
+&lt;/nb-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./add-course.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">
+small{
+    color: red;
+}
+input,textarea,nb-select{
+    display: block;
+    width: 100%;
+}
+p{color:black;font-weight:bold}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nb-card>  <nb-card-header>    <div>      <button class="btn btn-yellow-black float-right" (click)="back()">        MANAGE COURSES      </button>      <p style="color: black; font-weight: bold;">Add Course Here</p>    </div>  </nb-card-header>  <nb-card-body>    <form [formGroup]="course" (ngSubmit)="onSubmit()">      <div class="row">        <div class="col-sm-4">          <label for="name">Course Name</label>          <input            type="text"            nbInput            id="name"            fullWidth            [status]="f.name.errors && submitted ? \'danger\' : \'basic\'"            formControlName="name"            placeholder="Course Name"          />          <small *ngIf="f.name.errors && submitted">*Course name is req.</small>        </div>        <div class="col-sm-4">          <label for="code">Course Code</label>          <input            type="text"            nbInput            id="code"            fullWidth            [status]="f.courseCode.errors && submitted ? \'danger\' : \'basic\'"            formControlName="courseCode"            placeholder="Course Code"          />          <small *ngIf="f.courseCode.errors && submitted">*Course code is required</small>        </div>        <div class="col-sm-4">          <label for="fees">Course Fees</label>          <input            type="text"            pattern="\d*"            nbInput            fullWidth            [status]="f.fees.errors && submitted ? \'danger\' : \'basic\'"            #fees            (keyup)="courseFee(fees.value)"            id="fees"            formControlName="fees"            placeholder="Course Fees"          />          <small *ngIf="f.fees.errors && submitted">*Course Fees is required</small>        </div>      </div>      <hr />      <div class="row">        <div class="col-sm-3">          <label for="gst">Course Duration (in Months)</label>          <input            nbInput            type="text"            pattern="\d*"            fullWidth            [status]="f.duration.errors && submitted ? \'danger\' : \'basic\'"            formControlName="duration"            maxlength="2"            minlength="1"            placeholder="Duration in Months"          />          <small *ngIf="f.duration.errors && submitted">*Course Duration is required</small>        </div>        <div class="col-sm-3">          <label for="gst">GST</label>          <input            nbInput            type="text"            pattern="\d*"            fullWidth            formControlName="gstValue"            #ex            (keyup)="exclusive(ex.value)"            placeholder="Exclusive GST in %"          />        </div>        <div class="col-sm-1"><br /><br />Or</div>        <div class="col-sm-2">          <br />          <nb-checkbox            (checkedChange)="inclusiveGst($event)"            [(ngModel)]="gstCheckBox"            [ngModelOptions]="{ standalone: true }"            fullWidth            status="warning"            >Inclusive GST</nb-checkbox          >        </div>        <div class="col-sm-3">          <label>Total Fees</label>          <input            type="text"            nbInput            fullWidth            status="basic"            formControlName="totalFee"            disabled="true"            placeholder="TotalFee"          />        </div>      </div>      <hr />      <div class="row">        <div class="col-sm-12">          <label for="des">Description</label>          <textarea            name="discription"            id="des"            status="basic"            nbInput            fullWidth            formControlName="discription"            placeholder="Description"            cols="100"            rows="4"            id="dis"          ></textarea>        </div>      </div>      <div style="display: block; margin-top: 1rem; text-align: right;">        <button type="submit" class="btn btn-yellow-black">          {{ edit === \'true\' ? \'Update Course\' : \'Add Course\' }}        </button>      </div>    </form>  </nb-card-body></nb-card></div>'
+    var COMPONENTS = [{'name': 'AddAttendanceComponent', 'selector': 'ngx-add-attendance'},{'name': 'AddBatchesComponent', 'selector': 'ngx-add-batches'},{'name': 'AddCourseComponent', 'selector': 'ngx-add-course'},{'name': 'AddEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'AddForumComponent', 'selector': 'ngx-add-forum'},{'name': 'AddInstituteComponent', 'selector': 'ngx-add-institute'},{'name': 'AddLeadComponent', 'selector': 'ngx-add-lead'},{'name': 'AddOnlineClassComponent', 'selector': 'ngx-add-online-class'},{'name': 'AddOnlineClassLinkComponent', 'selector': 'ngx-add-online-class-link'},{'name': 'AddPTMsComponent', 'selector': 'ngx-add-ptms'},{'name': 'AddScheduleComponent', 'selector': 'ngx-add-schedule'},{'name': 'AddStudentsComponent', 'selector': 'ngx-add-students'},{'name': 'AdminComponent', 'selector': 'ngx-admin'},{'name': 'AdminCouponsComponent', 'selector': 'ngx-admin-coupons'},{'name': 'AdminHomeComponent', 'selector': 'ngx-admin-home'},{'name': 'AdminInstituteComponent', 'selector': 'ngx-admin-institute'},{'name': 'AdminInstitutesComponent', 'selector': 'ngx-admin-institutes'},{'name': 'AdminPlansComponent', 'selector': 'ngx-admin-plans'},{'name': 'AdminSavePlanComponent', 'selector': 'ngx-admin-save-plan'},{'name': 'AdminSmsPackComponent', 'selector': 'ngx-admin-sms-pack'},{'name': 'AnnouncementsComponent', 'selector': 'ngx-announcements'},{'name': 'AppComponent', 'selector': 'ngx-app'},{'name': 'AttandanceComponent', 'selector': 'ngx-attandance'},{'name': 'BranchConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'ChangePasswordComponent', 'selector': 'ngx-change-password'},{'name': 'CheckoutComponent', 'selector': 'ngx-checkout'},{'name': 'CommunicationComponent', 'selector': 'ngx-communication'},{'name': 'CreateTestComponent', 'selector': 'ngx-create-test'},{'name': 'CreateTestsScoreComponent', 'selector': 'ngx-create-tests-score'},{'name': 'DiscountComponent', 'selector': 'ngx-discount'},{'name': 'ECommerceComponent', 'selector': 'ngx-ecommerce'},{'name': 'FooterComponent', 'selector': 'ngx-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'ngx-forgot-password'},{'name': 'ForumComponent', 'selector': 'ngx-forum'},{'name': 'ForumDetailsComponent', 'selector': 'ngx-forum'},{'name': 'HeaderComponent', 'selector': 'ngx-header'},{'name': 'HomeComponent', 'selector': 'ngx-home'},{'name': 'InstituteComponent', 'selector': 'ngx-institute'},{'name': 'InstituteHeaderComponent', 'selector': 'ngx-institute-header'},{'name': 'LoginComponent', 'selector': 'ngx-login'},{'name': 'ManageAnnouncementsComponent', 'selector': 'ngx-manage-announcements'},{'name': 'ManageBatchComponent', 'selector': 'ngx-manage-batch'},{'name': 'ManageCourseComponent', 'selector': 'ngx-manage-course'},{'name': 'ManageDiscountComponent', 'selector': 'ngx-manage-discount'},{'name': 'ManageEmployeeComponent', 'selector': 'ngx-manage-employee'},{'name': 'ManageInstituteComponent', 'selector': 'ngx-manage-institute'},{'name': 'ManageLeadComponent', 'selector': 'ngx-manage-lead'},{'name': 'ManageOnlineClassComponent', 'selector': 'ngx-manage-online-class'},{'name': 'ManagePTMsComponent', 'selector': 'ngx-manage-ptms'},{'name': 'ManageReceiptComponent', 'selector': 'ngx-manage-receipt'},{'name': 'ManageScheduleComponent', 'selector': 'ngx-manage-schedule'},{'name': 'ManageStudentsComponent', 'selector': 'ngx-manage-students'},{'name': 'ManageTestsComponent', 'selector': 'ngx-manage-tests'},{'name': 'MembershipComponent', 'selector': 'ngx-membership'},{'name': 'MentoringComponent', 'selector': 'ngx-mentoring'},{'name': 'MiscellaneousComponent', 'selector': 'ngx-miscellaneous'},{'name': 'MyForumComponent', 'selector': 'ngx-my-forum'},{'name': 'NotFoundComponent', 'selector': 'ngx-not-found'},{'name': 'OneColumnLayoutComponent', 'selector': 'ngx-one-column-layout'},{'name': 'OnlineClassesConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'OnlineClassesUpgradeComponent', 'selector': 'ngx-online-classes-upgrade'},{'name': 'OnlineClassLinkComponent', 'selector': 'ngx-online-class-link'},{'name': 'OnlineClassLinksComponent', 'selector': 'ngx-online-class-links'},{'name': 'OnlineClassSettingsComponent', 'selector': 'ngx-online-class-settings'},{'name': 'OnlineeClassComponent', 'selector': 'ngx-onlinee-class'},{'name': 'OtpComponent', 'selector': 'ngx-otp'},{'name': 'PagesComponent', 'selector': 'ngx-pages'},{'name': 'PendingStudentComponent', 'selector': 'ngx-pending-student'},{'name': 'PlayLinksComponent', 'selector': 'ngx-play-links'},{'name': 'PlayVideoRecordingComponent', 'selector': 'ngx-play-video-recording'},{'name': 'ProfileComponent', 'selector': 'ngx-profile'},{'name': 'ReceiptConfComponent', 'selector': 'ngx-receipt-conf'},{'name': 'SaveAdminCouponsComponent', 'selector': 'ngx-save-admin-coupons'},{'name': 'SaveAdminSmsPackComponent', 'selector': 'ngx-save-admin-sms-pack'},{'name': 'SearchInputComponent', 'selector': 'ngx-search-input'},{'name': 'SheduleMentoringComponent', 'selector': 'ngx-shedule-mentoring'},{'name': 'SignUpComponent', 'selector': 'ngx-sign-up'},{'name': 'SmsRechargeComponent', 'selector': 'ngx-sms-recharge'},{'name': 'StudentAnnouncementsComponent', 'selector': 'ngx-student-announcements'},{'name': 'StudentAttendanceComponent', 'selector': 'ngx-student-attendance'},{'name': 'StudentComponent', 'selector': 'ngx-student'},{'name': 'StudentDashboardComponent', 'selector': 'ngx-student-dashboard'},{'name': 'StudentEnrollmentDetailsComponent', 'selector': 'ngx-student-enrollment-details'},{'name': 'StudentForumCommentComponent', 'selector': 'ngx-student-forum-comment'},{'name': 'StudentForumsChatsComponent', 'selector': 'ngx-student-forums-chats'},{'name': 'StudentHomeComponent', 'selector': 'ngx-student-home'},{'name': 'StudentInstituteHeaderComponent', 'selector': 'ngx-student-institute-header'},{'name': 'StudentInstitutesComponent', 'selector': 'ngx-student-institutes'},{'name': 'StudentMeetingComponent', 'selector': 'ngx-student-meeting'},{'name': 'StudentMentoringComponent', 'selector': 'ngx-student-mentoring'},{'name': 'StudentPerformanceReportComponent', 'selector': 'ngx-student-performance-report'},{'name': 'StudentReportConfComponent', 'selector': 'ngx-student-report-conf'},{'name': 'StudentScheduleComponent', 'selector': 'ngx-student-schedule'},{'name': 'StudentStudyMaterialComponent', 'selector': 'ngx-student-study-material'},{'name': 'StudentTestComponent', 'selector': 'ngx-student-test'},{'name': 'StudentViewAnnouncementComponent', 'selector': 'ngx-student-view-announcement'},{'name': 'StudentViewEnrollmentComponent', 'selector': 'ngx-student-view-enrollment'},{'name': 'StudentViewScheduleComponent', 'selector': 'ngx-student-view-schedule'},{'name': 'StudyMaterialComponent', 'selector': 'ngx-study-material'},{'name': 'TermsAndConditionsComponent', 'selector': 'ngx-terms-and-conditions'},{'name': 'TestReportComponent', 'selector': 'ngx-test-report'},{'name': 'TestsComponent', 'selector': 'ngx-tests'},{'name': 'ThreeColumnsLayoutComponent', 'selector': 'ngx-three-columns-layout'},{'name': 'TinyMCEComponent', 'selector': 'ngx-tiny-mce'},{'name': 'TwoColumnsLayoutComponent', 'selector': 'ngx-two-columns-layout'},{'name': 'UploadClassRecordingComponent', 'selector': 'ngx-upload-class-recording'},{'name': 'UtilitiesComponent', 'selector': 'ngx-utilities'},{'name': 'ViewAnnouncementsComponent', 'selector': 'ngx-view-announcements'},{'name': 'ViewAttendanceComponent', 'selector': 'ngx-view-attendance'},{'name': 'ViewClassRecordingComponent', 'selector': 'ngx-view-class-recording'},{'name': 'ViewCourseComponent', 'selector': 'ngx-view-course'},{'name': 'ViewEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'ViewInstituteComponent', 'selector': 'ngx-view-institute'},{'name': 'ViewLeadComponent', 'selector': 'ngx-view-lead'},{'name': 'ViewLinksComponent', 'selector': 'ngx-view-links'},{'name': 'ViewReportComponent', 'selector': 'ngx-view-report'},{'name': 'ViewScheduleComponent', 'selector': 'ngx-view-schedule'},{'name': 'ViewStudentComponent', 'selector': 'ngx-view-student'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AddCourseComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AddCourseComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

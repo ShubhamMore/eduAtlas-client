@@ -1,0 +1,1365 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>edu-atlas documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">edu-atlas documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>CreateTestComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/institute/tests/create-test/create-test.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>ngx-create-test</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./create-test.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./create-test.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#batches">batches</a>
+                            </li>
+                            <li>
+                                <a href="#createTestForm">createTestForm</a>
+                            </li>
+                            <li>
+                                <a href="#display">display</a>
+                            </li>
+                            <li>
+                                <a href="#edit">edit</a>
+                            </li>
+                            <li>
+                                <a href="#institute">institute</a>
+                            </li>
+                            <li>
+                                <a href="#instituteId">instituteId</a>
+                            </li>
+                            <li>
+                                <a href="#test">test</a>
+                            </li>
+                            <li>
+                                <a href="#testId">testId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createTest">createTest</a>
+                            </li>
+                            <li>
+                                <a href="#getCourses">getCourses</a>
+                            </li>
+                            <li>
+                                <a href="#getTest">getTest</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onSelectCourse">onSelectCourse</a>
+                            </li>
+                            <li>
+                                <a href="#showToast">showToast</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>, api: <a href="../injectables/ApiService.html">ApiService</a>, location: <a href="https://angular.io/api/common/Location" target="_blank">Location</a>, route: <a href="https://angular.io/api/router/ActivatedRoute" target="_blank">ActivatedRoute</a>, toasterService: NbToastrService)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/forms/FormBuilder" target="_blank" >FormBuilder</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ApiService.html" target="_self" >ApiService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>location</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/Location" target="_blank" >Location</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/ActivatedRoute" target="_blank" >ActivatedRoute</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toasterService</td>
+                                                  
+                                                        <td>
+                                                                    <code>NbToastrService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createTest"></a>
+                    <span class="name">
+                        <b>
+                            createTest
+                        </b>
+                        <a href="#createTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createTest()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCourses"></a>
+                    <span class="name">
+                        <b>
+                            getCourses
+                        </b>
+                        <a href="#getCourses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCourses(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="86"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:86</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTest"></a>
+                    <span class="name">
+                        <b>
+                            getTest
+                        </b>
+                        <a href="#getTest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTest(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="58"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="34"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:34</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSelectCourse"></a>
+                    <span class="name">
+                        <b>
+                            onSelectCourse
+                        </b>
+                        <a href="#onSelectCourse"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSelectCourse(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:97</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showToast"></a>
+                    <span class="name">
+                        <b>
+                            showToast
+                        </b>
+                        <a href="#showToast"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showToast(position: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, status: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, message: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="130"
+                            class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:130</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>position</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>status</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>message</td>
+                                    <td>
+                                                <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="batches"></a>
+                        <span class="name">
+                            <b>
+                            batches</b>
+                            <a href="#batches"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>any[]</code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="createTestForm"></a>
+                        <span class="name">
+                            <b>
+                            createTestForm</b>
+                            <a href="#createTestForm"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://angular.io/api/forms/FormGroup" target="_blank" >FormGroup</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="display"></a>
+                        <span class="name">
+                            <b>
+                            display</b>
+                            <a href="#display"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="edit"></a>
+                        <span class="name">
+                            <b>
+                            edit</b>
+                            <a href="#edit"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:24</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="institute"></a>
+                        <span class="name">
+                            <b>
+                            institute</b>
+                            <a href="#institute"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="instituteId"></a>
+                        <span class="name">
+                            <b>
+                            instituteId</b>
+                            <a href="#instituteId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="test"></a>
+                        <span class="name">
+                            <b>
+                            test</b>
+                            <a href="#test"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="testId"></a>
+                        <span class="name">
+                            <b>
+                            testId</b>
+                            <a href="#testId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/pages/institute/tests/create-test/create-test.component.ts:22</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NbToastrService } from &#x27;@nebular/theme&#x27;;
+
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { ApiService } from &#x27;../../../../services/api.service&#x27;;
+import { ActivatedRoute } from &#x27;@angular/router&#x27;;
+import { Location } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;ngx-create-test&#x27;,
+  templateUrl: &#x27;./create-test.component.html&#x27;,
+  styleUrls: [&#x27;./create-test.component.scss&#x27;],
+})
+export class CreateTestComponent implements OnInit {
+  createTestForm: FormGroup;
+  instituteId: string;
+  institute: any;
+
+  batches: any[] &#x3D; [];
+  display: boolean;
+
+  testId: any;
+  test: any;
+  edit: string;
+
+  constructor(
+    private fb: FormBuilder,
+    private api: ApiService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private toasterService: NbToastrService,
+  ) {}
+
+  ngOnInit() {
+    this.display &#x3D; false;
+
+    this.instituteId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+
+    this.route.queryParams.subscribe((param) &#x3D;&gt; {
+      this.testId &#x3D; param.test;
+      this.edit &#x3D; param.edit;
+    });
+    this.getCourses(this.instituteId);
+
+    this.createTestForm &#x3D; this.fb.group({
+      batchId: [&#x27;&#x27;, Validators.required],
+      courseId: [&#x27;&#x27;, Validators.required],
+      instituteId: [this.instituteId],
+      date: [&#x27;&#x27;, Validators.required],
+      testName: [&#x27;&#x27;, Validators.required],
+      testCode: [&#x27;&#x27;, Validators.required],
+      totalMarks: [&#x27;&#x27;, Validators.required],
+      startTime: [&#x27;&#x27;, Validators.required],
+      toTime: [&#x27;&#x27;, Validators.required],
+    });
+  }
+
+  getTest(id: string) {
+    this.api.getSingleTest({ _id: id }).subscribe(
+      (data: any) &#x3D;&gt; {
+        if (data) {
+          this.test &#x3D; data[0];
+          this.createTestForm.patchValue({
+            instituteId: this.test.instituteId,
+            courseId: this.test.courseId,
+            date: this.test.date,
+            testName: this.test.testName,
+            testCode: this.test.testCode,
+            totalMarks: this.test.totalMarks,
+            startTime: this.test.startTime,
+            toTime: this.test.toTime,
+          });
+        }
+
+        this.onSelectCourse(this.test.courseId);
+
+        this.createTestForm.patchValue({
+          batchId: this.test.batchId,
+        });
+        this.display &#x3D; true;
+      },
+      (err: any) &#x3D;&gt; {},
+    );
+  }
+
+  getCourses(id: string) {
+    this.api.getCourseTD(id).subscribe((data: any) &#x3D;&gt; {
+      this.institute &#x3D; data;
+      if (this.edit) {
+        this.getTest(this.testId);
+      } else {
+        this.display &#x3D; true;
+      }
+    });
+  }
+
+  onSelectCourse(id: string) {
+    this.batches &#x3D; this.institute.batch.filter((b: any) &#x3D;&gt; b.course &#x3D;&#x3D;&#x3D; id);
+  }
+
+  createTest() {
+    this.createTestForm.markAllAsTouched();
+    if (this.createTestForm.valid) {
+      if (!this.edit) {
+        this.api.addTest(this.createTestForm.value).subscribe(
+          (res) &#x3D;&gt; {
+            this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Test Added Successfully&#x27;);
+            this.location.back();
+          },
+          (err: any) &#x3D;&gt; {
+            this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, err.err.message);
+          },
+        );
+      } else {
+        const test &#x3D; this.createTestForm.value;
+        test._id &#x3D; this.test._id;
+        this.api.updateTest(test).subscribe(
+          (res) &#x3D;&gt; {
+            this.showToast(&#x27;top-right&#x27;, &#x27;success&#x27;, &#x27;Test Updated Successfully&#x27;);
+            this.location.back();
+          },
+          (err: any) &#x3D;&gt; {
+            this.showToast(&#x27;top-right&#x27;, &#x27;danger&#x27;, err.err.message);
+          },
+        );
+      }
+    }
+  }
+
+  showToast(position: any, status: any, message: any) {
+    this.toasterService.show(status, message, { position, status });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;ngx-institute-header&gt;&lt;/ngx-institute-header&gt; --&gt;
+
+&lt;nb-card *ngIf&#x3D;&quot;display&quot;&gt;
+  &lt;nb-card-header&gt;
+    &lt;p style&#x3D;&quot;color: black; font-weight: bold;&quot;&gt;Create Test&lt;/p&gt;
+  &lt;/nb-card-header&gt;
+  &lt;nb-card-body&gt;
+    &lt;form [formGroup]&#x3D;&quot;createTestForm&quot; (submit)&#x3D;&quot;createTest()&quot;&gt;
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;courseId&quot;&gt;*Course&lt;/label&gt;
+          &lt;nb-select
+            placeholder&#x3D;&quot;Select Course&quot;
+            id&#x3D;&quot;courseId&quot;
+            [status]&#x3D;&quot;
+              createTestForm.get(&#x27;courseId&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;courseId&#x27;).touched
+                ? &#x27;danger&#x27;
+                : &#x27;basic&#x27;
+            &quot;
+            fullWidth
+            formControlName&#x3D;&quot;courseId&quot;
+            (selectedChange)&#x3D;&quot;onSelectCourse($event)&quot;
+          &gt;
+            &lt;nb-option value&#x3D;&quot;&quot;&gt;Select Course&lt;/nb-option&gt;
+            &lt;nb-option *ngFor&#x3D;&quot;let i of institute.course&quot; [value]&#x3D;&quot;i._id&quot;&gt;{{ i.name }}&lt;/nb-option&gt;
+          &lt;/nb-select&gt;
+          &lt;small
+            *ngIf&#x3D;&quot;createTestForm.get(&#x27;courseId&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;courseId&#x27;).touched&quot;
+            &gt;*Course is required&lt;/small
+          &gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;batchId&quot;&gt;*Batch&lt;/label&gt;
+          &lt;nb-select
+            placeholder&#x3D;&quot;Select Batch&quot;
+            id&#x3D;&quot;batchId&quot;
+            formControlName&#x3D;&quot;batchId&quot;
+            fullWidth
+            [status]&#x3D;&quot;
+              createTestForm.get(&#x27;batchId&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;batchId&#x27;).touched
+                ? &#x27;danger&#x27;
+                : &#x27;basic&#x27;
+            &quot;
+          &gt;
+            &lt;nb-option value&#x3D;&quot;&quot;&gt;Select Batch&lt;/nb-option&gt;
+            &lt;nb-option *ngFor&#x3D;&quot;let item of batches&quot; [value]&#x3D;&quot;item._id&quot;&gt;{{
+              item.batchCode
+            }}&lt;/nb-option&gt;
+          &lt;/nb-select&gt;
+          &lt;small
+            *ngIf&#x3D;&quot;createTestForm.get(&#x27;batchId&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;batchId&#x27;).touched&quot;
+            &gt;*Batch is required&lt;/small
+          &gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label for&#x3D;&quot;date&quot;&gt;*Date&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;date&quot;
+              nbInput
+              [status]&#x3D;&quot;
+                createTestForm.get(&#x27;date&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;date&#x27;).touched
+                  ? &#x27;danger&#x27;
+                  : &#x27;basic&#x27;
+              &quot;
+              id&#x3D;&quot;date&quot;
+              fullWidth
+              formControlName&#x3D;&quot;date&quot;
+              placeholder&#x3D;&quot;date&quot;
+            /&gt;
+            &lt;small *ngIf&#x3D;&quot;createTestForm.get(&#x27;date&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;date&#x27;).touched&quot;
+              &gt;*Date is required&lt;/small
+            &gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label for&#x3D;&quot;testName&quot;&gt;*Test Name&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              nbInput
+              [status]&#x3D;&quot;
+                createTestForm.get(&#x27;testName&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;testName&#x27;).touched
+                  ? &#x27;danger&#x27;
+                  : &#x27;basic&#x27;
+              &quot;
+              id&#x3D;&quot;testName&quot;
+              fullWidth
+              formControlName&#x3D;&quot;testName&quot;
+              placeholder&#x3D;&quot;Test Name&quot;
+            /&gt;
+            &lt;small
+              *ngIf&#x3D;&quot;
+                createTestForm.get(&#x27;testName&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;testName&#x27;).touched
+              &quot;
+              &gt;*Test Name is required&lt;/small
+            &gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label for&#x3D;&quot;testCode&quot;&gt;*Test Code&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              nbInput
+              [status]&#x3D;&quot;
+                createTestForm.get(&#x27;testCode&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;testCode&#x27;).touched
+                  ? &#x27;danger&#x27;
+                  : &#x27;basic&#x27;
+              &quot;
+              id&#x3D;&quot;testCode&quot;
+              fullWidth
+              formControlName&#x3D;&quot;testCode&quot;
+              placeholder&#x3D;&quot;Test Code&quot;
+            /&gt;
+            &lt;small
+              *ngIf&#x3D;&quot;
+                createTestForm.get(&#x27;testCode&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;testCode&#x27;).touched
+              &quot;
+              &gt;*Code is required&lt;/small
+            &gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;div class&#x3D;&quot;form-group&quot;&gt;
+            &lt;label for&#x3D;&quot;totalMarks&quot;&gt;*Test Marks&lt;/label&gt;
+            &lt;input
+              type&#x3D;&quot;text&quot;
+              nbInput
+              pattern&#x3D;&quot;\d*&quot;
+              maxlength&#x3D;&quot;3&quot;
+              [status]&#x3D;&quot;
+                createTestForm.get(&#x27;totalMarks&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;totalMarks&#x27;).touched
+                  ? &#x27;danger&#x27;
+                  : &#x27;basic&#x27;
+              &quot;
+              id&#x3D;&quot;totalMarks&quot;
+              fullWidth
+              formControlName&#x3D;&quot;totalMarks&quot;
+              placeholder&#x3D;&quot;Test Marks&quot;
+            /&gt;
+            &lt;small
+              *ngIf&#x3D;&quot;
+                createTestForm.get(&#x27;totalMarks&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;totalMarks&#x27;).touched
+              &quot;
+              &gt;*Marks is required&lt;/small
+            &gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;startTime&quot;&gt;*From Time&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;time&quot;
+            nbInput
+            fullWidth
+            [status]&#x3D;&quot;
+              createTestForm.get(&#x27;startTime&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;startTime&#x27;).touched
+                ? &#x27;danger&#x27;
+                : &#x27;basic&#x27;
+            &quot;
+            formControlName&#x3D;&quot;startTime&quot;
+          /&gt;
+          &lt;span
+            style&#x3D;&quot;color: #f00;&quot;
+            *ngIf&#x3D;&quot;
+              createTestForm.get(&#x27;startTime&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;startTime&#x27;).touched
+            &quot;
+            &gt;*From Time is Required&lt;/span
+          &gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;col-sm-4&quot;&gt;
+          &lt;label for&#x3D;&quot;toTime&quot;&gt;*To Time&lt;/label&gt;
+          &lt;input
+            type&#x3D;&quot;time&quot;
+            nbInput
+            fullWidth
+            [status]&#x3D;&quot;
+              createTestForm.get(&#x27;toTime&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;toTime&#x27;).touched
+                ? &#x27;danger&#x27;
+                : &#x27;basic&#x27;
+            &quot;
+            formControlName&#x3D;&quot;toTime&quot;
+          /&gt;
+          &lt;span
+            style&#x3D;&quot;color: #f00;&quot;
+            *ngIf&#x3D;&quot;createTestForm.get(&#x27;toTime&#x27;).invalid &amp;&amp; createTestForm.get(&#x27;toTime&#x27;).touched&quot;
+            &gt;*To Time is Required&lt;/span
+          &gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;row&quot;&gt;
+        &lt;div class&#x3D;&quot;col-12&quot;&gt;
+          &lt;button type&#x3D;&quot;submit&quot; class&#x3D;&quot;btn btn-primary float-right mt-3&quot;&gt;Save&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/nb-card-body&gt;
+&lt;/nb-card&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./create-test.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <ngx-institute-header></ngx-institute-header> --><nb-card *ngIf="display">  <nb-card-header>    <p style="color: black; font-weight: bold;">Create Test</p>  </nb-card-header>  <nb-card-body>    <form [formGroup]="createTestForm" (submit)="createTest()">      <div class="row">        <div class="col-sm-4">          <label for="courseId">*Course</label>          <nb-select            placeholder="Select Course"            id="courseId"            [status]="              createTestForm.get(\'courseId\').invalid && createTestForm.get(\'courseId\').touched                ? \'danger\'                : \'basic\'            "            fullWidth            formControlName="courseId"            (selectedChange)="onSelectCourse($event)"          >            <nb-option value="">Select Course</nb-option>            <nb-option *ngFor="let i of institute.course" [value]="i._id">{{ i.name }}</nb-option>          </nb-select>          <small            *ngIf="createTestForm.get(\'courseId\').invalid && createTestForm.get(\'courseId\').touched"            >*Course is required</small          >        </div>        <div class="col-sm-4">          <label for="batchId">*Batch</label>          <nb-select            placeholder="Select Batch"            id="batchId"            formControlName="batchId"            fullWidth            [status]="              createTestForm.get(\'batchId\').invalid && createTestForm.get(\'batchId\').touched                ? \'danger\'                : \'basic\'            "          >            <nb-option value="">Select Batch</nb-option>            <nb-option *ngFor="let item of batches" [value]="item._id">{{              item.batchCode            }}</nb-option>          </nb-select>          <small            *ngIf="createTestForm.get(\'batchId\').invalid && createTestForm.get(\'batchId\').touched"            >*Batch is required</small          >        </div>        <div class="col-sm-4">          <div class="form-group">            <label for="date">*Date</label>            <input              type="date"              nbInput              [status]="                createTestForm.get(\'date\').invalid && createTestForm.get(\'date\').touched                  ? \'danger\'                  : \'basic\'              "              id="date"              fullWidth              formControlName="date"              placeholder="date"            />            <small *ngIf="createTestForm.get(\'date\').invalid && createTestForm.get(\'date\').touched"              >*Date is required</small            >          </div>        </div>        <div class="col-sm-4">          <div class="form-group">            <label for="testName">*Test Name</label>            <input              type="text"              nbInput              [status]="                createTestForm.get(\'testName\').invalid && createTestForm.get(\'testName\').touched                  ? \'danger\'                  : \'basic\'              "              id="testName"              fullWidth              formControlName="testName"              placeholder="Test Name"            />            <small              *ngIf="                createTestForm.get(\'testName\').invalid && createTestForm.get(\'testName\').touched              "              >*Test Name is required</small            >          </div>        </div>        <div class="col-sm-4">          <div class="form-group">            <label for="testCode">*Test Code</label>            <input              type="text"              nbInput              [status]="                createTestForm.get(\'testCode\').invalid && createTestForm.get(\'testCode\').touched                  ? \'danger\'                  : \'basic\'              "              id="testCode"              fullWidth              formControlName="testCode"              placeholder="Test Code"            />            <small              *ngIf="                createTestForm.get(\'testCode\').invalid && createTestForm.get(\'testCode\').touched              "              >*Code is required</small            >          </div>        </div>        <div class="col-sm-4">          <div class="form-group">            <label for="totalMarks">*Test Marks</label>            <input              type="text"              nbInput              pattern="\d*"              maxlength="3"              [status]="                createTestForm.get(\'totalMarks\').invalid && createTestForm.get(\'totalMarks\').touched                  ? \'danger\'                  : \'basic\'              "              id="totalMarks"              fullWidth              formControlName="totalMarks"              placeholder="Test Marks"            />            <small              *ngIf="                createTestForm.get(\'totalMarks\').invalid && createTestForm.get(\'totalMarks\').touched              "              >*Marks is required</small            >          </div>        </div>        <div class="col-sm-4">          <label for="startTime">*From Time</label>          <input            type="time"            nbInput            fullWidth            [status]="              createTestForm.get(\'startTime\').invalid && createTestForm.get(\'startTime\').touched                ? \'danger\'                : \'basic\'            "            formControlName="startTime"          />          <span            style="color: #f00;"            *ngIf="              createTestForm.get(\'startTime\').invalid && createTestForm.get(\'startTime\').touched            "            >*From Time is Required</span          >        </div>        <div class="col-sm-4">          <label for="toTime">*To Time</label>          <input            type="time"            nbInput            fullWidth            [status]="              createTestForm.get(\'toTime\').invalid && createTestForm.get(\'toTime\').touched                ? \'danger\'                : \'basic\'            "            formControlName="toTime"          />          <span            style="color: #f00;"            *ngIf="createTestForm.get(\'toTime\').invalid && createTestForm.get(\'toTime\').touched"            >*To Time is Required</span          >        </div>      </div>      <div class="row">        <div class="col-12">          <button type="submit" class="btn btn-primary float-right mt-3">Save</button>        </div>      </div>    </form>  </nb-card-body></nb-card></div>'
+    var COMPONENTS = [{'name': 'AddAttendanceComponent', 'selector': 'ngx-add-attendance'},{'name': 'AddBatchesComponent', 'selector': 'ngx-add-batches'},{'name': 'AddCourseComponent', 'selector': 'ngx-add-course'},{'name': 'AddEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'AddForumComponent', 'selector': 'ngx-add-forum'},{'name': 'AddInstituteComponent', 'selector': 'ngx-add-institute'},{'name': 'AddLeadComponent', 'selector': 'ngx-add-lead'},{'name': 'AddOnlineClassComponent', 'selector': 'ngx-add-online-class'},{'name': 'AddOnlineClassLinkComponent', 'selector': 'ngx-add-online-class-link'},{'name': 'AddPTMsComponent', 'selector': 'ngx-add-ptms'},{'name': 'AddScheduleComponent', 'selector': 'ngx-add-schedule'},{'name': 'AddStudentsComponent', 'selector': 'ngx-add-students'},{'name': 'AdminComponent', 'selector': 'ngx-admin'},{'name': 'AdminCouponsComponent', 'selector': 'ngx-admin-coupons'},{'name': 'AdminHomeComponent', 'selector': 'ngx-admin-home'},{'name': 'AdminInstituteComponent', 'selector': 'ngx-admin-institute'},{'name': 'AdminInstitutesComponent', 'selector': 'ngx-admin-institutes'},{'name': 'AdminPlansComponent', 'selector': 'ngx-admin-plans'},{'name': 'AdminSavePlanComponent', 'selector': 'ngx-admin-save-plan'},{'name': 'AdminSmsPackComponent', 'selector': 'ngx-admin-sms-pack'},{'name': 'AnnouncementsComponent', 'selector': 'ngx-announcements'},{'name': 'AppComponent', 'selector': 'ngx-app'},{'name': 'AttandanceComponent', 'selector': 'ngx-attandance'},{'name': 'BranchConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'ChangePasswordComponent', 'selector': 'ngx-change-password'},{'name': 'CheckoutComponent', 'selector': 'ngx-checkout'},{'name': 'CommunicationComponent', 'selector': 'ngx-communication'},{'name': 'CreateTestComponent', 'selector': 'ngx-create-test'},{'name': 'CreateTestsScoreComponent', 'selector': 'ngx-create-tests-score'},{'name': 'DiscountComponent', 'selector': 'ngx-discount'},{'name': 'ECommerceComponent', 'selector': 'ngx-ecommerce'},{'name': 'FooterComponent', 'selector': 'ngx-footer'},{'name': 'ForgotPasswordComponent', 'selector': 'ngx-forgot-password'},{'name': 'ForumComponent', 'selector': 'ngx-forum'},{'name': 'ForumDetailsComponent', 'selector': 'ngx-forum'},{'name': 'HeaderComponent', 'selector': 'ngx-header'},{'name': 'HomeComponent', 'selector': 'ngx-home'},{'name': 'InstituteComponent', 'selector': 'ngx-institute'},{'name': 'InstituteHeaderComponent', 'selector': 'ngx-institute-header'},{'name': 'LoginComponent', 'selector': 'ngx-login'},{'name': 'ManageAnnouncementsComponent', 'selector': 'ngx-manage-announcements'},{'name': 'ManageBatchComponent', 'selector': 'ngx-manage-batch'},{'name': 'ManageCourseComponent', 'selector': 'ngx-manage-course'},{'name': 'ManageDiscountComponent', 'selector': 'ngx-manage-discount'},{'name': 'ManageEmployeeComponent', 'selector': 'ngx-manage-employee'},{'name': 'ManageInstituteComponent', 'selector': 'ngx-manage-institute'},{'name': 'ManageLeadComponent', 'selector': 'ngx-manage-lead'},{'name': 'ManageOnlineClassComponent', 'selector': 'ngx-manage-online-class'},{'name': 'ManagePTMsComponent', 'selector': 'ngx-manage-ptms'},{'name': 'ManageReceiptComponent', 'selector': 'ngx-manage-receipt'},{'name': 'ManageScheduleComponent', 'selector': 'ngx-manage-schedule'},{'name': 'ManageStudentsComponent', 'selector': 'ngx-manage-students'},{'name': 'ManageTestsComponent', 'selector': 'ngx-manage-tests'},{'name': 'MembershipComponent', 'selector': 'ngx-membership'},{'name': 'MentoringComponent', 'selector': 'ngx-mentoring'},{'name': 'MiscellaneousComponent', 'selector': 'ngx-miscellaneous'},{'name': 'MyForumComponent', 'selector': 'ngx-my-forum'},{'name': 'NotFoundComponent', 'selector': 'ngx-not-found'},{'name': 'OneColumnLayoutComponent', 'selector': 'ngx-one-column-layout'},{'name': 'OnlineClassesConfComponent', 'selector': 'ngx-branch-conf'},{'name': 'OnlineClassesUpgradeComponent', 'selector': 'ngx-online-classes-upgrade'},{'name': 'OnlineClassLinkComponent', 'selector': 'ngx-online-class-link'},{'name': 'OnlineClassLinksComponent', 'selector': 'ngx-online-class-links'},{'name': 'OnlineClassSettingsComponent', 'selector': 'ngx-online-class-settings'},{'name': 'OnlineeClassComponent', 'selector': 'ngx-onlinee-class'},{'name': 'OtpComponent', 'selector': 'ngx-otp'},{'name': 'PagesComponent', 'selector': 'ngx-pages'},{'name': 'PendingStudentComponent', 'selector': 'ngx-pending-student'},{'name': 'PlayLinksComponent', 'selector': 'ngx-play-links'},{'name': 'PlayVideoRecordingComponent', 'selector': 'ngx-play-video-recording'},{'name': 'ProfileComponent', 'selector': 'ngx-profile'},{'name': 'ReceiptConfComponent', 'selector': 'ngx-receipt-conf'},{'name': 'SaveAdminCouponsComponent', 'selector': 'ngx-save-admin-coupons'},{'name': 'SaveAdminSmsPackComponent', 'selector': 'ngx-save-admin-sms-pack'},{'name': 'SearchInputComponent', 'selector': 'ngx-search-input'},{'name': 'SheduleMentoringComponent', 'selector': 'ngx-shedule-mentoring'},{'name': 'SignUpComponent', 'selector': 'ngx-sign-up'},{'name': 'SmsRechargeComponent', 'selector': 'ngx-sms-recharge'},{'name': 'StudentAnnouncementsComponent', 'selector': 'ngx-student-announcements'},{'name': 'StudentAttendanceComponent', 'selector': 'ngx-student-attendance'},{'name': 'StudentComponent', 'selector': 'ngx-student'},{'name': 'StudentDashboardComponent', 'selector': 'ngx-student-dashboard'},{'name': 'StudentEnrollmentDetailsComponent', 'selector': 'ngx-student-enrollment-details'},{'name': 'StudentForumCommentComponent', 'selector': 'ngx-student-forum-comment'},{'name': 'StudentForumsChatsComponent', 'selector': 'ngx-student-forums-chats'},{'name': 'StudentHomeComponent', 'selector': 'ngx-student-home'},{'name': 'StudentInstituteHeaderComponent', 'selector': 'ngx-student-institute-header'},{'name': 'StudentInstitutesComponent', 'selector': 'ngx-student-institutes'},{'name': 'StudentMeetingComponent', 'selector': 'ngx-student-meeting'},{'name': 'StudentMentoringComponent', 'selector': 'ngx-student-mentoring'},{'name': 'StudentPerformanceReportComponent', 'selector': 'ngx-student-performance-report'},{'name': 'StudentReportConfComponent', 'selector': 'ngx-student-report-conf'},{'name': 'StudentScheduleComponent', 'selector': 'ngx-student-schedule'},{'name': 'StudentStudyMaterialComponent', 'selector': 'ngx-student-study-material'},{'name': 'StudentTestComponent', 'selector': 'ngx-student-test'},{'name': 'StudentViewAnnouncementComponent', 'selector': 'ngx-student-view-announcement'},{'name': 'StudentViewEnrollmentComponent', 'selector': 'ngx-student-view-enrollment'},{'name': 'StudentViewScheduleComponent', 'selector': 'ngx-student-view-schedule'},{'name': 'StudyMaterialComponent', 'selector': 'ngx-study-material'},{'name': 'TermsAndConditionsComponent', 'selector': 'ngx-terms-and-conditions'},{'name': 'TestReportComponent', 'selector': 'ngx-test-report'},{'name': 'TestsComponent', 'selector': 'ngx-tests'},{'name': 'ThreeColumnsLayoutComponent', 'selector': 'ngx-three-columns-layout'},{'name': 'TinyMCEComponent', 'selector': 'ngx-tiny-mce'},{'name': 'TwoColumnsLayoutComponent', 'selector': 'ngx-two-columns-layout'},{'name': 'UploadClassRecordingComponent', 'selector': 'ngx-upload-class-recording'},{'name': 'UtilitiesComponent', 'selector': 'ngx-utilities'},{'name': 'ViewAnnouncementsComponent', 'selector': 'ngx-view-announcements'},{'name': 'ViewAttendanceComponent', 'selector': 'ngx-view-attendance'},{'name': 'ViewClassRecordingComponent', 'selector': 'ngx-view-class-recording'},{'name': 'ViewCourseComponent', 'selector': 'ngx-view-course'},{'name': 'ViewEmployeeComponent', 'selector': 'ngx-add-employee'},{'name': 'ViewInstituteComponent', 'selector': 'ngx-view-institute'},{'name': 'ViewLeadComponent', 'selector': 'ngx-view-lead'},{'name': 'ViewLinksComponent', 'selector': 'ngx-view-links'},{'name': 'ViewReportComponent', 'selector': 'ngx-view-report'},{'name': 'ViewScheduleComponent', 'selector': 'ngx-view-schedule'},{'name': 'ViewStudentComponent', 'selector': 'ngx-view-student'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CreateTestComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CreateTestComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
