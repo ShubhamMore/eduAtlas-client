@@ -222,6 +222,16 @@ export class ECommerceComponent implements OnInit {
     }
   }
 
+  viewStudent(studentEduId: any, courseId: any) {
+    this.router.navigate(['/pages/institute/view-student', this.instituteId], {
+      relativeTo: this.route,
+      queryParams: {
+        student: studentEduId,
+        course: courseId,
+      },
+    });
+  }
+
   recharge() {
     this.router.navigate(['/pages/sms-recharge', this.instituteId], { relativeTo: this.route });
   }
